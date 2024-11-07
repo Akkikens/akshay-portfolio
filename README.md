@@ -2,14 +2,14 @@
   <img alt="Logo" src="https://user-images.githubusercontent.com/62770500/199333052-3cd38b31-7e77-4883-a1ff-a037afcc0492.png" width="100" />
 </div>
 <h1 align="center">
-  anaflous.com - v1
+  akshaykalapgar.com - v1
 </h1>
 <p align="center">
-  The first iteration of <a href="https://anaflous.com" target="_blank">anaflous.com</a> built with <a href="https://nextjs.org/" target="_blank">Nextjs</a> and hosted with <a href="https://vercel.com/" target="_blank">Vercel</a>
+  The first iteration of <a href="https://akshaykalapgar.com" target="_blank">akshaykalapgar.com</a> built with <a href="https://nextjs.org/" target="_blank">Next.js</a> and hosted with <a href="https://vercel.com/" target="_blank">Vercel</a>
 </p>
 
 <p align="center">
-  <a href="https://my-website-ten-sage.vercel.app/" target="_blank">
+  <a href="https://akshaykalapgar.com" target="_blank">
     <img src="https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png" width="100" alt="Vercel Status" />
   </a>
 </p>
@@ -19,18 +19,13 @@
 ## 🚨 About this repo (please read!)
 
 ### 🚀 Latest Update
-I can’t believe my portfolio now has over 200 visitors each day! It’s incredibly rewarding to see talented people using my work as inspiration for their own projects. I'm thrilled to contribute to the open-source community and am happy to see my portfolio making an impact!
+I'm thrilled to see my portfolio gaining traction, with many daily visitors inspired by my work. It’s fantastic to share my code with the open-source community, and I appreciate everyone checking it out!
 
-You can use this code for your own website, but please with attribution 😊.
+You can use this code for your website too. A note of credit linking back would be appreciated 😊. 
 
-Please note that the design of the website is inspired from "brittanychiang.com", but didn't copied even a single piece of code from brittanyching repo, However, i built the portfolio from scratch with different technolgoies, like `Tailwind CSS` and `Framer Motion` and i added some other functionalities to it, so it might seems the same, but believe me i did a lot of work the code, website and how it works is entirely different!!!!. If you have questions about implementation, please refer to the [Next.js DOCS](https://nextjs.org/docs) same thing for Tailwind CSS and Framer Motion check out the Documentation, Or you can simply reach to me directly.
+Please note that some design elements were inspired by Anaflous Abdellatif's portfolio, but all code was written from scratch. Technologies like `Tailwind CSS`, `Framer Motion`, and `Next.js` have been used to add unique touches, so while it may look similar, the underlying structure is completely original!
 
-
-I'd like to highlight that the `This website can't be reached` trick featured on my portfolio is an `original idea` and not borrowed from any other source. It's intended as a playful element, reflecting my sense of humor. While I acknowledge that it might not be the most user-friendly approach, it's worth mentioning that my portfolio receives an average of 30-10 daily visitors. Through careful observation, I've calculated that the average reaction time is 2 seconds before users realize the playful nature of the message, at which point the content becomes accessible. It's a quirky touch meant to add a lighthearted element to the user experience.
-
-
-
-
+The `This website can't be reached` trick in my portfolio is an original, playful idea meant to engage visitors. Although it’s unconventional, it adds a lighthearted element to the user experience. 
 
 ---
 ### Table of Contents
@@ -44,42 +39,35 @@ I'd like to highlight that the `This website can't be reached` trick featured on
 ---
 ## Description
 
-Without a doubt a portfolio website is a unique way to showcase your work and let others know about yourself. It’s like an evergreen platform for your projects, case studies, and information about you. However, Why why did i choose Next.js? Because it is a React framework with Server-Side Rendering, which is good for SEO (Good for us if we get found on Google, right?).
-
-Also, Next.js helps us build a full back-end & blazing-fast websites along with benefits such as Image optimization.
-
-Why tailwindcss? Because TailwindCSS is a framework which reduces a lot of styling efforts. It has low level CSS classes that you can directly embed into the HTML code.
+A portfolio website is a unique way to showcase your work, projects, and skills. It serves as a dynamic, evergreen platform that can reflect your evolution as a developer. I chose Next.js for its server-side rendering, which benefits SEO, and Tailwind CSS for efficient styling that helps create responsive and visually appealing layouts.
 
 ---
-## Technologies & libraries
+## Technologies & Libraries
 
-Since i integrated some of my project into my website i'll i mention most of technologies & libraries that i used.
+This portfolio integrates a variety of technologies and libraries to maximize functionality and enhance design, including:
 
 - Next.js
-- Nodejs
 - TypeScript
 - Tailwind CSS
-- framer-motion
+- Framer Motion
 - Google API
-- cookie-cutter
-- react-leaflet
+- Node.js
 - Vercel Analytics
 
-##### Note : 
-##### You can find the rest of packages in the file ```/package.json```
+You can find additional packages in the `package.json` file.
+
 ---
 
 ### How To Use
 
-Yes, you can fork this repo. Please give me proper credit by linking back to [anaflous.com](https://anaflous.com). Thanks!
+Feel free to fork this repository for your own portfolio. Please link back to [akshaykalapgar.com](https://akshaykalapgar.com) if you do. Thank you!
 
 ## 🛠 Installation & Set Up
 
-1. Clone the repo CLI
+1. Clone the repo:
 
    ```sh
-   git clone https://github.com/hktitof/my-website.git
-   ```
+   git clone https://github.com/Akkikens/akshay-portfolio
 
 2. Install and use the correct version of Node using [NVM](https://github.com/nvm-sh/nvm)
 
@@ -203,7 +191,7 @@ the following endpoint will return a json object contains "quote" and "author", 
 
 MIT License
 
-Copyright (c) [2022] [Abdellatif Anaflous]
+Copyright (c) [2024] [AKSHAY KALAPGAR]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -229,8 +217,8 @@ SOFTWARE.
 
 ## Author Info
 
-- Linkedin - [@abdellatif-anaflous](https://www.linkedin.com/in/abdellatif-anaflous/)
-- Website - [Abdellatif Anaflous](https://anaflous.com)
+- Linkedin - [@Akshay-Kalapgar](https://www.linkedin.com/in/akshaykalapgar)
+- Website - [Akshay Kalapgar](https://akshaykalapgar.com)
 
 [Back To The Top](#description) :
 
