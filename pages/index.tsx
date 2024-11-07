@@ -7,6 +7,7 @@ import AboutMe from "../components/Home/AboutMe/AboutMe";
 import ThisCantBeReached from "../components/Home/ThisSiteCantBeReached/ThisCantBeReached";
 import WhereIHaveWorked from "../components/Home/WhereIHaveWorked/WhereIHaveWorked";
 import SomethingIveBuilt from "../components/Home/SomethingIveBuilt/SomethingIveBuilt";
+import Certifications from "../components/Home/Certifications/Certifications";
 import GetInTouch from "../components/Home/GetInTouch/GetInTouch";
 import Footer from "../components/Footer/Footer";
 import AppContext from "../components/AppContextFolder/AppContext";
@@ -15,29 +16,22 @@ import "aos/dist/aos.css";
 import Head from "next/head";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
+
 export default function Home() {
   const [ShowElement, setShowElement] = useState(false);
   const [ShowThisCantBeReached, setShowThisCantBeReached] = useState(true);
   const [ShowMe, setShowMe] = useState(false);
-  // context Variable to clearInterval
   const context = useContext(AppContext);
   const aboutRef = useRef<HTMLDivElement>(null);
   const homeRef = useRef<HTMLDivElement>(null);
 
-  // userData state that will be used to get usr location
   const [userData, setUserData] = useState(null);
-
-  // check if user from Black List
   const [isBlackListed, setIsBlackListed] = useState(false);
 
-  // check if NEXT_PUBLC_BLACKLIST_COUNTRIES is empty
   const [IsBlackListEmpty, setIsBlackListEmpty] = useState(
     process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES === "" ? true : false
   );
 
-  // this userEffect will be called to get the user location, so we can check if he is from the blackList,
-  // this will only run if NEXT_PUBLIC_BLACKLIST_COUNTRIES is not empty
-  // Convert NEXT_PUBLIC_BLACKLIST_COUNTRIES to an array or set it as an empty array if undefined
   const blacklistedCountries = process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES
     ? process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES.split(",")
     : [];
@@ -46,14 +40,12 @@ export default function Home() {
     if (!IsBlackListEmpty) {
       const fetchData = async () => {
         try {
-          // Fetch the user's IP address
           const IP_Address = async () => {
             return fetch("https://api.ipify.org/?format=json")
               .then((res) => res.json())
               .then((data) => data.ip);
           };
 
-          // Fetch user info based on IP address
           const response = await fetch(
             "/api/userInfoByIP/" + (await IP_Address())
           );
@@ -70,35 +62,26 @@ export default function Home() {
 
   useEffect(() => {
     if (!IsBlackListEmpty && userData) {
-      // Check if the user's country is in the blacklist
       if (blacklistedCountries.includes(userData.country)) {
         setIsBlackListed(true);
       }
     }
   }, [IsBlackListEmpty, userData, blacklistedCountries]);
-  // Empty dependency array ensures that this effect runs once when the component mounts
 
-  // this useEffect will be called when userData is set
   useEffect(() => {
-    // this will only run if NEXT_PUBLIC_BLACKLIST_COUNTRIES is not empty
     if (!IsBlackListEmpty) {
-      if (userData) {
-        // check if the user country is in the blackList
-        if (
-          process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES.includes(userData.country)
-        ) {
-          // set isBlackListed to true
-          setIsBlackListed(true);
-        }
+      if (
+        userData &&
+        process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES.includes(userData.country)
+      ) {
+        setIsBlackListed(true);
       }
     }
   }, [IsBlackListEmpty, userData]);
 
   useEffect(() => {
-    // remove the interval Cookie timer setter when
     clearInterval(context.sharedState.userdata.timerCookieRef.current);
     if (typeof window !== "undefined") {
-      // remove UserDataPuller project EventListeners
       window.removeEventListener(
         "resize",
         context.sharedState.userdata.windowSizeTracker.current
@@ -108,7 +91,6 @@ export default function Home() {
         context.sharedState.userdata.mousePositionTracker.current,
         false
       );
-      // remove Typing project EventListeners
       window.removeEventListener(
         "resize",
         context.sharedState.typing.eventInputLostFocus
@@ -125,7 +107,7 @@ export default function Home() {
     setTimeout(() => {
       setShowThisCantBeReached(false);
     }, 5400);
-    // ? INFORMATIONAL next function will show the component after changing the state of ShowMe
+
     setTimeout(() => {
       setShowElement(false);
       setShowMe(true);
@@ -140,9 +122,9 @@ export default function Home() {
 
   console.log("website is rendering...");
   const meta = {
-    title: "Abdellatif Anaflous - Software Engineer",
-    description: `I've been working on Software development for 5 years straight. Get in touch with me to know more.`,
-    image: "/titofCercle.png",
+    title: "Akshay Kalapgar - Full Stack Developer",
+    description: `I am a Full Stack Developer with over 3 years of experience in developing software solutions and building applications using technologies like Next.js, TypeScript, AWS, and more. Let's connect to discuss how I can contribute to your projects.`,
+    image: "/Portfolio-portrait-3.jpg", // Replace with your profile image path or logo if available
     type: "website",
   };
   const isProd = process.env.NODE_ENV === "production";
@@ -169,20 +151,13 @@ export default function Home() {
 
       {!isBlackListed ? (
         <div className="relative snap-mandatory min-h-screen bg-AAprimary w-full ">
-          {context.sharedState.finishedLoading ? (
-            <></>
-          ) : ShowThisCantBeReached ? (
+          {context.sharedState
+            .finishedLoading ? null : ShowThisCantBeReached ? (
             <ThisCantBeReached />
-          ) : (
-            <></>
-          )}
-          {context.sharedState.finishedLoading ? (
-            <></>
-          ) : ShowElement ? (
+          ) : null}
+          {context.sharedState.finishedLoading ? null : ShowElement ? (
             <Startup />
-          ) : (
-            <></>
-          )}
+          ) : null}
           <Header
             finishedLoading={context.sharedState.finishedLoading}
             sectionsRef={homeRef}
@@ -193,20 +168,17 @@ export default function Home() {
           />
           {context.sharedState.finishedLoading ? (
             <AboutMe ref={aboutRef} />
-          ) : (
-            <></>
-          )}
-          {context.sharedState.finishedLoading ? <WhereIHaveWorked /> : <></>}
-          {context.sharedState.finishedLoading ? <SomethingIveBuilt /> : <></>}
-          {context.sharedState.finishedLoading ? <GetInTouch /> : <></>}
+          ) : null}
+          {context.sharedState.finishedLoading ? <WhereIHaveWorked /> : null}
+          {context.sharedState.finishedLoading ? <Certifications /> : null}
+          {context.sharedState.finishedLoading ? <SomethingIveBuilt /> : null}
+          {context.sharedState.finishedLoading ? <GetInTouch /> : null}
           {context.sharedState.finishedLoading ? (
             <Footer
               githubUrl={"https://github.com/hktitof/my-website"}
               hideSocialsInDesktop={true}
             />
-          ) : (
-            <></>
-          )}
+          ) : null}
           {!isProd && <ScreenSizeDetector />}
         </div>
       ) : (

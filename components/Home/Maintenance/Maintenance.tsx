@@ -22,12 +22,12 @@ export default function Maintenance() {
             Sorry! the administrator is performing scheduled maintenance.
           </p>
           <p className="font-light text-white-500 md:text-lg xl:text-xl dark:text-gray-400">
-            No problem contact me on{" "}
+            No problem, contact me at{" "}
             <a
               className="text-white underline"
-              href="mailto:abdellatif@anaflous.com?subject=Hello%20World&body=Body%20of%20the%20email"
+              href="mailto:akshaykalapgar23@gmail.com?subject=Hello%20World&body=Body%20of%20the%20email"
             >
-              abdellatif@anaflous.com
+              akshaykalapgar23@gmail.com
             </a>
           </p>
         </div>
