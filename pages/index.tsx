@@ -175,7 +175,7 @@ export default function Home() {
           {context.sharedState.finishedLoading ? <GetInTouch /> : null}
           {context.sharedState.finishedLoading ? (
             <Footer
-              githubUrl={"https://github.com/hktitof/my-website"}
+              githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
               hideSocialsInDesktop={true}
             />
           ) : null}
