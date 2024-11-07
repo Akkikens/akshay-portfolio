@@ -36,10 +36,10 @@ const Startup = () => {
           scale: greaterThanSmall ? "57%" : "50%",
         }}
         transition={{
-          opacity: { delay: 3, duration: 1.5 },
-          x: { duration: 0.5, delay: 4.5 },
-          y: { duration: 0.5, delay: 4.5 },
-          scale: { duration: 0.5, delay: 4.5 },
+          opacity: { delay: 3, duration: 0.5 },
+          x: { duration: 0.5, delay: 0.5 },
+          y: { duration: 0.5, delay: 0.5 },
+          scale: { duration: 0.5, delay: 0.5 },
         }}
         className="relative h-24 w-24 flex justify-center items-center"
       >
