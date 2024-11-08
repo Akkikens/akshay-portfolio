@@ -3,13 +3,14 @@ deployment:
   tasks:
     - echo "Starting deployment process..."
 
-    # Define the deployment path to the public_html directory
+    # Define the deployment path
     - export DEPLOYPATH=/home/akshayka/public_html/
     - echo "Deployment path set to $DEPLOYPATH"
 
-    # Copy all static files from the 'out' directory to the public_html directory
-    - echo "Copying new files to $DEPLOYPATH..."
+    # Copy all files from the out directory to the deployment path
+    - echo "Copying files to deployment path..."
     - /bin/cp -R out/* $DEPLOYPATH
+    - echo "Files copied successfully to $DEPLOYPATH"
 
     # Set permissions: Directories to 755 and files to 644
     - echo "Setting permissions for directories and files..."
