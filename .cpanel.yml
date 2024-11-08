@@ -7,9 +7,9 @@ deployment:
     - export DEPLOYPATH=/home/akshayka/public_html/
     - echo "Deployment path set to $DEPLOYPATH"
     
-    # Copy all files from the repository to the deployment path
+    # Copy all files from the build folder (like 'out') to the deployment path
     - echo "Copying files to deployment path..."
-    - /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R out/* $DEPLOYPATH  # Make sure your build directory is specified correctly
     - echo "Files copied successfully to $DEPLOYPATH"
     
     # Set permissions: Directories to 755 and files to 644
