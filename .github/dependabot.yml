@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "npm" # or yarn, gradle, maven, etc., depending on your package manager
+    directory: "/" # Location of the package manifest (e.g., / for the root directory)
+    schedule:
+      interval: "daily" # Options: daily, weekly, monthly
