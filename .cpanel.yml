@@ -3,17 +3,17 @@ deployment:
   tasks:
     - echo "Starting deployment process..."
 
-    # Define the deployment path
+    # Define the deployment path to the public_html directory
     - export DEPLOYPATH=/home/akshayka/public_html/
     - echo "Deployment path set to $DEPLOYPATH"
 
-    # Copy all files from the Next.js 'out' directory to the deployment path
+    # Copy all static files from the 'out' directory to the public_html directory
     - echo "Copying new files to $DEPLOYPATH..."
-    - /bin/cp -R out/* $DEPLOYPATH || echo "File copy failed"
+    - /bin/cp -R out/* $DEPLOYPATH
 
     # Set permissions: Directories to 755 and files to 644
     - echo "Setting permissions for directories and files..."
-    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \; || echo "Directory permission setting failed"
-    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \; || echo "File permission setting failed"
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
+    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
 
     - echo "Deployment completed successfully!"
