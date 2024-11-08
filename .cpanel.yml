@@ -7,10 +7,6 @@ deployment:
     - export DEPLOYPATH=/home/akshayka/public_html/
     - echo "Deployment path set to $DEPLOYPATH"
 
-    # Clear the existing content in public_html
-    - echo "Removing old files from $DEPLOYPATH..."
-    - /bin/rm -rf $DEPLOYPATH/* || echo "Failed to clear old files"
-
     # Copy all files from the Next.js 'out' directory to the deployment path
     - echo "Copying new files to $DEPLOYPATH..."
     - /bin/cp -R out/* $DEPLOYPATH || echo "File copy failed"
