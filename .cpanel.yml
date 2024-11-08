@@ -3,7 +3,7 @@ deployment:
   tasks:
     - echo "Starting deployment process..."
     
-    # Define the deployment path
+    # Define the specific deployment path 
     - export DEPLOYPATH=/home/akshayka/public_html/
     - echo "Deployment path set to $DEPLOYPATH"
     
