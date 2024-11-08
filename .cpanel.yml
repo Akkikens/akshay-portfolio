@@ -1,6 +1,9 @@
 ---
 deployment:
   tasks:
+    # Define the deployment path
     - export DEPLOYPATH=/home/akshayka/public_html/
-    - /bin/rm -rf $DEPLOYPATH/*
+    # Remove existing files to avoid conflicts (optional but recommended)
+    - rm -rf $DEPLOYPATH/*
+    # Copy all contents from the `out` folder to the deployment path
     - /bin/cp -R out/* $DEPLOYPATH
