@@ -6,6 +6,8 @@ import IBMAppliedAI from "./Descriptions/IBMAppliedAI";
 import IBMDataScience from "./Descriptions/IBMDataScience";
 import OpenSourceDevelopment from "./Descriptions/OpenSourceDevelopment";
 import GoogleCloudCertification from "./Descriptions/GoogleCloudCertification";
+import { Worker, Viewer } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
 export default function Certifications() {
   const [selectedCertification, setSelectedCertification] = useState<string>(
@@ -15,17 +17,90 @@ export default function Certifications() {
   const renderCertification = () => {
     switch (selectedCertification) {
       case "AWS Certified Developer Associate":
-        return <AWSCertifiedDeveloper />;
+        return (
+          <div className="flex flex-col space-y-4">
+            <div className="w-full h-full overflow-hidden">
+              <Worker
+                workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+              >
+                <Viewer fileUrl="/CloudDev.pdf" />
+              </Worker>
+            </div>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              Through the AWS Certified Developer Associate certification, I
+              learned how to develop and maintain applications on the AWS
+              platform, covering services like Lambda, DynamoDB, and API
+              Gateway. This certification deepened my understanding of building
+              scalable cloud-native applications.
+            </p>
+          </div>
+        );
       case "AWS Certified Cloud Practitioner":
-        return <AWSCertifiedCloudPractitioner />;
+        return (
+          <div className="flex flex-col space-y-4">
+            <div className="w-full h-full overflow-hidden">
+              <Worker
+                workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+              >
+                <Viewer fileUrl="/CloudPrac.pdf" />
+              </Worker>
+            </div>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              The AWS Certified Cloud Practitioner certification provided me
+              with foundational knowledge of AWS services and cloud concepts,
+              including global infrastructure, security, and pricing models.
+              This helped me understand core AWS services and use cases.
+            </p>
+          </div>
+        );
       case "IBM Applied AI":
-        return <IBMAppliedAI />;
+        return (
+          <div className="flex flex-col space-y-4">
+            <IBMAppliedAI />
+            <p className="text-gray-300 text-sm leading-relaxed">
+              In IBM Applied AI, I gained hands-on experience with machine
+              learning and deep learning techniques. I learned how to build and
+              deploy AI models and utilize IBM Watson for natural language
+              processing and computer vision tasks.
+            </p>
+          </div>
+        );
       case "IBM Data Science":
-        return <IBMDataScience />;
+        return (
+          <div className="flex flex-col space-y-4">
+            <IBMDataScience />
+            <p className="text-gray-300 text-sm leading-relaxed">
+              The IBM Data Science certification focused on data analysis and
+              visualization, machine learning, and Python programming. This
+              program equipped me with essential skills for data-driven
+              decision-making and insights.
+            </p>
+          </div>
+        );
       case "Open Source Development, Linux, and Git":
-        return <OpenSourceDevelopment />;
+        return (
+          <div className="flex flex-col space-y-4">
+            <OpenSourceDevelopment />
+            <p className="text-gray-300 text-sm leading-relaxed">
+              This certification covered the basics of open-source development,
+              Linux system administration, and version control with Git. I
+              learned about collaborative workflows, Linux commands, and Git
+              branching techniques.
+            </p>
+          </div>
+        );
       case "Google Cloud Certification":
-        return <GoogleCloudCertification />;
+        return (
+          <div className="flex flex-col space-y-4">
+            <GoogleCloudCertification />
+            <p className="text-gray-300 text-sm leading-relaxed">
+              The Google Cloud Certification taught me how to design, develop,
+              and manage solutions on the Google Cloud Platform. I became
+              familiar with Google services like Compute Engine, App Engine, and
+              BigQuery for building cloud solutions.
+            </p>
+          </div>
+        );
       default:
         return <AWSCertifiedDeveloper />;
     }
@@ -44,7 +119,7 @@ export default function Certifications() {
             03.
           </span>
           <span className="font-bold tracking-wider text-gray-200 text-lg md:text-2xl w-44 md:w-56 opacity-85">
-            Certifications
+            Professional Certifications
           </span>
         </div>
         <div className="bg-gray-400 h-[0.2px] w-full xl:w-1/3 md:w-1/2"></div>
@@ -55,7 +130,9 @@ export default function Certifications() {
         <CertificationsBar
           setSelectedCertification={setSelectedCertification}
         />
-        {renderCertification()}
+        <div className="w-full md:w-2/3 h-screen bg-transparent rounded p-4 overflow-hidden">
+          {renderCertification()}
+        </div>
       </section>
     </div>
   );
