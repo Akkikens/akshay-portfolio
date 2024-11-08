@@ -1,4 +1,23 @@
 ---
 deployment:
   tasks:
-    - echo "Deployment triggered successfully!"
+    - echo "Starting deployment process..."
+    
+    # Define the deployment path
+    - export DEPLOYPATH=/home/akshayka/public_html/
+    - echo "Deployment path set to $DEPLOYPATH"
+    
+    # Copy all files from the repository to the deployment path
+    - echo "Copying files to deployment path..."
+    - /bin/cp -R * $DEPLOYPATH
+    - echo "Files copied successfully to $DEPLOYPATH"
+    
+    # Set permissions: Directories to 755 and files to 644
+    - echo "Setting permissions for directories and files..."
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
+    - echo "Permissions set for directories"
+    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
+    - echo "Permissions set for files"
+    
+    # Optional: Output final confirmation
+    - echo "Deployment completed successfully!"
