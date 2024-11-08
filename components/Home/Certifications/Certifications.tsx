@@ -1,11 +1,5 @@
 import React, { useState } from "react";
 import ArrowIcon from "../../Icons/ArrowIcon";
-import AWSCertifiedDeveloper from "./Descriptions/AWSCertifiedDeveloper";
-import AWSCertifiedCloudPractitioner from "./Descriptions/AWSCertifiedCloudPractitioner";
-import IBMAppliedAI from "./Descriptions/IBMAppliedAI";
-import IBMDataScience from "./Descriptions/IBMDataScience";
-import OpenSourceDevelopment from "./Descriptions/OpenSourceDevelopment";
-import GoogleCloudCertification from "./Descriptions/GoogleCloudCertification";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 
@@ -14,96 +8,111 @@ export default function Certifications() {
     "AWS Certified Developer Associate"
   );
 
+  const certificationDetails = {
+    "AWS Certified Developer Associate": {
+      pdf: "/CloudDev.pdf",
+      verificationLink:
+        "https://cp.certmetrics.com/amazon/en/public/verify/credential/7ed5cd682f894cbb93b854b148f4da49",
+      description: [
+        "Learned to develop and maintain applications on the AWS platform.",
+        "Developed expertise in using AWS Lambda, DynamoDB, and API Gateway.",
+        "Gained skills in building scalable and cost-effective cloud-native applications.",
+      ],
+    },
+    "AWS Certified Cloud Practitioner": {
+      pdf: "/CloudPrac.pdf",
+      verificationLink:
+        "https://cp.certmetrics.com/amazon/en/public/verify/credential/B2NDSG6JF114115G",
+      description: [
+        "Gained foundational knowledge of AWS services and core cloud concepts.",
+        "Understood AWS global infrastructure, security models, and pricing structure.",
+        "Acquired familiarity with AWS services and their use cases in cloud environments.",
+      ],
+    },
+    "IBM Applied AI": {
+      pdf: "/AI.pdf",
+      verificationLink:
+        "https://www.coursera.org/account/accomplishments/professional-cert/2UU4UYDG6R6V",
+      description: [
+        "Built expertise in AI principles, applications, and IBM Watson services.",
+        "Gained hands-on experience with building AI-powered chatbots for customer support.",
+        "Utilized IBM Watson APIs for implementing NLP and image recognition models.",
+        "Acquired Python skills for developing and deploying AI applications.",
+        "Completed multiple projects demonstrating applied AI knowledge.",
+      ],
+    },
+    "IBM Data Science": {
+      pdf: "/DataSci.pdf",
+      verificationLink:
+        "https://www.coursera.org/account/accomplishments/professional-cert/EW88XURE6LLM",
+      description: [
+        "Developed a strong foundation in data science methodologies and tools.",
+        "Mastered Python, SQL, and data visualization for data-driven decision-making.",
+        "Created machine learning models and deployed them on cloud environments.",
+        "Completed a capstone project showcasing advanced data analysis skills.",
+      ],
+    },
+    "Open Source Software Development, Linux, and Git": {
+      pdf: "/Git.pdf",
+      verificationLink:
+        "https://www.coursera.org/account/accomplishments/specialization/UZCVHP8ETK29",
+      description: [
+        "Gained proficiency in open-source software development methodologies.",
+        "Learned Linux system administration and core Linux commands.",
+        "Mastered Git for distributed version control and collaborative workflows.",
+        "Acquired hands-on experience with essential Linux tools for developers.",
+      ],
+    },
+    "An Introduction to Programming the Internet of Things (IoT)": {
+      pdf: "/iot.pdf",
+      verificationLink:
+        "https://www.coursera.org/account/accomplishments/specialization/9MAE3XMMZ5W7",
+      description: [
+        "Learned IoT fundamentals and embedded system design.",
+        "Developed skills in Arduino and Raspberry Pi programming and interfacing.",
+        "Built and deployed IoT devices that interact with physical environments.",
+        "Completed a capstone project involving IoT system design and deployment.",
+      ],
+    },
+  };
+
   const renderCertification = () => {
-    switch (selectedCertification) {
-      case "AWS Certified Developer Associate":
-        return (
-          <div className="flex flex-col space-y-4">
-            <div className="w-full h-full overflow-hidden">
-              <Worker
-                workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
-              >
-                <Viewer fileUrl="/CloudDev.pdf" />
-              </Worker>
+    const { pdf, verificationLink, description } =
+      certificationDetails[selectedCertification];
+
+    return (
+      <div className="flex flex-col space-y-1">
+        {pdf && (
+          <div className="w-full">
+            <Worker
+              workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+            >
+              <Viewer fileUrl={pdf} />
+            </Worker>
+          </div>
+        )}
+        {verificationLink && (
+          <a
+            href={verificationLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-AAsecondary underline mt-2 mb-0"
+          >
+            Verify Certification
+          </a>
+        )}
+        <div className="flex flex-col mt-2">
+          {description.map((point, index) => (
+            <div key={index} className="flex flex-row space-x-2 items-start">
+              <ArrowIcon className="h-4 w-4 text-AAsecondary flex-none" />
+              <p className="text-gray-300 sm:text-sm text-xs leading-relaxed m-0">
+                {point}
+              </p>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              Through the AWS Certified Developer Associate certification, I
-              learned how to develop and maintain applications on the AWS
-              platform, covering services like Lambda, DynamoDB, and API
-              Gateway. This certification deepened my understanding of building
-              scalable cloud-native applications.
-            </p>
-          </div>
-        );
-      case "AWS Certified Cloud Practitioner":
-        return (
-          <div className="flex flex-col space-y-4">
-            <div className="w-full h-full overflow-hidden">
-              <Worker
-                workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
-              >
-                <Viewer fileUrl="/CloudPrac.pdf" />
-              </Worker>
-            </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              The AWS Certified Cloud Practitioner certification provided me
-              with foundational knowledge of AWS services and cloud concepts,
-              including global infrastructure, security, and pricing models.
-              This helped me understand core AWS services and use cases.
-            </p>
-          </div>
-        );
-      case "IBM Applied AI":
-        return (
-          <div className="flex flex-col space-y-4">
-            <IBMAppliedAI />
-            <p className="text-gray-300 text-sm leading-relaxed">
-              In IBM Applied AI, I gained hands-on experience with machine
-              learning and deep learning techniques. I learned how to build and
-              deploy AI models and utilize IBM Watson for natural language
-              processing and computer vision tasks.
-            </p>
-          </div>
-        );
-      case "IBM Data Science":
-        return (
-          <div className="flex flex-col space-y-4">
-            <IBMDataScience />
-            <p className="text-gray-300 text-sm leading-relaxed">
-              The IBM Data Science certification focused on data analysis and
-              visualization, machine learning, and Python programming. This
-              program equipped me with essential skills for data-driven
-              decision-making and insights.
-            </p>
-          </div>
-        );
-      case "Open Source Development, Linux, and Git":
-        return (
-          <div className="flex flex-col space-y-4">
-            <OpenSourceDevelopment />
-            <p className="text-gray-300 text-sm leading-relaxed">
-              This certification covered the basics of open-source development,
-              Linux system administration, and version control with Git. I
-              learned about collaborative workflows, Linux commands, and Git
-              branching techniques.
-            </p>
-          </div>
-        );
-      case "Google Cloud Certification":
-        return (
-          <div className="flex flex-col space-y-4">
-            <GoogleCloudCertification />
-            <p className="text-gray-300 text-sm leading-relaxed">
-              The Google Cloud Certification taught me how to design, develop,
-              and manage solutions on the Google Cloud Platform. I became
-              familiar with Google services like Compute Engine, App Engine, and
-              BigQuery for building cloud solutions.
-            </p>
-          </div>
-        );
-      default:
-        return <AWSCertifiedDeveloper />;
-    }
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -130,7 +139,7 @@ export default function Certifications() {
         <CertificationsBar
           setSelectedCertification={setSelectedCertification}
         />
-        <div className="w-full md:w-2/3 h-screen bg-transparent rounded p-4 overflow-hidden">
+        <div className="w-full md:w-2/3 h-screen bg-transparent rounded p-0">
           {renderCertification()}
         </div>
       </section>
@@ -152,8 +161,8 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
     "AWS Certified Cloud Practitioner",
     "IBM Applied AI",
     "IBM Data Science",
-    "Open Source Development, Linux, and Git",
-    "Google Cloud Certification",
+    "Open Source Software Development, Linux, and Git",
+    "An Introduction to Programming the Internet of Things (IoT)",
   ];
 
   return (
