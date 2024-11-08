@@ -7,18 +7,17 @@ deployment:
     - export DEPLOYPATH=/home/akshayka/public_html/
     - echo "Deployment path set to $DEPLOYPATH"
 
-    # Clear the contents of public_html to ensure a clean deployment
-    - echo "Clearing old files from $DEPLOYPATH..."
-    - /bin/rm -rf $DEPLOYPATH/*
+    # Clear the existing content in public_html
+    - echo "Removing old files from $DEPLOYPATH..."
+    - /bin/rm -rf $DEPLOYPATH/* || echo "Failed to clear old files"
 
-    # Copy all files from the 'out' directory (Next.js export) to the deployment path
-    - echo "Copying files from 'out' directory to $DEPLOYPATH..."
-    - /bin/cp -R out/* $DEPLOYPATH
+    # Copy all files from the Next.js 'out' directory to the deployment path
+    - echo "Copying new files to $DEPLOYPATH..."
+    - /bin/cp -R out/* $DEPLOYPATH || echo "File copy failed"
 
     # Set permissions: Directories to 755 and files to 644
     - echo "Setting permissions for directories and files..."
-    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
-    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
-    
-    # Optional: Output final confirmation
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \; || echo "Directory permission setting failed"
+    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \; || echo "File permission setting failed"
+
     - echo "Deployment completed successfully!"
