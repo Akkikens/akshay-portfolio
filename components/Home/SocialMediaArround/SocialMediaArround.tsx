@@ -29,7 +29,7 @@ export default function SocialMediaEmail({ finishedLoading }) {
         animate={{ y: "0%" }}
         transition={{
           y: {
-            delay: finishedLoading ? 0 : 11,
+            delay: finishedLoading ? 0 : 4,
             duration: finishedLoading ? 0 : 0.5,
           },
         }}
@@ -68,7 +68,7 @@ export default function SocialMediaEmail({ finishedLoading }) {
         animate={{ y: "0%" }}
         transition={{
           y: {
-            delay: finishedLoading ? 0 : 11,
+            delay: finishedLoading ? 0 : 4,
             duration: finishedLoading ? 0 : 0.5,
           },
         }}
