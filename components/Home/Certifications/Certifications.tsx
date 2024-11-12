@@ -96,16 +96,16 @@ export default function Certifications() {
             href={verificationLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-AAsecondary underline mt-2 mb-0"
+            className="text-AAsecondary underline mt-2"
           >
             Verify Certification
           </a>
         )}
-        <div className="flex flex-col mt-2">
+        <div className="flex flex-col mt-2 space-y-1">
           {description.map((point, index) => (
             <div key={index} className="flex flex-row space-x-2 items-start">
               <ArrowIcon className="h-4 w-4 text-AAsecondary flex-none" />
-              <p className="text-gray-300 sm:text-sm text-xs leading-relaxed m-0">
+              <p className="text-gray-300 sm:text-sm text-xs leading-relaxed">
                 {point}
               </p>
             </div>
@@ -118,28 +118,24 @@ export default function Certifications() {
   return (
     <div
       id="CertificationsSection"
-      className="flex flex-col xl:space-y-28 space-y-12 bg-AAprimary w-full 2xl:px-72 lg:px-24 md:px-16 sm:px-16 py-32 px-4"
+      className="flex flex-col space-y-10 bg-AAprimary w-full px-4 py-16 md:px-16"
     >
-      {/* Section Title */}
-      <div data-aos="fade-up" className="flex flex-row items-center md:px-0">
-        <ArrowIcon className="flex-none h-5 md:h-6 w-5 md:w-5 translate-y-[2px] text-AAsecondary" />
-        <div className="flex-none flex-row space-x-2 items-center pr-2">
-          <span className="text-AAsecondary font-sans text-sm sm:text-xl">
-            03.
-          </span>
-          <span className="font-bold tracking-wider text-gray-200 text-lg md:text-2xl w-44 md:w-56 opacity-85">
-            Professional Certifications
-          </span>
-        </div>
-        <div className="bg-gray-400 h-[0.2px] w-full xl:w-1/3 md:w-1/2"></div>
+      <div data-aos="fade-up" className="flex flex-row items-center space-x-4">
+        <ArrowIcon className="h-6 w-6 text-AAsecondary" />
+        <span className="text-AAsecondary font-sans text-sm sm:text-xl">
+          03.
+        </span>
+        <h2 className="font-bold text-gray-200 text-lg md:text-2xl">
+          Professional Certifications
+        </h2>
+        <div className="bg-gray-400 h-[0.2px] w-full"></div>
       </div>
 
-      {/* Certifications Content */}
-      <section className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 justify-center items-start">
+      <section className="flex flex-col md:flex-row md:space-x-4 items-start">
         <CertificationsBar
           setSelectedCertification={setSelectedCertification}
         />
-        <div className="w-full md:w-2/3 h-screen bg-transparent rounded p-0">
+        <div className="w-full md:w-2/3 bg-transparent rounded">
           {renderCertification()}
         </div>
       </section>
@@ -174,7 +170,7 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
             setSelectedCertification(cert);
             setActiveCertification(index);
           }}
-          className={`flex-none sm:text-sm text-xs text-center md:text-left hover:text-AAsecondary hover:bg-ResumeButtonHover rounded font-mono py-3 md:pl-6 md:px-4 md:w-44 w-32 duration-500 ${
+          className={`flex-none sm:text-sm text-xs text-center md:text-left hover:text-AAsecondary hover:bg-ResumeButtonHover rounded font-mono py-3 md:px-4 w-full ${
             activeCertification === index
               ? "bg-ResumeButtonHover text-AAsecondary"
               : "text-gray-500"

@@ -93,14 +93,14 @@ export default function Home() {
       );
     }
 
-    setTimeout(() => setShowElement(true), 2000); // Reduced to 2 seconds
-    setTimeout(() => setShowThisCantBeReached(false), 2500); // Reduced to 2.5 seconds
+    setTimeout(() => setShowElement(true), 4000); // Delayed to 4 seconds
+    setTimeout(() => setShowThisCantBeReached(false), 4500); // Extended to 5 seconds
     setTimeout(() => {
       setShowElement(false);
       setShowMe(true);
       context.sharedState.finishedLoading = true;
       context.setSharedState(context.sharedState);
-    }, 5000); // Reduced to 5 seconds
+    }, 5000); // Delayed to 8 seconds for full load
   }, [context, context.sharedState]);
 
   useEffect(() => {

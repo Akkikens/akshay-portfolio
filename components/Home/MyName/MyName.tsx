@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function MyName({ finishedLoading }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Show the content only after the base delay
+  useEffect(() => {
+    const timer = setTimeout(
+      () => setIsVisible(true),
+      (finishedLoading ? 2 : 2.3) * 1000
+    );
+    return () => clearTimeout(timer);
+  }, [finishedLoading]);
+
+  const baseDelay = finishedLoading ? 2 : 2.3;
+  const transitionConfig = {
+    opacity: { duration: 0.6 },
+    y: { duration: 0.6 },
+  };
+
   return (
-    <div className="h-full flex flex-col justify-center px-8 2xl:px-72 xl:px-56 lg:px-32 md:px-28 sm:px-8 py-32 sm:py-52">
+    <div
+      className={`h-full flex flex-col justify-center px-8 2xl:px-72 xl:px-56 lg:px-32 md:px-28 sm:px-8 py-32 sm:py-52 ${
+        isVisible ? "visible" : "invisible"
+      }`}
+    >
       <motion.span
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
-          opacity: {
-            delay: finishedLoading ? 0 : 10.4,
-            duration: finishedLoading ? 0 : 0.2,
-          },
-          y: {
-            delay: finishedLoading ? 0 : 10.4,
-            duration: finishedLoading ? 0 : 0.2,
-          },
+          ...transitionConfig,
+          delay: baseDelay,
         }}
         className="text-AAsecondary font-mono"
       >
@@ -27,14 +42,8 @@ export default function MyName({ finishedLoading }) {
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
-          opacity: {
-            delay: finishedLoading ? 0 : 10.5,
-            duration: finishedLoading ? 0 : 0.2,
-          },
-          y: {
-            delay: finishedLoading ? 0 : 10.5,
-            duration: finishedLoading ? 0 : 0.2,
-          },
+          ...transitionConfig,
+          delay: baseDelay + 0.2,
         }}
         className="text-gray-300 font-bold text-3xl lg:text-7xl sm:text-5xl md:text-6xl mt-4"
       >
@@ -45,14 +54,8 @@ export default function MyName({ finishedLoading }) {
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
-          opacity: {
-            delay: finishedLoading ? 0 : 10.6,
-            duration: finishedLoading ? 0 : 0.2,
-          },
-          y: {
-            delay: finishedLoading ? 0 : 10.6,
-            duration: finishedLoading ? 0 : 0.2,
-          },
+          ...transitionConfig,
+          delay: baseDelay + 0.4,
         }}
         className="text-gray-400 font-bold text-3xl lg:text-7xl sm:text-5xl md:text-6xl mt-4"
       >
@@ -63,14 +66,8 @@ export default function MyName({ finishedLoading }) {
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
-          opacity: {
-            delay: finishedLoading ? 0 : 10.7,
-            duration: finishedLoading ? 0 : 0.2,
-          },
-          y: {
-            delay: finishedLoading ? 0 : 10.7,
-            duration: finishedLoading ? 0 : 0.2,
-          },
+          ...transitionConfig,
+          delay: baseDelay + 0.6,
         }}
         className="text-gray-400 font-Header text-sm md:text-lg sm:text-md mt-10 tracking-wider"
       >
@@ -98,14 +95,8 @@ export default function MyName({ finishedLoading }) {
         initial={{ y: 10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
-          opacity: {
-            delay: finishedLoading ? 0 : 10.8,
-            duration: finishedLoading ? 0 : 0.2,
-          },
-          y: {
-            delay: finishedLoading ? 0 : 10.8,
-            duration: finishedLoading ? 0 : 0.2,
-          },
+          ...transitionConfig,
+          delay: baseDelay + 0.8,
         }}
         className="mt-12"
       >
