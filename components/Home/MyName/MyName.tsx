@@ -79,7 +79,9 @@ export default function MyName({ finishedLoading }) {
         <span className="text-AAsecondary">front-end</span> and{" "}
         <span className="text-AAsecondary">back-end development</span>, I
         leverage technologies like{" "}
-        <span className="text-AAsecondary">Next.js, TypeScript, and AWS</span>{" "}
+        <span className="text-AAsecondary">
+          Next.js, React Native, TypeScript, and AWS
+        </span>{" "}
         to bring ideas to life.
         <br className="3xl:block hidden" /> During my career, I've optimized
         applications for performance, enhanced user engagement by 60%, and
@@ -100,7 +102,7 @@ export default function MyName({ finishedLoading }) {
         }}
         className="mt-12"
       >
-        <Link href={"/resume.pdf"} passHref>
+        <Link href={"/resume.pdf"} passHref legacyBehavior>
           <a target="_blank" rel="noreferrer">
             <button className="bg-AAprimary text-AAsecondary border rounded px-4 sm:px-8 py-3 sm:py-4 border-AAsecondary">
               View My Resume

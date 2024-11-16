@@ -7,6 +7,7 @@ export default function AboutMe(props) {
     [
       "Next.js/React",
       "TypeScript/JavaScript",
+      "React Native",
       "Tailwind CSS",
       "AWS/Azure",
       "GraphQL/REST APIs",

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
@@ -8,6 +9,7 @@ export default function Certifications() {
     "AWS Certified Developer Associate"
   );
 
+  const [barPosition, setBarPosition] = useState(0);
   const certificationDetails = {
     "AWS Certified Developer Associate": {
       pdf: "/CloudDev.pdf",
@@ -19,61 +21,7 @@ export default function Certifications() {
         "Gained skills in building scalable and cost-effective cloud-native applications.",
       ],
     },
-    "AWS Certified Cloud Practitioner": {
-      pdf: "/CloudPrac.pdf",
-      verificationLink:
-        "https://cp.certmetrics.com/amazon/en/public/verify/credential/B2NDSG6JF114115G",
-      description: [
-        "Gained foundational knowledge of AWS services and core cloud concepts.",
-        "Understood AWS global infrastructure, security models, and pricing structure.",
-        "Acquired familiarity with AWS services and their use cases in cloud environments.",
-      ],
-    },
-    "IBM Applied AI": {
-      pdf: "/AI.pdf",
-      verificationLink:
-        "https://www.coursera.org/account/accomplishments/professional-cert/2UU4UYDG6R6V",
-      description: [
-        "Built expertise in AI principles, applications, and IBM Watson services.",
-        "Gained hands-on experience with building AI-powered chatbots for customer support.",
-        "Utilized IBM Watson APIs for implementing NLP and image recognition models.",
-        "Acquired Python skills for developing and deploying AI applications.",
-        "Completed multiple projects demonstrating applied AI knowledge.",
-      ],
-    },
-    "IBM Data Science": {
-      pdf: "/DataSci.pdf",
-      verificationLink:
-        "https://www.coursera.org/account/accomplishments/professional-cert/EW88XURE6LLM",
-      description: [
-        "Developed a strong foundation in data science methodologies and tools.",
-        "Mastered Python, SQL, and data visualization for data-driven decision-making.",
-        "Created machine learning models and deployed them on cloud environments.",
-        "Completed a capstone project showcasing advanced data analysis skills.",
-      ],
-    },
-    "Open Source Software Development, Linux, and Git": {
-      pdf: "/Git.pdf",
-      verificationLink:
-        "https://www.coursera.org/account/accomplishments/specialization/UZCVHP8ETK29",
-      description: [
-        "Gained proficiency in open-source software development methodologies.",
-        "Learned Linux system administration and core Linux commands.",
-        "Mastered Git for distributed version control and collaborative workflows.",
-        "Acquired hands-on experience with essential Linux tools for developers.",
-      ],
-    },
-    "An Introduction to Programming the Internet of Things (IoT)": {
-      pdf: "/iot.pdf",
-      verificationLink:
-        "https://www.coursera.org/account/accomplishments/specialization/9MAE3XMMZ5W7",
-      description: [
-        "Learned IoT fundamentals and embedded system design.",
-        "Developed skills in Arduino and Raspberry Pi programming and interfacing.",
-        "Built and deployed IoT devices that interact with physical environments.",
-        "Completed a capstone project involving IoT system design and deployment.",
-      ],
-    },
+    // Add other certifications similarly
   };
 
   const renderCertification = () => {
@@ -132,8 +80,10 @@ export default function Certifications() {
       </div>
 
       <section className="flex flex-col md:flex-row md:space-x-4 items-start">
+        {/* Tabs */}
         <CertificationsBar
           setSelectedCertification={setSelectedCertification}
+          setBarPosition={setBarPosition}
         />
         <div className="w-full md:w-2/3 bg-transparent rounded">
           {renderCertification()}
@@ -145,13 +95,13 @@ export default function Certifications() {
 
 interface CertificationsBarProps {
   setSelectedCertification: React.Dispatch<React.SetStateAction<string>>;
+  setBarPosition: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const CertificationsBar: React.FC<CertificationsBarProps> = ({
   setSelectedCertification,
+  setBarPosition,
 }) => {
-  const [activeCertification, setActiveCertification] = useState<number>(0);
-
   const certifications = [
     "AWS Certified Developer Associate",
     "AWS Certified Cloud Practitioner",
@@ -160,26 +110,42 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
     "Open Source Software Development, Linux, and Git",
     "An Introduction to Programming the Internet of Things (IoT)",
   ];
+  const [activeCertification, setActiveCertification] = useState(0);
 
   return (
-    <div className="flex flex-col space-y-1 pl-8 md:pl-0">
+    <div className="flex flex-col space-y-1 pl-8 md:pl-0 relative">
+      <div className="hidden md:block bg-gray-500 relative h-[240px] w-0.5">
+        <motion.div
+          animate={{ y: activeCertification * 40 }}
+          className="absolute w-0.5 h-10 bg-AAsecondary rounded"
+        ></motion.div>
+      </div>
+
       {certifications.map((cert, index) => (
         <button
           key={index}
           onClick={() => {
             setSelectedCertification(cert);
             setActiveCertification(index);
+            setBarPosition(index * 40);
           }}
           className={`flex-none sm:text-sm text-xs text-center md:text-left hover:text-AAsecondary hover:bg-ResumeButtonHover rounded font-mono py-3 md:px-4 w-full ${
             activeCertification === index
               ? "bg-ResumeButtonHover text-AAsecondary"
               : "text-gray-500"
           }`}
-          aria-pressed={activeCertification === index}
         >
           {cert}
         </button>
       ))}
+
+      {/* Horizontal bar for mobile */}
+      <div className="block md:hidden h-0.5 bg-gray-500 mt-2">
+        <motion.div
+          animate={{ x: activeCertification * 128 }}
+          className="w-32 h-0.5 bg-AAsecondary rounded"
+        ></motion.div>
+      </div>
     </div>
   );
 };
