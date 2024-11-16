@@ -21,7 +21,61 @@ export default function Certifications() {
         "Gained skills in building scalable and cost-effective cloud-native applications.",
       ],
     },
-    // Add other certifications similarly
+    "AWS Certified Cloud Practitioner": {
+      pdf: "/CloudPrac.pdf",
+      verificationLink:
+        "https://cp.certmetrics.com/amazon/en/public/verify/credential/B2NDSG6JF114115G",
+      description: [
+        "Gained foundational knowledge of AWS services and core cloud concepts.",
+        "Understood AWS global infrastructure, security models, and pricing structure.",
+        "Acquired familiarity with AWS services and their use cases in cloud environments.",
+      ],
+    },
+    "IBM Applied AI": {
+      pdf: "/AI.pdf",
+      verificationLink:
+        "https://www.coursera.org/account/accomplishments/professional-cert/2UU4UYDG6R6V",
+      description: [
+        "Built expertise in AI principles, applications, and IBM Watson services.",
+        "Gained hands-on experience with building AI-powered chatbots for customer support.",
+        "Utilized IBM Watson APIs for implementing NLP and image recognition models.",
+        "Acquired Python skills for developing and deploying AI applications.",
+        "Completed multiple projects demonstrating applied AI knowledge.",
+      ],
+    },
+    "IBM Data Science": {
+      pdf: "/DataSci.pdf",
+      verificationLink:
+        "https://www.coursera.org/account/accomplishments/professional-cert/EW88XURE6LLM",
+      description: [
+        "Developed a strong foundation in data science methodologies and tools.",
+        "Mastered Python, SQL, and data visualization for data-driven decision-making.",
+        "Created machine learning models and deployed them on cloud environments.",
+        "Completed a capstone project showcasing advanced data analysis skills.",
+      ],
+    },
+    "Open Source Software Development, Linux, and Git": {
+      pdf: "/Git.pdf",
+      verificationLink:
+        "https://www.coursera.org/account/accomplishments/specialization/UZCVHP8ETK29",
+      description: [
+        "Gained proficiency in open-source software development methodologies.",
+        "Learned Linux system administration and core Linux commands.",
+        "Mastered Git for distributed version control and collaborative workflows.",
+        "Acquired hands-on experience with essential Linux tools for developers.",
+      ],
+    },
+    "An Introduction to Programming the Internet of Things (IoT)": {
+      pdf: "/iot.pdf",
+      verificationLink:
+        "https://www.coursera.org/account/accomplishments/specialization/9MAE3XMMZ5W7",
+      description: [
+        "Learned IoT fundamentals and embedded system design.",
+        "Developed skills in Arduino and Raspberry Pi programming and interfacing.",
+        "Built and deployed IoT devices that interact with physical environments.",
+        "Completed a capstone project involving IoT system design and deployment.",
+      ],
+    },
   };
 
   const renderCertification = () => {
