@@ -21,7 +21,7 @@ export default function SomethingIveBuilt() {
       description:
         "Developed scalable and cost-effective cloud-native applications as part of the AWS Developer Associate certification. Leveraged AWS Lambda, DynamoDB, and API Gateway for efficient development.",
       techStack: ["AWS Lambda", "DynamoDB", "API Gateway"],
-      image: "/AWSProject.png",
+      // image: "/AWSProject.png",
       githubLink: "",
       liveLink:
         "https://cp.certmetrics.com/amazon/en/public/verify/credential/7ed5cd682f894cbb93b854b148f4da49",
@@ -31,7 +31,7 @@ export default function SomethingIveBuilt() {
       description:
         "Co-developed a React Native application for Clark University students to buy, sell, and trade items within a secure ecosystem. Features include user authentication, product listing, search filters, and real-time messaging, all powered by AWS services.",
       techStack: ["React Native", "AWS", "Node.js", "Express", "Amazon RDS"],
-      image: "/ClarkMarketplace.png",
+      // image: "/ClarkMarketplace.png",
       githubLink: "https://github.com/Akkikens/marketplace",
       liveLink: "",
     },
@@ -40,7 +40,7 @@ export default function SomethingIveBuilt() {
       description:
         "Built a web application connecting Clark University students with alumni for career guidance. Leveraged Python, Django, and PostgreSQL to streamline processes, reduce manual effort by 80%, and enhance user engagement.",
       techStack: ["Python", "Django", "PostgreSQL", "Docker", "JIRA"],
-      image: "/CareerSupport.png",
+      // image: "/CareerSupport.png",
       githubLink: "",
       liveLink: "",
     },
