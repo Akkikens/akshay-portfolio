@@ -21,7 +21,7 @@ export default function SomethingIveBuilt() {
       description:
         "Developed scalable and cost-effective cloud-native applications as part of the AWS Developer Associate certification. Leveraged AWS Lambda, DynamoDB, and API Gateway for efficient development.",
       techStack: ["AWS Lambda", "DynamoDB", "API Gateway"],
-      // image: "/AWSProject.png",
+      image: null, // No image provided
       githubLink: "",
       liveLink:
         "https://cp.certmetrics.com/amazon/en/public/verify/credential/7ed5cd682f894cbb93b854b148f4da49",
@@ -31,7 +31,6 @@ export default function SomethingIveBuilt() {
       description:
         "Co-developed a React Native application for Clark University students to buy, sell, and trade items within a secure ecosystem. Features include user authentication, product listing, search filters, and real-time messaging, all powered by AWS services.",
       techStack: ["React Native", "AWS", "Node.js", "Express", "Amazon RDS"],
-      // image: "/ClarkMarketplace.png",
       githubLink: "https://github.com/Akkikens/marketplace",
       liveLink: "",
     },
@@ -40,7 +39,6 @@ export default function SomethingIveBuilt() {
       description:
         "Built a web application connecting Clark University students with alumni for career guidance. Leveraged Python, Django, and PostgreSQL to streamline processes, reduce manual effort by 80%, and enhance user engagement.",
       techStack: ["Python", "Django", "PostgreSQL", "Docker", "JIRA"],
-      // image: "/CareerSupport.png",
       githubLink: "",
       liveLink: "",
     },
@@ -85,57 +83,56 @@ export default function SomethingIveBuilt() {
       {/* Active Project Content */}
       <div
         data-aos="fade-up"
-        className="relative flex flex-col md:grid md:grid-cols-12 w-full md:h-96 mt-12"
+        className={`relative grid ${
+          activeProject.image ? "md:grid-cols-12" : "md:grid-cols-6"
+        } grid-cols-1 w-full mt-12 gap-8`}
       >
-        {/* Left Image Section */}
-        <div className="bg-AAprimary z-10 py-4 md:absolute md:grid grid-cols-12 w-full h-full content-center">
-          <div className="relative rounded w-full h-64 md:h-full col-start-6 md:col-span-7">
-            {activeProject.image && (
-              <Img
-                src={activeProject.image}
-                alt={`${activeProject.title} Screenshot`}
-                className="w-full h-full rounded object-cover"
-              />
-            )}
+        {/* Left Image Section (Only Render If Image Exists) */}
+        {activeProject.image && (
+          <div className="col-span-12 md:col-span-7 flex items-center justify-center">
+            <Img
+              src={activeProject.image}
+              alt={`${activeProject.title} Screenshot`}
+              className="w-full h-auto rounded-lg shadow-lg object-contain"
+            />
           </div>
-        </div>
+        )}
 
         {/* Right Content Section */}
-        <div className="relative md:absolute md:grid md:grid-cols-12 w-full h-full content-center">
-          <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 col-span-8 flex flex-col items-start space-y-3">
-            <div className="flex flex-col space-y-1 z-10">
-              <span className="text-AAsecondary text-base font-semibold">
-                {activeProject.title}
-              </span>
-              {activeProject.liveLink && (
-                <a
-                  href={activeProject.liveLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-2xl md:text-gray-200 text-AAsecondary font-bold"
-                >
-                  {activeProject.title}
-                </a>
-              )}
-            </div>
-            <div className="w-full md:bg-AAtertiary rounded-md py-6 md:p-6 z-10 bg-opacity-10 backdrop-filter backdrop-blur-md">
-              <p className="text-gray-300 md:text-gray-400 text-lg">
-                {activeProject.description}
-              </p>
-            </div>
-            <ul className="flex flex-wrap text-gray-300 md:text-gray-400 text-sm font-Text2">
-              {activeProject.techStack.map((tech, index) => (
-                <span key={index} className="pr-4">
-                  {tech}
-                </span>
-              ))}
-            </ul>
-            <div className="flex space-x-5 z-10">
-              {activeProject.githubLink && (
-                <GithubIcon link={activeProject.githubLink} />
-              )}
-            </div>
+        <div
+          className={`${
+            activeProject.image ? "md:col-span-5" : "md:col-span-6"
+          } flex flex-col space-y-6`}
+        >
+          <div className="space-y-2">
+            <span className="text-AAsecondary text-base font-semibold">
+              {activeProject.title}
+            </span>
+            {activeProject.liveLink && (
+              <a
+                href={activeProject.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base font-medium text-AAsecondary hover:underline"
+              >
+                <br></br>
+                Visit Project
+              </a>
+            )}
           </div>
+          <p className="text-gray-300 text-lg">{activeProject.description}</p>
+          <ul className="flex flex-wrap text-gray-300 text-sm space-x-4">
+            {activeProject.techStack.map((tech, index) => (
+              <li key={index} className="bg-gray-700 px-3 py-1 rounded">
+                {tech}
+              </li>
+            ))}
+          </ul>
+          {activeProject.githubLink && (
+            <div>
+              <GithubIcon link={activeProject.githubLink} />
+            </div>
+          )}
         </div>
       </div>
     </div>
