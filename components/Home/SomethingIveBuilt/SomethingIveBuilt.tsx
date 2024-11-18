@@ -85,23 +85,23 @@ export default function SomethingIveBuilt() {
       {/* Active Project Content */}
       <div
         data-aos="fade-up"
-        className="relative md:grid md:grid-cols-12 w-full md:h-96 mt-12"
+        className="relative flex flex-col md:grid md:grid-cols-12 w-full md:h-96 mt-12"
       >
         {/* Left Image Section */}
-        <div className="hidden bg-AAprimary z-10 py-4 absolute md:grid grid-cols-12 w-full h-full content-center">
-          <div className="relative rounded w-full h-full col-start-6 col-span-7">
+        <div className="bg-AAprimary z-10 py-4 md:absolute md:grid grid-cols-12 w-full h-full content-center">
+          <div className="relative rounded w-full h-64 md:h-full col-start-6 md:col-span-7">
             {activeProject.image && (
               <Img
                 src={activeProject.image}
                 alt={`${activeProject.title} Screenshot`}
-                className="w-full rounded h-full"
+                className="w-full h-full rounded object-cover"
               />
             )}
           </div>
         </div>
 
         {/* Right Content Section */}
-        <div className="md:absolute py-4 md:grid md:grid-cols-12 w-full h-full content-center">
+        <div className="relative md:absolute md:grid md:grid-cols-12 w-full h-full content-center">
           <div className="px-8 pt-8 sm:pt-12 md:py-0 xl:col-span-6 col-span-8 flex flex-col items-start space-y-3">
             <div className="flex flex-col space-y-1 z-10">
               <span className="text-AAsecondary text-base font-semibold">
