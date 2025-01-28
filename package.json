@@ -25,7 +25,7 @@
     "next": "^15.0.3",
     "pdfjs-dist": "^3.11.174",
     "react": "^18.3.1",
-    "react-cookie": "^4.1.1",
+    "react-cookie": "^7.2.2",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.0.1",
     "react-scroll": "^1.9.0",
