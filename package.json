@@ -20,7 +20,7 @@
     "cookie-cutter": "^0.2.0",
     "detect-browser": "^5.3.0",
     "detect-gpu": "^5.0.66",
-    "framer-motion": "^4.1.17",
+    "framer-motion": "^12.3.1",
     "leaflet": "^1.9.4",
     "next": "^15.0.3",
     "pdfjs-dist": "^3.11.174",
