@@ -1505,10 +1505,10 @@ detect-browser@^5.3.0:
   resolved "https://registry.npmjs.org/detect-browser/-/detect-browser-5.3.0.tgz"
   integrity sha512-53rsFbGdwMwlF7qvCt0ypLM5V5/Mbl0szB7GPN8y9NCcbknYOeVVXdrXEq+90IwAfrrzt6Hd+u2E2ntakICU8w==
 
-detect-gpu@^5.0.66:
-  version "5.0.66"
-  resolved "https://registry.yarnpkg.com/detect-gpu/-/detect-gpu-5.0.66.tgz#9a6e8ac4adcc3f0a5abafcf45d17b6fdd0c8d882"
-  integrity sha512-X6b8QYU3EeVEsr5xROLZVdqwoBe6Yg1z4SnJujRBh7BfWd+48FTsMwIqQFUiQSKdkScebtpDwueHZEkAalkbhg==
+detect-gpu@^5.0.67:
+  version "5.0.67"
+  resolved "https://registry.yarnpkg.com/detect-gpu/-/detect-gpu-5.0.67.tgz#b8d4d16d5ac45c0126f69c8bba35855af99a2941"
+  integrity sha512-9+bdA+1Y7d3WS3RBGnG4KL/k7HonXKSD5ak+UbTap65Ej57u00MrG35oN6UNfHeTe+OLLcGeo1kk0TsmBjAwCA==
   dependencies:
     webgl-constants "^1.1.1"
 
