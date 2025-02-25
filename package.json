@@ -28,7 +28,7 @@
     "react-cookie": "^7.2.2",
     "react-dom": "^18.3.1",
     "react-leaflet": "^4.2.1",
-    "react-scroll": "^1.9.2",
+    "react-scroll": "^1.9.3",
     "react-timer-hook": "^3.0.8",
     "serve": "^14.2.4",
     "systeminformation": "^5.25.11",
