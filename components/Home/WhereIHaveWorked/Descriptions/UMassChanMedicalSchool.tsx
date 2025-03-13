@@ -34,7 +34,7 @@ export default function UMassChanMedicalSchool() {
           <span className="text-AAsecondary">@ UMass Chan Medical School</span>
         </span>
         <span className="font-mono text-xs text-gray-500">
-          May 2024 - Present
+          May 2024 - January 2025
         </span>
       </div>
       <div className="flex flex-col space-y-4 sm:text-sm text-xs">
