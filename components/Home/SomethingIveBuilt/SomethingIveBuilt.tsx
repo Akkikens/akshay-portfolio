@@ -16,6 +16,15 @@ export default function SomethingIveBuilt() {
       githubLink: "https://github.com/weng-lab/Factorbook2.0",
       liveLink: "https://factorbook2-0.vercel.app/",
     },
+    ChatbotUI: {
+      title: "Chatbot UI",
+      description:
+        "Chatbot UI is an AI chat app built with Next.js, React, and supported by Supabase. It features simpler deployment, enhanced backend compatibility, and improved mobile layouts. Experience the live demo on my custom domain.",
+      techStack: ["Next.js", "React", "Supabase", "Docker", "Node.js"],
+      image: "/screenshot.png",
+      githubLink: "https://github.com/akkikens/ui-chatbot",
+      liveLink: "https://akshaykalapgar.com/projects/ui-chatbot",
+    },
     AWS: {
       title: "AWS Certification Project",
       description:
