@@ -60,6 +60,10 @@ This project utilizes the following tools and libraries:
 - **Vercel Analytics** (Performance monitoring)
 
 For additional dependencies, refer to the [`package.json`](package.json) file.
+## Sponsor Me
+If you appreciate my work, consider sponsoring me on GitHub!
+
+[![Sponsor](https://github.com/sponsors/Akkikens)
 
 ---
 
