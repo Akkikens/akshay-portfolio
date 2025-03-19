@@ -3440,10 +3440,10 @@ react-scroll@^1.9.3:
     lodash.throttle "^4.1.1"
     prop-types "^15.7.2"
 
-react-timer-hook@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/react-timer-hook/-/react-timer-hook-4.0.1.tgz#8f8432e58b1173717367f90212910f903576d8a0"
-  integrity sha512-tOye9WelyDctxIk2FnH+jqXhIx+mHr8wf1v2SR0ZJDYMKSH6JVAUj70OT3oOGWuWIFSCW4GxPDM9QGwEOAOOKA==
+react-timer-hook@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/react-timer-hook/-/react-timer-hook-4.0.5.tgz#887447dda64da9c9bd1bf13a116951bc37bf0ee4"
+  integrity sha512-elDxx4OIxBTbm4rXSK5cjBHkq06prO2qY9JzoYxOa11AkL3ij69jp0VuDUOqcehEK38CV0uu7FzUKtPVISRLKA==
 
 react@^18.3.1:
   version "18.3.1"
