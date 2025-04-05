@@ -1,6 +1,5 @@
 import "../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import React from "react";
 import AppContext from "../components/AppContextFolder/AppContext";
 import { useRef, useState, useEffect } from "react";
 // import NEXT_PUBLIC_GA_TRACKING_ID form .env

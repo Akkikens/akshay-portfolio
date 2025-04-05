@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Link } from "react-scroll";
-import React from "react";
 
 const MobileMenu = ({ setRotate, setShowElement, rotate, ShowElement }) => {
   const closeMenu = () => {

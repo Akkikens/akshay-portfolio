@@ -1,4 +1,3 @@
-import React from "react";
 import { useContext, useEffect, useState, useRef, Suspense } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -10,6 +9,7 @@ import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetecto
 import Maintenance from "../components/Home/Maintenance/Maintenance";
 import ThisCantBeReached from "../components/Home/ThisSiteCantBeReached/ThisCantBeReached";
 import Startup from "../components/Header/StartupLogo/Startup";
+import React from "react";
 
 // Lazy-load components to improve initial loading speed
 const Header = React.lazy(() => import("../components/Header/Header"));
