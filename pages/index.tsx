@@ -111,7 +111,7 @@ export default function Home() {
   const meta = {
     title: "Akshay Kalapgar - Full Stack Developer",
     description: `I am a Full Stack Developer with over 3 years of experience in developing software solutions and building applications using technologies like Next.js, TypeScript, AWS, and more. Let's connect to discuss how I can contribute to your projects.`,
-    image: "/Portfolio-portrait-3.png",
+    image: "/Portfolio-portrait-3.jpg",
     type: "website",
   };
   const isProd = process.env.NODE_ENV === "production";

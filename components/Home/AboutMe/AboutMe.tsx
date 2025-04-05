@@ -100,39 +100,37 @@ export default function AboutMe(props) {
               ))}
             </div>
           </div>
-          {/* Image Section */}={" "}
-          <div className="relative group lg:w-80 lg:h-80 md:w-64 md:h-64 hidden md:block">
-            {/* Hover Border Frame */}
-            <div className="absolute inset-0 transform translate-x-4 translate-y-4 border-2 border-AAsecondary rounded-lg group-hover:translate-x-6 group-hover:translate-y-6 transition-transform duration-300 ease-in-out z-0"></div>
 
-            {/* Actual Image Container */}
-            <div className="absolute inset-0 rounded-lg overflow-hidden z-10">
-              <div className="absolute inset-0 bg-AAsecondary opacity-10 group-hover:opacity-0 transition-opacity duration-300 rounded-lg"></div>
+          {/* Image Section */}
+          <div className="group relative lg:w-96 lg:h-96 md:w-72 md:h-72 md:block hidden">
+            <div
+              className="group-hover:translate-x-3 group-hover:translate-y-3
+               duration-200 absolute w-5/6 h-5/6 border-2 border-AAsecondary translate-x-5 
+               translate-y-5 rounded"
+            ></div>
+            <div className="absolute w-5/6 h-5/6 rounded overflow-hidden">
+              <div className="absolute w-full h-full group-hover:opacity-0 bg-AAsecondary opacity-10 duration-200 rounded overflow-hidden"></div>
               <Img
-                src={"/Portfolio-portrait-3.png"}
-                className="object-cover w-full h-full rounded-lg"
+                src={"/Portfolio-portrait-3.jpg"}
+                className={"object-contain rounded-lg"}
                 alt="My Image Not Found"
-                loading="lazy"
+                loading="lazy" // Lazy loading for non-critical image
               />
             </div>
           </div>
-          {/* Mobile Image Section */}
-          <div className="relative w-48 h-48 md:hidden flex justify-center items-center">
-            {/* Hover Border Frame */}
-            <div className="absolute inset-0 transform translate-x-4 translate-y-4 border-2 border-AAsecondary rounded-lg"></div>
 
-            {/* Image Container */}
-            <div className="absolute inset-0 overflow-hidden rounded-lg z-10">
+          {/* Mobile Image */}
+          <div className="relative w-full h-48 md:hidden flex justify-center items-center">
+            <div className="absolute w-48 h-full rounded translate-x-5 translate-y-5 border-2 border-AAsecondary"></div>
+            <div className="absolute w-48 h-full rounded overflow-hidden">
               <Img
-                src={"/Portfolio-portrait-3.png"}
-                className="object-cover w-full h-full rounded-lg"
+                src={"/Portfolio-portrait-3.jpg"}
+                className={"object-contain rounded-lg"}
                 alt="My Image Not Found"
-                loading="lazy"
+                loading="lazy" // Lazy loading for non-critical image
               />
             </div>
-
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-AAsecondary opacity-10 rounded-lg"></div>
+            <div className="absolute w-48 h-full bg-AAsecondary opacity-10 md:opacity-60 rounded overflow-hidden"></div>
           </div>
         </div>
       </div>
