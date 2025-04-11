@@ -1,9 +1,9 @@
-import React from 'react';
 import React from "react";
+
 type Props = {
   className;
 };
-export default function Loader(props:Props) {
+export default function Loader(props: Props) {
   return (
     <svg
       aria-hidden="true"

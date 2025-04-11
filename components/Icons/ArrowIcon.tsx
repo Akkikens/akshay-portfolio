@@ -1,5 +1,4 @@
-import React from 'react';
-import React from 'react'
+import React from "react";
 
 export default function ArrowIcon(props) {
   return (
@@ -15,5 +14,5 @@ export default function ArrowIcon(props) {
         clipRule="evenodd"
       />
     </svg>
-  )
+  );
 }
