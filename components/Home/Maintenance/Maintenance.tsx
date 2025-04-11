@@ -1,5 +1,4 @@
 import React from "react";
-
 export default function Maintenance() {
   return (
     <div className="relative snap-mandatory min-h-screen bg-AAprimary w-full flex justify-center items-center">

@@ -1,3 +1,4 @@
+import React from 'react';
 import React from "react";
 import { motion } from "framer-motion";
 import { Link as ReactScrollLink } from "react-scroll";
