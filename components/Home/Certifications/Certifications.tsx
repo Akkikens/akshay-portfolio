@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
