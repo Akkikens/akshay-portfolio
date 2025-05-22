@@ -34,7 +34,7 @@
     "react-scroll": "^1.9.3",
     "react-timer-hook": "^4.0.5",
     "serve": "^14.2.4",
-    "systeminformation": "^5.26.0",
+    "systeminformation": "^5.26.1",
     "tailwind-scrollbar-hide": "^2.0.0"
   },
   "devDependencies": {
