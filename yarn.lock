@@ -4200,10 +4200,10 @@ supports-preserve-symlinks-flag@^1.0.0:
   resolved "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
 
-systeminformation@^5.26.0:
-  version "5.26.0"
-  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.26.0.tgz#dcb6d5e2058b8cd8488273235d66d8dc9b865b8f"
-  integrity sha512-ZwGnp+mUivoTPP48KeF6kuKfQFCjYmTKf7/A1grgF+Jv6i2OytoQV5gXefvcgfux+kA/MbxgyjOPGuOlIY8S5A==
+systeminformation@^5.26.2:
+  version "5.26.2"
+  resolved "https://registry.yarnpkg.com/systeminformation/-/systeminformation-5.26.2.tgz#9d924aca93d827be47481b452da19427b8bf1192"
+  integrity sha512-MeIqcMRZl9y4ujhuCgpCU/u0ArfUHePZUpmCps/LiQQkkEWd2JxR9XMIJtJIuzGUGOu6KJ+NmEMeSJ+dqYhA2g==
 
 tailwind-scrollbar-hide@^2.0.0:
   version "2.0.0"
