@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "../../../node_modules/framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 const Startup = (props) => {
   let WidthBy2 = 0;
   let HeightBy2 = 0;
