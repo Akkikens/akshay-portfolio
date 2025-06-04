@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "../../../node_modules/framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
 import UMassChanMedicalSchool from "./Descriptions/UMassChanMedicalSchool";
 import Capgemini from "./Descriptions/Capgemini";
