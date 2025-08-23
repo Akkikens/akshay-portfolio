@@ -1,116 +1,117 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import NextLink from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
+import { scroller } from "react-scroll";
 
-export default function MyName({ finishedLoading }) {
-  const [isVisible, setIsVisible] = useState(false);
+type Props = { finishedLoading?: boolean };
 
-  // Show the content only after the base delay
-  useEffect(() => {
-    const timer = setTimeout(
-      () => setIsVisible(true),
-      (finishedLoading ? 2 : 2.3) * 1000
-    );
-    return () => clearTimeout(timer);
-  }, [finishedLoading]);
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-  const baseDelay = finishedLoading ? 2 : 2.3;
-  const transitionConfig = {
-    opacity: { duration: 0.6 },
-    y: { duration: 0.6 },
+export default function MyName({ finishedLoading = false }: Props) {
+  const prefersReduced = useReducedMotion();
+  // Appear almost immediately if Startup already finished
+  const baseDelay = prefersReduced ? 0 : (finishedLoading ? 0.1 : 1.4);
+
+  const fadeUp = (extraDelay = 0) => ({
+    initial: { opacity: 0, y: prefersReduced ? 0 : 12 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, delay: baseDelay + extraDelay, ease: EASE } as const,
+  });
+
+  // Match your MobileMenu/IDs exactly
+  const scrollTo = (id: string, offset = -50) => {
+    scroller.scrollTo(id, {
+      duration: 320,
+      smooth: true,
+      offset,
+    });
   };
 
   return (
-    <div
-      className={`h-full flex flex-col justify-center px-8 2xl:px-72 xl:px-56 lg:px-32 md:px-28 sm:px-8 py-32 sm:py-52 ${
-        isVisible ? "visible" : "invisible"
-      }`}
-    >
-      <motion.span
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          ...transitionConfig,
-          delay: baseDelay,
-        }}
-        className="text-AAsecondary font-mono"
-      >
-        Hello, I am
-      </motion.span>
+    <section id="home" className="bg-AAprimary text-gray-300" aria-label="Introduction">
+      <div className="mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-16 xl:px-20 2xl:px-24">
+        <div className="min-h-[80vh] flex flex-col justify-center py-28 sm:py-36">
+          <motion.span {...fadeUp(0)} className="font-mono text-AAsecondary">
+            Hello, I am
+          </motion.span>
 
-      <motion.h1
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          ...transitionConfig,
-          delay: baseDelay + 0.2,
-        }}
-        className="text-gray-300 font-bold text-3xl lg:text-7xl sm:text-5xl md:text-6xl mt-4"
-      >
-        Akshay Kalapgar.
-      </motion.h1>
+          <motion.h1
+            {...fadeUp(0.12)}
+            className="mt-3 font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+          >
+            Akshay Kalapgar.
+          </motion.h1>
 
-      <motion.h2
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          ...transitionConfig,
-          delay: baseDelay + 0.4,
-        }}
-        className="text-gray-400 font-bold text-3xl lg:text-7xl sm:text-5xl md:text-6xl mt-4"
-      >
-        I build impactful digital solutions.
-      </motion.h2>
+          <motion.h2
+            {...fadeUp(0.24)}
+            className="mt-3 font-bold text-gray-400 tracking-tight text-3xl sm:text-4xl md:text-5xl"
+          >
+            I build impactful digital solutions.
+          </motion.h2>
 
-      <motion.h3
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          ...transitionConfig,
-          delay: baseDelay + 0.6,
-        }}
-        className="text-gray-400 font-Header text-sm md:text-lg sm:text-md mt-10 tracking-wider"
-      >
-        I'm a{" "}
-        <span className="text-AAsecondary">Full Stack Software Engineer</span>{" "}
-        with a strong focus on{" "}
-        <span className="text-AAsecondary">problem-solving</span> and creating
-        exceptional digital experiences. With expertise in{" "}
-        <span className="text-AAsecondary">front-end</span> and{" "}
-        <span className="text-AAsecondary">back-end development</span>, I
-        leverage technologies like{" "}
-        <span className="text-AAsecondary">
-          Next.js, React Native, TypeScript, and AWS
-        </span>{" "}
-        to bring ideas to life.
-        <br className="3xl:block hidden" /> During my career, I've optimized
-        applications for performance, enhanced user engagement by 60%, and
-        reduced API response times by 55% at UMass Chan Medical School.
-        <br className="3xl:block hidden" /> I am passionate about tackling
-        challenging projects, whether in{" "}
-        <span className="text-AAsecondary">web development</span> or{" "}
-        <span className="text-AAsecondary">cloud solutions</span>, and
-        delivering high-quality results.
-      </motion.h3>
+          <motion.p
+            {...fadeUp(0.36)}
+            className="mt-8 font-Header text-[15px] sm:text-base leading-8 text-gray-400 max-w-[72ch]"
+          >
+            Full-stack engineer focused on{" "}
+            <span className="text-AAsecondary">performance</span> and{" "}
+            <span className="text-AAsecondary">reliability</span>. I ship React/Next.js with SSR & perf
+            budgets, instrument RUM via OTel, and own SLI/SLOs. Recently increased engagement by{" "}
+            <span className="text-AAsecondary">60%</span> and reduced API latency by{" "}
+            <span className="text-AAsecondary">55%</span> at UMass Chan. Comfortable across{" "}
+            <span className="text-AAsecondary">AWS serverless</span>,{" "}
+            <span className="text-AAsecondary">TypeScript</span>, and{" "}
+            <span className="text-AAsecondary">system design</span>.
+          </motion.p>
 
-      <motion.div
-        initial={{ y: 10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{
-          ...transitionConfig,
-          delay: baseDelay + 0.8,
-        }}
-        className="mt-12"
-      >
-        <Link href={"/resume.pdf"} passHref legacyBehavior>
-          <a target="_blank" rel="noreferrer">
-            <button className="bg-AAprimary text-AAsecondary border rounded px-4 sm:px-8 py-3 sm:py-4 border-AAsecondary">
-              View My Resume
+          <motion.ul {...fadeUp(0.48)} className="mt-6 flex flex-wrap gap-2" aria-label="Highlights">
+            {[
+              "Next.js • TypeScript • Node",
+              "AWS (Lambda / API GW / SQS)",
+              "Observability: OTel / Prometheus",
+              "Ownership: SLOs • On-call • Runbooks",
+              "DX: 500+ tests • CI/CD",
+            ].map((chip) => (
+              <li
+                key={chip}
+                className="text-xs sm:text-[13px] text-gray-300 bg-MobileNavBarColor/50 border border-MobileNavBarColor/70 rounded px-2 py-1"
+              >
+                {chip}
+              </li>
+            ))}
+          </motion.ul>
+
+          {/* CTAs (react-scroll to sections) */}
+          <motion.div {...fadeUp(0.6)} className="mt-10 flex flex-wrap gap-4">
+            <NextLink href="/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open my resume in a new tab">
+              <button className="bg-AAprimary text-AAsecondary border border-AAsecondary rounded px-5 sm:px-7 py-3 hover:bg-ResumeButtonHover transition">
+                View My Resume
+              </button>
+            </NextLink>
+
+            <button
+              onClick={() => scrollTo("SomethingIveBuiltSection", 100)}
+              className="rounded px-5 sm:px-7 py-3 border border-transparent bg-MobileNavBarColor/60 hover:bg-MobileNavBarColor transition"
+              aria-label="Jump to my work section"
+            >
+              See My Work
             </button>
-          </a>
-        </Link>
-      </motion.div>
-    </div>
+
+            <button
+              onClick={() => scrollTo("GetInTouchSection", 100)}
+              className="rounded px-5 sm:px-7 py-3 border border-transparent bg-MobileNavBarColor/40 hover:bg-MobileNavBarColor/60 transition"
+              aria-label="Jump to contact section"
+            >
+              Contact
+            </button>
+          </motion.div>
+
+          <motion.p {...fadeUp(0.72)} className="mt-6 text-sm text-gray-500 max-w-[72ch]">
+            Exploring high-ownership roles on product/platform teams. Comfortable leading performance initiatives,
+            migrations, and incident response.
+          </motion.p>
+        </div>
+      </div>
+    </section>
   );
 }

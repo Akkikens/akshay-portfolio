@@ -68,7 +68,7 @@ export default function SomethingIveBuilt() {
           04.
         </span>
         <h2 className="font-bold tracking-wider text-gray-200 text-lg md:text-2xl">
-          Some Things I’ve Built
+          Some Things I’ve Built // Contributed
         </h2>
         <div className="bg-gray-400 h-[0.2px] w-full xl:w-1/3 md:w-1/2"></div>
       </div>

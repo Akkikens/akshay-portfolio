@@ -39,8 +39,8 @@ export default function AboutMe() {
   return (
     <div id="aboutSection" data-aos="fade-up" className="snap-start flex flex-col items-center py-16 sm:py-20 bg-AAprimary">
       {/* RIGHT-ALIGNED WRAPPER (desktop): push content toward the extreme right */}
-      <div className="w-full max-w-[1200px] md:ml-auto px-4 sm:px-6 lg:pr-10 space-y-8">
-        {/* Section Header */}
+      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 space-y-8">
+      {/* Section Header */}
         <div className="flex items-center">
           <div className="flex items-center mr-4">
             <ArrowIcon className="h-4 md:h-6 w-4 md:w-5 translate-y-[0.5px] text-AAsecondary" />
@@ -51,8 +51,10 @@ export default function AboutMe() {
         </div>
 
         {/* Desktop grid: tighter measure on text, sticky image on the far right */}
-        <div className="hidden md:grid grid-cols-[minmax(0,58ch)_360px] md:gap-x-16 lg:gap-x-20">
-          {/* Text column with clean measure */}
+        <div className="hidden md:grid 
+                 md:grid-cols-[minmax(0,70ch)_340px] 
+                 lg:grid-cols-[minmax(0,76ch)_360px] 
+                 md:gap-x-12 lg:gap-x-16 xl:gap-x-20">          {/* Text column with clean measure */}
           <div className="space-y-5 text-[15px] leading-[1.75] md:pr-6">
             <p className="font-Header text-justify text-gray-400">
               Hello! I'm Akshay, a <span className="text-AAsecondary">Full Stack Software Engineer</span> focused on building fast, reliable products.
@@ -156,8 +158,8 @@ export default function AboutMe() {
 
           {/* Sticky portrait on the far right */}
           <div className="relative md:justify-self-end md:sticky md:top-24">
-            <figure className="relative w-[320px] lg:w-[340px]">
-              <div className="rounded-lg overflow-hidden ring-2 ring-AAsecondary/70 ring-offset-4 ring-offset-AAprimary transition-transform duration-200 hover:translate-x-1.5 hover:translate-y-1.5">
+          <figure className="relative w-[300px] lg:w-[320px] xl:w-[360px]">
+          <div className="rounded-lg overflow-hidden ring-2 ring-AAsecondary/70 ring-offset-4 ring-offset-AAprimary transition-transform duration-200 hover:translate-x-1.5 hover:translate-y-1.5">
                 <div className="relative w-full aspect-[4/5]">
                   <Img
                     src={"/Portfolio-portrait-3.jpg"}
