@@ -3,12 +3,11 @@ import { motion, useReducedMotion } from "framer-motion";
 
 type StartupProps = {
   onDone?: () => void;
-  /** Total intro time (ms). 1700 feels crisp; bump to ~2200 if you want more flair. */
+  /** Total intro time (ms). 900 is snappy; bump to ~1200 for a touch more flair. */
   durationMs?: number;
 };
 
 type XY = { x: number; y: number };
-
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const Beacon: React.FC<{ delay?: number; className?: string; borderColor?: string }> = ({
@@ -68,7 +67,7 @@ const Critter: React.FC<{
   );
 };
 
-const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
+const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 900 }) => {
   const prefersReduced = useReducedMotion();
   const [phase, setPhase] = React.useState<"assemble" | "fade">("assemble");
   const [show, setShow] = React.useState(true);
@@ -78,11 +77,11 @@ const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
       const t = setTimeout(() => {
         setShow(false);
         onDone?.();
-      }, 250);
+      }, 200);
       return () => clearTimeout(t);
     }
 
-    const fadeAt = Math.max(900, durationMs - 400);
+    const fadeAt = Math.max(500, durationMs - 300);
     const toFade = setTimeout(() => setPhase("fade"), fadeAt);
     const done = setTimeout(() => {
       setShow(false);
@@ -100,12 +99,12 @@ const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
   const accent = "var(--aa-secondary, #64ffda)";
   const primary = "var(--aa-primary, #0b192f)";
 
-  const CENTER_RING = 110; // where critters park briefly
+  const CENTER_RING = 110;
   const critters = [
-    { start: { x: -520, y: -340 }, end: { x: -CENTER_RING, y: -CENTER_RING }, delay: 0.15, flip: false }, // TL
-    { start: { x: 520, y: -340 }, end: { x: CENTER_RING, y: -CENTER_RING }, delay: 0.22, flip: true }, // TR
-    { start: { x: -520, y: 340 }, end: { x: -CENTER_RING, y: CENTER_RING }, delay: 0.29, flip: true }, // BL
-    { start: { x: 520, y: 340 }, end: { x: CENTER_RING, y: CENTER_RING }, delay: 0.36, flip: false }, // BR
+    { start: { x: -520, y: -340 }, end: { x: -CENTER_RING, y: -CENTER_RING }, delay: 0.05, flip: false },
+    { start: { x: 520, y: -340 }, end: { x: CENTER_RING, y: -CENTER_RING }, delay: 0.10, flip: true },
+    { start: { x: -520, y: 340 }, end: { x: -CENTER_RING, y: CENTER_RING }, delay: 0.15, flip: true },
+    { start: { x: 520, y: 340 }, end: { x: CENTER_RING, y: CENTER_RING }, delay: 0.20, flip: false },
   ];
 
   return (
@@ -113,7 +112,7 @@ const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
       key="startup"
       initial={{ opacity: 1 }}
       animate={{ opacity: phase === "fade" ? 0 : 1 }}
-      transition={{ duration: phase === "fade" ? 0.35 : 0 }}
+      transition={{ duration: phase === "fade" ? 0.28 : 0 }}
       className="fixed inset-0 z-[60] pointer-events-auto"
       aria-busy="true"
     >
@@ -168,12 +167,12 @@ const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
         <motion.div
           initial={{ scale: 0.94, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.35, ease: EASE }}
+          transition={{ duration: 0.32, ease: EASE }}
           className="relative h-28 w-28 flex items-center justify-center"
           aria-label="Booting"
         >
           {[
-            { rot: 90, tx: 40, ty: 0, d: 0.0 },
+            { rot: 90, tx: 40, ty: 0, d: 0.00 },
             { rot: 90, tx: -40, ty: 0, d: 0.06 },
             { rot: 35, tx: 18, ty: -36, d: 0.12 },
             { rot: -35, tx: -18, ty: -36, d: 0.18 },
@@ -184,7 +183,7 @@ const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
               key={i}
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: [0, 1], scale: [0.85, 1], rotate: rot, x: tx, y: ty }}
-              transition={{ duration: 0.5, delay: 0.4 + d, ease: EASE }}
+              transition={{ duration: 0.45, delay: 0.35 + d, ease: EASE }}
               className="absolute h-2 w-12 rounded"
               style={{ background: accent, boxShadow: `0 0 18px ${accent}44` }}
             />
@@ -192,7 +191,7 @@ const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
           <motion.span
             initial={{ opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: [0.7, 1.1, 1] }}
-            transition={{ delay: 0.9, duration: 0.5, ease: EASE }}
+            transition={{ delay: 0.9, duration: 0.45, ease: EASE }}
             className="text-4xl font-Text2"
             style={{ color: accent, textShadow: `0 0 14px ${accent}55` }}
           >
@@ -204,7 +203,7 @@ const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 0.9, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.3 }}
+          transition={{ delay: 0.55, duration: 0.25 }}
           className="absolute bottom-10 text-[12px] sm:text-sm font-mono text-gray-300"
         >
           Booting portfolio… warming caches… <span style={{ color: accent }}>OK</span>
@@ -217,7 +216,7 @@ const Startup: React.FC<StartupProps> = ({ onDone, durationMs = 1700 }) => {
             setTimeout(() => {
               setShow(false);
               onDone?.();
-            }, 350);
+            }, 280);
           }}
           className="absolute top-4 right-4 rounded border border-white/20 hover:border-white/40 text-gray-300/90 hover:text-white px-3 py-1.5 text-xs sm:text-sm"
         >

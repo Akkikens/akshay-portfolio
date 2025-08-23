@@ -2,17 +2,19 @@ import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 type Props = {
-  /** How long the fake error stays on screen (ms). Default 1400. */
+  /** How long it stays on screen (ms). Default 900. */
   totalMs?: number;
   /** Domain label shown in the chrome bar. */
   domain?: string;
+  onDone?: () => void;
 };
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export default function ThisCantBeReached({
-  totalMs = 1400,
+  totalMs = 900,
   domain = "www.akshaykalapgar.com",
+  onDone,
 }: Props) {
   const prefersReduced = useReducedMotion();
   const [show, setShow] = React.useState(true);
@@ -20,18 +22,23 @@ export default function ThisCantBeReached({
 
   React.useEffect(() => {
     if (prefersReduced) {
-      const t = setTimeout(() => setShow(false), 200);
+      const t = setTimeout(() => {
+        setShow(false);
+        onDone?.();
+      }, 200);
       return () => clearTimeout(t);
     }
-    // Quick flip then exit
-    const flipAt = Math.max(450, totalMs * 0.45);
+    const flipAt = Math.max(350, totalMs * 0.45);
     const t1 = setTimeout(() => setFlip(true), flipAt);
-    const t2 = setTimeout(() => setShow(false), totalMs);
+    const t2 = setTimeout(() => {
+      setShow(false);
+      onDone?.();
+    }, totalMs);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
     };
-  }, [prefersReduced, totalMs]);
+  }, [prefersReduced, totalMs, onDone]);
 
   if (!show) return null;
 
@@ -41,17 +48,17 @@ export default function ThisCantBeReached({
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
-      transition={{ delay: Math.max(0.8, totalMs / 1100), duration: 0.25 }}
+      transition={{ delay: Math.min(0.75, totalMs / 1200), duration: 0.22 }}
       className="fixed inset-0 z-[55] bg-white flex items-center justify-center px-4 sm:px-10"
       role="alert"
       aria-live="polite"
     >
-      {/* tiny corner critter so viewers know it's playful, not a real error */}
+      {/* playful corner dot */}
       {!prefersReduced && (
         <motion.div
           initial={{ x: -36, y: -36, rotate: -10, opacity: 0 }}
           animate={{ x: 0, y: 0, rotate: 0, opacity: 1 }}
-          transition={{ duration: 0.35, ease: EASE }}
+          transition={{ duration: 0.3, ease: EASE }}
           className="absolute top-4 left-4"
         >
           <div
@@ -72,11 +79,10 @@ export default function ThisCantBeReached({
         </motion.div>
       )}
 
-      {/* “browser” card */}
       <motion.div
         initial={{ y: 8, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.28, ease: EASE }}
+        transition={{ duration: 0.24, ease: EASE }}
         className="w-full max-w-[720px] rounded-2xl border border-gray-200 shadow-xl p-6 sm:p-8"
       >
         <div className="flex items-center justify-between">
@@ -117,12 +123,11 @@ export default function ThisCantBeReached({
               )}
             </div>
 
-            {/* progress bar */}
             {!prefersReduced && (
               <motion.div
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
-                transition={{ duration: Math.max(0.7, totalMs / 1600), ease: EASE }}
+                transition={{ duration: Math.max(0.5, totalMs / 1500), ease: EASE }}
                 className="h-1.5 rounded bg-gray-200 overflow-hidden"
               >
                 <div className="h-full" style={{ background: accent }} />
@@ -130,7 +135,6 @@ export default function ThisCantBeReached({
             )}
           </div>
 
-          {/* tiny “tips” list to sell the illusion */}
           {!flip && (
             <div className="mt-4 text-sm">
               <div className="text-gray-500 mb-1">Try:</div>
