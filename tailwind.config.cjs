@@ -1,22 +1,11 @@
-// tailwind.config.cjs (Tailwind v3)
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        AAprimary: "#0b192f",
-        AAsecondary: "#64ffda",
-        MobileNavBarColor: "#112340",
-        ResumeButtonHover: "#153040",
-        StartupBackground: "#020c1b",
-      },
-    },
+    extend: {},
   },
-  plugins: [require("tailwind-scrollbar")],
-  // only if you create class names dynamically like `bg-${color}`
-  // safelist: ["bg-AAprimary","bg-AAsecondary","bg-MobileNavBarColor","bg-ResumeButtonHover","bg-StartupBackground"],
+  plugins: [],
 };
