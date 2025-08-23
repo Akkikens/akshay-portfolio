@@ -48,7 +48,7 @@ export default function ThisCantBeReached({
     <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
-      transition={{ delay: Math.min(0.75, totalMs / 1200), duration: 0.22 }}
+      transition={{ delay: 1, duration: 5 }} 
       className="fixed inset-0 z-[55] bg-white flex items-center justify-center px-4 sm:px-10"
       role="alert"
       aria-live="polite"

@@ -1,17 +1,18 @@
-import React from "react";
-import { useContext, useEffect, useState, useRef, Suspense } from "react";
+// pages/index.tsx
+import React, { useContext, useEffect, useState, useRef, Suspense } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import Head from "next/head";
+
 import AppContext from "../components/AppContextFolder/AppContext";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
-
-// Import non-lazy components
 import Maintenance from "../components/Home/Maintenance/Maintenance";
+
+// Intro overlays
 import ThisCantBeReached from "../components/Home/ThisSiteCantBeReached/ThisCantBeReached";
 import Startup from "../components/Header/StartupLogo/Startup";
 
-// Lazy-load components to improve initial loading speed
+// Lazy content
 const Header = React.lazy(() => import("../components/Header/Header"));
 const MyName = React.lazy(() => import("../components/Home/MyName/MyName"));
 const SocialMediaArround = React.lazy(
@@ -33,15 +34,16 @@ const GetInTouch = React.lazy(
 const Footer = React.lazy(() => import("../components/Footer/Footer"));
 
 export default function Home() {
-  const [ShowElement, setShowElement] = useState(false);
-  const [ShowThisCantBeReached, setShowThisCantBeReached] = useState(true);
-  const [ShowMe, setShowMe] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const [isBlackListed, setIsBlackListed] = useState(false);
-
   const context = useContext(AppContext);
-  const aboutRef = useRef<HTMLDivElement>(null);
-  const homeRef = useRef<HTMLDivElement>(null);
+
+  // --- Orchestration flags (single source of truth) ---
+  const [showErr, setShowErr] = useState(true);
+  const [showLogo, setShowLogo] = useState(false);
+  const [isMain, setIsMain] = useState(false);
+
+  // --- Blacklist logic (kept) ---
+  const [userData, setUserData] = useState<any>(null);
+  const [isBlackListed, setIsBlackListed] = useState(false);
 
   const IsBlackListEmpty = !process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES;
   const blacklistedCountries = process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES
@@ -55,8 +57,8 @@ export default function Home() {
           const ipResponse = await fetch("https://api.ipify.org/?format=json");
           const ipData = await ipResponse.json();
           const userResponse = await fetch(`/api/userInfoByIP/${ipData.ip}`);
-          const userData = await userResponse.json();
-          setUserData(userData);
+          const data = await userResponse.json();
+          setUserData(data);
         } catch (error) {
           console.error("Error fetching location and IP data:", error);
         }
@@ -72,45 +74,64 @@ export default function Home() {
   }, [userData, blacklistedCountries]);
 
   useEffect(() => {
-    clearInterval(context.sharedState.userdata.timerCookieRef.current);
+    // Match ThisCantBeReached’s internal timing (flip @ ~650ms, hide @ ~1600ms)
+    const ERR_TOTAL_MS = 1600;   // how long the faux error stays on
+    const LOGO_MS      = 1100;   // how long the A logo runs
+    const START_GAP    = 50;     // small buffer so error is gone before logo starts
+  
+    setShowErr(true);
+    setShowLogo(false);
+    setIsMain(false);
+  
+    // Show A logo only AFTER the error finishes (no overlap)
+    const t1 = setTimeout(() => setShowLogo(true), ERR_TOTAL_MS + START_GAP);
+  
+    // Unmount the error right when it finishes (keeps things crisp)
+    const t2 = setTimeout(() => setShowErr(false), ERR_TOTAL_MS);
+  
+    // When logo is done, reveal the site
+    const t3 = setTimeout(() => {
+      setShowLogo(false);
+      setIsMain(true);
+      context.setSharedState((prev) => ({ ...prev, finishedLoading: true }));
+    }, ERR_TOTAL_MS + START_GAP + LOGO_MS);
+  
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // --- Clean up old listeners from your sharedState hooks (kept, but safer) ---
+  useEffect(() => {
+    const { sharedState } = context;
+    const timer = sharedState?.userdata?.timerCookieRef?.current;
+    const winTracker = sharedState?.userdata?.windowSizeTracker?.current;
+    const mouseTracker = sharedState?.userdata?.mousePositionTracker?.current;
+    const blurEvt = sharedState?.typing?.eventInputLostFocus;
+    const keyEvt = sharedState?.typing?.keyboardEvent;
+
+    if (timer) clearInterval(timer as any);
     if (typeof window !== "undefined") {
-      window.removeEventListener(
-        "resize",
-        context.sharedState.userdata.windowSizeTracker.current
-      );
-      window.removeEventListener(
-        "mousemove",
-        context.sharedState.userdata.mousePositionTracker.current,
-        false
-      );
-      window.removeEventListener(
-        "resize",
-        context.sharedState.typing.eventInputLostFocus
-      );
-      document.removeEventListener(
-        "keydown",
-        context.sharedState.typing.keyboardEvent
-      );
+      if (winTracker) window.removeEventListener("resize", winTracker);
+      if (mouseTracker) window.removeEventListener("mousemove", mouseTracker, false);
+      if (blurEvt) window.removeEventListener("resize", blurEvt);
+      if (keyEvt) document.removeEventListener("keydown", keyEvt);
     }
+  }, [context]);
 
-    setTimeout(() => setShowElement(true), 4000); // Delayed to 4 seconds
-    setTimeout(() => setShowThisCantBeReached(false), 4500); // Extended to 5 seconds
-    setTimeout(() => {
-      setShowElement(false);
-      setShowMe(true);
-      context.sharedState.finishedLoading = true;
-      context.setSharedState(context.sharedState);
-    }, 5000); // Delayed to 8 seconds for full load
-  }, [context, context.sharedState]);
-
+  // --- AOS (kept) ---
   useEffect(() => {
     Aos.init({ duration: 1500, once: true });
   }, []);
 
-  console.log("Website is rendering...");
+  // --- Meta (kept) ---
   const meta = {
     title: "Akshay Kalapgar - Full Stack Developer",
-    description: `I am a Full Stack Developer with over 3 years of experience in developing software solutions and building applications using technologies like Next.js, TypeScript, AWS, and more. Let's connect to discuss how I can contribute to your projects.`,
+    description:
+      "Full Stack Developer with 3+ years building scalable apps with Next.js, TypeScript, AWS, and more. Let’s connect.",
     image: "/Portfolio-portrait-3.jpg",
     type: "website",
   };
@@ -122,8 +143,8 @@ export default function Home() {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
-        <meta property="og:url" content={`https://anaflous.com`} />
-        <link rel="canonical" href={`https://anaflous.com`} />
+        <meta property="og:url" content="https://anaflous.com" />
+        <link rel="canonical" href="https://anaflous.com" />
         <meta property="og:type" content={meta.type} />
         <meta property="og:site_name" content="Akshay Kalapgar" />
         <meta property="og:description" content={meta.description} />
@@ -137,39 +158,29 @@ export default function Home() {
       </Head>
 
       {!isBlackListed ? (
-        <div className="relative snap-mandatory min-h-screen bg-AAprimary w-full ">
-          {context.sharedState
-            .finishedLoading ? null : ShowThisCantBeReached ? (
-            <ThisCantBeReached />
-          ) : null}
-          {context.sharedState.finishedLoading ? null : ShowElement ? (
-            <Startup />
-          ) : null}
+        <div className="relative min-h-screen w-full bg-AAprimary snap-mandatory">
+          {/* Orchestrated intros */}
+          {showErr && <ThisCantBeReached /* keep its own short internal timing */ />}
+          {showLogo && <Startup /* if your component supports it: durationMs={900} */ />}
 
-          <Suspense fallback={<div>Loading...</div>}>
-            <Header
-              finishedLoading={context.sharedState.finishedLoading}
-              sectionsRef={homeRef}
-            />
-            <MyName finishedLoading={context.sharedState.finishedLoading} />
-            <SocialMediaArround
-              finishedLoading={context.sharedState.finishedLoading}
-            />
-            {context.sharedState.finishedLoading ? (
-              <AboutMe ref={aboutRef} />
-            ) : null}
-            {context.sharedState.finishedLoading ? <WhereIHaveWorked /> : null}
-            {context.sharedState.finishedLoading ? <Certifications /> : null}
-            {context.sharedState.finishedLoading ? <SomethingIveBuilt /> : null}
-            {context.sharedState.finishedLoading ? <GetInTouch /> : null}
-            {context.sharedState.finishedLoading ? (
+          {/* Only render the site when timeline switches to main */}
+          {isMain && (
+            <Suspense fallback={<div className="p-8 text-gray-400">Loading…</div>}>
+              <Header finishedLoading={true} sectionsRef={null} />
+              <MyName finishedLoading={true} />
+              <SocialMediaArround finishedLoading={true} />
+              <AboutMe />
+              <WhereIHaveWorked />
+              <Certifications />
+              <SomethingIveBuilt />
+              <GetInTouch />
               <Footer
                 githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
                 hideSocialsInDesktop={true}
               />
-            ) : null}
-            {!isProd && <ScreenSizeDetector />}
-          </Suspense>
+              {!isProd && <ScreenSizeDetector />}
+            </Suspense>
+          )}
         </div>
       ) : (
         <Maintenance />
