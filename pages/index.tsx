@@ -132,7 +132,7 @@ export default function Home() {
     title: "Akshay Kalapgar - Full Stack Developer",
     description:
       "Full Stack Developer with 3+ years building scalable apps with Next.js, TypeScript, AWS, and more. Let’s connect.",
-    image: "/Portfolio-portrait-3.jpg",
+    image: "/Portfolio-portrait-4.jpg",
     type: "website",
   };
   const isProd = process.env.NODE_ENV === "production";
