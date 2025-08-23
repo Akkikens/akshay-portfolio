@@ -162,7 +162,7 @@ export default function AboutMe() {
           <div className="rounded-lg overflow-hidden ring-2 ring-AAsecondary/70 ring-offset-4 ring-offset-AAprimary transition-transform duration-200 hover:translate-x-1.5 hover:translate-y-1.5">
                 <div className="relative w-full aspect-[4/5]">
                   <Img
-                    src={"/Portfolio-portrait-3.jpg"}
+                    src={"/Portfolio-portrait-4.jpg"}
                     className="object-cover w-full h-full rounded-lg"
                     alt="Akshay portrait"
                     loading="lazy"
@@ -192,7 +192,7 @@ export default function AboutMe() {
             <div className="rounded-lg overflow-hidden ring-2 ring-AAsecondary/70 ring-offset-4 ring-offset-AAprimary">
               <div className="w-full aspect-[4/5]">
                 <Img
-                  src={"/Portfolio-portrait-3.jpg"}
+                  src={"/Portfolio-portrait-4.jpg"}
                   className="object-cover w-full h-full rounded-lg"
                   alt="Akshay portrait"
                   loading="lazy"
