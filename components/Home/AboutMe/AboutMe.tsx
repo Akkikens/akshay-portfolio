@@ -1,137 +1,205 @@
-import React from "react";
+import React, { useState } from "react";
 import Img from "../../../components/smallComp/image/Img";
 import ArrowIcon from "../../../components/Icons/ArrowIcon";
 
-export default function AboutMe(props) {
-  const technologies = [
-    [
-      "Next.js/React",
-      "TypeScript/JavaScript",
-      "React Native",
-      "Tailwind CSS",
-      "AWS/Azure",
-      "GraphQL/REST APIs",
-    ],
-    ["Node.js", "Java", "Python", "PostgreSQL/MySQL", "Docker/Kubernetes"],
+export default function AboutMe() {
+  const [expanded, setExpanded] = useState(false);
+
+  const technologies: string[][] = [
+    ["Next.js/React", "TypeScript/JavaScript", "React Native", "Tailwind CSS", "GraphQL/REST APIs", "AWS/Azure"],
+    ["Node.js", "Java", "Python", "PostgreSQL/MySQL", "Docker/Kubernetes", "CI/CD (GitHub Actions/Jenkins)"],
+  ];
+
+  const systemsPlatform = [
+    "System Design", "Scalability", "Distributed Queues",
+    "Caching (CDN/Redis)", "Observability (OTel/Prometheus)",
+    "Testing (Jest/Playwright)", "Security & Accessibility (WCAG)",
+  ];
+
+  const quickSnapshot = [
+    "Perf: LCP/TTI budgets",
+    "Scale: 100K+ users",
+    "Reliability: SLOs/MTTR",
+    "DX: 500+ tests",
+  ];
+
+  const keyBulletsCore = [
+    "Scaled React/Next surfaces with SSR + selective hydration; enforced perf budgets (LCP/TTI/TBT).",
+    "Improved developer experience with monorepo tooling, CI and 500+ new tests.",
+    "Migrated services to AWS serverless (Lambda + API GW) and cut cold-start latency ~50%.",
+  ];
+
+  const keyBulletsMore = [
+    "End-to-end observability with OTel traces/metrics/logs; Grafana dashboards → faster MTTR.",
+    "Event-driven pipelines (queues + Lambdas) for SMS nudges/analytics, lifting re-engagement ~28%.",
+    "API reliability: typed RPC clients, retries/circuit breakers; graceful degradation under load.",
+    "Security & quality gates: SBOM/dependency policy, feature flags, canaries and safe rollbacks.",
   ];
 
   return (
-    <div
-      id="aboutSection"
-      data-aos="fade-up"
-      className="snap-start flex flex-col items-center py-20 bg-AAprimary"
-    >
-      {/* Section Header */}
-      <div className="flex flex-col space-y-8 px-4 sm:px-0 w-full sm:w-[500px] md:w-[700px] lg:w-[900px]">
-        <div className="flex flex-row items-center">
-          <div className="flex flex-row items-center mr-4">
-            <ArrowIcon className="flex-none h-4 md:h-6 w-4 md:w-5 translate-y-[0.5px] text-AAsecondary" />
-            <span className="text-AAsecondary font-Header text-sm sm:text-xl">
-              01.
-            </span>
-            <span className="flex-none text-gray-200 opacity-85 font-bold tracking-wider text-lg sm:text-2xl pl-4">
-              About Me
-            </span>
+    <div id="aboutSection" data-aos="fade-up" className="snap-start flex flex-col items-center py-16 sm:py-20 bg-AAprimary">
+      {/* RIGHT-ALIGNED WRAPPER (desktop): push content toward the extreme right */}
+      <div className="w-full max-w-[1200px] md:ml-auto px-4 sm:px-6 lg:pr-10 space-y-8">
+        {/* Section Header */}
+        <div className="flex items-center">
+          <div className="flex items-center mr-4">
+            <ArrowIcon className="h-4 md:h-6 w-4 md:w-5 translate-y-[0.5px] text-AAsecondary" />
+            <span className="text-AAsecondary font-Header text-sm sm:text-xl">01.</span>
+            <span className="text-gray-200/90 font-bold tracking-wider text-lg sm:text-2xl pl-4">About Me</span>
           </div>
-          <div className="bg-gray-400 h-[0.2px] w-full sm:w-72 ml-4"></div>
+          <div className="bg-gray-400/40 h-px w-full sm:w-72 ml-4" />
         </div>
 
-        {/* Content */}
-        <div className="w-full flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8 sm:space-x-2">
-          <div className="w-full md:w-7/12 space-y-4 sm:text-base text-sm">
-            <div className="font-Header text-justify">
-              <span className="text-gray-400">
-                Hello! I'm Akshay, a dedicated{" "}
-                <span className="text-AAsecondary">
-                  Full Stack Software Engineer
-                </span>{" "}
-                passionate about creating efficient and scalable applications.
-                My journey in technology began early, sparking my interest in
-                problem-solving and programming, eventually leading me to pursue
-                a{" "}
-                <span className="text-AAsecondary">
-                  Bachelor’s in Information Technology
-                </span>{" "}
-                and currently a{" "}
-                <span className="text-AAsecondary">
-                  Master’s degree in Computer Science
-                </span>
-                .
-              </span>
-            </div>
-            <div className="font-Header text-justify">
-              <span className="text-gray-400">
-                Over the years, I've gained valuable experience through roles in
-                diverse industries, contributing to projects at companies like{" "}
-                <span className="text-AAsecondary">Capgemini</span> and{" "}
-                <span className="text-AAsecondary">
-                  UMass Chan Medical School
-                </span>
-                . At UMass, I enhanced the Factorbook platform, optimizing
-                performance and implementing responsive design for a seamless
-                user experience across devices.
-              </span>
-            </div>
-            <div className="font-Header tracking-wide text-justify">
-              <span className="text-gray-400">
-                My ongoing goal is to leverage my skills to solve complex
-                problems and continuously expand my technical knowledge. Here
-                are a few technologies I've been working with recently:
-              </span>
-            </div>
-            <div className="font-Header tracking-wide flex flex-row space-x-16 justify-center lg:justify-start">
-              {technologies.map((techGroup, groupIndex) => (
-                <div
-                  key={groupIndex}
-                  className="flex flex-col space-y-4 sm:text-base text-sm"
-                >
-                  {techGroup.map((tech, index) => (
-                    <div
-                      key={index}
-                      className="flex flex-row items-center space-x-2"
-                    >
-                      <ArrowIcon className="h-3 w-3 text-AAsecondary" />
-                      <span className="text-gray-400 sm:text-sm text-xs">
-                        {tech}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+        {/* Desktop grid: tighter measure on text, sticky image on the far right */}
+        <div className="hidden md:grid grid-cols-[minmax(0,58ch)_360px] md:gap-x-16 lg:gap-x-20">
+          {/* Text column with clean measure */}
+          <div className="space-y-5 text-[15px] leading-[1.75] md:pr-6">
+            <p className="font-Header text-justify text-gray-400">
+              Hello! I'm Akshay, a <span className="text-AAsecondary">Full Stack Software Engineer</span> focused on building fast, reliable products.
+              I earned a <span className="text-AAsecondary">B.E. in Information Technology</span> and{" "}
+              <span className="text-AAsecondary">completed my M.S. in Computer Science (May 2025)</span>.
+            </p>
+
+            <p className="font-Header text-justify text-gray-400">
+              I’ve shipped production software across healthcare, e-commerce and edtech at{" "}
+              <span className="text-AAsecondary">Capgemini</span> and{" "}
+              <span className="text-AAsecondary">UMass Chan Medical School</span>, with a focus on performance, reliability and developer experience.
+            </p>
+
+            <p className="font-Header text-justify text-gray-400">
+              <span className="text-AAsecondary">Currently at Climb Together</span>, I lead web performance for large Next.js surfaces
+              (SSR + selective hydration, code-splitting, perf budgets) and own SLI/SLOs with OTel-based RUM. On the backend, I help run
+              an AWS serverless stack (Lambda, API Gateway, Postgres) and real-time pipelines for notifications/analytics.
+            </p>
+
+            {/* Impact bullets */}
+            <ul className="list-none space-y-2">
+              {keyBulletsCore.map((b, i) => (
+                <li key={i} className="flex items-start">
+                  <ArrowIcon className="h-3 w-3 mt-1 text-AAsecondary" />
+                  <span className="ml-2 text-gray-400">{b}</span>
+                </li>
               ))}
+              {expanded &&
+                keyBulletsMore.map((b, i) => (
+                  <li key={`m-${i}`} className="flex items-start">
+                    <ArrowIcon className="h-3 w-3 mt-1 text-AAsecondary" />
+                    <span className="ml-2 text-gray-400">{b}</span>
+                  </li>
+                ))}
+            </ul>
+
+            {/* Quick snapshot chips (recruiter-friendly) */}
+            <div className="pt-1">
+              <div className="text-gray-300/90 font-semibold mb-2">Quick snapshot</div>
+              <div className="flex flex-wrap gap-2">
+                {quickSnapshot.map((item) => (
+                  <span
+                    key={item}
+                    className="text-xs text-gray-300 bg-MobileNavBarColor/50 border border-MobileNavBarColor/70 rounded px-2 py-1"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
+
+            {/* Systems & Platform */}
+            <div className="pt-2">
+              <div className="text-gray-300/90 font-semibold mb-2">Systems & Platform</div>
+              <div className="flex flex-wrap gap-2">
+                {systemsPlatform.map((item) => (
+                  <span
+                    key={item}
+                    className="text-xs text-gray-300 bg-MobileNavBarColor/50 border border-MobileNavBarColor/70 rounded px-2 py-1"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Tech grid */}
+            <div className="font-Header tracking-wide">
+              <div className="text-gray-300/90 font-semibold mt-4 mb-2">Technologies I use</div>
+              <div className="flex flex-row flex-wrap gap-x-12 gap-y-3">
+                {technologies.map((group, gi) => (
+                  <div key={gi} className="flex flex-col space-y-2">
+                    {group.map((tech) => (
+                      <div key={tech} className="flex items-center space-x-2">
+                        <ArrowIcon className="h-3 w-3 text-AAsecondary" />
+                        <span className="text-gray-400 text-[13px]">{tech}</span>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Show more / less */}
+            <div className="pt-2">
+              <button
+                onClick={() => setExpanded((s) => !s)}
+                className="text-AAsecondary hover:underline text-sm font-medium"
+                aria-expanded={expanded}
+              >
+                {expanded ? "Show less" : "Show more"}
+              </button>
+            </div>
+
+            {/* Target statement */}
+            <p className="font-Header text-justify text-gray-400 pt-1">
+              Targeting high-ownership roles at product-focused teams where I can drive web platform performance,
+              own services end-to-end, and mentor while shipping measurable wins.
+            </p>
           </div>
 
-          {/* Image Section */}
-          <div className="group relative lg:w-96 lg:h-96 md:w-72 md:h-72 md:block hidden">
-            <div
-              className="group-hover:translate-x-3 group-hover:translate-y-3
-               duration-200 absolute w-5/6 h-5/6 border-2 border-AAsecondary translate-x-5 
-               translate-y-5 rounded"
-            ></div>
-            <div className="absolute w-5/6 h-5/6 rounded overflow-hidden">
-              <div className="absolute w-full h-full group-hover:opacity-0 bg-AAsecondary opacity-10 duration-200 rounded overflow-hidden"></div>
-              <Img
-                src={"/Portfolio-portrait-3.jpg"}
-                className={"object-contain rounded-lg"}
-                alt="My Image Not Found"
-                loading="lazy" // Lazy loading for non-critical image
-              />
-            </div>
+          {/* Sticky portrait on the far right */}
+          <div className="relative md:justify-self-end md:sticky md:top-24">
+            <figure className="relative w-[320px] lg:w-[340px]">
+              <div className="rounded-lg overflow-hidden ring-2 ring-AAsecondary/70 ring-offset-4 ring-offset-AAprimary transition-transform duration-200 hover:translate-x-1.5 hover:translate-y-1.5">
+                <div className="relative w-full aspect-[4/5]">
+                  <Img
+                    src={"/Portfolio-portrait-3.jpg"}
+                    className="object-cover w-full h-full rounded-lg"
+                    alt="Akshay portrait"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div className="pointer-events-none absolute inset-0 -z-10 rounded-lg translate-x-3 translate-y-3 border-2 border-AAsecondary/60" />
+            </figure>
+          </div>
+        </div>
+
+        {/* Mobile layout (unchanged) */}
+        <div className="md:hidden space-y-6">
+          <div className="space-y-5 sm:text-base text-sm leading-relaxed">
+            <p className="font-Header text-justify text-gray-400">
+              Hello! I'm Akshay, a <span className="text-AAsecondary">Full Stack Software Engineer</span> focused on building fast, reliable products.
+              I earned a <span className="text-AAsecondary">B.E. in Information Technology</span> and{" "}
+              <span className="text-AAsecondary">completed my M.S. in Computer Science (May 2025)</span>.
+            </p>
+            <p className="font-Header text-justify text-gray-400">
+              I’ve shipped software at <span className="text-AAsecondary">Capgemini</span> and{" "}
+              <span className="text-AAsecondary">UMass Chan Medical School</span> with a focus on performance, reliability and DX.
+            </p>
           </div>
 
-          {/* Mobile Image */}
-          <div className="relative w-full h-48 md:hidden flex justify-center items-center">
-            <div className="absolute w-48 h-full rounded translate-x-5 translate-y-5 border-2 border-AAsecondary"></div>
-            <div className="absolute w-48 h-full rounded overflow-hidden">
-              <Img
-                src={"/Portfolio-portrait-3.jpg"}
-                className={"object-contain rounded-lg"}
-                alt="My Image Not Found"
-                loading="lazy" // Lazy loading for non-critical image
-              />
+          <figure className="relative w-48 mx-auto">
+            <div className="rounded-lg overflow-hidden ring-2 ring-AAsecondary/70 ring-offset-4 ring-offset-AAprimary">
+              <div className="w-full aspect-[4/5]">
+                <Img
+                  src={"/Portfolio-portrait-3.jpg"}
+                  className="object-cover w-full h-full rounded-lg"
+                  alt="Akshay portrait"
+                  loading="lazy"
+                />
+              </div>
             </div>
-            <div className="absolute w-48 h-full bg-AAsecondary opacity-10 md:opacity-60 rounded overflow-hidden"></div>
-          </div>
+          </figure>
+
+          {/* (The rest of the content stacks below on mobile, as before) */}
         </div>
       </div>
     </div>

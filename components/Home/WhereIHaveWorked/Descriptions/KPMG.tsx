@@ -4,13 +4,24 @@ import { getTasksTextWithHighlightedKeyword } from "./taskAndType";
 
 export default function KPMG() {
   const tasks = [
+    // existing bullets (kept/trimmed)
     {
-      text: "Enhanced the in-house CRM with 30+ new features using Java, increasing system functionality.",
+      text: "Created 30+ feature enhancements for the in-house CRM using Java, improving usability and team efficiency.",
       keywords: ["CRM", "Java", "feature enhancements"],
     },
     {
-      text: "Implemented client-side validation using JavaScript, achieving a 99% client satisfaction rate.",
-      keywords: ["client-side validation", "JavaScript", "client satisfaction"],
+      text: "Contributed to distributed applications architecture and ensured compliance with internal data-handling standards.",
+      keywords: ["distributed architecture", "compliance", "data handling"],
+    },
+
+    // NEW: industry-standard additions
+    {
+      text: "Wrote unit/integration tests and CI checks for core CRM modules; reached ~85% coverage on critical paths.",
+      keywords: ["unit tests", "integration tests", "CI", "coverage"],
+    },
+    {
+      text: "Documented services and onboarding guides; ran stakeholder demos and gathered feedback to tighten acceptance cycles.",
+      keywords: ["documentation", "onboarding", "demos", "stakeholders"],
     },
   ];
 
@@ -20,9 +31,7 @@ export default function KPMG() {
         <span className="text-gray-100 sm:text-lg text-sm font-Arimo tracking-wide">
           Intern <span className="text-AAsecondary">@ KPMG</span>
         </span>
-        <span className="font-mono text-xs text-gray-500">
-          Jul 2020 - Dec 2020
-        </span>
+        <span className="font-mono text-xs text-gray-500">Jul 2020 – Dec 2020</span>
       </div>
       <div className="flex flex-col space-y-4 sm:text-sm text-xs">
         {tasks.map((item, index) => (
@@ -31,12 +40,9 @@ export default function KPMG() {
             <span
               className="text-gray-500 sm:text-sm text-xs"
               dangerouslySetInnerHTML={{
-                __html: getTasksTextWithHighlightedKeyword(
-                  item.text,
-                  item.keywords
-                ),
+                __html: getTasksTextWithHighlightedKeyword(item.text, item.keywords),
               }}
-            ></span>
+            />
           </div>
         ))}
       </div>
