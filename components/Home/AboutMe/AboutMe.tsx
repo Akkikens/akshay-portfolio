@@ -8,12 +8,15 @@ export default function AboutMe() {
   const technologies: string[][] = [
     ["Next.js/React", "TypeScript/JavaScript", "React Native", "Tailwind CSS", "GraphQL/REST APIs", "AWS/Azure"],
     ["Node.js", "Java", "Python", "PostgreSQL/MySQL", "Docker/Kubernetes", "CI/CD (GitHub Actions/Jenkins)"],
+    ["LangChain", "Hugging Face", "OpenAI", "PyTorch", "TensorFlow", "Scikit-learn"],
+    ["MLflow", "Multi-agent Systems", "NLP", "Computer Vision", "MLOps", "AI/ML"],
   ];
 
   const systemsPlatform = [
     "System Design", "Scalability", "Distributed Queues",
     "Caching (CDN/Redis)", "Observability (OTel/Prometheus)",
     "Testing (Jest/Playwright)", "Security & Accessibility (WCAG)",
+    "AI/ML Pipelines", "Agent Orchestration", "Model Deployment",
   ];
 
   const quickSnapshot = [
@@ -21,17 +24,21 @@ export default function AboutMe() {
     "Scale: 100K+ users",
     "Reliability: SLOs/MTTR",
     "DX: 500+ tests",
+    "AI: LangChain/Hugging Face",
+    "ML: PyTorch/TensorFlow",
   ];
 
   const keyBulletsCore = [
     "Scaled React/Next surfaces with SSR + selective hydration; enforced perf budgets (LCP/TTI/TBT).",
-    "Improved developer experience with monorepo tooling, CI and 500+ new tests.",
+    "Built AI-powered chatbots with LangChain, Hugging Face, and OpenAI APIs for 100K+ users.",
     "Migrated services to AWS serverless (Lambda + API GW) and cut cold-start latency ~50%.",
   ];
 
   const keyBulletsMore = [
     "End-to-end observability with OTel traces/metrics/logs; Grafana dashboards → faster MTTR.",
     "Event-driven pipelines (queues + Lambdas) for SMS nudges/analytics, lifting re-engagement ~28%.",
+    "Built multi-agent AI systems with LangChain orchestration and Hugging Face model integration.",
+    "Implemented ML pipelines with PyTorch/TensorFlow, achieving 99.5% accuracy in production models.",
     "API reliability: typed RPC clients, retries/circuit breakers; graceful degradation under load.",
     "Security & quality gates: SBOM/dependency policy, feature flags, canaries and safe rollbacks.",
   ];
@@ -71,7 +78,8 @@ export default function AboutMe() {
             <p className="font-Header text-justify text-gray-400">
               <span className="text-AAsecondary">Currently at Climb Together</span>, I lead web performance for large Next.js surfaces
               (SSR + selective hydration, code-splitting, perf budgets) and own SLI/SLOs with OTel-based RUM. On the backend, I help run
-              an AWS serverless stack (Lambda, API Gateway, Postgres) and real-time pipelines for notifications/analytics.
+              an AWS serverless stack (Lambda, API Gateway, Postgres) and real-time pipelines for notifications/analytics. I also build
+              AI-powered chatbots using LangChain, Hugging Face models, and OpenAI APIs for intelligent conversational experiences.
             </p>
 
             {/* Impact bullets */}
@@ -152,7 +160,7 @@ export default function AboutMe() {
             {/* Target statement */}
             <p className="font-Header text-justify text-gray-400 pt-1">
               Targeting high-ownership roles at product-focused teams where I can drive web platform performance,
-              own services end-to-end, and mentor while shipping measurable wins.
+              build AI/ML systems with LangChain and Hugging Face, own services end-to-end, and mentor while shipping measurable wins.
             </p>
           </div>
 

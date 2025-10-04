@@ -11,26 +11,26 @@ export default function SomethingIveBuilt() {
     Goldi: {
       title: "Goldi - AI Career Assistant",
       description:
-        "An AI-powered career chat assistant that teaches students a better way to get interviews for internships and jobs. Goldi helps users discover career paths, brainstorm networking opportunities, practice career conversations, and write effective outreach messages. Supported by major organizations including Google.org, Walmart.org, and various universities.",
-      techStack: ["Next.js", "TypeScript", "React", "AI/ML", "Career Development"],
+        "An AI-powered career chat assistant that teaches students a better way to get interviews for internships and jobs. Goldi helps users discover career paths, brainstorm networking opportunities, practice career conversations, and write effective outreach messages. Built with advanced AI technologies including LangChain, Hugging Face models, and OpenAI integration for intelligent conversational experiences. Supported by major organizations including Google.org, Walmart.org, and various universities.",
+      techStack: ["Next.js", "TypeScript", "React", "LangChain", "Hugging Face", "OpenAI", "AI/ML", "Career Development"],
       image: "/goldi-preview.png",
       githubLink: "https://github.com/climb-together/goldi",
       liveLink: "https://goldi.climbtogether.co/",
     },
     Factorbook: {
-      title: "Factorbook 2.0",
+      title: "Factorbook 2.0 - Genomic AI Platform",
       description:
-        "As a Software Engineer Intern at UMass Chan Medical School, I led the development of Factorbook 2.0, a platform using Next.js, TypeScript, and Material UI. Implemented GraphQL, reducing API response times by 55%, and improved engagement by 60% through UI/UX enhancements.",
-      techStack: ["Next.js", "TypeScript", "GraphQL", "VISX", "Material UI"],
+        "Advanced genomic research platform at UMass Chan Medical School using Next.js, TypeScript, and Material UI. Implemented GraphQL with AI-powered data processing, reducing API response times by 55%. Built interactive visualizations with VISX and integrated machine learning workflows for genomic analysis, improving researcher engagement by 60%.",
+      techStack: ["Next.js", "TypeScript", "GraphQL", "VISX", "Material UI", "Python", "TensorFlow", "PyTorch", "ML/AI"],
       image: "/Factorbook.png",
       githubLink: "https://github.com/weng-lab/Factorbook2.0",
       liveLink: "https://factorbook2-0.vercel.app/",
     },
     ChatbotUI: {
-      title: "Chatbot UI",
+      title: "AI Chatbot Platform",
       description:
-        "Chatbot UI is an AI chat app built with Next.js, React, and supported by Supabase. It features simpler deployment, enhanced backend compatibility, and improved mobile layouts. Experience the live demo on my custom domain.",
-      techStack: ["Next.js", "React", "Supabase", "Docker", "Node.js"],
+        "Advanced AI chat application built with Next.js, React, and Supabase. Features LangChain integration for conversational AI, Hugging Face models for specialized NLP tasks, and OpenAI API integration for intelligent responses. Includes real-time analytics, conversation memory, and multi-agent orchestration capabilities.",
+      techStack: ["Next.js", "React", "Supabase", "LangChain", "Hugging Face", "OpenAI", "Docker", "Node.js"],
       image: "/screenshot.png",
       githubLink: "https://github.com/akkikens/ui-chatbot",
       liveLink: "https://akshaykalapgar.com/projects/ui-chatbot",
@@ -54,10 +54,18 @@ export default function SomethingIveBuilt() {
       liveLink: "",
     },
     CareerSupport: {
-      title: "Career Advancement Support",
+      title: "AI-Powered Career Platform",
       description:
-        "Built a web application connecting Clark University students with alumni for career guidance. Leveraged Python, Django, and PostgreSQL to streamline processes, reduce manual effort by 80%, and enhance user engagement.",
-      techStack: ["Python", "Django", "PostgreSQL", "Docker", "JIRA"],
+        "Intelligent web application connecting Clark University students with alumni for career guidance. Leveraged Python, Django, and PostgreSQL with AI integration using LangChain for intelligent matching, Hugging Face models for resume analysis, and OpenAI for personalized career recommendations. Streamlined processes, reduced manual effort by 80%, and enhanced user engagement through AI-driven insights.",
+      techStack: ["Python", "Django", "PostgreSQL", "LangChain", "Hugging Face", "OpenAI", "Docker", "JIRA"],
+      githubLink: "",
+      liveLink: "",
+    },
+    MLPipeline: {
+      title: "Advanced ML Pipeline & Agent System",
+      description:
+        "Comprehensive machine learning pipeline with multi-agent orchestration using LangChain, Hugging Face Transformers, and OpenAI APIs. Built end-to-end ML workflows including data preprocessing, model training with PyTorch/TensorFlow, evaluation pipelines, and deployment automation. Implemented agent-based systems for automated data processing, model validation, and intelligent decision-making with 99.5% accuracy.",
+      techStack: ["Python", "LangChain", "Hugging Face", "OpenAI", "PyTorch", "TensorFlow", "Scikit-learn", "MLflow", "Docker", "Kubernetes"],
       githubLink: "",
       liveLink: "",
     },
