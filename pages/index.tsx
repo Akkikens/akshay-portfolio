@@ -7,7 +7,6 @@ import Head from "next/head";
 import AppContext from "../components/AppContextFolder/AppContext";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
-import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 
 // Intro overlays
 import ThisCantBeReached from "../components/Home/ThisSiteCantBeReached/ThisCantBeReached";
@@ -177,9 +176,6 @@ export default function Home() {
 
       {!isBlackListed ? (
         <div className="relative min-h-screen w-full bg-AAprimary snap-mandatory">
-          {/* Theme Toggle */}
-          <ThemeToggle />
-          
           {/* Orchestrated intros */}
           {showErr && <ThisCantBeReached /* keep its own short internal timing */ />}
           {showLogo && <Startup /* if your component supports it: durationMs={900} */ />}
