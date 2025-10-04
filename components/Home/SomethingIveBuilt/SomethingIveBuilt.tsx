@@ -5,9 +5,18 @@ import Img from "../../smallComp/image/Img";
 import GithubIcon from "../../Icons/GithubIconForSomethingIveBuild";
 
 export default function SomethingIveBuilt() {
-  const [activeTab, setActiveTab] = useState("Factorbook");
+  const [activeTab, setActiveTab] = useState("Goldi");
 
   const projects = {
+    Goldi: {
+      title: "Goldi",
+      description:
+        "A modern web application built with Next.js and TypeScript, featuring a clean and responsive design. The project showcases advanced frontend development skills with optimized performance and user experience.",
+      techStack: ["Next.js", "TypeScript", "React", "Tailwind CSS"],
+      image: "/goldi-preview.png", // You'll need to add this image to the public folder
+      githubLink: "",
+      liveLink: "https://goldi.climbtogether.co/",
+    },
     Factorbook: {
       title: "Factorbook 2.0",
       description:
