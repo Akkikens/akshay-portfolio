@@ -156,7 +156,7 @@ const GenomicVisualization: React.FC<{ data: GenomicData[] }> = ({ data }) => {
   return (
     <svg width={width} height={height}>
       {processedData.map((gene, index) => {
-        const color = `hsl(${index * 60}, 70%, 50%)`;
+        const color = 'hsl(' + (index * 60) + ', 70%, 50%)';
         return (
           <g key={gene.gene}>
             <Area
