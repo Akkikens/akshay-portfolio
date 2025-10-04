@@ -32,12 +32,6 @@ const Certifications = React.lazy(
 const GetInTouch = React.lazy(
   () => import("../components/Home/GetInTouch/GetInTouch")
 );
-const Testimonials = React.lazy(
-  () => import("../components/Home/Testimonials/Testimonials")
-);
-const LiveDemo = React.lazy(
-  () => import("../components/Home/LiveDemo/LiveDemo")
-);
 const Footer = React.lazy(() => import("../components/Footer/Footer"));
 
 export default function Home() {

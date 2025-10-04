@@ -155,25 +155,28 @@ const GenomicVisualization: React.FC<{ data: GenomicData[] }> = ({ data }) => {
 
   return (
     <svg width={width} height={height}>
-      {processedData.map((gene, index) => (
-        <g key={gene.gene}>
-          <Area
-            data={gene.normalized}
-            x={d => xScale(d.x)}
-            y0={yScale(0)}
-            y1={d => yScale(d.y)}
-            fill={`hsl(${index * 60}, 70%, 50%)`}
-            fillOpacity={0.3}
-          />
-          <Line
-            data={gene.normalized}
-            x={d => xScale(d.x)}
-            y={d => yScale(d.y)}
-            stroke={`hsl(${index * 60}, 70%, 50%)`}
-            strokeWidth={2}
-          />
-        </g>
-      ))}
+      {processedData.map((gene, index) => {
+        const color = `hsl(${index * 60}, 70%, 50%)`;
+        return (
+          <g key={gene.gene}>
+            <Area
+              data={gene.normalized}
+              x={d => xScale(d.x)}
+              y0={yScale(0)}
+              y1={d => yScale(d.y)}
+              fill={color}
+              fillOpacity={0.3}
+            />
+            <Line
+              data={gene.normalized}
+              x={d => xScale(d.x)}
+              y={d => yScale(d.y)}
+              stroke={color}
+              strokeWidth={2}
+            />
+          </g>
+        );
+      })}
     </svg>
   );
 };`,
