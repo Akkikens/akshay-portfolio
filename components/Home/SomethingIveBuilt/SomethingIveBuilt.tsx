@@ -91,15 +91,15 @@ export default function SomethingIveBuilt() {
       </div>
 
       {/* Tabs Section */}
-      <div className="flex flex-row space-x-4 mt-8 overflow-auto scrollbar-hide">
+      <div className="flex flex-wrap gap-2 mt-8">
         {Object.keys(projects).map((key) => (
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`py-2 px-4 rounded ${
+            className={`py-2 px-3 text-xs sm:text-sm rounded whitespace-nowrap ${
               activeTab === key
                 ? "bg-AAsecondary text-AAprimary"
-                : "text-gray-400 hover:text-AAsecondary"
+                : "text-gray-400 hover:text-AAsecondary bg-gray-800/50 hover:bg-gray-700/50"
             }`}
           >
             {projects[key].title}
@@ -112,11 +112,11 @@ export default function SomethingIveBuilt() {
         data-aos="fade-up"
         className={`relative grid ${
           activeProject.image ? "md:grid-cols-12" : "md:grid-cols-6"
-        } grid-cols-1 w-full mt-12 gap-8`}
+        } grid-cols-1 w-full mt-12 gap-6 md:gap-8`}
       >
         {/* Left Image Section (Only Render If Image Exists) */}
         {activeProject.image && (
-          <div className="col-span-12 md:col-span-7 flex items-center justify-center">
+          <div className="col-span-12 md:col-span-7 flex items-center justify-center order-1 md:order-1">
             <Img
               src={activeProject.image}
               alt={`${activeProject.title} Screenshot`}
@@ -129,10 +129,10 @@ export default function SomethingIveBuilt() {
         <div
           className={`${
             activeProject.image ? "md:col-span-5" : "md:col-span-6"
-          } flex flex-col space-y-6`}
+          } flex flex-col space-y-4 md:space-y-6 order-2 md:order-2`}
         >
           <div className="space-y-2">
-            <span className="text-AAsecondary text-base font-semibold">
+            <span className="text-AAsecondary text-sm sm:text-base font-semibold">
               {activeProject.title}
             </span>
             {activeProject.liveLink && (
@@ -140,17 +140,17 @@ export default function SomethingIveBuilt() {
                 href={activeProject.liveLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-base font-medium text-AAsecondary hover:underline"
+                className="text-sm sm:text-base font-medium text-AAsecondary hover:underline"
               >
                 <br></br>
                 Visit Project
               </a>
             )}
           </div>
-          <p className="text-gray-300 text-lg">{activeProject.description}</p>
-          <ul className="flex flex-wrap text-gray-300 text-sm space-x-4">
+          <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">{activeProject.description}</p>
+          <ul className="flex flex-wrap text-gray-300 text-xs sm:text-sm gap-2">
             {activeProject.techStack.map((tech, index) => (
-              <li key={index} className="bg-gray-700 px-3 py-1 rounded">
+              <li key={index} className="bg-gray-700 px-2 py-1 rounded text-center">
                 {tech}
               </li>
             ))}
