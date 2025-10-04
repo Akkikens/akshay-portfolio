@@ -7,6 +7,7 @@ import Head from "next/head";
 import AppContext from "../components/AppContextFolder/AppContext";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
+import ThemeToggle from "../components/ThemeToggle/ThemeToggle";
 
 // Intro overlays
 import ThisCantBeReached from "../components/Home/ThisSiteCantBeReached/ThisCantBeReached";
@@ -30,6 +31,12 @@ const Certifications = React.lazy(
 );
 const GetInTouch = React.lazy(
   () => import("../components/Home/GetInTouch/GetInTouch")
+);
+const Testimonials = React.lazy(
+  () => import("../components/Home/Testimonials/Testimonials")
+);
+const LiveDemo = React.lazy(
+  () => import("../components/Home/LiveDemo/LiveDemo")
 );
 const Footer = React.lazy(() => import("../components/Footer/Footer"));
 
@@ -129,9 +136,9 @@ export default function Home() {
 
   // --- Meta (kept) ---
   const meta = {
-    title: "Akshay Kalapgar - Full Stack Developer",
+    title: "Akshay Kalapgar - AI/ML Full Stack Engineer | LangChain, Hugging Face, OpenAI Expert",
     description:
-      "Full Stack Developer with 3+ years building scalable apps with Next.js, TypeScript, AWS, and more. Let’s connect.",
+      "AI/ML Full Stack Engineer with 3+ years building scalable SaaS platforms, AI chatbots with LangChain & Hugging Face, and cloud-native applications. Specialized in Next.js, TypeScript, Python, PyTorch, TensorFlow. Available for high-impact roles.",
     image: "/Portfolio-portrait-4.jpg",
     type: "website",
   };
@@ -143,22 +150,36 @@ export default function Home() {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
+        <meta name="keywords" content="AI Engineer, Full Stack Developer, LangChain, Hugging Face, OpenAI, PyTorch, TensorFlow, Next.js, TypeScript, Python, Machine Learning, SaaS, Cloud, AWS, Azure, React, Node.js, MLOps, Chatbot Development, Genomic Data, Healthcare AI" />
+        <meta name="author" content="Akshay Kalapgar" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta property="og:url" content="https://akshaykalapgar.com" />
         <link rel="canonical" href="https://akshaykalapgar.com" />
         <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content="Akshay Kalapgar" />
+        <meta property="og:site_name" content="Akshay Kalapgar Portfolio" />
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@akshaykalapgar" />
+        <meta name="twitter:creator" content="@akshaykalapgar" />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
+        <meta name="theme-color" content="#0a192f" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </Head>
 
       {!isBlackListed ? (
         <div className="relative min-h-screen w-full bg-AAprimary snap-mandatory">
+          {/* Theme Toggle */}
+          <ThemeToggle />
+          
           {/* Orchestrated intros */}
           {showErr && <ThisCantBeReached /* keep its own short internal timing */ />}
           {showLogo && <Startup /* if your component supports it: durationMs={900} */ />}
@@ -173,6 +194,8 @@ export default function Home() {
               <WhereIHaveWorked />
               <Certifications />
               <SomethingIveBuilt />
+              <Testimonials />
+              <LiveDemo />
               <GetInTouch />
               <Footer
                 githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
