@@ -9,11 +9,11 @@ export default function SomethingIveBuilt() {
 
   const projects = {
     Goldi: {
-      title: "Goldi",
+      title: "Goldi - AI Career Assistant",
       description:
-        "A modern web application built with Next.js and TypeScript, featuring a clean and responsive design. The project showcases advanced frontend development skills with optimized performance and user experience.",
-      techStack: ["Next.js", "TypeScript", "React", "Tailwind CSS"],
-      image: "/goldi-preview.png", // You'll need to add this image to the public folder
+        "An AI-powered career chat assistant that teaches students a better way to get interviews for internships and jobs. Goldi helps users discover career paths, brainstorm networking opportunities, practice career conversations, and write effective outreach messages. Supported by major organizations including Google.org, Walmart.org, and various universities.",
+      techStack: ["Next.js", "TypeScript", "React", "AI/ML", "Career Development"],
+      image: "/goldi-preview.png",
       githubLink: "",
       liveLink: "https://goldi.climbtogether.co/",
     },
