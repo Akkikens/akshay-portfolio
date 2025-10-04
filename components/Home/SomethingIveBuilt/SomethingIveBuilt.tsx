@@ -14,7 +14,7 @@ export default function SomethingIveBuilt() {
         "An AI-powered career chat assistant that teaches students a better way to get interviews for internships and jobs. Goldi helps users discover career paths, brainstorm networking opportunities, practice career conversations, and write effective outreach messages. Supported by major organizations including Google.org, Walmart.org, and various universities.",
       techStack: ["Next.js", "TypeScript", "React", "AI/ML", "Career Development"],
       image: "/goldi-preview.png",
-      githubLink: "",
+      githubLink: "https://github.com/climb-together/goldi",
       liveLink: "https://goldi.climbtogether.co/",
     },
     Factorbook: {
