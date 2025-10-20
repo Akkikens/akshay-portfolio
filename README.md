@@ -6,8 +6,6 @@
 
 <p align="center">
 
-
- 
   The first iteration of <a href="https://akshaykalapgar.com" target="_blank">AkshayKalapgar.com</a>, built with <a href="https://nextjs.org/" target="_blank">Next.js</a> and hosted on <a href="https://vercel.com/" target="_blank">Vercel</a>.
 </p>
 <p align="center">
