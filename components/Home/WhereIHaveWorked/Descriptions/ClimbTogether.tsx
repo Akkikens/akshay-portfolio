@@ -6,53 +6,53 @@ export default function ClimbTogether() {
   const tasks = [
     {
       text:
-        "Optimized performance for large Next.js applications using server-side rendering, code-splitting, and performance monitoring; built type-safe API clients and Node.js middleware.",
-      keywords: ["Next.js", "SSR", "code-splitting", "performance monitoring", "API clients", "middleware"],
+        "Built full-stack Next.js 15 application with React 19, TypeScript, and Tailwind CSS; implemented server-side rendering and code-splitting for optimal performance.",
+      keywords: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "SSR", "code-splitting"],
     },
     {
       text:
-        "Architected scalable user onboarding system with Next.js, Clerk authentication, and Twilio Verify, serving 100K+ users and increasing verified opt-ins by 35%.",
-      keywords: ["onboarding", "Clerk", "Twilio Verify", "100K+", "35%"],
+        "Developed AI-powered chatbot using LangChain, OpenAI GPT-4, and Anthropic Claude; integrated voice capabilities with Hume AI for natural conversations.",
+      keywords: ["LangChain", "OpenAI", "Anthropic Claude", "Hume AI", "chatbot"],
     },
     {
       text:
-        "Built real-time data pipelines for SMS notifications and behavior analytics, increasing user re-engagement by 28%.",
-      keywords: ["real-time", "pipelines", "SMS", "analytics", "28%"],
+        "Implemented user authentication and onboarding with Clerk, integrated Twilio for SMS verification and notifications, serving 100K+ users.",
+      keywords: ["Clerk", "Twilio", "SMS", "authentication", "100K+"],
     },
     {
       text:
-        "Led migration to serverless architecture on AWS Lambda with PostgreSQL (Drizzle ORM), reducing cold-start latency by ~50%.",
-      keywords: ["serverless", "AWS Lambda", "PostgreSQL", "Drizzle", "cold-start", "50%"],
+        "Built database layer with Drizzle ORM and PostgreSQL; designed schema migrations and optimized queries for performance.",
+      keywords: ["Drizzle ORM", "PostgreSQL", "database", "migrations", "queries"],
     },
     {
       text:
-        "Implemented comprehensive monitoring and alerting system to track application performance and proactively identify issues.",
-      keywords: ["monitoring", "alerting", "performance tracking", "proactive"],
+        "Integrated vector search with ChromaDB for semantic search and RAG (Retrieval-Augmented Generation) capabilities in AI features.",
+      keywords: ["ChromaDB", "vector search", "RAG", "semantic search"],
     },
     {
       text:
-        "Established incident response procedures and documentation, reducing mean time to recovery by ~25% through clear ownership and dashboards.",
-      keywords: ["incident response", "documentation", "recovery time", "dashboards"],
+        "Implemented monitoring with Sentry for error tracking and Vercel Analytics for performance metrics; set up PostHog for product analytics.",
+      keywords: ["Sentry", "Vercel Analytics", "PostHog", "monitoring", "error tracking"],
     },
     {
       text:
-        "Deployed feature flags and gradual rollout strategies to minimize deployment risks and enable safe releases.",
-      keywords: ["feature flags", "gradual rollout", "deployment", "safe releases"],
+        "Built comprehensive test suite with Jest achieving high code coverage; implemented E2E tests with Puppeteer for critical user flows.",
+      keywords: ["Jest", "testing", "Puppeteer", "E2E tests", "code coverage"],
     },
     {
       text:
-        "Conducted load testing and performance profiling to identify bottlenecks and prevent regressions; automated performance checks in CI/CD pipeline.",
-      keywords: ["load testing", "profiling", "bottlenecks", "CI/CD"],
+        "Developed document processing pipeline using PDF parsing libraries to extract and analyze content for AI-powered insights.",
+      keywords: ["PDF parsing", "document processing", "data extraction"],
     },
     {
       text:
-        "Optimized AWS infrastructure costs through resource right-sizing, SQS batching, and storage lifecycle policies, reducing monthly compute spend by ~22%.",
-      keywords: ["cost optimization", "AWS", "SQS", "lifecycle policies"],
+        "Implemented real-time features using React hooks and SWR for data fetching; optimized rendering with React Virtualized for large lists.",
+      keywords: ["React hooks", "SWR", "React Virtualized", "real-time", "optimization"],
     },
     {
       text:
-        "Implemented security best practices including IAM policies, secrets management, TLS encryption, and audit logging for sensitive operations.",
-      keywords: ["IAM", "secrets management", "TLS", "encryption", "audit logs"],
+        "Set up CI/CD pipeline with automated testing, linting with Biome, and deployment to Vercel; configured environment-specific builds.",
+      keywords: ["CI/CD", "Biome", "Vercel", "automated testing", "deployment"],
     },
   ];
 
