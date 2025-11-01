@@ -8,10 +8,6 @@ import AppContext from "../components/AppContextFolder/AppContext";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
 
-// Intro overlays
-import ThisCantBeReached from "../components/Home/ThisSiteCantBeReached/ThisCantBeReached";
-import Startup from "../components/Header/StartupLogo/Startup";
-
 // Lazy content
 const Header = React.lazy(() => import("../components/Header/Header"));
 const MyName = React.lazy(() => import("../components/Home/MyName/MyName"));
@@ -42,12 +38,7 @@ const Footer = React.lazy(() => import("../components/Footer/Footer"));
 export default function Home() {
   const context = useContext(AppContext);
 
-  // --- Orchestration flags (single source of truth) ---
-  const [showErr, setShowErr] = useState(true);
-  const [showLogo, setShowLogo] = useState(false);
-  const [isMain, setIsMain] = useState(false);
-
-  // --- Blacklist logic (kept) ---
+  // --- Blacklist logic ---
   const [userData, setUserData] = useState<any>(null);
   const [isBlackListed, setIsBlackListed] = useState(false);
 
@@ -80,37 +71,12 @@ export default function Home() {
   }, [userData, blacklistedCountries]);
 
   useEffect(() => {
-    // Match ThisCantBeReached’s internal timing (flip @ ~650ms, hide @ ~1600ms)
-    const ERR_TOTAL_MS = 1600;   // how long the faux error stays on
-    const LOGO_MS      = 1100;   // how long the A logo runs
-    const START_GAP    = 50;     // small buffer so error is gone before logo starts
-  
-    setShowErr(true);
-    setShowLogo(false);
-    setIsMain(false);
-  
-    // Show A logo only AFTER the error finishes (no overlap)
-    const t1 = setTimeout(() => setShowLogo(true), ERR_TOTAL_MS + START_GAP);
-  
-    // Unmount the error right when it finishes (keeps things crisp)
-    const t2 = setTimeout(() => setShowErr(false), ERR_TOTAL_MS);
-  
-    // When logo is done, reveal the site
-    const t3 = setTimeout(() => {
-      setShowLogo(false);
-      setIsMain(true);
-      context.setSharedState((prev) => ({ ...prev, finishedLoading: true }));
-    }, ERR_TOTAL_MS + START_GAP + LOGO_MS);
-  
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
+    // Set finished loading immediately - no intro animations
+    context.setSharedState((prev) => ({ ...prev, finishedLoading: true }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // --- Clean up old listeners from your sharedState hooks (kept, but safer) ---
+  // --- Clean up old listeners from your sharedState hooks ---
   useEffect(() => {
     const { sharedState } = context;
     const timer = sharedState?.userdata?.timerCookieRef?.current;
@@ -128,12 +94,12 @@ export default function Home() {
     }
   }, [context]);
 
-  // --- AOS (kept) ---
+  // --- AOS ---
   useEffect(() => {
     Aos.init({ duration: 1500, once: true });
   }, []);
 
-  // --- Meta (kept) ---
+  // --- Meta ---
   const meta = {
     title: "Akshay Kalapgar - AI/ML Full Stack Engineer | LangChain, Hugging Face, OpenAI Expert",
     description:
@@ -176,30 +142,23 @@ export default function Home() {
 
       {!isBlackListed ? (
         <div className="relative min-h-screen w-full bg-AAprimary snap-mandatory">
-          {/* Orchestrated intros */}
-          {showErr && <ThisCantBeReached /* keep its own short internal timing */ />}
-          {showLogo && <Startup /* if your component supports it: durationMs={900} */ />}
-
-          {/* Only render the site when timeline switches to main */}
-          {isMain && (
-            <Suspense fallback={<div className="p-8 text-gray-400">Loading…</div>}>
-              <Header finishedLoading={true} sectionsRef={null} />
-              <MyName finishedLoading={true} />
-              <SocialMediaArround finishedLoading={true} />
-              <AboutMe />
-              <WhereIHaveWorked />
-              <Certifications />
-              <SomethingIveBuilt />
-              <Testimonials />
-              <LiveDemo />
-              <GetInTouch />
-              <Footer
-                githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
-                hideSocialsInDesktop={true}
-              />
-              {!isProd && <ScreenSizeDetector />}
-            </Suspense>
-          )}
+          <Suspense fallback={<div className="p-8 text-gray-400">Loading…</div>}>
+            <Header finishedLoading={true} sectionsRef={null} />
+            <MyName finishedLoading={true} />
+            <SocialMediaArround finishedLoading={true} />
+            <AboutMe />
+            <WhereIHaveWorked />
+            <Certifications />
+            <SomethingIveBuilt />
+            <Testimonials />
+            <LiveDemo />
+            <GetInTouch />
+            <Footer
+              githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
+              hideSocialsInDesktop={true}
+            />
+            {!isProd && <ScreenSizeDetector />}
+          </Suspense>
         </div>
       ) : (
         <Maintenance />
