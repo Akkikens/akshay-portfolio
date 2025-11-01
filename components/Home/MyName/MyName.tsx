@@ -1,22 +1,12 @@
 import React from "react";
 import NextLink from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
 import { scroller } from "react-scroll";
 
 type Props = { finishedLoading?: boolean };
 
 export default function MyName({ finishedLoading = false }: Props) {
-  // Don’t render anything until the intros are done
+  // Don't render anything until the intros are done
   if (!finishedLoading) return null;
-
-  const prefersReduced = useReducedMotion();
-  const baseDelay = prefersReduced ? 0 : 0.05;
-
-  const fadeUp = (extraDelay = 0) => ({
-    initial: { opacity: 0, y: prefersReduced ? 0 : 12 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.45, delay: baseDelay + extraDelay, ease: [0.22, 1, 0.36, 1] as any },
-  });
 
   const scrollTo = (id: string, offset = -50) =>
     scroller.scrollTo(id, { duration: 300, smooth: true, offset });
@@ -25,15 +15,15 @@ export default function MyName({ finishedLoading = false }: Props) {
     <section id="home" className="bg-AAprimary text-gray-300" aria-label="Introduction">
       <div className="mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-16 xl:px-20 2xl:px-24">
         <div className="min-h-[80vh] flex flex-col justify-center py-28 sm:py-36">
-          <motion.span {...fadeUp(0)} className="font-mono text-AAsecondary">Hello, I am</motion.span>
-          <motion.h1 {...fadeUp(0.12)} className="mt-3 font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+          <span className="font-mono text-AAsecondary">Hello, I am</span>
+          <h1 className="mt-3 font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
             Akshay Kalapgar.
-          </motion.h1>
-          <motion.h2 {...fadeUp(0.24)} className="mt-3 font-bold text-gray-400 tracking-tight text-3xl sm:text-4xl md:text-5xl">
+          </h1>
+          <h2 className="mt-3 font-bold text-gray-400 tracking-tight text-3xl sm:text-4xl md:text-5xl">
             I build impactful digital solutions.
-          </motion.h2>
+          </h2>
 
-          <motion.p {...fadeUp(0.36)} className="mt-8 font-Header text-[15px] sm:text-base leading-8 text-gray-400 max-w-[70ch]">
+          <p className="mt-8 font-Header text-[15px] sm:text-base leading-8 text-gray-400 max-w-[70ch]">
             Full-stack engineer focused on <span className="text-AAsecondary">performance</span> and{" "}
             <span className="text-AAsecondary">scalability</span>. I build React/Next.js applications with server-side rendering,
             optimize frontend performance, and design scalable backend systems. Recently increased engagement by{" "}
@@ -41,9 +31,9 @@ export default function MyName({ finishedLoading = false }: Props) {
             <span className="text-AAsecondary">55%</span> at UMass Chan. Experienced with{" "}
             <span className="text-AAsecondary">AWS</span>, <span className="text-AAsecondary">TypeScript</span>, and{" "}
             <span className="text-AAsecondary">distributed systems</span>.
-          </motion.p>
+          </p>
 
-          <motion.ul {...fadeUp(0.48)} className="mt-6 flex flex-wrap gap-2" aria-label="Highlights">
+          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Highlights">
             {[
               "Next.js • TypeScript • Node.js",
               "AWS (Lambda / API Gateway / SQS)",
@@ -55,9 +45,9 @@ export default function MyName({ finishedLoading = false }: Props) {
                 {chip}
               </li>
             ))}
-          </motion.ul>
+          </ul>
 
-          <motion.div {...fadeUp(0.6)} className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap gap-4">
             <NextLink href="/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open my resume in a new tab">
               <button className="bg-AAprimary text-AAsecondary border border-AAsecondary rounded px-5 sm:px-7 py-3 hover:bg-ResumeButtonHover transition">
                 View My Resume
@@ -79,11 +69,11 @@ export default function MyName({ finishedLoading = false }: Props) {
             >
               Contact
             </button>
-          </motion.div>
+          </div>
 
-          <motion.p {...fadeUp(0.72)} className="mt-6 text-sm text-gray-500 max-w-[70ch]">
+          <p className="mt-6 text-sm text-gray-500 max-w-[70ch]">
             Seeking AI Software Engineer roles where I can build scalable applications, develop AI/ML solutions, and drive technical excellence.
-          </motion.p>
+          </p>
         </div>
       </div>
     </section>
