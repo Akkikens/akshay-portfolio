@@ -1,5 +1,5 @@
 // pages/index.tsx
-import React, { useContext, useEffect, useState, useRef, Suspense } from "react";
+import React, { useContext, useEffect, useState, Suspense } from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import Head from "next/head";
@@ -7,6 +7,7 @@ import Head from "next/head";
 import AppContext from "../components/AppContextFolder/AppContext";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
+import { useSmoothScroll } from "../hooks/useSmoothScroll";
 
 // Lazy content
 const Header = React.lazy(() => import("../components/Header/Header"));
@@ -37,6 +38,9 @@ const Footer = React.lazy(() => import("../components/Footer/Footer"));
 
 export default function Home() {
   const context = useContext(AppContext);
+  
+  // Apple-like smooth scrolling
+  useSmoothScroll();
 
   // --- Blacklist logic ---
   const [userData, setUserData] = useState<any>(null);

@@ -60,7 +60,7 @@ export default function ClimbTogether() {
     <div className="flex flex-col space-y-5 max-w-xl px-4 md:px-0">
       <div className="flex flex-col space-y-2">
         <span className="text-gray-100 sm:text-lg text-sm font-Arimo tracking-wide">
-          Full Stack Developer <span className="text-AAsecondary">@ Climb Together</span>
+          AI Full Stack Developer <span className="text-AAsecondary">@ Climb Together</span>
         </span>
         <span className="font-mono text-xs text-gray-500">May 2025 – Present</span>
       </div>

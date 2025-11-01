@@ -1,5 +1,6 @@
 import React from "react";
 import NextLink from "next/link";
+import { motion } from "framer-motion";
 import { scroller } from "react-scroll";
 
 type Props = { finishedLoading?: boolean };
@@ -9,21 +10,49 @@ export default function MyName({ finishedLoading = false }: Props) {
   if (!finishedLoading) return null;
 
   const scrollTo = (id: string, offset = -50) =>
-    scroller.scrollTo(id, { duration: 300, smooth: true, offset });
+    scroller.scrollTo(id, { duration: 800, smooth: "easeInOutCubic", offset });
+
+  // Smooth fade-up animations
+  const fadeUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+  };
 
   return (
     <section id="home" className="bg-AAprimary text-gray-300" aria-label="Introduction">
       <div className="mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-16 xl:px-20 2xl:px-24">
         <div className="min-h-[80vh] flex flex-col justify-center py-28 sm:py-36">
-          <span className="font-mono text-AAsecondary">Hello, I am</span>
-          <h1 className="mt-3 font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+          <motion.span 
+            className="font-mono text-AAsecondary"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Hello, I am
+          </motion.span>
+          <motion.h1 
+            className="mt-3 font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
             Akshay Kalapgar.
-          </h1>
-          <h2 className="mt-3 font-bold text-gray-400 tracking-tight text-3xl sm:text-4xl md:text-5xl">
+          </motion.h1>
+          <motion.h2 
+            className="mt-3 font-bold text-gray-400 tracking-tight text-3xl sm:text-4xl md:text-5xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
             I build impactful digital solutions.
-          </h2>
+          </motion.h2>
 
-          <p className="mt-8 font-Header text-[15px] sm:text-base leading-8 text-gray-400 max-w-[70ch]">
+          <motion.p 
+            className="mt-8 font-Header text-[15px] sm:text-base leading-8 text-gray-400 max-w-[70ch]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
             Full-stack engineer focused on <span className="text-AAsecondary">performance</span> and{" "}
             <span className="text-AAsecondary">scalability</span>. I build React/Next.js applications with server-side rendering,
             optimize frontend performance, and design scalable backend systems. Recently increased engagement by{" "}
@@ -31,9 +60,15 @@ export default function MyName({ finishedLoading = false }: Props) {
             <span className="text-AAsecondary">55%</span> at UMass Chan. Experienced with{" "}
             <span className="text-AAsecondary">AWS</span>, <span className="text-AAsecondary">TypeScript</span>, and{" "}
             <span className="text-AAsecondary">distributed systems</span>.
-          </p>
+          </motion.p>
 
-          <ul className="mt-6 flex flex-wrap gap-2" aria-label="Highlights">
+          <motion.ul 
+            className="mt-6 flex flex-wrap gap-2" 
+            aria-label="Highlights"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          >
             {[
               "Next.js • TypeScript • Node.js",
               "AWS (Lambda / API Gateway / SQS)",
@@ -45,18 +80,23 @@ export default function MyName({ finishedLoading = false }: Props) {
                 {chip}
               </li>
             ))}
-          </ul>
+          </motion.ul>
 
-          <div className="mt-10 flex flex-wrap gap-4">
+          <motion.div 
+            className="mt-10 flex flex-wrap gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
             <NextLink href="/resume.pdf" target="_blank" rel="noreferrer" aria-label="Open my resume in a new tab">
-              <button className="bg-AAprimary text-AAsecondary border border-AAsecondary rounded px-5 sm:px-7 py-3 hover:bg-ResumeButtonHover transition">
+              <button className="bg-AAprimary text-AAsecondary border border-AAsecondary rounded px-5 sm:px-7 py-3 hover:bg-ResumeButtonHover transition-all duration-300 hover:scale-105">
                 View My Resume
               </button>
             </NextLink>
 
             <button
               onClick={() => scrollTo("SomethingIveBuiltSection", 100)}
-              className="rounded px-5 sm:px-7 py-3 border border-transparent bg-MobileNavBarColor/60 hover:bg-MobileNavBarColor transition"
+              className="rounded px-5 sm:px-7 py-3 border border-transparent bg-MobileNavBarColor/60 hover:bg-MobileNavBarColor transition-all duration-300 hover:scale-105"
               aria-label="Jump to my work section"
             >
               See My Work
@@ -64,16 +104,21 @@ export default function MyName({ finishedLoading = false }: Props) {
 
             <button
               onClick={() => scrollTo("GetInTouchSection", 100)}
-              className="rounded px-5 sm:px-7 py-3 border border-transparent bg-MobileNavBarColor/40 hover:bg-MobileNavBarColor/60 transition"
+              className="rounded px-5 sm:px-7 py-3 border border-transparent bg-MobileNavBarColor/40 hover:bg-MobileNavBarColor/60 transition-all duration-300 hover:scale-105"
               aria-label="Jump to contact section"
             >
               Contact
             </button>
-          </div>
+          </motion.div>
 
-          <p className="mt-6 text-sm text-gray-500 max-w-[70ch]">
+          <motion.p 
+            className="mt-6 text-sm text-gray-500 max-w-[70ch]"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
             Seeking AI Software Engineer roles where I can build scalable applications, develop AI/ML solutions, and drive technical excellence.
-          </p>
+          </motion.p>
         </div>
       </div>
     </section>
