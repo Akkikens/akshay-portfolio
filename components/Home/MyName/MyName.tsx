@@ -35,21 +35,21 @@ export default function MyName({ finishedLoading = false }: Props) {
 
           <motion.p {...fadeUp(0.36)} className="mt-8 font-Header text-[15px] sm:text-base leading-8 text-gray-400 max-w-[70ch]">
             Full-stack engineer focused on <span className="text-AAsecondary">performance</span> and{" "}
-            <span className="text-AAsecondary">reliability</span>. I ship React/Next.js with SSR & perf budgets,
-            instrument RUM via OTel, and own SLI/SLOs. Recently increased engagement by{" "}
+            <span className="text-AAsecondary">scalability</span>. I build React/Next.js applications with server-side rendering,
+            optimize frontend performance, and design scalable backend systems. Recently increased engagement by{" "}
             <span className="text-AAsecondary">60%</span> and reduced API latency by{" "}
-            <span className="text-AAsecondary">55%</span> at UMass Chan. Comfortable across{" "}
-            <span className="text-AAsecondary">AWS serverless</span>, <span className="text-AAsecondary">TypeScript</span>, and{" "}
-            <span className="text-AAsecondary">system design</span>.
+            <span className="text-AAsecondary">55%</span> at UMass Chan. Experienced with{" "}
+            <span className="text-AAsecondary">AWS</span>, <span className="text-AAsecondary">TypeScript</span>, and{" "}
+            <span className="text-AAsecondary">distributed systems</span>.
           </motion.p>
 
           <motion.ul {...fadeUp(0.48)} className="mt-6 flex flex-wrap gap-2" aria-label="Highlights">
             {[
-              "Next.js • TypeScript • Node",
-              "AWS (Lambda / API GW / SQS)",
-              "Observability: OTel / Prometheus",
-              "Ownership: SLOs • On-call • Runbooks",
-              "DX: 500+ tests • CI/CD",
+              "Next.js • TypeScript • Node.js",
+              "AWS (Lambda / API Gateway / SQS)",
+              "React • Python • PostgreSQL",
+              "AI/ML: LangChain • OpenAI • Hugging Face",
+              "Testing & CI/CD • Docker • Kubernetes",
             ].map((chip) => (
               <li key={chip} className="text-xs sm:text-[13px] text-gray-300 bg-MobileNavBarColor/50 border border-MobileNavBarColor/70 rounded px-2 py-1">
                 {chip}
@@ -82,7 +82,7 @@ export default function MyName({ finishedLoading = false }: Props) {
           </motion.div>
 
           <motion.p {...fadeUp(0.72)} className="mt-6 text-sm text-gray-500 max-w-[70ch]">
-            Exploring high-ownership roles on product/platform teams. Comfortable leading performance initiatives, migrations, and incident response.
+            Seeking AI Software Engineer roles where I can build scalable applications, develop AI/ML solutions, and drive technical excellence.
           </motion.p>
         </div>
       </div>

@@ -13,34 +13,34 @@ export default function AboutMe() {
   ];
 
   const systemsPlatform = [
-    "System Design", "Scalability", "Distributed Queues",
-    "Caching (CDN/Redis)", "Observability (OTel/Prometheus)",
+    "System Design", "Scalability", "Distributed Systems",
+    "Caching (CDN/Redis)", "Monitoring & Logging",
     "Testing (Jest/Playwright)", "Security & Accessibility (WCAG)",
-    "AI/ML Pipelines", "Agent Orchestration", "Model Deployment",
+    "AI/ML Pipelines", "Model Integration", "API Design",
   ];
 
   const quickSnapshot = [
-    "Perf: LCP/TTI budgets",
+    "Performance Optimization",
     "Scale: 100K+ users",
-    "Reliability: SLOs/MTTR",
-    "DX: 500+ tests",
+    "AWS Serverless",
+    "500+ tests",
     "AI: LangChain/Hugging Face",
     "ML: PyTorch/TensorFlow",
   ];
 
   const keyBulletsCore = [
-    "Scaled React/Next surfaces with SSR + selective hydration; enforced perf budgets (LCP/TTI/TBT).",
-    "Built AI-powered chatbots with LangChain, Hugging Face, and OpenAI APIs for 100K+ users.",
-    "Migrated services to AWS serverless (Lambda + API GW) and cut cold-start latency ~50%.",
+    "Built scalable React/Next.js applications with server-side rendering and optimized frontend performance.",
+    "Developed AI-powered chatbots with LangChain, Hugging Face, and OpenAI APIs serving 100K+ users.",
+    "Migrated services to AWS serverless architecture (Lambda + API Gateway) reducing latency by ~50%.",
   ];
 
   const keyBulletsMore = [
-    "End-to-end observability with OTel traces/metrics/logs; Grafana dashboards → faster MTTR.",
-    "Event-driven pipelines (queues + Lambdas) for SMS nudges/analytics, lifting re-engagement ~28%.",
-    "Built multi-agent AI systems with LangChain orchestration and Hugging Face model integration.",
-    "Implemented ML pipelines with PyTorch/TensorFlow, achieving 99.5% accuracy in production models.",
-    "API reliability: typed RPC clients, retries/circuit breakers; graceful degradation under load.",
-    "Security & quality gates: SBOM/dependency policy, feature flags, canaries and safe rollbacks.",
+    "Implemented comprehensive monitoring and logging with distributed tracing for faster debugging.",
+    "Built event-driven pipelines using queues and Lambda functions for notifications and analytics, increasing re-engagement by ~28%.",
+    "Created multi-agent AI systems with LangChain orchestration and Hugging Face model integration.",
+    "Developed ML pipelines with PyTorch/TensorFlow, achieving 99.5% accuracy in production models.",
+    "Designed reliable APIs with type-safe clients, retry logic, and graceful degradation under load.",
+    "Established security best practices and quality gates with feature flags and safe deployment strategies.",
   ];
 
   return (
@@ -76,9 +76,9 @@ export default function AboutMe() {
             </p>
 
             <p className="font-Header text-justify text-gray-400">
-              <span className="text-AAsecondary">Currently at Climb Together</span>, I lead web performance for large Next.js surfaces
-              (SSR + selective hydration, code-splitting, perf budgets) and own SLI/SLOs with OTel-based RUM. On the backend, I help run
-              an AWS serverless stack (Lambda, API Gateway, Postgres) and real-time pipelines for notifications/analytics. I also build
+              <span className="text-AAsecondary">Currently at Climb Together</span>, I optimize web performance for large Next.js applications
+              using server-side rendering, code-splitting, and performance monitoring. On the backend, I work with
+              an AWS serverless stack (Lambda, API Gateway, PostgreSQL) and build real-time pipelines for notifications and analytics. I also develop
               AI-powered chatbots using LangChain, Hugging Face models, and OpenAI APIs for intelligent conversational experiences.
             </p>
 
@@ -159,8 +159,8 @@ export default function AboutMe() {
 
             {/* Target statement */}
             <p className="font-Header text-justify text-gray-400 pt-1">
-              Targeting high-ownership roles at product-focused teams where I can drive web platform performance,
-              build AI/ML systems with LangChain and Hugging Face, own services end-to-end, and mentor while shipping measurable wins.
+              Seeking AI Software Engineer roles at innovative companies where I can build scalable full-stack applications,
+              develop AI/ML systems with LangChain and Hugging Face, optimize performance, and deliver measurable impact.
             </p>
           </div>
 

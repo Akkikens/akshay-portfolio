@@ -4,58 +4,55 @@ import { getTasksTextWithHighlightedKeyword } from "./taskAndType";
 
 export default function ClimbTogether() {
   const tasks = [
-    // existing high-impact items
     {
       text:
-        "Owned performance & reliability for large Next.js surfaces: SSR with selective hydration, code-splitting, perf budgets, RUM via OpenTelemetry, and SLI/SLO ownership; added type-safe RPC clients and Node.js middleware.",
-      keywords: ["Next.js", "SSR", "selective hydration", "OpenTelemetry", "SLI", "SLO", "RPC", "middleware"],
+        "Optimized performance for large Next.js applications using server-side rendering, code-splitting, and performance monitoring; built type-safe API clients and Node.js middleware.",
+      keywords: ["Next.js", "SSR", "code-splitting", "performance monitoring", "API clients", "middleware"],
     },
     {
       text:
-        "Architected distributed onboarding with Next.js + Clerk + Twilio Verify, scaling to 100K+ users and increasing verified opt-ins by 35%.",
+        "Architected scalable user onboarding system with Next.js, Clerk authentication, and Twilio Verify, serving 100K+ users and increasing verified opt-ins by 35%.",
       keywords: ["onboarding", "Clerk", "Twilio Verify", "100K+", "35%"],
     },
     {
       text:
-        "Built real-time data pipelines for SMS nudges & behavior analytics, lifting re-engagement by 28%.",
+        "Built real-time data pipelines for SMS notifications and behavior analytics, increasing user re-engagement by 28%.",
       keywords: ["real-time", "pipelines", "SMS", "analytics", "28%"],
     },
     {
       text:
-        "Drove migration to a serverless backend on AWS Lambda with PostgreSQL (Drizzle ORM), reducing cold-start latency by ~50%.",
+        "Led migration to serverless architecture on AWS Lambda with PostgreSQL (Drizzle ORM), reducing cold-start latency by ~50%.",
       keywords: ["serverless", "AWS Lambda", "PostgreSQL", "Drizzle", "cold-start", "50%"],
     },
-
-    // NEW: industry-standard bullets
     {
       text:
-        "Defined service SLOs and error budgets; held p95 latency under target across key surfaces and used burn-rate alerts for proactive incident response.",
-      keywords: ["SLOs", "error budgets", "p95 latency", "burn-rate alerts", "incident response"],
+        "Implemented comprehensive monitoring and alerting system to track application performance and proactively identify issues.",
+      keywords: ["monitoring", "alerting", "performance tracking", "proactive"],
     },
     {
       text:
-        "Established on-call rotation and incident runbooks (triage, rollback, comms); reduced MTTR by ~25% with clear ownership and dashboards.",
-      keywords: ["on-call", "runbooks", "rollback", "MTTR", "dashboards"],
+        "Established incident response procedures and documentation, reducing mean time to recovery by ~25% through clear ownership and dashboards.",
+      keywords: ["incident response", "documentation", "recovery time", "dashboards"],
     },
     {
       text:
-        "Introduced progressive delivery with feature flags, canaries and guarded rollouts; decreased change-failure rate and unplanned rollbacks.",
-      keywords: ["feature flags", "canary", "progressive delivery", "rollouts"],
+        "Deployed feature flags and gradual rollout strategies to minimize deployment risks and enable safe releases.",
+      keywords: ["feature flags", "gradual rollout", "deployment", "safe releases"],
     },
     {
       text:
-        "Capacity & load testing (k6) and CPU/heap flamegraph profiling to prevent regressions before launch; automated budgets in CI.",
-      keywords: ["k6", "profiling", "flamegraph", "performance budgets", "CI"],
+        "Conducted load testing and performance profiling to identify bottlenecks and prevent regressions; automated performance checks in CI/CD pipeline.",
+      keywords: ["load testing", "profiling", "bottlenecks", "CI/CD"],
     },
     {
       text:
-        "Optimized AWS cost: provisioned concurrency right-sizing, SQS batching, and storage lifecycle rules — lowered monthly compute spend ~22%.",
-      keywords: ["cost optimization", "provisioned concurrency", "SQS", "lifecycle policies"],
+        "Optimized AWS infrastructure costs through resource right-sizing, SQS batching, and storage lifecycle policies, reducing monthly compute spend by ~22%.",
+      keywords: ["cost optimization", "AWS", "SQS", "lifecycle policies"],
     },
     {
       text:
-        "Hardened security: least-privilege IAM, secrets rotation, TLS everywhere, encryption at rest, and audit logs for sensitive actions.",
-      keywords: ["IAM", "secrets rotation", "TLS", "encryption", "audit logs"],
+        "Implemented security best practices including IAM policies, secrets management, TLS encryption, and audit logging for sensitive operations.",
+      keywords: ["IAM", "secrets management", "TLS", "encryption", "audit logs"],
     },
   ];
 
