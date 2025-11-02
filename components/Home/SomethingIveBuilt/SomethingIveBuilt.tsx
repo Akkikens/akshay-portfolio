@@ -23,7 +23,7 @@ export default function SomethingIveBuilt() {
         "Interactive learning platform built with Next.js 15 and React 18, featuring comprehensive UI components from Radix UI. Integrated Supabase for authentication and real-time data management, with Stripe and Razorpay for payment processing. Includes PDF processing with react-pdf, AI-powered features using OpenAI, and real-time notifications with react-hot-toast. Optimized with Vercel Speed Insights for performance monitoring.",
       techStack: ["Next.js 15", "React 18", "TypeScript", "Supabase", "Radix UI", "OpenAI", "Stripe", "Razorpay", "Framer Motion", "Tailwind CSS"],
       image: "/devdiagrams-preview.png",
-      githubLink: "https://github.com/Akkikens/devdiagrams-interactive-learning",
+      githubLink: "https://github.com/Akkikens/devdiagrams",
       liveLink: "https://devdiagrams.com",
     },
     Factorbook: {
