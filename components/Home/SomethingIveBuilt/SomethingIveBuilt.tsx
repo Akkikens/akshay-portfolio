@@ -24,7 +24,7 @@ export default function SomethingIveBuilt() {
       techStack: ["Next.js 15", "React 18", "TypeScript", "Supabase", "Radix UI", "OpenAI", "Stripe", "Razorpay", "Framer Motion", "Tailwind CSS"],
       image: "/devdiagrams.png",
       githubLink: "https://github.com/Akkikens/devdiagrams",
-      liveLink: "https://devdiagrams.com",
+      liveLink: "https://devdiagrams.app",
     },
     Factorbook: {
       title: "Factorbook 2.0 - Genomic AI Platform",
