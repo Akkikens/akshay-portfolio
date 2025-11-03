@@ -53,11 +53,41 @@ export default function GetInTouch() {
       className="flex flex-col space-y-12 w-full py-24 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72 items-center bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      <motion.div 
+        className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          x: [0, 30, 0],
+          y: [0, -20, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          x: [0, -30, 0],
+          y: [0, 20, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
       
       {/* Title: What's Next? */}
-      <div className="relative flex flex-row items-center">
+      <motion.div 
+        className="relative flex flex-row items-center"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <ArrowIcon className="flex-none h-5 md:h-6 w-5 md:w-5 text-AAsecondary" />
         <div className="flex flex-row space-x-2 items-center">
           <span className="text-AAsecondary font-semibold text-sm sm:text-base">
@@ -67,10 +97,16 @@ export default function GetInTouch() {
             What&apos;s Next?
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Get In Touch */}
-      <div className="text-center space-y-4">
+      <motion.div 
+        className="text-center space-y-4"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
         <h2 className="text-AAtext text-4xl sm:text-5xl font-bold tracking-wider">
           Get In Touch
         </h2>
@@ -79,7 +115,7 @@ export default function GetInTouch() {
           chat! Whether you have a question or just want to say hi, I'll try my
           best to get back to you!
         </p>
-      </div>
+      </motion.div>
 
       {/* Contact Form */}
       <motion.div
@@ -186,9 +222,14 @@ export default function GetInTouch() {
       </motion.div>
 
       {/* Alternative Contact */}
-      <div className="relative pt-4">
+      <motion.div 
+        className="relative pt-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+      >
         {isAndroidWebView ? (
-          <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl bg-AAsecondary/10 backdrop-blur-sm">
+          <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl bg-AAsecondary/10 backdrop-blur-sm outline-none focus:outline-none focus:ring-2 focus:ring-AAsecondary/50">
             akshaykalapgar23@gmail.com
           </button>
         ) : (
@@ -197,12 +238,16 @@ export default function GetInTouch() {
             target={"_blank"}
             rel="noreferrer"
           >
-            <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl hover:bg-AAsecondary/10 transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-AAsecondary/20">
+            <motion.button 
+              className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl hover:bg-AAsecondary/10 transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-AAsecondary/20 outline-none focus:outline-none focus:ring-2 focus:ring-AAsecondary/50"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
               Or Email Directly
-            </button>
+            </motion.button>
           </a>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }

@@ -34,11 +34,42 @@ export default function Testimonials() {
       className="flex flex-col bg-gradient-to-br from-AAprimary to-MobileNavBarColor w-full py-32 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder relative overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      <motion.div 
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          x: [0, -40, 0],
+          y: [0, 40, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          x: [0, 40, 0],
+          y: [0, -40, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
       
       {/* Section Title */}
-      <div data-aos="fade-up" className="relative flex flex-row items-center space-x-4 mb-16">
+      <motion.div 
+        data-aos="fade-up" 
+        className="relative flex flex-row items-center space-x-4 mb-16"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <ArrowIcon className="h-5 md:h-6 w-5 md:w-5 text-AAsecondary" />
         <span className="text-AAsecondary font-semibold text-sm sm:text-xl">
           06.
@@ -47,7 +78,7 @@ export default function Testimonials() {
           What People Say
         </h2>
         <div className="bg-AAborder h-[1px] w-full xl:w-1/3 md:w-1/2"></div>
-      </div>
+      </motion.div>
 
       {/* Testimonials Grid */}
       <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">

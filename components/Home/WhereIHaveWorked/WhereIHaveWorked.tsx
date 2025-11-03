@@ -32,10 +32,40 @@ export default function WhereIHaveWorked() {
       className="flex flex-col items-center justify-center py-24 space-y-12 bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      <motion.div 
+        className="absolute top-1/4 left-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          x: [0, -40, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          x: [0, 40, 0],
+          y: [0, -30, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
       {/* Title */}
-      <section className="relative flex flex-row items-center">
+      <motion.section 
+        className="relative flex flex-row items-center"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="flex flex-row items-center">
           <ArrowIcon className="flex-none h-4 md:h-6 w-4 md:w-5 text-AAsecondary" />
           <span className="text-AAsecondary font-semibold text-sm sm:text-xl"> 02.</span>
@@ -44,12 +74,14 @@ export default function WhereIHaveWorked() {
           Where I&apos;ve Worked
         </span>
         <div className="bg-AAborder h-[1px] w-16 sm:w-44 md:w-80" />
-      </section>
+      </motion.section>
 
       {/* Content */}
-      <section className="relative flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0 justify-center items-center md:items-start max-w-6xl w-full">
-        <CompaniesBar setDescriptionJob={setDescriptionJob} />
-        <div className="flex-1 max-w-2xl">
+      <section className="relative flex flex-col md:flex-row space-y-8 md:space-y-0 items-start w-full max-w-7xl mx-auto">
+        <div className="md:w-64 md:mr-12 flex-shrink-0">
+          <CompaniesBar setDescriptionJob={setDescriptionJob} />
+        </div>
+        <div className="flex-1 w-full">
           {GetDescription()}
         </div>
       </section>
@@ -71,13 +103,13 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
         props.setDescriptionJob(props.DescriptionJob);
         setCompanyNameBackgroundColorGreen(props.CompanyNameBackgroundColorGreen);
       }}
-      className={`flex-none sm:text-sm text-xs text-center md:text-left font-medium py-3 md:pl-6 md:px-4 md:w-48 w-36 duration-300 transition-all rounded-xl backdrop-blur-sm
+      className={`flex-none text-sm text-left font-medium py-4 px-6 w-full duration-300 transition-all rounded-2xl backdrop-blur-sm
         ${
           companyNameBackgroundColorGreen[
             props.ButtonOrderOfcompanyNameBackgroundColorGreen
           ]
-            ? "bg-gradient-to-r from-AAsecondary/20 to-AAaccent/20 text-AAsecondary border border-AAsecondary/50 shadow-lg shadow-AAsecondary/20"
-            : "text-AAsubtext hover:text-AAtext hover:bg-AAhover border border-AAborder hover:border-AAsecondary/50"
+            ? "bg-AAhover text-AAsecondary border border-AAsecondary/30"
+            : "text-AAsubtext hover:text-AAtext hover:bg-AAhover/50 border border-transparent hover:border-AAborder"
         }`}
     >
       {props.CompanyName}

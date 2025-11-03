@@ -106,9 +106,9 @@ export default function Home() {
 
   // --- Meta ---
   const meta = {
-    title: "Akshay Kalapgar - AI/ML Full Stack Engineer | LangChain, Hugging Face, OpenAI Expert",
+    title: "Akshay Kalapgar - AI Full Stack Engineer",
     description:
-      "AI/ML Full Stack Engineer with 3+ years building scalable SaaS platforms, AI chatbots with LangChain & Hugging Face, and cloud-native applications. Specialized in Next.js, TypeScript, Python, PyTorch, TensorFlow. Available for high-impact roles.",
+      "AI/ML Full Stack Engineer with 4+ years building scalable SaaS platforms, AI chatbots with LangChain & Hugging Face, and cloud-native applications. Specialized in Next.js, TypeScript, Python, PyTorch, TensorFlow. Available for high-impact roles.",
     image: "/Portfolio-portrait-4.jpg",
     type: "website",
   };

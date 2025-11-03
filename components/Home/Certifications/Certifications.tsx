@@ -83,14 +83,16 @@ export default function Certifications() {
       certificationDetails[selectedCertification];
 
     return (
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-6">
         {pdf && (
-          <div className="w-full">
-            <Worker
-              workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
-            >
-              <Viewer fileUrl={pdf} />
-            </Worker>
+          <div className="w-full bg-AAhover/50 rounded-2xl p-4 border border-AAborder/30">
+            <div className="w-full" style={{ minHeight: '600px' }}>
+              <Worker
+                workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}
+              >
+                <Viewer fileUrl={pdf} />
+              </Worker>
+            </div>
           </div>
         )}
         {verificationLink && (
@@ -106,11 +108,11 @@ export default function Certifications() {
             </svg>
           </a>
         )}
-        <div className="flex flex-col space-y-3">
+        <div className="space-y-3 mt-6">
           {description.map((point, index) => (
-            <div key={index} className="flex space-x-3 items-start p-3 bg-AAprimary/50 rounded-xl border border-AAborder/50">
-              <ArrowIcon className="h-4 w-4 text-AAsecondary flex-none mt-0.5" />
-              <p className="text-AAtext text-sm leading-relaxed">
+            <div key={index} className="flex space-x-4 items-start p-5 bg-AAhover/50 rounded-2xl border border-AAborder/30 hover:border-AAsecondary/40 transition-all duration-300 backdrop-blur-sm">
+              <ArrowIcon className="h-4 w-4 text-AAsecondary flex-none mt-1" />
+              <p className="text-AAtext text-base leading-relaxed">
                 {point}
               </p>
             </div>
@@ -126,10 +128,41 @@ export default function Certifications() {
       className="flex flex-col space-y-12 bg-gradient-to-br from-AAprimary to-MobileNavBarColor w-full px-4 py-24 md:px-16 border-t border-AAborder relative overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      <motion.div 
+        className="absolute top-0 left-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          x: [0, -30, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-0 right-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          x: [0, 30, 0],
+          y: [0, -30, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
       
-      <div data-aos="fade-up" className="relative flex items-center space-x-4">
+      <motion.div 
+        data-aos="fade-up" 
+        className="relative flex items-center space-x-4"
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
         <ArrowIcon className="h-6 w-6 text-AAsecondary" />
         <span className="text-AAsecondary font-semibold text-sm sm:text-xl">
           03.
@@ -138,13 +171,15 @@ export default function Certifications() {
           Professional Certifications
         </h2>
         <div className="bg-AAborder h-[1px] w-full"></div>
-      </div>
+      </motion.div>
 
-      <section className="relative flex flex-col md:flex-row md:space-x-8 items-start max-w-7xl mx-auto w-full">
-        <CertificationsBar
-          setSelectedCertification={setSelectedCertification}
-        />
-        <div className="w-full md:w-2/3 bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm shadow-xl">
+      <section className="relative flex flex-col md:flex-row space-y-8 md:space-y-0 items-start w-full max-w-7xl mx-auto">
+        <div className="md:w-64 md:mr-12 flex-shrink-0">
+          <CertificationsBar
+            setSelectedCertification={setSelectedCertification}
+          />
+        </div>
+        <div className="flex-1 w-full">
           {renderCertification()}
         </div>
       </section>
@@ -170,7 +205,7 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
   const [activeCertification, setActiveCertification] = useState(0);
 
   return (
-    <div className="flex flex-col space-y-3 overflow-x-auto scrollbar-hide w-full md:w-1/3">
+    <div className="flex flex-col space-y-3 overflow-x-auto scrollbar-hide w-full">
       {certifications.map((cert, index) => (
         <button
           key={index}
@@ -178,10 +213,10 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
             setSelectedCertification(cert);
             setActiveCertification(index);
           }}
-          className={`py-4 px-6 text-sm font-medium rounded-xl transition-all duration-300 text-left backdrop-blur-sm border ${
+          className={`py-4 px-6 text-sm font-medium rounded-2xl transition-all duration-300 text-left backdrop-blur-sm border ${
             activeCertification === index
-              ? "bg-gradient-to-r from-AAsecondary/20 to-AAaccent/20 text-AAsecondary border-AAsecondary/50 shadow-lg shadow-AAsecondary/20"
-              : "text-AAsubtext hover:text-AAtext hover:bg-AAhover border-AAborder hover:border-AAsecondary/50"
+              ? "bg-AAhover text-AAsecondary border-AAsecondary/30"
+              : "text-AAsubtext hover:text-AAtext hover:bg-AAhover/50 border-transparent hover:border-AAborder"
           }`}
         >
           {cert}

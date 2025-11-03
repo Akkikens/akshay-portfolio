@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import ArrowIcon from "../../../Icons/ArrowIcon";
 import { getTasksTextWithHighlightedKeyword } from "./taskAndType";
 
@@ -36,54 +37,59 @@ export default function ClimbTogether() {
     },
     {
       text:
-        "Built comprehensive test suite with Jest achieving high code coverage; implemented E2E tests with Puppeteer for critical user flows.",
-      keywords: ["Jest", "testing", "Puppeteer", "E2E tests", "code coverage"],
-    },
-    {
-      text:
-        "Developed document processing pipeline using PDF parsing libraries to extract and analyze content for AI-powered insights.",
-      keywords: ["PDF parsing", "document processing", "data extraction"],
-    },
-    {
-      text:
-        "Implemented real-time features using React hooks and SWR for data fetching; optimized rendering with React Virtualized for large lists.",
-      keywords: ["React hooks", "SWR", "React Virtualized", "real-time", "optimization"],
-    },
-    {
-      text:
         "Set up CI/CD pipeline with automated testing, linting with Biome, and deployment to Vercel; configured environment-specific builds.",
       keywords: ["CI/CD", "Biome", "Vercel", "automated testing", "deployment"],
     },
   ];
 
   return (
-    <div className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm shadow-xl">
-      <div className="flex flex-col space-y-6">
-        <div className="flex flex-col space-y-3">
-          <h3 className="text-AAtext text-xl font-bold tracking-wide">
+    <motion.div 
+      className="w-full"
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="flex flex-col space-y-8">
+        {/* Header */}
+        <div className="flex flex-col space-y-2">
+          <h3 className="text-AAtext text-2xl font-bold">
             AI Full Stack Developer
           </h3>
-          <div className="flex items-center space-x-2">
-            <span className="text-AAsecondary font-semibold">@ Climb Together</span>
-            <span className="w-1 h-1 bg-AAaccent rounded-full"></span>
+          <div className="flex items-center space-x-3">
+            <span className="text-AAsecondary font-semibold text-lg">@ Climb Together</span>
+            <span className="w-1.5 h-1.5 bg-AAaccent rounded-full"></span>
             <span className="font-mono text-sm text-AAsubtext">May 2025 – Present</span>
           </div>
         </div>
 
-        <div className="grid gap-4">
+        {/* Tasks - Apple-style clean list */}
+        <div className="space-y-3">
           {tasks.map((item, idx) => (
-            <div key={idx} className="group flex flex-row space-x-3 p-4 bg-AAprimary/50 rounded-xl border border-AAborder/50 hover:border-AAsecondary/50 transition-all duration-300 hover:shadow-lg hover:shadow-AAsecondary/10">
-              <div className="w-2 h-2 bg-gradient-to-r from-AAsecondary to-AAaccent rounded-full mt-2 flex-shrink-0 group-hover:scale-125 transition-transform duration-300" />
+            <motion.div 
+              key={idx} 
+              className="group flex flex-row space-x-4 p-5 bg-AAhover/50 rounded-2xl border border-AAborder/30 hover:border-AAsecondary/40 transition-all duration-300 hover:bg-AAhover/80 backdrop-blur-sm"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: idx * 0.08 }}
+              whileHover={{ x: 4 }}
+            >
+              <motion.div 
+                className="w-2 h-2 bg-gradient-to-r from-AAsecondary to-AAaccent rounded-full mt-2 flex-shrink-0"
+                animate={{
+                  scale: [1, 1.2, 1],
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
+              />
               <span
-                className="text-AAtext text-sm leading-relaxed"
+                className="text-AAtext text-base leading-relaxed"
                 dangerouslySetInnerHTML={{
                   __html: getTasksTextWithHighlightedKeyword(item.text, item.keywords),
                 }}
               />
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

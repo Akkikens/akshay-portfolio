@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import Img from "../../../components/smallComp/image/Img";
 import ArrowIcon from "../../../components/Icons/ArrowIcon";
 
 export default function AboutMe() {
-  const [expanded, setExpanded] = useState(false);
 
   const technologies: string[][] = [
     ["Next.js/React", "TypeScript/JavaScript", "React Native", "Tailwind CSS", "GraphQL/REST APIs", "AWS/Azure"],
@@ -46,19 +46,49 @@ export default function AboutMe() {
   return (
     <div id="aboutSection" data-aos="fade-up" className="snap-start flex flex-col items-center py-16 sm:py-20 bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      <motion.div 
+        className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.2, 1],
+          x: [0, 40, 0],
+          y: [0, -30, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div 
+        className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl"
+        animate={{
+          scale: [1, 1.3, 1],
+          x: [0, -40, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
       
       <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 space-y-8">
       {/* Section Header */}
-        <div className="flex items-center">
+        <motion.div 
+          className="flex items-center"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="flex items-center mr-4">
             <ArrowIcon className="h-4 md:h-6 w-4 md:w-5 translate-y-[0.5px] text-AAsecondary" />
             <span className="text-AAsecondary font-semibold text-sm sm:text-xl">01.</span>
             <span className="text-AAtext font-bold tracking-wider text-lg sm:text-2xl pl-4">About Me</span>
           </div>
           <div className="bg-AAborder h-[1px] w-full sm:w-72 ml-4" />
-        </div>
+        </motion.div>
 
         {/* Desktop grid: tighter measure on text, sticky image on the far right */}
         <div className="hidden md:grid 
@@ -87,84 +117,125 @@ export default function AboutMe() {
 
             {/* Impact bullets */}
             <ul className="list-none space-y-2">
-              {keyBulletsCore.map((b, i) => (
+              {[...keyBulletsCore, ...keyBulletsMore].map((b, i) => (
                 <li key={i} className="flex items-start">
                   <ArrowIcon className="h-3 w-3 mt-1 text-AAsecondary" />
                   <span className="ml-2 text-AAtext">{b}</span>
                 </li>
               ))}
-              {expanded &&
-                keyBulletsMore.map((b, i) => (
-                  <li key={`m-${i}`} className="flex items-start">
-                    <ArrowIcon className="h-3 w-3 mt-1 text-AAsecondary" />
-                    <span className="ml-2 text-AAtext">{b}</span>
-                  </li>
-                ))}
             </ul>
 
-            {/* Quick snapshot chips (recruiter-friendly) */}
-            <div className="pt-1">
-              <div className="text-AAtext font-semibold mb-3">Quick snapshot</div>
+            {/* Quick Snapshot Section */}
+            <motion.div 
+              className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-AAtext font-bold text-lg mb-4 flex items-center space-x-2">
+                <span className="text-AAsecondary">⚡</span>
+                <span>Quick Snapshot</span>
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {quickSnapshot.map((item) => (
-                  <span
+                {quickSnapshot.map((item, i) => (
+                  <motion.span
                     key={item}
-                    className="text-sm text-AAtext bg-AAhover border border-AAborder rounded-full px-3 py-1.5 hover:border-AAsecondary hover:text-AAsecondary transition-all duration-300"
+                    className="text-sm text-AAtext bg-AAprimary/50 border border-AAborder rounded-full px-4 py-2 hover:border-AAsecondary hover:text-AAsecondary transition-all duration-300 cursor-pointer"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
                   >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Systems & Platform */}
-            <div className="pt-4">
-              <div className="text-AAtext font-semibold mb-3">Systems & Platform</div>
+            {/* Systems & Platform Section */}
+            <motion.div 
+              className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <h3 className="text-AAtext font-bold text-lg mb-4 flex items-center space-x-2">
+                <span className="text-AAaccent">🏗️</span>
+                <span>Systems & Platform</span>
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {systemsPlatform.map((item) => (
-                  <span
+                {systemsPlatform.map((item, i) => (
+                  <motion.span
                     key={item}
-                    className="text-sm text-AAtext bg-AAhover border border-AAborder rounded-full px-3 py-1.5 hover:border-AAaccent hover:text-AAaccent transition-all duration-300"
+                    className="text-sm text-AAtext bg-AAprimary/50 border border-AAborder rounded-full px-4 py-2 hover:border-AAaccent hover:text-AAaccent transition-all duration-300 cursor-pointer"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
                   >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Tech grid */}
-            <div className="tracking-wide">
-              <div className="text-AAtext font-semibold mt-6 mb-4">Technologies I use</div>
-              <div className="flex flex-row flex-wrap gap-x-12 gap-y-4">
+            {/* Technologies Section */}
+            <motion.div 
+              className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h3 className="text-AAtext font-bold text-lg mb-4 flex items-center space-x-2">
+                <span className="text-AAsecondary">💻</span>
+                <span>Technologies I Use</span>
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {technologies.map((group, gi) => (
                   <div key={gi} className="flex flex-col space-y-3">
-                    {group.map((tech) => (
-                      <div key={tech} className="flex items-center space-x-3">
-                        <ArrowIcon className="h-3 w-3 text-AAsecondary" />
-                        <span className="text-AAtext text-sm hover:text-AAsecondary transition-colors duration-300">{tech}</span>
-                      </div>
+                    {group.map((tech, ti) => (
+                      <motion.div 
+                        key={tech} 
+                        className="flex items-center space-x-2 group cursor-pointer"
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.3, delay: (gi * 0.1) + (ti * 0.05) }}
+                        whileHover={{ x: 5 }}
+                      >
+                        <ArrowIcon className="h-3 w-3 text-AAsecondary group-hover:text-AAaccent transition-colors" />
+                        <span className="text-AAtext text-sm group-hover:text-AAsecondary transition-colors">{tech}</span>
+                      </motion.div>
                     ))}
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Show more / less */}
-            <div className="pt-2">
-              <button
-                onClick={() => setExpanded((s) => !s)}
-                className="text-AAsecondary hover:underline text-sm font-medium"
-                aria-expanded={expanded}
-              >
-                {expanded ? "Show less" : "Show more"}
-              </button>
-            </div>
 
-            {/* Target statement */}
-            <p className="text-justify text-AAtext pt-4 leading-relaxed">
-              Seeking <span className="text-AAaccent font-semibold">AI Software Engineer</span> roles at innovative companies where I can build scalable full-stack applications,
-              develop AI/ML systems with <span className="text-AAsecondary font-medium">LangChain and Hugging Face</span>, optimize performance, and deliver measurable impact.
-            </p>
+
+            {/* Career Goals Section */}
+            <motion.div 
+              className="bg-gradient-to-r from-AAsecondary/10 to-AAaccent/10 rounded-2xl p-6 border border-AAsecondary/30 backdrop-blur-sm"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <h3 className="text-AAtext font-bold text-lg mb-3 flex items-center space-x-2">
+                <span className="text-AAaccent">🎯</span>
+                <span>What I'm Looking For</span>
+              </h3>
+              <p className="text-AAtext leading-relaxed">
+                Seeking <span className="text-AAaccent font-semibold">AI Software Engineer</span> roles at innovative companies where I can build scalable full-stack applications,
+                develop AI/ML systems with <span className="text-AAsecondary font-semibold">LangChain and Hugging Face</span>, optimize performance, and deliver measurable impact.
+              </p>
+            </motion.div>
           </div>
 
           {/* Sticky portrait on the far right */}

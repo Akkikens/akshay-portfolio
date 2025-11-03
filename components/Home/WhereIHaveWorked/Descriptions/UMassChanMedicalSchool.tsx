@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import ArrowIcon from "../../../Icons/ArrowIcon";
 import { getTasksTextWithHighlightedKeyword } from "./taskAndType";
 
@@ -27,32 +28,49 @@ export default function UMassChanMedicalSchool() {
   ];
 
   return (
-    <div className="flex flex-col space-y-5 max-w-xl px-4 md:px-0">
-      <div className="flex flex-col space-y-2">
-        <span className="text-gray-100 sm:text-lg text-sm font-Arimo tracking-wide">
-          Software Engineer Intern{" "}
-          <span className="text-AAsecondary">@ UMass Chan Medical School</span>
-        </span>
-        <span className="font-mono text-xs text-gray-500">
-          May 2024 - January 2025
-        </span>
-      </div>
-      <div className="flex flex-col space-y-4 sm:text-sm text-xs">
-        {tasks.map((item, index) => (
-          <div key={index} className="flex flex-row space-x-2">
-            <ArrowIcon className="h-5 w-4 text-AAsecondary flex-none" />
-            <span
-              className="text-gray-500 sm:text-sm text-xs"
-              dangerouslySetInnerHTML={{
-                __html: getTasksTextWithHighlightedKeyword(
-                  item.text,
-                  item.keywords
-                ),
-              }}
-            ></span>
+    <motion.div 
+      className="w-full"
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="flex flex-col space-y-8">
+        <div className="flex flex-col space-y-2">
+          <h3 className="text-AAtext text-2xl font-bold">
+            Software Engineer Intern
+          </h3>
+          <div className="flex items-center space-x-3">
+            <span className="text-AAsecondary font-semibold text-lg">@ UMass Chan Medical School</span>
+            <span className="w-1.5 h-1.5 bg-AAaccent rounded-full"></span>
+            <span className="font-mono text-sm text-AAsubtext">May 2024 - January 2025</span>
           </div>
-        ))}
+        </div>
+
+        <div className="space-y-3">
+          {tasks.map((item, idx) => (
+            <motion.div 
+              key={idx} 
+              className="group flex flex-row space-x-4 p-5 bg-AAhover/50 rounded-2xl border border-AAborder/30 hover:border-AAsecondary/40 transition-all duration-300 hover:bg-AAhover/80 backdrop-blur-sm"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: idx * 0.08 }}
+              whileHover={{ x: 4 }}
+            >
+              <motion.div 
+                className="w-2 h-2 bg-gradient-to-r from-AAsecondary to-AAaccent rounded-full mt-2 flex-shrink-0"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
+              />
+              <span
+                className="text-AAtext text-base leading-relaxed"
+                dangerouslySetInnerHTML={{
+                  __html: getTasksTextWithHighlightedKeyword(item.text, item.keywords),
+                }}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
