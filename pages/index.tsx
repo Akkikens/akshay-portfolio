@@ -36,6 +36,9 @@ const Testimonials = React.lazy(
 );
 
 const Footer = React.lazy(() => import("../components/Footer/Footer"));
+const ChaosOverlay = React.lazy(
+  () => import("../components/Shared/ChaosOverlay/ChaosOverlay")
+);
 
 export default function Home() {
   const context = useContext(AppContext);
@@ -162,6 +165,7 @@ export default function Home() {
               githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
               hideSocialsInDesktop={true}
             />
+            <ChaosOverlay />
             {!isProd && <ScreenSizeDetector />}
           </Suspense>
         </div>
