@@ -35,7 +35,7 @@ export default function SomethingIveContributed() {
   return (
     <div
       id="SomethingIveContributedSection"
-      className="flex flex-col bg-AAprimary w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72"
+      className="flex flex-col bg-AAprimary w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder"
     >
       {/* Section Title */}
       <div data-aos="fade-up" className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
@@ -44,11 +44,11 @@ export default function SomethingIveContributed() {
           <span className="text-AAsecondary font-sans text-sm sm:text-xl">
             04.
           </span>
-          <h2 className="font-bold tracking-wider text-gray-200 text-base sm:text-lg md:text-2xl">
+          <h2 className="font-bold tracking-wider text-AAtext text-base sm:text-lg md:text-2xl">
             Professional Contributions
           </h2>
         </div>
-        <div className="bg-gray-400 h-[0.2px] w-full sm:w-1/3 md:w-1/2 hidden sm:block"></div>
+        <div className="bg-AAborder h-[1px] w-full sm:w-1/3 md:w-1/2 hidden sm:block"></div>
       </div>
 
       {/* Tabs Section */}
@@ -57,10 +57,10 @@ export default function SomethingIveContributed() {
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`py-1.5 px-2 sm:py-2 sm:px-3 text-xs sm:text-sm rounded whitespace-nowrap ${
+            className={`py-2 px-4 text-sm rounded-full whitespace-nowrap font-medium transition-all duration-300 ${
               activeTab === key
-                ? "bg-AAsecondary text-AAprimary"
-                : "text-gray-400 hover:text-AAsecondary bg-gray-800/50 hover:bg-gray-700/50"
+                ? "bg-AAsecondary text-white shadow-lg"
+                : "text-AAsubtext hover:text-AAtext bg-AAhover hover:bg-AAborder border border-AAborder"
             }`}
           >
             {contributions[key].title}
@@ -87,10 +87,10 @@ export default function SomethingIveContributed() {
         {/* Right Content Section */}
         <div className="md:col-span-5 flex flex-col space-y-3 sm:space-y-4 md:space-y-6 order-2 md:order-2">
           <div className="space-y-1 sm:space-y-2">
-            <span className="text-AAsecondary text-sm sm:text-base font-semibold block">
+            <span className="text-AAtext text-lg sm:text-xl font-bold block">
               {activeContribution.title}
             </span>
-            <span className="text-gray-400 text-xs sm:text-sm block">
+            <span className="text-AAsecondary text-sm sm:text-base font-medium block">
               @ {activeContribution.company}
             </span>
             {activeContribution.liveLink && (
@@ -104,16 +104,16 @@ export default function SomethingIveContributed() {
               </a>
             )}
           </div>
-          <p className="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed hyphens-auto break-words">
+          <p className="text-AAsubtext text-sm sm:text-base leading-relaxed">
             {activeContribution.description}
           </p>
-          <ul className="flex flex-wrap text-gray-300 text-xs sm:text-sm gap-1 sm:gap-2">
+          <div className="flex flex-wrap gap-2">
             {activeContribution.techStack.map((tech, index) => (
-              <li key={index} className="bg-gray-700 px-2 py-1 rounded text-center whitespace-nowrap">
+              <span key={index} className="bg-AAhover text-AAtext px-3 py-1 rounded-full text-sm border border-AAborder">
                 {tech}
-              </li>
+              </span>
             ))}
-          </ul>
+          </div>
           {activeContribution.githubLink && (
             <div className="mt-2">
               <GithubIcon link={activeContribution.githubLink} />

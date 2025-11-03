@@ -34,9 +34,7 @@ const GetInTouch = React.lazy(
 const Testimonials = React.lazy(
   () => import("../components/Home/Testimonials/Testimonials")
 );
-const LiveDemo = React.lazy(
-  () => import("../components/Home/LiveDemo/LiveDemo")
-);
+
 const Footer = React.lazy(() => import("../components/Footer/Footer"));
 
 export default function Home() {
@@ -159,7 +157,6 @@ export default function Home() {
             <SomethingIveContributed />
             <SomethingIveBuilt />
             <Testimonials />
-            <LiveDemo />
             <GetInTouch />
             <Footer
               githubUrl={"https://github.com/Akkikens/akshay-portfolio"}

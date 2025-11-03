@@ -26,17 +26,21 @@ export default function WhereIHaveWorked() {
   const [DescriptionJob, setDescriptionJob] = React.useState("Climb Together");
 
   return (
-    <div data-aos="fade-up" className="flex flex-col items-center justify-center py-24 space-y-12 bg-AAprimary">
+    <div 
+      id="WhereIhaveWorkedSection"
+      data-aos="fade-up" 
+      className="flex flex-col items-center justify-center py-24 space-y-12 bg-AAprimary border-t border-AAborder"
+    >
       {/* Title */}
       <section className="flex flex-row items-center">
         <div className="flex flex-row items-center">
-          <ArrowIcon className={"flex-none h-4 md:h-6 w-4 md:w-5 text-AAsecondary"} />
+          <ArrowIcon className="flex-none h-4 md:h-6 w-4 md:w-5 text-AAsecondary" />
           <span className="text-AAsecondary font-sans text-sm sm:text-xl"> 02.</span>
         </div>
-        <span className="text-gray-200 opacity-85 font-bold tracking-wider text-lg md:text-2xl px-3">
+        <span className="text-AAtext font-bold tracking-wider text-lg md:text-2xl px-3">
           Where I&apos;ve Worked
         </span>
-        <div className="bg-gray-400 h-[0.2px] w-16 sm:w-44 md:w-80" />
+        <div className="bg-AAborder h-[1px] w-16 sm:w-44 md:w-80" />
       </section>
 
       {/* Content */}
@@ -49,7 +53,6 @@ export default function WhereIHaveWorked() {
 }
 
 const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
-  // six companies now (first active)
   const [barPosition, setBarPosition] = React.useState(-53);
   const [barAbovePosition, setBarAbovePosition] = React.useState(1);
   const [companyNameBackgroundColorGreen, setCompanyNameBackgroundColorGreen] =
@@ -64,13 +67,13 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
         setCompanyNameBackgroundColorGreen(props.CompanyNameBackgroundColorGreen);
       }}
       className={`flex-none sm:text-sm text-xs text-center md:text-left hover:text-AAsecondary
-        hover:bg-ResumeButtonHover rounded font-mono py-3 md:pl-6 md:px-4 md:w-44 w-32 duration-500
+        hover:bg-AAhover rounded-lg font-mono py-3 md:pl-6 md:px-4 md:w-44 w-32 duration-300 transition-all
         ${
           companyNameBackgroundColorGreen[
             props.ButtonOrderOfcompanyNameBackgroundColorGreen
           ]
-            ? "bg-ResumeButtonHover text-AAsecondary"
-            : "text-gray-500"
+            ? "bg-AAhover text-AAsecondary border border-AAborder"
+            : "text-AAsubtext hover:text-AAtext"
         }`}
     >
       {props.CompanyName}
@@ -78,15 +81,13 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
   );
 
   return (
-    <div
-      id="WhereIhaveWorkedSection"
-      className="flex flex-col md:flex-row w-screen lg:w-auto overflow-auto scrollbar-hide md:overflow-hidden pb-4 md:pb-0 justify-start sm:justify-center items-start sm:items-center"
-    >
+    <div className="flex flex-col md:flex-row w-screen lg:w-auto overflow-auto scrollbar-hide md:overflow-hidden pb-4 md:pb-0 justify-start sm:justify-center items-start sm:items-center">
       {/* Left bar */}
-      <div className="hidden md:block bg-gray-500 relative h-0.5 w-34 md:h-[420px] translate-y-1 md:w-0.5 rounded md:order-1 order-2">
+      <div className="hidden md:block bg-AAborder relative h-0.5 w-34 md:h-[420px] translate-y-1 md:w-0.5 rounded md:order-1 order-2">
         <motion.div
           animate={{ y: barPosition }}
-          className="absolute w-10 h-0.5 md:w-0.5 md:h-12 rounded bg-AAsecondary"
+          className="absolute w-10 h-0.5 md:w-0.5 md:h-12 rounded bg-AAsecondary shadow-lg shadow-AAsecondary/50"
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
 
@@ -141,8 +142,12 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
         </div>
 
         {/* Mobile underline */}
-        <div className="block md:hidden h-0.5 rounded bg-gray-500">
-          <motion.div animate={{ x: barAbovePosition }} className="w-[128px] h-0.5 rounded bg-AAsecondary" />
+        <div className="block md:hidden h-0.5 rounded bg-AAborder">
+          <motion.div 
+            animate={{ x: barAbovePosition }} 
+            className="w-[128px] h-0.5 rounded bg-AAsecondary shadow-lg shadow-AAsecondary/50" 
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          />
         </div>
       </div>
     </div>

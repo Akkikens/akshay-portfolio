@@ -59,18 +59,18 @@ export default function ClimbTogether() {
   return (
     <div className="flex flex-col space-y-5 max-w-xl px-4 md:px-0">
       <div className="flex flex-col space-y-2">
-        <span className="text-gray-100 sm:text-lg text-sm font-Arimo tracking-wide">
+        <span className="text-AAtext sm:text-lg text-sm font-semibold tracking-wide">
           AI Full Stack Developer <span className="text-AAsecondary">@ Climb Together</span>
         </span>
-        <span className="font-mono text-xs text-gray-500">May 2025 – Present</span>
+        <span className="font-mono text-xs text-AAsubtext">May 2025 – Present</span>
       </div>
 
       <div className="flex flex-col space-y-4 sm:text-sm text-xs">
         {tasks.map((item, idx) => (
           <div key={idx} className="flex flex-row space-x-2">
-            <ArrowIcon className="h-5 w-4 text-AAsecondary flex-none" />
+            <ArrowIcon className="h-5 w-4 text-AAsecondary flex-none mt-0.5" />
             <span
-              className="text-gray-500 sm:text-sm text-xs"
+              className="text-AAsubtext sm:text-sm text-xs leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: getTasksTextWithHighlightedKeyword(item.text, item.keywords),
               }}

@@ -67,7 +67,7 @@ export default function SomethingIveBuilt() {
   return (
     <div
       id="SomethingIveBuiltSection"
-      className="flex flex-col bg-AAprimary w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72"
+      className="flex flex-col bg-AAprimary w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder"
     >
       {/* Section Title */}
       <div data-aos="fade-up" className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
@@ -76,11 +76,11 @@ export default function SomethingIveBuilt() {
           <span className="text-AAsecondary font-sans text-sm sm:text-xl">
             05.
           </span>
-          <h2 className="font-bold tracking-wider text-gray-200 text-base sm:text-lg md:text-2xl">
+          <h2 className="font-bold tracking-wider text-AAtext text-base sm:text-lg md:text-2xl">
             Personal Projects
           </h2>
         </div>
-        <div className="bg-gray-400 h-[0.2px] w-full sm:w-1/3 md:w-1/2 hidden sm:block"></div>
+        <div className="bg-AAborder h-[1px] w-full sm:w-1/3 md:w-1/2 hidden sm:block"></div>
       </div>
 
       {/* Tabs Section */}
@@ -89,10 +89,10 @@ export default function SomethingIveBuilt() {
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`py-1.5 px-2 sm:py-2 sm:px-3 text-xs sm:text-sm rounded whitespace-nowrap ${
+            className={`py-2 px-4 text-sm rounded-full whitespace-nowrap font-medium transition-all duration-300 ${
               activeTab === key
-                ? "bg-AAsecondary text-AAprimary"
-                : "text-gray-400 hover:text-AAsecondary bg-gray-800/50 hover:bg-gray-700/50"
+                ? "bg-AAsecondary text-white shadow-lg"
+                : "text-AAsubtext hover:text-AAtext bg-AAhover hover:bg-AAborder border border-AAborder"
             }`}
           >
             {projects[key].title}
