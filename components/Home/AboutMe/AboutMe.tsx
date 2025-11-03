@@ -44,17 +44,20 @@ export default function AboutMe() {
   ];
 
   return (
-    <div id="aboutSection" data-aos="fade-up" className="snap-start flex flex-col items-center py-16 sm:py-20 bg-AAprimary">
-      {/* RIGHT-ALIGNED WRAPPER (desktop): push content toward the extreme right */}
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 space-y-8">
+    <div id="aboutSection" data-aos="fade-up" className="snap-start flex flex-col items-center py-16 sm:py-20 bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      
+      <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-12 space-y-8">
       {/* Section Header */}
         <div className="flex items-center">
           <div className="flex items-center mr-4">
             <ArrowIcon className="h-4 md:h-6 w-4 md:w-5 translate-y-[0.5px] text-AAsecondary" />
-            <span className="text-AAsecondary font-Header text-sm sm:text-xl">01.</span>
-            <span className="text-gray-200/90 font-bold tracking-wider text-lg sm:text-2xl pl-4">About Me</span>
+            <span className="text-AAsecondary font-semibold text-sm sm:text-xl">01.</span>
+            <span className="text-AAtext font-bold tracking-wider text-lg sm:text-2xl pl-4">About Me</span>
           </div>
-          <div className="bg-gray-400/40 h-px w-full sm:w-72 ml-4" />
+          <div className="bg-AAborder h-[1px] w-full sm:w-72 ml-4" />
         </div>
 
         {/* Desktop grid: tighter measure on text, sticky image on the far right */}
@@ -87,26 +90,26 @@ export default function AboutMe() {
               {keyBulletsCore.map((b, i) => (
                 <li key={i} className="flex items-start">
                   <ArrowIcon className="h-3 w-3 mt-1 text-AAsecondary" />
-                  <span className="ml-2 text-gray-400">{b}</span>
+                  <span className="ml-2 text-AAtext">{b}</span>
                 </li>
               ))}
               {expanded &&
                 keyBulletsMore.map((b, i) => (
                   <li key={`m-${i}`} className="flex items-start">
                     <ArrowIcon className="h-3 w-3 mt-1 text-AAsecondary" />
-                    <span className="ml-2 text-gray-400">{b}</span>
+                    <span className="ml-2 text-AAtext">{b}</span>
                   </li>
                 ))}
             </ul>
 
             {/* Quick snapshot chips (recruiter-friendly) */}
             <div className="pt-1">
-              <div className="text-gray-300/90 font-semibold mb-2">Quick snapshot</div>
+              <div className="text-AAtext font-semibold mb-3">Quick snapshot</div>
               <div className="flex flex-wrap gap-2">
                 {quickSnapshot.map((item) => (
                   <span
                     key={item}
-                    className="text-xs text-gray-300 bg-MobileNavBarColor/50 border border-MobileNavBarColor/70 rounded px-2 py-1"
+                    className="text-sm text-AAtext bg-AAhover border border-AAborder rounded-full px-3 py-1.5 hover:border-AAsecondary hover:text-AAsecondary transition-all duration-300"
                   >
                     {item}
                   </span>
@@ -115,13 +118,13 @@ export default function AboutMe() {
             </div>
 
             {/* Systems & Platform */}
-            <div className="pt-2">
-              <div className="text-gray-300/90 font-semibold mb-2">Systems & Platform</div>
+            <div className="pt-4">
+              <div className="text-AAtext font-semibold mb-3">Systems & Platform</div>
               <div className="flex flex-wrap gap-2">
                 {systemsPlatform.map((item) => (
                   <span
                     key={item}
-                    className="text-xs text-gray-300 bg-MobileNavBarColor/50 border border-MobileNavBarColor/70 rounded px-2 py-1"
+                    className="text-sm text-AAtext bg-AAhover border border-AAborder rounded-full px-3 py-1.5 hover:border-AAaccent hover:text-AAaccent transition-all duration-300"
                   >
                     {item}
                   </span>
@@ -130,15 +133,15 @@ export default function AboutMe() {
             </div>
 
             {/* Tech grid */}
-            <div className="font-Header tracking-wide">
-              <div className="text-gray-300/90 font-semibold mt-4 mb-2">Technologies I use</div>
-              <div className="flex flex-row flex-wrap gap-x-12 gap-y-3">
+            <div className="tracking-wide">
+              <div className="text-AAtext font-semibold mt-6 mb-4">Technologies I use</div>
+              <div className="flex flex-row flex-wrap gap-x-12 gap-y-4">
                 {technologies.map((group, gi) => (
-                  <div key={gi} className="flex flex-col space-y-2">
+                  <div key={gi} className="flex flex-col space-y-3">
                     {group.map((tech) => (
-                      <div key={tech} className="flex items-center space-x-2">
+                      <div key={tech} className="flex items-center space-x-3">
                         <ArrowIcon className="h-3 w-3 text-AAsecondary" />
-                        <span className="text-gray-400 text-[13px]">{tech}</span>
+                        <span className="text-AAtext text-sm hover:text-AAsecondary transition-colors duration-300">{tech}</span>
                       </div>
                     ))}
                   </div>
@@ -158,26 +161,26 @@ export default function AboutMe() {
             </div>
 
             {/* Target statement */}
-            <p className="font-Header text-justify text-gray-400 pt-1">
-              Seeking AI Software Engineer roles at innovative companies where I can build scalable full-stack applications,
-              develop AI/ML systems with LangChain and Hugging Face, optimize performance, and deliver measurable impact.
+            <p className="text-justify text-AAtext pt-4 leading-relaxed">
+              Seeking <span className="text-AAaccent font-semibold">AI Software Engineer</span> roles at innovative companies where I can build scalable full-stack applications,
+              develop AI/ML systems with <span className="text-AAsecondary font-medium">LangChain and Hugging Face</span>, optimize performance, and deliver measurable impact.
             </p>
           </div>
 
           {/* Sticky portrait on the far right */}
           <div className="relative md:justify-self-end md:sticky md:top-24">
           <figure className="relative w-[300px] lg:w-[320px] xl:w-[360px]">
-          <div className="rounded-lg overflow-hidden ring-2 ring-AAsecondary/70 ring-offset-4 ring-offset-AAprimary transition-transform duration-200 hover:translate-x-1.5 hover:translate-y-1.5">
+          <div className="rounded-2xl overflow-hidden ring-2 ring-AAsecondary/70 ring-offset-4 ring-offset-AAprimary transition-all duration-300 hover:translate-x-1.5 hover:translate-y-1.5 hover:ring-AAaccent/70 hover:shadow-2xl hover:shadow-AAsecondary/20">
                 <div className="relative w-full aspect-[4/5]">
                   <Img
                     src={"/Portfolio-portrait-4.jpg"}
-                    className="object-cover w-full h-full rounded-lg"
+                    className="object-cover w-full h-full rounded-2xl"
                     alt="Akshay portrait"
                     loading="lazy"
                   />
                 </div>
               </div>
-              <div className="pointer-events-none absolute inset-0 -z-10 rounded-lg translate-x-3 translate-y-3 border-2 border-AAsecondary/60" />
+              <div className="pointer-events-none absolute inset-0 -z-10 rounded-2xl translate-x-3 translate-y-3 border-2 border-AAsecondary/40" />
             </figure>
           </div>
         </div>
