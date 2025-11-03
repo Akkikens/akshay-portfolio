@@ -5,18 +5,9 @@ import Img from "../../smallComp/image/Img";
 import GithubIcon from "../../Icons/GithubIconForSomethingIveBuild";
 
 export default function SomethingIveBuilt() {
-  const [activeTab, setActiveTab] = useState("Goldi");
+  const [activeTab, setActiveTab] = useState("DevDiagrams");
 
   const projects = {
-    Goldi: {
-      title: "Goldi - AI Career Assistant (Climb Together)",
-      description:
-        "Contributed to an AI-powered career chat assistant at Climb Together that teaches students a better way to get interviews for internships and jobs. Helped build features for career path discovery, networking opportunities, practice conversations, and outreach messaging. Implemented AI technologies including LangChain, Hugging Face models, and OpenAI integration for intelligent conversational experiences. Supported by major organizations including Google.org, Walmart.org, and various universities.",
-      techStack: ["Next.js", "TypeScript", "React", "LangChain", "Hugging Face", "OpenAI", "AI/ML", "Career Development"],
-      image: "/goldi-preview.png",
-      githubLink: "https://github.com/climb-together/goldi",
-      liveLink: "https://goldi.climbtogether.co/",
-    },
     DevDiagrams: {
       title: "DevDiagrams - Interactive Learning Platform",
       description:
@@ -25,15 +16,6 @@ export default function SomethingIveBuilt() {
       image: "/devdiagrams.png",
       githubLink: "https://github.com/Akkikens/devdiagrams",
       liveLink: "https://devdiagrams.app",
-    },
-    Factorbook: {
-      title: "Factorbook 2.0 - Genomic AI Platform (UMass Chan)",
-      description:
-        "Contributed to an advanced genomic research platform at UMass Chan Medical School using Next.js, TypeScript, and Material UI. Implemented GraphQL with AI-powered data processing, reducing API response times by 55%. Built interactive visualizations with VISX and integrated machine learning workflows for genomic analysis, improving researcher engagement by 60%.",
-      techStack: ["Next.js", "TypeScript", "GraphQL", "VISX", "Material UI", "Python", "TensorFlow", "PyTorch", "ML/AI"],
-      image: "/Factorbook.png",
-      githubLink: "https://github.com/weng-lab/Factorbook2.0",
-      liveLink: "https://factorbook2-0.vercel.app/",
     },
     ChatbotUI: {
       title: "AI Chatbot Platform",
@@ -92,10 +74,10 @@ export default function SomethingIveBuilt() {
         <div className="flex items-center space-x-2 sm:space-x-4">
           <ArrowIcon className="h-4 sm:h-5 md:h-6 w-4 sm:w-5 md:w-5 text-AAsecondary" />
           <span className="text-AAsecondary font-sans text-sm sm:text-xl">
-            04.
+            05.
           </span>
           <h2 className="font-bold tracking-wider text-gray-200 text-base sm:text-lg md:text-2xl">
-            Some Things I've Built // Contributed
+            Personal Projects
           </h2>
         </div>
         <div className="bg-gray-400 h-[0.2px] w-full sm:w-1/3 md:w-1/2 hidden sm:block"></div>

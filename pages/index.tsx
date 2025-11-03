@@ -19,6 +19,9 @@ const AboutMe = React.lazy(() => import("../components/Home/AboutMe/AboutMe"));
 const WhereIHaveWorked = React.lazy(
   () => import("../components/Home/WhereIHaveWorked/WhereIHaveWorked")
 );
+const SomethingIveContributed = React.lazy(
+  () => import("../components/Home/SomethingIveContributed/SomethingIveContributed")
+);
 const SomethingIveBuilt = React.lazy(
   () => import("../components/Home/SomethingIveBuilt/SomethingIveBuilt")
 );
@@ -153,6 +156,7 @@ export default function Home() {
             <AboutMe />
             <WhereIHaveWorked />
             <Certifications />
+            <SomethingIveContributed />
             <SomethingIveBuilt />
             <Testimonials />
             <LiveDemo />
