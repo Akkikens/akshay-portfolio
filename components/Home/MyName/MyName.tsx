@@ -8,12 +8,28 @@ type Props = { finishedLoading?: boolean };
 export default function MyName({ finishedLoading = false }: Props) {
   const [scrollY, setScrollY] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [particles, setParticles] = useState<
+    Array<{
+      left: string;
+      top: string;
+      duration: number;
+      delay: number;
+    }>
+  >([]);
   
   // Don't render anything until the intros are done
   if (!finishedLoading) return null;
 
   useEffect(() => {
     setMounted(true);
+    setParticles(
+      Array.from({ length: 20 }, () => ({
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        duration: 3 + Math.random() * 2,
+        delay: Math.random() * 2,
+      }))
+    );
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -58,22 +74,22 @@ export default function MyName({ finishedLoading = false }: Props) {
       />
       
       {/* Floating particles */}
-      {[...Array(20)].map((_, i) => (
+      {particles.map((particle, i) => (
         <motion.div
           key={i}
           className="absolute w-1 h-1 bg-AAsecondary/30 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: particle.left,
+            top: particle.top,
           }}
           animate={{
             y: [0, -30, 0],
             opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
-            duration: 3 + Math.random() * 2,
+            duration: particle.duration,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: particle.delay,
           }}
         />
       ))}
