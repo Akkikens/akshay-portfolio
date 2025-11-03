@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
 import { scroller } from "react-scroll";
+import GalaxyBackground from "./GalaxyBackground";
 
 type Props = { finishedLoading?: boolean };
 
@@ -44,6 +45,9 @@ export default function MyName({ finishedLoading = false }: Props) {
 
   return (
     <section id="home" className="bg-gradient-to-br from-AAprimary via-AAprimary to-MobileNavBarColor text-AAtext relative overflow-hidden" aria-label="Introduction">
+      {/* Galaxy Background */}
+      <GalaxyBackground />
+      
       {/* Animated Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-r from-AAsecondary/5 via-transparent to-AAaccent/5" />
       <motion.div 
