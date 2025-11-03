@@ -15,9 +15,40 @@ interface Constellation {
   stars: { x: number; y: number }[];
 }
 
+interface GlowingStar {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  color: string;
+  duration: number;
+  delay: number;
+}
+
+interface Galaxy {
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  scaleDuration: number;
+  rotateDuration: number;
+  opacityDuration: number;
+}
+
+interface DustParticle {
+  id: number;
+  x: number;
+  y: number;
+  duration: number;
+  delay: number;
+}
+
 export default function GalaxyBackground() {
   const [stars, setStars] = useState<Star[]>([]);
   const [constellations, setConstellations] = useState<Constellation[]>([]);
+  const [glowingStars, setGlowingStars] = useState<GlowingStar[]>([]);
+  const [galaxies, setGalaxies] = useState<Galaxy[]>([]);
+  const [dustParticles, setDustParticles] = useState<DustParticle[]>([]);
 
   useEffect(() => {
     // Generate regular stars
@@ -46,6 +77,51 @@ export default function GalaxyBackground() {
       };
     });
     setConstellations(generatedConstellations);
+
+    const glowColors = [
+      "rgba(255, 255, 255, 1)",
+      "rgba(147, 197, 253, 1)",
+      "rgba(139, 92, 246, 1)",
+      "rgba(16, 185, 129, 1)",
+    ];
+
+    // Glowing stars
+    const generatedGlowingStars: GlowingStar[] = Array.from({ length: 40 }, (_, i) => {
+      const size = Math.random() * 2 + 1;
+      const color = glowColors[Math.floor(Math.random() * glowColors.length)];
+      return {
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size,
+        color,
+        duration: 2 + Math.random() * 3,
+        delay: Math.random() * 4,
+      };
+    });
+    setGlowingStars(generatedGlowingStars);
+
+    // Distant galaxies
+    const generatedGalaxies: Galaxy[] = Array.from({ length: 6 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: 60 + Math.random() * 40,
+      scaleDuration: 8 + Math.random() * 4,
+      rotateDuration: 60 + Math.random() * 40,
+      opacityDuration: 6 + Math.random() * 3,
+    }));
+    setGalaxies(generatedGalaxies);
+
+    // Dust particles
+    const generatedDust: DustParticle[] = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      duration: 8 + Math.random() * 6,
+      delay: Math.random() * 8,
+    }));
+    setDustParticles(generatedDust);
   }, []);
 
   return (
@@ -192,102 +268,79 @@ export default function GalaxyBackground() {
       ))}
 
       {/* Bright glowing stars */}
-      {Array.from({ length: 40 }).map((_, i) => {
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        const size = Math.random() * 2 + 1;
-        const colors = [
-          "rgba(255, 255, 255, 1)",
-          "rgba(147, 197, 253, 1)",
-          "rgba(139, 92, 246, 1)",
-          "rgba(16, 185, 129, 1)",
-        ];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        return (
-          <motion.div
-            key={`glow-${i}`}
-            className="absolute rounded-full"
-            style={{
-              left: `${x}%`,
-              top: `${y}%`,
-              width: `${size}px`,
-              height: `${size}px`,
-              background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
-              boxShadow: `0 0 ${size * 6}px ${size * 2}px ${color.replace("1)", "0.5)")}`,
-            }}
-            animate={{
-              opacity: [0.5, 1, 0.5],
-              scale: [1, 1.4, 1],
-            }}
-            transition={{
-              duration: 2 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 4,
-              ease: "easeInOut",
-            }}
-          />
-        );
-      })}
+      {glowingStars.map((star) => (
+        <motion.div
+          key={`glow-${star.id}`}
+          className="absolute rounded-full"
+          style={{
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            background: `radial-gradient(circle, ${star.color} 0%, transparent 70%)`,
+            boxShadow: `0 0 ${star.size * 6}px ${star.size * 2}px ${star.color.replace("1)", "0.5)")}`,
+          }}
+          animate={{
+            opacity: [0.5, 1, 0.5],
+            scale: [1, 1.4, 1],
+          }}
+          transition={{
+            duration: star.duration,
+            repeat: Infinity,
+            delay: star.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
 
       {/* Distant spiral galaxies */}
-      {Array.from({ length: 6 }).map((_, i) => {
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        const size = 60 + Math.random() * 40;
-        
-        return (
-          <motion.div
-            key={`galaxy-${i}`}
-            className="absolute rounded-full"
-            style={{
-              left: `${x}%`,
-              top: `${y}%`,
-              width: `${size}px`,
-              height: `${size}px`,
-              background: "radial-gradient(ellipse, rgba(147, 197, 253, 0.15) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 70%)",
-              filter: "blur(3px)",
-            }}
-            animate={{
-              scale: [1, 1.15, 1],
-              rotate: [0, 360],
-              opacity: [0.3, 0.6, 0.3],
-            }}
-            transition={{
-              scale: { duration: 8 + Math.random() * 4, repeat: Infinity, ease: "easeInOut" },
-              rotate: { duration: 60 + Math.random() * 40, repeat: Infinity, ease: "linear" },
-              opacity: { duration: 6 + Math.random() * 3, repeat: Infinity, ease: "easeInOut" },
-            }}
-          />
-        );
-      })}
+      {galaxies.map((galaxy) => (
+        <motion.div
+          key={`galaxy-${galaxy.id}`}
+          className="absolute rounded-full"
+          style={{
+            left: `${galaxy.x}%`,
+            top: `${galaxy.y}%`,
+            width: `${galaxy.size}px`,
+            height: `${galaxy.size}px`,
+            background:
+              "radial-gradient(ellipse, rgba(147, 197, 253, 0.15) 0%, rgba(139, 92, 246, 0.1) 40%, transparent 70%)",
+            filter: "blur(3px)",
+          }}
+          animate={{
+            scale: [1, 1.15, 1],
+            rotate: [0, 360],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            scale: { duration: galaxy.scaleDuration, repeat: Infinity, ease: "easeInOut" },
+            rotate: { duration: galaxy.rotateDuration, repeat: Infinity, ease: "linear" },
+            opacity: { duration: galaxy.opacityDuration, repeat: Infinity, ease: "easeInOut" },
+          }}
+        />
+      ))}
 
       {/* Cosmic dust particles */}
-      {Array.from({ length: 50 }).map((_, i) => {
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        
-        return (
-          <motion.div
-            key={`dust-${i}`}
-            className="absolute w-px h-px bg-blue-200/30 rounded-full"
-            style={{
-              left: `${x}%`,
-              top: `${y}%`,
-            }}
-            animate={{
-              opacity: [0, 0.5, 0],
-              y: [0, -20, -40],
-            }}
-            transition={{
-              duration: 8 + Math.random() * 6,
-              repeat: Infinity,
-              delay: Math.random() * 8,
-              ease: "easeInOut",
-            }}
-          />
-        );
-      })}
+      {dustParticles.map((particle) => (
+        <motion.div
+          key={`dust-${particle.id}`}
+          className="absolute w-px h-px bg-blue-200/30 rounded-full"
+          style={{
+            left: `${particle.x}%`,
+            top: `${particle.y}%`,
+          }}
+          animate={{
+            opacity: [0, 0.5, 0],
+            y: [0, -20, -40],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
     </div>
   );
 }
