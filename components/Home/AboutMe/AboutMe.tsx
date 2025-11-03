@@ -125,117 +125,6 @@ export default function AboutMe() {
               ))}
             </ul>
 
-            {/* Quick Snapshot Section */}
-            <motion.div 
-              className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h3 className="text-AAtext font-bold text-lg mb-4 flex items-center space-x-2">
-                <span className="text-AAsecondary">⚡</span>
-                <span>Quick Snapshot</span>
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {quickSnapshot.map((item, i) => (
-                  <motion.span
-                    key={item}
-                    className="text-sm text-AAtext bg-AAprimary/50 border border-AAborder rounded-full px-4 py-2 hover:border-AAsecondary hover:text-AAsecondary transition-all duration-300 cursor-pointer"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: i * 0.05 }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                  >
-                    {item}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Systems & Platform Section */}
-            <motion.div 
-              className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <h3 className="text-AAtext font-bold text-lg mb-4 flex items-center space-x-2">
-                <span className="text-AAaccent">🏗️</span>
-                <span>Systems & Platform</span>
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {systemsPlatform.map((item, i) => (
-                  <motion.span
-                    key={item}
-                    className="text-sm text-AAtext bg-AAprimary/50 border border-AAborder rounded-full px-4 py-2 hover:border-AAaccent hover:text-AAaccent transition-all duration-300 cursor-pointer"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: i * 0.05 }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                  >
-                    {item}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Technologies Section */}
-            <motion.div 
-              className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <h3 className="text-AAtext font-bold text-lg mb-4 flex items-center space-x-2">
-                <span className="text-AAsecondary">💻</span>
-                <span>Technologies I Use</span>
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {technologies.map((group, gi) => (
-                  <div key={gi} className="flex flex-col space-y-3">
-                    {group.map((tech, ti) => (
-                      <motion.div 
-                        key={tech} 
-                        className="flex items-center space-x-2 group cursor-pointer"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.3, delay: (gi * 0.1) + (ti * 0.05) }}
-                        whileHover={{ x: 5 }}
-                      >
-                        <ArrowIcon className="h-3 w-3 text-AAsecondary group-hover:text-AAaccent transition-colors" />
-                        <span className="text-AAtext text-sm group-hover:text-AAsecondary transition-colors">{tech}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-
-
-            {/* Career Goals Section */}
-            <motion.div 
-              className="bg-gradient-to-r from-AAsecondary/10 to-AAaccent/10 rounded-2xl p-6 border border-AAsecondary/30 backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <h3 className="text-AAtext font-bold text-lg mb-3 flex items-center space-x-2">
-                <span className="text-AAaccent">🎯</span>
-                <span>What I'm Looking For</span>
-              </h3>
-              <p className="text-AAtext leading-relaxed">
-                Seeking <span className="text-AAaccent font-semibold">AI Software Engineer</span> roles at innovative companies where I can build scalable full-stack applications,
-                develop AI/ML systems with <span className="text-AAsecondary font-semibold">LangChain and Hugging Face</span>, optimize performance, and deliver measurable impact.
-              </p>
-            </motion.div>
           </div>
 
           {/* Sticky portrait on the far right */}
@@ -254,9 +143,142 @@ export default function AboutMe() {
               <div className="pointer-events-none absolute inset-0 -z-10 rounded-2xl translate-x-3 translate-y-3 border-2 border-AAsecondary/40" />
             </figure>
           </div>
-        </div>
+      </div>
 
-        {/* Mobile layout (unchanged) */}
+      {/* Signature Highlights (desktop) */}
+      <motion.div
+        className="hidden md:block rounded-3xl border border-AAborder/80 bg-AAprimary/30 p-8 backdrop-blur-lg"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.45 }}
+      >
+        <div className="mb-6 flex items-center gap-3">
+          <span className="text-2xl text-AAaccent">✨</span>
+          <h3 className="text-2xl font-bold tracking-wide text-AAtext">
+            Signature Highlights
+          </h3>
+        </div>
+        <div className="grid grid-cols-2 gap-6 xl:gap-8">
+          <motion.div
+            className="h-full rounded-2xl border border-AAborder bg-gradient-to-br from-AAhover to-MobileNavBarColor p-6 shadow-lg shadow-AAsecondary/10"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: 0.05 }}
+          >
+            <h4 className="mb-4 flex items-center gap-2 text-lg font-bold text-AAtext">
+              <span className="text-AAsecondary">⚡</span>
+              Quick Snapshot
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {quickSnapshot.map((item, i) => (
+                <motion.span
+                  key={item}
+                  className="cursor-pointer rounded-full border border-AAborder bg-AAprimary/50 px-4 py-2 text-sm text-AAtext transition-all duration-300 hover:border-AAsecondary hover:text-AAsecondary"
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                >
+                  {item}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="h-full rounded-2xl border border-AAborder bg-gradient-to-br from-AAhover to-MobileNavBarColor p-6 shadow-lg shadow-AAaccent/10"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: 0.1 }}
+          >
+            <h4 className="mb-4 flex items-center gap-2 text-lg font-bold text-AAtext">
+              <span className="text-AAaccent">🏗️</span>
+              Systems &amp; Platform
+            </h4>
+            <div className="flex flex-wrap gap-2">
+              {systemsPlatform.map((item, i) => (
+                <motion.span
+                  key={item}
+                  className="cursor-pointer rounded-full border border-AAborder bg-AAprimary/50 px-4 py-2 text-sm text-AAtext transition-all duration-300 hover:border-AAaccent hover:text-AAaccent"
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                >
+                  {item}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="h-full rounded-2xl border border-AAborder bg-gradient-to-br from-AAhover to-MobileNavBarColor p-6 shadow-lg shadow-AAsecondary/10"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: 0.15 }}
+          >
+            <h4 className="mb-4 flex items-center gap-2 text-lg font-bold text-AAtext">
+              <span className="text-AAsecondary">💻</span>
+              Technologies I Use
+            </h4>
+            <div className="grid grid-cols-2 gap-4">
+              {technologies.map((group, gi) => (
+                <div key={gi} className="flex flex-col space-y-3">
+                  {group.map((tech, ti) => (
+                    <motion.div
+                      key={tech}
+                      className="group flex cursor-pointer items-center space-x-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: gi * 0.1 + ti * 0.05 }}
+                      whileHover={{ x: 5 }}
+                    >
+                      <ArrowIcon className="h-3 w-3 text-AAsecondary transition-colors group-hover:text-AAaccent" />
+                      <span className="text-sm text-AAtext transition-colors group-hover:text-AAsecondary">
+                        {tech}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="h-full rounded-2xl border border-AAsecondary/40 bg-gradient-to-r from-AAsecondary/10 to-AAaccent/10 p-6 shadow-lg shadow-AAaccent/15"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: 0.2 }}
+          >
+            <h4 className="mb-3 flex items-center gap-2 text-lg font-bold text-AAtext">
+              <span className="text-AAaccent">🎯</span>
+              Mission Next
+            </h4>
+            <p className="leading-relaxed text-AAtext">
+              Seeking{" "}
+              <span className="font-semibold text-AAaccent">
+                AI Software Engineer
+              </span>{" "}
+              roles at innovative companies where I can build scalable full-stack applications,
+              develop AI/ML systems with{" "}
+              <span className="font-semibold text-AAsecondary">
+                LangChain and Hugging Face
+              </span>
+              , optimize performance, and deliver measurable impact.
+            </p>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Mobile layout (unchanged) */}
         <div className="md:hidden space-y-6">
           <div className="space-y-5 sm:text-base text-sm leading-relaxed">
             <p className="font-Header text-justify text-gray-400">
@@ -283,7 +305,82 @@ export default function AboutMe() {
             </div>
           </figure>
 
-          {/* (The rest of the content stacks below on mobile, as before) */}
+          <motion.div
+            className="rounded-3xl border border-AAborder/80 bg-AAprimary/30 p-5 backdrop-blur"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4 }}
+          >
+            <div className="mb-5 flex items-center gap-3">
+              <span className="text-lg text-AAaccent">✨</span>
+              <h3 className="text-lg font-semibold text-AAtext">Signature Highlights</h3>
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-AAborder bg-gradient-to-br from-AAhover to-MobileNavBarColor p-4">
+                <h4 className="mb-3 flex items-center gap-2 text-base font-bold text-AAtext">
+                  <span className="text-AAsecondary">⚡</span>
+                  Quick Snapshot
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {quickSnapshot.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-AAborder bg-AAprimary/50 px-3 py-1.5 text-xs text-AAtext"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-AAborder bg-gradient-to-br from-AAhover to-MobileNavBarColor p-4">
+                <h4 className="mb-3 flex items-center gap-2 text-base font-bold text-AAtext">
+                  <span className="text-AAaccent">🏗️</span>
+                  Systems &amp; Platform
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {systemsPlatform.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-full border border-AAborder bg-AAprimary/50 px-3 py-1.5 text-xs text-AAtext"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-AAborder bg-gradient-to-br from-AAhover to-MobileNavBarColor p-4">
+                <h4 className="mb-3 flex items-center gap-2 text-base font-bold text-AAtext">
+                  <span className="text-AAsecondary">💻</span>
+                  Technologies I Use
+                </h4>
+                <div className="grid grid-cols-2 gap-3 text-xs text-AAtext">
+                  {technologies.flat().map((tech) => (
+                    <div key={tech} className="flex items-center gap-2">
+                      <ArrowIcon className="h-3 w-3 text-AAsecondary" />
+                      <span>{tech}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-AAsecondary/40 bg-gradient-to-r from-AAsecondary/10 to-AAaccent/10 p-4">
+                <h4 className="mb-2 flex items-center gap-2 text-base font-bold text-AAtext">
+                  <span className="text-AAaccent">🎯</span>
+                  Mission Next
+                </h4>
+                <p className="text-sm leading-relaxed text-AAtext">
+                  Seeking{" "}
+                  <span className="font-semibold text-AAaccent">
+                    AI Software Engineer
+                  </span>{" "}
+                  roles at innovative companies where I can build scalable full-stack
+                  applications, develop AI/ML systems with{" "}
+                  <span className="font-semibold text-AAsecondary">LangChain and Hugging Face</span>,
+                  optimize performance, and deliver measurable impact.
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>
