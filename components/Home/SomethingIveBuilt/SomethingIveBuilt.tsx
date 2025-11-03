@@ -9,9 +9,9 @@ export default function SomethingIveBuilt() {
 
   const projects = {
     Goldi: {
-      title: "Goldi - AI Career Assistant",
+      title: "Goldi - AI Career Assistant (Climb Together)",
       description:
-        "An AI-powered career chat assistant that teaches students a better way to get interviews for internships and jobs. Goldi helps users discover career paths, brainstorm networking opportunities, practice career conversations, and write effective outreach messages. Built with advanced AI technologies including LangChain, Hugging Face models, and OpenAI integration for intelligent conversational experiences. Supported by major organizations including Google.org, Walmart.org, and various universities.",
+        "Contributed to an AI-powered career chat assistant at Climb Together that teaches students a better way to get interviews for internships and jobs. Helped build features for career path discovery, networking opportunities, practice conversations, and outreach messaging. Implemented AI technologies including LangChain, Hugging Face models, and OpenAI integration for intelligent conversational experiences. Supported by major organizations including Google.org, Walmart.org, and various universities.",
       techStack: ["Next.js", "TypeScript", "React", "LangChain", "Hugging Face", "OpenAI", "AI/ML", "Career Development"],
       image: "/goldi-preview.png",
       githubLink: "https://github.com/climb-together/goldi",
@@ -27,9 +27,9 @@ export default function SomethingIveBuilt() {
       liveLink: "https://devdiagrams.app",
     },
     Factorbook: {
-      title: "Factorbook 2.0 - Genomic AI Platform",
+      title: "Factorbook 2.0 - Genomic AI Platform (UMass Chan)",
       description:
-        "Advanced genomic research platform at UMass Chan Medical School using Next.js, TypeScript, and Material UI. Implemented GraphQL with AI-powered data processing, reducing API response times by 55%. Built interactive visualizations with VISX and integrated machine learning workflows for genomic analysis, improving researcher engagement by 60%.",
+        "Contributed to an advanced genomic research platform at UMass Chan Medical School using Next.js, TypeScript, and Material UI. Implemented GraphQL with AI-powered data processing, reducing API response times by 55%. Built interactive visualizations with VISX and integrated machine learning workflows for genomic analysis, improving researcher engagement by 60%.",
       techStack: ["Next.js", "TypeScript", "GraphQL", "VISX", "Material UI", "Python", "TensorFlow", "PyTorch", "ML/AI"],
       image: "/Factorbook.png",
       githubLink: "https://github.com/weng-lab/Factorbook2.0",
