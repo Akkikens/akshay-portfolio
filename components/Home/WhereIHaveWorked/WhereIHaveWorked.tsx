@@ -77,11 +77,11 @@ export default function WhereIHaveWorked() {
       </motion.section>
 
       {/* Content */}
-      <section className="relative flex flex-col md:flex-row space-y-8 md:space-y-0 items-start w-full max-w-7xl mx-auto">
-        <div className="md:w-64 md:mr-12 flex-shrink-0">
+      <section className="relative flex flex-col md:flex-row space-y-8 md:space-y-0 items-start w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div className="w-full md:w-64 md:mr-12 flex-shrink-0">
           <CompaniesBar setDescriptionJob={setDescriptionJob} />
         </div>
-        <div className="flex-1 w-full">
+        <div className="flex-1 w-full min-w-0">
           {GetDescription()}
         </div>
       </section>
@@ -103,7 +103,7 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
         props.setDescriptionJob(props.DescriptionJob);
         setCompanyNameBackgroundColorGreen(props.CompanyNameBackgroundColorGreen);
       }}
-      className={`flex-none text-sm text-left font-medium py-4 px-6 w-full duration-300 transition-all rounded-2xl backdrop-blur-sm
+      className={`flex-none text-xs sm:text-sm text-left font-medium py-3 px-4 md:py-4 md:px-6 w-auto md:w-full whitespace-nowrap duration-300 transition-all rounded-2xl backdrop-blur-sm
         ${
           companyNameBackgroundColorGreen[
             props.ButtonOrderOfcompanyNameBackgroundColorGreen
@@ -117,19 +117,19 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row w-screen lg:w-auto overflow-auto scrollbar-hide md:overflow-hidden pb-4 md:pb-0 justify-start sm:justify-center items-start sm:items-center">
-      {/* Left bar */}
-      <div className="hidden md:block bg-AAborder relative h-0.5 w-34 md:h-[420px] translate-y-1 md:w-1 rounded-full md:order-1 order-2">
+    <div className="flex flex-col md:flex-row w-full md:w-auto overflow-x-auto md:overflow-hidden pb-4 md:pb-0">
+      {/* Left bar - Desktop only */}
+      <div className="hidden md:block bg-AAborder relative h-[420px] w-1 rounded-full mr-4">
         <motion.div
           animate={{ y: barPosition }}
-          className="absolute w-10 h-0.5 md:w-1 md:h-16 rounded-full bg-gradient-to-b from-AAsecondary to-AAaccent shadow-lg shadow-AAsecondary/50"
+          className="absolute w-1 h-16 rounded-full bg-gradient-to-b from-AAsecondary to-AAaccent shadow-lg shadow-AAsecondary/50"
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
 
       {/* Buttons */}
-      <div className="flex flex-col md:order-2 order-1 space-y-1 pl-8 md:pl-0">
-        <div className="flex flex-row md:flex-col">
+      <div className="flex flex-col space-y-1 w-full md:w-auto">
+        <div className="flex flex-row md:flex-col overflow-x-auto md:overflow-visible scrollbar-hide gap-2 md:gap-0 pb-2 md:pb-0">
           <CompanyButton
             ButtonOrderOfcompanyNameBackgroundColorGreen={0}
             CompanyName="Climb Together"
@@ -141,7 +141,7 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
           />
           <CompanyButton
             ButtonOrderOfcompanyNameBackgroundColorGreen={1}
-            CompanyName="UMass Chan Medical School"
+            CompanyName="UMass Chan"
             BarPosition={-10}
             BarAvobePosition={129}
             DescriptionJob="UMass Chan Medical School"
@@ -178,10 +178,10 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
         </div>
 
         {/* Mobile underline */}
-        <div className="block md:hidden h-1 rounded-full bg-AAborder">
+        <div className="block md:hidden h-1 rounded-full bg-AAborder w-full overflow-hidden">
           <motion.div 
             animate={{ x: barAbovePosition }} 
-            className="w-[144px] h-1 rounded-full bg-gradient-to-r from-AAsecondary to-AAaccent shadow-lg shadow-AAsecondary/50" 
+            className="w-[120px] h-1 rounded-full bg-gradient-to-r from-AAsecondary to-AAaccent shadow-lg shadow-AAsecondary/50" 
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
