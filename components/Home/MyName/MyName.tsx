@@ -351,22 +351,13 @@ export default function MyName({ finishedLoading = false }: Props) {
 
             <motion.button
               onClick={() => scrollTo("GetInTouchSection", 100)}
-              className="rounded-full px-8 py-3 font-medium text-AAsubtext hover:text-AAtext hover:bg-AAhover transition-all duration-300"
+              className="rounded-full px-8 py-3 font-medium text-AAsubtext hover:text-AAtext hover:bg-AAhover border-2 border-AAborder hover:border-AAaccent transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
               Contact
             </motion.button>
           </motion.div>
-
-          <motion.p 
-            className="mt-8 text-sm text-AAtext max-w-[60ch]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            Seeking <span className="text-AAaccent font-medium">AI Software Engineer</span> roles where I can build scalable applications, develop AI/ML solutions, and drive technical excellence.
-          </motion.p>
         </div>
       </div>
     </section>
