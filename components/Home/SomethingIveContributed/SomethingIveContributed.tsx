@@ -88,12 +88,12 @@ export default function SomethingIveContributed() {
       </motion.div>
 
       {/* Tabs Section */}
-      <div className="relative -mx-2 flex overflow-x-auto sm:flex-wrap sm:overflow-visible gap-3 mt-8 sm:mt-12 px-2 scrollbar-hide">
+      <div className="relative flex flex-wrap gap-3 mt-8 sm:mt-12">
         {Object.keys(contributions).map((key) => (
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`py-3 px-5 text-xs sm:text-sm rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm min-w-[220px] sm:min-w-0 text-left whitespace-normal sm:whitespace-nowrap ${
+            className={`py-3 px-6 text-sm rounded-2xl whitespace-nowrap font-medium transition-all duration-300 backdrop-blur-sm ${
               activeTab === key
                 ? "bg-gradient-to-r from-AAsecondary to-AAaccent text-white shadow-lg shadow-AAsecondary/30"
                 : "text-AAsubtext hover:text-AAtext bg-AAhover hover:bg-AAborder border border-AAborder hover:border-AAsecondary/50 hover:shadow-lg"
@@ -124,40 +124,40 @@ export default function SomethingIveContributed() {
         )}
 
         {/* Right Content Section */}
-        <div className="md:col-span-5 flex flex-col space-y-6 order-2 md:order-2 min-w-0 w-full">
-          <div className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-5 sm:p-6 md:p-7 border border-AAborder backdrop-blur-sm">
-            <div className="space-y-3 sm:space-y-4">
+        <div className="md:col-span-5 flex flex-col space-y-6 order-2 md:order-2">
+          <div className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm">
+            <div className="space-y-4">
               <div>
-                <h3 className="text-AAtext text-base sm:text-lg md:text-xl font-bold">
+                <h3 className="text-AAtext text-xl font-bold block">
                   {activeContribution.title}
                 </h3>
                 <div className="flex items-center space-x-2 mt-2">
-                  <span className="text-AAsecondary text-xs sm:text-sm md:text-base font-semibold">@ {activeContribution.company}</span>
+                  <span className="text-AAsecondary text-base font-semibold">@ {activeContribution.company}</span>
                 </div>
               </div>
               
-              <p className="text-AAtext text-sm sm:text-base md:text-lg leading-relaxed">
+              <p className="text-AAtext text-base leading-relaxed">
                 {activeContribution.description}
               </p>
               
               <div className="flex flex-wrap gap-2">
                 {activeContribution.techStack.map((tech, index) => (
-                  <span key={index} className="bg-AAprimary/50 text-AAtext px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm border border-AAborder hover:border-AAsecondary hover:text-AAsecondary transition-all duration-300">
+                  <span key={index} className="bg-AAprimary/50 text-AAtext px-3 py-1.5 rounded-full text-sm border border-AAborder hover:border-AAsecondary hover:text-AAsecondary transition-all duration-300">
                     {tech}
                   </span>
                 ))}
               </div>
               
-              <div className="flex flex-wrap gap-2 sm:gap-3 pt-2">
+              <div className="flex flex-wrap gap-3 pt-2">
                 {activeContribution.liveLink && (
                   <a
                     href={activeContribution.liveLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 text-AAsecondary hover:text-AAaccent font-medium transition-colors duration-300 bg-AAsecondary/10 hover:bg-AAaccent/10 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-AAsecondary/30 hover:border-AAaccent/30 text-xs sm:text-sm"
+                    className="inline-flex items-center space-x-2 text-AAsecondary hover:text-AAaccent font-medium transition-colors duration-300 bg-AAsecondary/10 hover:bg-AAaccent/10 px-4 py-2 rounded-full border border-AAsecondary/30 hover:border-AAaccent/30"
                   >
                     <span>Visit Project</span>
-                    <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </a>

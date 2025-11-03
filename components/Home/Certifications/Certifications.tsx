@@ -205,7 +205,7 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
   const [activeCertification, setActiveCertification] = useState(0);
 
   return (
-    <div className="flex w-full gap-2 md:gap-3 overflow-x-auto md:flex-col md:overflow-visible pb-2 md:pb-0 scrollbar-hide">
+    <div className="flex flex-col space-y-3 overflow-x-auto scrollbar-hide w-full">
       {certifications.map((cert, index) => (
         <button
           key={index}
@@ -213,9 +213,9 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
             setSelectedCertification(cert);
             setActiveCertification(index);
           }}
-          className={`flex-none md:flex-auto py-4 px-5 text-xs sm:text-sm font-medium rounded-2xl transition-all duration-300 text-left backdrop-blur-sm border min-w-[200px] sm:min-w-[240px] md:min-w-0 ${
+          className={`py-4 px-6 text-sm font-medium rounded-2xl transition-all duration-300 text-left backdrop-blur-sm border ${
             activeCertification === index
-              ? "bg-AAhover text-AAsecondary border-AAsecondary/30 shadow-lg shadow-AAsecondary/20"
+              ? "bg-AAhover text-AAsecondary border-AAsecondary/30"
               : "text-AAsubtext hover:text-AAtext hover:bg-AAhover/50 border-transparent hover:border-AAborder"
           }`}
         >

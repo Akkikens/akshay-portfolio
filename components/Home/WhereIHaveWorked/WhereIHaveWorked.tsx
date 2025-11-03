@@ -103,7 +103,7 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
         props.setDescriptionJob(props.DescriptionJob);
         setCompanyNameBackgroundColorGreen(props.CompanyNameBackgroundColorGreen);
       }}
-      className={`flex-none text-xs sm:text-sm text-left font-medium py-3 px-4 md:py-4 md:px-6 w-auto md:w-full whitespace-nowrap duration-300 transition-all rounded-2xl backdrop-blur-sm min-w-[140px] sm:min-w-[160px] md:min-w-0
+      className={`flex-none text-xs sm:text-sm text-left font-medium py-3 px-4 md:py-4 md:px-6 w-auto md:w-full whitespace-nowrap duration-300 transition-all rounded-2xl backdrop-blur-sm
         ${
           companyNameBackgroundColorGreen[
             props.ButtonOrderOfcompanyNameBackgroundColorGreen
