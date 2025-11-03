@@ -67,13 +67,17 @@ export default function SomethingIveBuilt() {
   return (
     <div
       id="SomethingIveBuiltSection"
-      className="flex flex-col bg-AAprimary w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder"
+      className="flex flex-col bg-gradient-to-br from-AAprimary to-MobileNavBarColor w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder relative overflow-hidden"
     >
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
+      
       {/* Section Title */}
-      <div data-aos="fade-up" className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+      <div data-aos="fade-up" className="relative flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
         <div className="flex items-center space-x-2 sm:space-x-4">
           <ArrowIcon className="h-4 sm:h-5 md:h-6 w-4 sm:w-5 md:w-5 text-AAsecondary" />
-          <span className="text-AAsecondary font-sans text-sm sm:text-xl">
+          <span className="text-AAsecondary font-semibold text-sm sm:text-xl">
             05.
           </span>
           <h2 className="font-bold tracking-wider text-AAtext text-base sm:text-lg md:text-2xl">
@@ -84,15 +88,15 @@ export default function SomethingIveBuilt() {
       </div>
 
       {/* Tabs Section */}
-      <div className="flex flex-wrap gap-1 sm:gap-2 mt-6 sm:mt-8">
+      <div className="relative flex flex-wrap gap-3 mt-8 sm:mt-12">
         {Object.keys(projects).map((key) => (
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`py-2 px-4 text-sm rounded-full whitespace-nowrap font-medium transition-all duration-300 ${
+            className={`py-3 px-6 text-sm rounded-2xl whitespace-nowrap font-medium transition-all duration-300 backdrop-blur-sm ${
               activeTab === key
-                ? "bg-AAsecondary text-white shadow-lg"
-                : "text-AAsubtext hover:text-AAtext bg-AAhover hover:bg-AAborder border border-AAborder"
+                ? "bg-gradient-to-r from-AAaccent to-AAsecondary text-white shadow-lg shadow-AAaccent/30"
+                : "text-AAsubtext hover:text-AAtext bg-AAhover hover:bg-AAborder border border-AAborder hover:border-AAaccent/50 hover:shadow-lg"
             }`}
           >
             {projects[key].title}
@@ -105,16 +109,19 @@ export default function SomethingIveBuilt() {
         data-aos="fade-up"
         className={`relative grid ${
           activeProject.image ? "md:grid-cols-12" : "md:grid-cols-6"
-        } grid-cols-1 w-full mt-8 sm:mt-12 gap-4 sm:gap-6 md:gap-8`}
+        } grid-cols-1 w-full mt-8 sm:mt-12 gap-6 sm:gap-8 md:gap-12`}
       >
         {/* Left Image Section (Only Render If Image Exists) */}
         {activeProject.image && (
           <div className="col-span-12 md:col-span-7 flex items-center justify-center order-1 md:order-1">
-            <Img
-              src={activeProject.image}
-              alt={`${activeProject.title} Screenshot`}
-              className="w-full h-auto rounded-lg shadow-lg object-contain"
-            />
+            <div className="relative group">
+              <Img
+                src={activeProject.image}
+                alt={`${activeProject.title} Screenshot`}
+                className="w-full h-auto rounded-2xl shadow-2xl object-contain border border-AAborder group-hover:shadow-AAaccent/20 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-AAaccent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
           </div>
         )}
 
@@ -122,38 +129,48 @@ export default function SomethingIveBuilt() {
         <div
           className={`${
             activeProject.image ? "md:col-span-5" : "md:col-span-6"
-          } flex flex-col space-y-3 sm:space-y-4 md:space-y-6 order-2 md:order-2`}
+          } flex flex-col space-y-6 order-2 md:order-2`}
         >
-          <div className="space-y-1 sm:space-y-2">
-            <span className="text-AAsecondary text-sm sm:text-base font-semibold block">
-              {activeProject.title}
-            </span>
-            {activeProject.liveLink && (
-              <a
-                href={activeProject.liveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs sm:text-sm md:text-base font-medium text-AAsecondary hover:underline block"
-              >
-                Visit Project →
-              </a>
-            )}
-          </div>
-          <p className="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed hyphens-auto break-words">
-            {activeProject.description}
-          </p>
-          <ul className="flex flex-wrap text-gray-300 text-xs sm:text-sm gap-1 sm:gap-2">
-            {activeProject.techStack.map((tech, index) => (
-              <li key={index} className="bg-gray-700 px-2 py-1 rounded text-center whitespace-nowrap">
-                {tech}
-              </li>
-            ))}
-          </ul>
-          {activeProject.githubLink && (
-            <div className="mt-2">
-              <GithubIcon link={activeProject.githubLink} />
+          <div className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm">
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-AAtext text-xl font-bold block">
+                  {activeProject.title}
+                </h3>
+              </div>
+              
+              <p className="text-AAtext text-base leading-relaxed">
+                {activeProject.description}
+              </p>
+              
+              <div className="flex flex-wrap gap-2">
+                {activeProject.techStack.map((tech, index) => (
+                  <span key={index} className="bg-AAprimary/50 text-AAtext px-3 py-1.5 rounded-full text-sm border border-AAborder hover:border-AAaccent hover:text-AAaccent transition-all duration-300">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              
+              <div className="flex flex-wrap gap-3 pt-2">
+                {activeProject.liveLink && (
+                  <a
+                    href={activeProject.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 text-AAaccent hover:text-AAsecondary font-medium transition-colors duration-300 bg-AAaccent/10 hover:bg-AAsecondary/10 px-4 py-2 rounded-full border border-AAaccent/30 hover:border-AAsecondary/30"
+                  >
+                    <span>Visit Project</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
+                {activeProject.githubLink && (
+                  <GithubIcon link={activeProject.githubLink} />
+                )}
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

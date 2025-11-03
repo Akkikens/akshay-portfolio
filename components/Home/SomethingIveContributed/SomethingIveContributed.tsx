@@ -35,13 +35,17 @@ export default function SomethingIveContributed() {
   return (
     <div
       id="SomethingIveContributedSection"
-      className="flex flex-col bg-AAprimary w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder"
+      className="flex flex-col bg-gradient-to-br from-AAprimary to-MobileNavBarColor w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder relative overflow-hidden"
     >
+      {/* Background decoration */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      
       {/* Section Title */}
-      <div data-aos="fade-up" className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+      <div data-aos="fade-up" className="relative flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
         <div className="flex items-center space-x-2 sm:space-x-4">
           <ArrowIcon className="h-4 sm:h-5 md:h-6 w-4 sm:w-5 md:w-5 text-AAsecondary" />
-          <span className="text-AAsecondary font-sans text-sm sm:text-xl">
+          <span className="text-AAsecondary font-semibold text-sm sm:text-xl">
             04.
           </span>
           <h2 className="font-bold tracking-wider text-AAtext text-base sm:text-lg md:text-2xl">
@@ -52,15 +56,15 @@ export default function SomethingIveContributed() {
       </div>
 
       {/* Tabs Section */}
-      <div className="flex flex-wrap gap-1 sm:gap-2 mt-6 sm:mt-8">
+      <div className="relative flex flex-wrap gap-3 mt-8 sm:mt-12">
         {Object.keys(contributions).map((key) => (
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`py-2 px-4 text-sm rounded-full whitespace-nowrap font-medium transition-all duration-300 ${
+            className={`py-3 px-6 text-sm rounded-2xl whitespace-nowrap font-medium transition-all duration-300 backdrop-blur-sm ${
               activeTab === key
-                ? "bg-AAsecondary text-white shadow-lg"
-                : "text-AAsubtext hover:text-AAtext bg-AAhover hover:bg-AAborder border border-AAborder"
+                ? "bg-gradient-to-r from-AAsecondary to-AAaccent text-white shadow-lg shadow-AAsecondary/30"
+                : "text-AAsubtext hover:text-AAtext bg-AAhover hover:bg-AAborder border border-AAborder hover:border-AAsecondary/50 hover:shadow-lg"
             }`}
           >
             {contributions[key].title}
@@ -71,54 +75,67 @@ export default function SomethingIveContributed() {
       {/* Active Contribution Content */}
       <div
         data-aos="fade-up"
-        className="relative grid md:grid-cols-12 grid-cols-1 w-full mt-8 sm:mt-12 gap-4 sm:gap-6 md:gap-8"
+        className="relative grid md:grid-cols-12 grid-cols-1 w-full mt-8 sm:mt-12 gap-6 sm:gap-8 md:gap-12"
       >
         {/* Left Image Section */}
         {activeContribution.image && (
           <div className="col-span-12 md:col-span-7 flex items-center justify-center order-1 md:order-1">
-            <Img
-              src={activeContribution.image}
-              alt={`${activeContribution.title} Screenshot`}
-              className="w-full h-auto rounded-lg shadow-lg object-contain"
-            />
+            <div className="relative group">
+              <Img
+                src={activeContribution.image}
+                alt={`${activeContribution.title} Screenshot`}
+                className="w-full h-auto rounded-2xl shadow-2xl object-contain border border-AAborder group-hover:shadow-AAsecondary/20 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-AAsecondary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
           </div>
         )}
 
         {/* Right Content Section */}
-        <div className="md:col-span-5 flex flex-col space-y-3 sm:space-y-4 md:space-y-6 order-2 md:order-2">
-          <div className="space-y-1 sm:space-y-2">
-            <span className="text-AAtext text-lg sm:text-xl font-bold block">
-              {activeContribution.title}
-            </span>
-            <span className="text-AAsecondary text-sm sm:text-base font-medium block">
-              @ {activeContribution.company}
-            </span>
-            {activeContribution.liveLink && (
-              <a
-                href={activeContribution.liveLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs sm:text-sm md:text-base font-medium text-AAsecondary hover:underline block"
-              >
-                Visit Project →
-              </a>
-            )}
-          </div>
-          <p className="text-AAsubtext text-sm sm:text-base leading-relaxed">
-            {activeContribution.description}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {activeContribution.techStack.map((tech, index) => (
-              <span key={index} className="bg-AAhover text-AAtext px-3 py-1 rounded-full text-sm border border-AAborder">
-                {tech}
-              </span>
-            ))}
-          </div>
-          {activeContribution.githubLink && (
-            <div className="mt-2">
-              <GithubIcon link={activeContribution.githubLink} />
+        <div className="md:col-span-5 flex flex-col space-y-6 order-2 md:order-2">
+          <div className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm">
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-AAtext text-xl font-bold block">
+                  {activeContribution.title}
+                </h3>
+                <div className="flex items-center space-x-2 mt-2">
+                  <span className="text-AAsecondary text-base font-semibold">@ {activeContribution.company}</span>
+                </div>
+              </div>
+              
+              <p className="text-AAtext text-base leading-relaxed">
+                {activeContribution.description}
+              </p>
+              
+              <div className="flex flex-wrap gap-2">
+                {activeContribution.techStack.map((tech, index) => (
+                  <span key={index} className="bg-AAprimary/50 text-AAtext px-3 py-1.5 rounded-full text-sm border border-AAborder hover:border-AAsecondary hover:text-AAsecondary transition-all duration-300">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              
+              <div className="flex flex-wrap gap-3 pt-2">
+                {activeContribution.liveLink && (
+                  <a
+                    href={activeContribution.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 text-AAsecondary hover:text-AAaccent font-medium transition-colors duration-300 bg-AAsecondary/10 hover:bg-AAaccent/10 px-4 py-2 rounded-full border border-AAsecondary/30 hover:border-AAaccent/30"
+                  >
+                    <span>Visit Project</span>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                )}
+                {activeContribution.githubLink && (
+                  <GithubIcon link={activeContribution.githubLink} />
+                )}
+              </div>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

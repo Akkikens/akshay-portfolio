@@ -50,41 +50,47 @@ export default function GetInTouch() {
     <div
       id="GetInTouchSection"
       data-aos="fade-up"
-      className="flex flex-col space-y-8 w-full py-16 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72 items-center bg-AAprimary"
+      className="flex flex-col space-y-12 w-full py-24 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72 items-center bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden"
     >
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      
       {/* Title: What's Next? */}
-      <div className="flex flex-row items-center">
+      <div className="relative flex flex-row items-center">
         <ArrowIcon className="flex-none h-5 md:h-6 w-5 md:w-5 text-AAsecondary" />
         <div className="flex flex-row space-x-2 items-center">
-          <span className="text-AAsecondary font-sans text-sm sm:text-base">
+          <span className="text-AAsecondary font-semibold text-sm sm:text-base">
             07.
           </span>
-          <span className="font-sans text-AAsecondary text-base">
+          <span className="font-semibold text-AAsecondary text-base">
             What&apos;s Next?
           </span>
         </div>
       </div>
 
       {/* Get In Touch */}
-      <span className="text-gray-200 text-3xl sm:text-4xl font-bold tracking-wider opacity-85">
-        Get In Touch
-      </span>
-      <p className="flex font-Header tracking-wider text-gray-400 text-center px-6 sm:px-16 md:px-0 md:w-[600px]">
-        I'm always open to new opportunities, collaborations, or just a friendly
-        chat! Whether you have a question or just want to say hi, I'll try my
-        best to get back to you!
-      </p>
+      <div className="text-center space-y-4">
+        <h2 className="text-AAtext text-4xl sm:text-5xl font-bold tracking-wider">
+          Get In Touch
+        </h2>
+        <p className="text-AAtext text-lg leading-relaxed text-center px-6 sm:px-16 md:px-0 md:w-[600px]">
+          I'm always open to new opportunities, collaborations, or just a friendly
+          chat! Whether you have a question or just want to say hi, I'll try my
+          best to get back to you!
+        </p>
+      </div>
 
       {/* Contact Form */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-2xl"
+        className="relative w-full max-w-2xl bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-8 border border-AAborder backdrop-blur-sm shadow-xl"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="name" className="block text-sm font-semibold text-AAtext mb-3">
                 Name
               </label>
               <input
@@ -94,12 +100,12 @@ export default function GetInTouch() {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-AAsecondary focus:outline-none text-white"
+                className="w-full px-4 py-3 bg-AAprimary/50 border border-AAborder rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext transition-all duration-300"
                 placeholder="Your name"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-AAtext mb-3">
                 Email
               </label>
               <input
@@ -109,14 +115,14 @@ export default function GetInTouch() {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-AAsecondary focus:outline-none text-white"
+                className="w-full px-4 py-3 bg-AAprimary/50 border border-AAborder rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext transition-all duration-300"
                 placeholder="your.email@example.com"
               />
             </div>
           </div>
           
           <div>
-            <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="subject" className="block text-sm font-semibold text-AAtext mb-3">
               Subject
             </label>
             <input
@@ -126,13 +132,13 @@ export default function GetInTouch() {
               value={formData.subject}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-AAsecondary focus:outline-none text-white"
+              className="w-full px-4 py-3 bg-AAprimary/50 border border-AAborder rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext transition-all duration-300"
               placeholder="What's this about?"
             />
           </div>
           
           <div>
-            <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+            <label htmlFor="message" className="block text-sm font-semibold text-AAtext mb-3">
               Message
             </label>
             <textarea
@@ -142,7 +148,7 @@ export default function GetInTouch() {
               onChange={handleInputChange}
               required
               rows={5}
-              className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:border-AAsecondary focus:outline-none text-white resize-none"
+              className="w-full px-4 py-3 bg-AAprimary/50 border border-AAborder rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext resize-none transition-all duration-300"
               placeholder="Tell me about your project or just say hello!"
             />
           </div>
@@ -152,7 +158,7 @@ export default function GetInTouch() {
             disabled={isSubmitting}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full bg-AAsecondary text-white py-3 px-6 rounded-lg font-medium hover:bg-AAsecondary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-AAsecondary to-AAaccent text-white py-4 px-6 rounded-xl font-semibold hover:shadow-lg hover:shadow-AAsecondary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Sending...' : 'Send Message'}
           </motion.button>
@@ -161,7 +167,7 @@ export default function GetInTouch() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-green-400 text-center"
+              className="text-AAsuccess text-center font-medium"
             >
               Thanks! I'll get back to you soon.
             </motion.div>
@@ -171,7 +177,7 @@ export default function GetInTouch() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-red-400 text-center"
+              className="text-red-400 text-center font-medium"
             >
               Something went wrong. Please try again.
             </motion.div>
@@ -180,9 +186,9 @@ export default function GetInTouch() {
       </motion.div>
 
       {/* Alternative Contact */}
-      <div className="pt-4">
+      <div className="relative pt-4">
         {isAndroidWebView ? (
-          <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-[1.5px] rounded ">
+          <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl bg-AAsecondary/10 backdrop-blur-sm">
             akshaykalapgar23@gmail.com
           </button>
         ) : (
@@ -191,7 +197,7 @@ export default function GetInTouch() {
             target={"_blank"}
             rel="noreferrer"
           >
-            <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-[1.5px] rounded hover:bg-AAsecondary/10 transition-colors">
+            <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl hover:bg-AAsecondary/10 transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-AAsecondary/20">
               Or Email Directly
             </button>
           </a>

@@ -29,13 +29,16 @@ export default function WhereIHaveWorked() {
     <div 
       id="WhereIhaveWorkedSection"
       data-aos="fade-up" 
-      className="flex flex-col items-center justify-center py-24 space-y-12 bg-AAprimary border-t border-AAborder"
+      className="flex flex-col items-center justify-center py-24 space-y-12 bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden"
     >
+      {/* Background decoration */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
       {/* Title */}
-      <section className="flex flex-row items-center">
+      <section className="relative flex flex-row items-center">
         <div className="flex flex-row items-center">
           <ArrowIcon className="flex-none h-4 md:h-6 w-4 md:w-5 text-AAsecondary" />
-          <span className="text-AAsecondary font-sans text-sm sm:text-xl"> 02.</span>
+          <span className="text-AAsecondary font-semibold text-sm sm:text-xl"> 02.</span>
         </div>
         <span className="text-AAtext font-bold tracking-wider text-lg md:text-2xl px-3">
           Where I&apos;ve Worked
@@ -44,9 +47,11 @@ export default function WhereIHaveWorked() {
       </section>
 
       {/* Content */}
-      <section className="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 justify-center items-center md:items-start">
+      <section className="relative flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0 justify-center items-center md:items-start max-w-6xl w-full">
         <CompaniesBar setDescriptionJob={setDescriptionJob} />
-        {GetDescription()}
+        <div className="flex-1 max-w-2xl">
+          {GetDescription()}
+        </div>
       </section>
     </div>
   );
@@ -66,14 +71,13 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
         props.setDescriptionJob(props.DescriptionJob);
         setCompanyNameBackgroundColorGreen(props.CompanyNameBackgroundColorGreen);
       }}
-      className={`flex-none sm:text-sm text-xs text-center md:text-left hover:text-AAsecondary
-        hover:bg-AAhover rounded-lg font-mono py-3 md:pl-6 md:px-4 md:w-44 w-32 duration-300 transition-all
+      className={`flex-none sm:text-sm text-xs text-center md:text-left font-medium py-3 md:pl-6 md:px-4 md:w-48 w-36 duration-300 transition-all rounded-xl backdrop-blur-sm
         ${
           companyNameBackgroundColorGreen[
             props.ButtonOrderOfcompanyNameBackgroundColorGreen
           ]
-            ? "bg-AAhover text-AAsecondary border border-AAborder"
-            : "text-AAsubtext hover:text-AAtext"
+            ? "bg-gradient-to-r from-AAsecondary/20 to-AAaccent/20 text-AAsecondary border border-AAsecondary/50 shadow-lg shadow-AAsecondary/20"
+            : "text-AAsubtext hover:text-AAtext hover:bg-AAhover border border-AAborder hover:border-AAsecondary/50"
         }`}
     >
       {props.CompanyName}
@@ -83,11 +87,11 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
   return (
     <div className="flex flex-col md:flex-row w-screen lg:w-auto overflow-auto scrollbar-hide md:overflow-hidden pb-4 md:pb-0 justify-start sm:justify-center items-start sm:items-center">
       {/* Left bar */}
-      <div className="hidden md:block bg-AAborder relative h-0.5 w-34 md:h-[420px] translate-y-1 md:w-0.5 rounded md:order-1 order-2">
+      <div className="hidden md:block bg-AAborder relative h-0.5 w-34 md:h-[420px] translate-y-1 md:w-1 rounded-full md:order-1 order-2">
         <motion.div
           animate={{ y: barPosition }}
-          className="absolute w-10 h-0.5 md:w-0.5 md:h-12 rounded bg-AAsecondary shadow-lg shadow-AAsecondary/50"
-          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute w-10 h-0.5 md:w-1 md:h-16 rounded-full bg-gradient-to-b from-AAsecondary to-AAaccent shadow-lg shadow-AAsecondary/50"
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />
       </div>
 
@@ -142,11 +146,11 @@ const CompaniesBar = (props: { setDescriptionJob: (s: string) => void }) => {
         </div>
 
         {/* Mobile underline */}
-        <div className="block md:hidden h-0.5 rounded bg-AAborder">
+        <div className="block md:hidden h-1 rounded-full bg-AAborder">
           <motion.div 
             animate={{ x: barAbovePosition }} 
-            className="w-[128px] h-0.5 rounded bg-AAsecondary shadow-lg shadow-AAsecondary/50" 
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="w-[144px] h-1 rounded-full bg-gradient-to-r from-AAsecondary to-AAaccent shadow-lg shadow-AAsecondary/50" 
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
       </div>

@@ -98,16 +98,19 @@ export default function Certifications() {
             href={verificationLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-AAsecondary underline mt-2"
+            className="inline-flex items-center space-x-2 text-AAsecondary hover:text-AAaccent font-medium transition-colors duration-300 bg-AAsecondary/10 hover:bg-AAaccent/10 px-4 py-2 rounded-full border border-AAsecondary/30 hover:border-AAaccent/30"
           >
-            Verify Certification
+            <span>Verify Certification</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
           </a>
         )}
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col space-y-3">
           {description.map((point, index) => (
-            <div key={index} className="flex space-x-2 items-start">
-              <ArrowIcon className="h-4 w-4 text-AAsecondary flex-none" />
-              <p className="text-gray-300 sm:text-sm text-xs leading-relaxed">
+            <div key={index} className="flex space-x-3 items-start p-3 bg-AAprimary/50 rounded-xl border border-AAborder/50">
+              <ArrowIcon className="h-4 w-4 text-AAsecondary flex-none mt-0.5" />
+              <p className="text-AAtext text-sm leading-relaxed">
                 {point}
               </p>
             </div>
@@ -120,24 +123,28 @@ export default function Certifications() {
   return (
     <div
       id="CertificationsSection"
-      className="flex flex-col space-y-10 bg-AAprimary w-full px-4 py-16 md:px-16 overflow-hidden"
+      className="flex flex-col space-y-12 bg-gradient-to-br from-AAprimary to-MobileNavBarColor w-full px-4 py-24 md:px-16 border-t border-AAborder relative overflow-hidden"
     >
-      <div data-aos="fade-up" className="flex items-center space-x-4">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      
+      <div data-aos="fade-up" className="relative flex items-center space-x-4">
         <ArrowIcon className="h-6 w-6 text-AAsecondary" />
-        <span className="text-AAsecondary font-sans text-sm sm:text-xl">
+        <span className="text-AAsecondary font-semibold text-sm sm:text-xl">
           03.
         </span>
-        <h2 className="font-bold text-gray-200 text-lg md:text-2xl">
+        <h2 className="font-bold text-AAtext text-lg md:text-2xl">
           Professional Certifications
         </h2>
-        <div className="bg-gray-400 h-[0.2px] w-full"></div>
+        <div className="bg-AAborder h-[1px] w-full"></div>
       </div>
 
-      <section className="flex flex-col md:flex-row md:space-x-4 items-start">
+      <section className="relative flex flex-col md:flex-row md:space-x-8 items-start max-w-7xl mx-auto w-full">
         <CertificationsBar
           setSelectedCertification={setSelectedCertification}
         />
-        <div className="w-full md:w-2/3 bg-transparent rounded">
+        <div className="w-full md:w-2/3 bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-6 border border-AAborder backdrop-blur-sm shadow-xl">
           {renderCertification()}
         </div>
       </section>
@@ -163,7 +170,7 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
   const [activeCertification, setActiveCertification] = useState(0);
 
   return (
-    <div className="flex flex-col md:flex-col space-y-1 overflow-x-auto scrollbar-hide w-full md:w-1/3">
+    <div className="flex flex-col space-y-3 overflow-x-auto scrollbar-hide w-full md:w-1/3">
       {certifications.map((cert, index) => (
         <button
           key={index}
@@ -171,10 +178,10 @@ const CertificationsBar: React.FC<CertificationsBarProps> = ({
             setSelectedCertification(cert);
             setActiveCertification(index);
           }}
-          className={`py-2 px-4 text-sm rounded ${
+          className={`py-4 px-6 text-sm font-medium rounded-xl transition-all duration-300 text-left backdrop-blur-sm border ${
             activeCertification === index
-              ? "bg-AAsecondary text-white"
-              : "text-gray-400"
+              ? "bg-gradient-to-r from-AAsecondary/20 to-AAaccent/20 text-AAsecondary border-AAsecondary/50 shadow-lg shadow-AAsecondary/20"
+              : "text-AAsubtext hover:text-AAtext hover:bg-AAhover border-AAborder hover:border-AAsecondary/50"
           }`}
         >
           {cert}

@@ -31,51 +31,55 @@ export default function Testimonials() {
   return (
     <div
       id="TestimonialsSection"
-      className="flex flex-col bg-AAprimary w-full py-32 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72"
+      className="flex flex-col bg-gradient-to-br from-AAprimary to-MobileNavBarColor w-full py-32 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder relative overflow-hidden"
     >
+      {/* Background decoration */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" />
+      
       {/* Section Title */}
-      <div data-aos="fade-up" className="flex flex-row items-center space-x-4 mb-16">
+      <div data-aos="fade-up" className="relative flex flex-row items-center space-x-4 mb-16">
         <ArrowIcon className="h-5 md:h-6 w-5 md:w-5 text-AAsecondary" />
-        <span className="text-AAsecondary font-sans text-sm sm:text-xl">
-          05.
+        <span className="text-AAsecondary font-semibold text-sm sm:text-xl">
+          06.
         </span>
-        <h2 className="font-bold tracking-wider text-gray-200 text-lg md:text-2xl">
+        <h2 className="font-bold tracking-wider text-AAtext text-lg md:text-2xl">
           What People Say
         </h2>
-        <div className="bg-gray-400 h-[0.2px] w-full xl:w-1/3 md:w-1/2"></div>
+        <div className="bg-AAborder h-[1px] w-full xl:w-1/3 md:w-1/2"></div>
       </div>
 
       {/* Testimonials Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
         {testimonials.map((testimonial, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`p-6 rounded-lg border ${
+            className={`group p-8 rounded-2xl border backdrop-blur-sm transition-all duration-300 cursor-pointer ${
               activeTestimonial === index
-                ? "border-AAsecondary bg-AAsecondary/10"
-                : "border-gray-600 bg-gray-800/50"
-            } hover:border-AAsecondary/50 transition-all duration-300 cursor-pointer`}
+                ? "border-AAsecondary bg-gradient-to-br from-AAsecondary/10 to-AAaccent/10 shadow-lg shadow-AAsecondary/20"
+                : "border-AAborder bg-gradient-to-br from-AAhover to-MobileNavBarColor hover:border-AAsecondary/50 hover:shadow-lg"
+            }`}
             onClick={() => setActiveTestimonial(index)}
           >
             <div className="flex items-start space-x-4">
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 bg-AAsecondary/20 rounded-full flex items-center justify-center">
-                  <span className="text-AAsecondary font-bold text-lg">
+                <div className="w-14 h-14 bg-gradient-to-br from-AAsecondary to-AAaccent rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-lg">
                     {testimonial.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
               </div>
               <div className="flex-1">
-                <h3 className="text-white font-semibold text-lg mb-1">
+                <h3 className="text-AAtext font-bold text-lg mb-2">
                   {testimonial.name}
                 </h3>
-                <p className="text-AAsecondary text-sm mb-3">
+                <p className="text-AAsecondary text-sm mb-4 font-medium">
                   {testimonial.role}
                 </p>
-                <p className="text-gray-300 text-sm leading-relaxed">
+                <p className="text-AAtext text-sm leading-relaxed">
                   "{testimonial.content}"
                 </p>
               </div>
@@ -85,22 +89,24 @@ export default function Testimonials() {
       </div>
 
       {/* Stats Section */}
-      <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="text-center">
-          <div className="text-3xl md:text-4xl font-bold text-AAsecondary mb-2">100K+</div>
-          <div className="text-gray-400 text-sm">Users Scaled</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl md:text-4xl font-bold text-AAsecondary mb-2">99.9%</div>
-          <div className="text-gray-400 text-sm">Uptime</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl md:text-4xl font-bold text-AAsecondary mb-2">50%</div>
-          <div className="text-gray-400 text-sm">Performance Improvement</div>
-        </div>
-        <div className="text-center">
-          <div className="text-3xl md:text-4xl font-bold text-AAsecondary mb-2">400%</div>
-          <div className="text-gray-400 text-sm">Engagement Boost</div>
+      <div className="relative mt-20 bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-8 border border-AAborder backdrop-blur-sm">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="text-center group">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-AAsecondary to-AAaccent bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">100K+</div>
+            <div className="text-AAsubtext text-sm font-medium">Users Scaled</div>
+          </div>
+          <div className="text-center group">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-AAsecondary to-AAaccent bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">99.9%</div>
+            <div className="text-AAsubtext text-sm font-medium">Uptime</div>
+          </div>
+          <div className="text-center group">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-AAsecondary to-AAaccent bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">50%</div>
+            <div className="text-AAsubtext text-sm font-medium">Performance Improvement</div>
+          </div>
+          <div className="text-center group">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-AAsecondary to-AAaccent bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">400%</div>
+            <div className="text-AAsubtext text-sm font-medium">Engagement Boost</div>
+          </div>
         </div>
       </div>
     </div>
