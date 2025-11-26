@@ -13,7 +13,6 @@
     <img src="https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png" width="100" alt="Vercel Status" />
   </a>
 </p>
-
 ## 🚀 About This Repository
 
 I’m excited to see my portfolio gaining traction, inspiring developers worldwide. This repository contains the full source code for my website, which you’re welcome to use for your own projects. If you do, a credit link back would be greatly appreciated! 😊
