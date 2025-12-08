@@ -27,8 +27,6 @@ I’m excited to see my portfolio gaining traction, inspiring developers worldwi
 
 **Note:** While some design inspiration comes from Anaflous Abdellatif’s portfolio, all code has been written from scratch.
 
----
-
 ## 📌 Table of Contents
 - [Description](#description)
 - [Technologies & Libraries](#technologies--libraries)
