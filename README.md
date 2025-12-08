@@ -37,8 +37,6 @@ I’m excited to see my portfolio gaining traction, inspiring developers worldwi
 - [License](#license)
 - [Author](#author)
 
----
-
 ## 📝 Description
 This portfolio serves as a personal space to showcase my projects, skills, and experience. I chose **Next.js** for its **server-side rendering (SSR)**, which enhances **SEO** and improves page load times. Styling is managed with **Tailwind CSS**, ensuring a visually appealing, responsive layout with minimal effort.
 
