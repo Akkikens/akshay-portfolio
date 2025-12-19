@@ -19,7 +19,7 @@
 
 ## 🚀 About This Repository
 
-I’m excited to see my portfolio gaining traction, inspiring developers worldwide. This repository contains the full source code for my website, which you’re welcome to use for your own projects. If you do, a credit link back would be greatly appreciated! 😊
+I’m excited to see my portfolio gaining traction, inspiring developers worldwide.  This repository contains the full source code for my website, which you’re welcome to use for your own projects. If you do, a credit link back would be greatly appreciated! 😊
 
 ### 🔥 Unique Features
 - **Fully responsive** design built with **Tailwind CSS**
@@ -45,7 +45,7 @@ I’m excited to see my portfolio gaining traction, inspiring developers worldwi
 ---
 
 ## 📝 Description
-This portfolio serves as a personal space to showcase my projects, skills, and experience. I chose **Next.js** for its **server-side rendering (SSR)**, which enhances **SEO** and improves page load times. Styling is managed with **Tailwind CSS**, ensuring a visually appealing, responsive layout with minimal effort.
+This portfolio serves as a personal space to showcase my projects, skills, and experience.  I chose **Next.js** for its **server-side rendering (SSR)**, which enhances **SEO** and improves page load times. Styling is managed with **Tailwind CSS**, ensuring a visually appealing, responsive layout with minimal effort.
 
 ---
 
@@ -72,33 +72,33 @@ If you appreciate my work, consider sponsoring me on GitHub!
 
 To run this project locally, follow these steps:
 
-1. **Clone the repository:**
+1.  **Clone the repository:**
  ```sh
  git clone https://github.com/Akkikens/akshay-portfolio.git
  ```
 
-2. **Install Node.js via NVM (Recommended):**
+2.  **Install Node.js via NVM (Recommended):**
  ```sh
  nvm install
  ```
 
-3. **Install dependencies:**
+3.  **Install dependencies:**
  ```sh
  yarn
  ```
 
-4. *(Optional)*: Create a `.env` file for environment variables:
+4.  *(Optional)*: Create a `.env` file for environment variables:
  ```sh
  touch .env
  ```
 
-5. *(Optional)*: Add your Google API key inside `.env`:
+5.  *(Optional)*: Add your Google API key inside `.env`:
  ```sh
  NEXT_PUBLIC_KEY_GOOGLE_API="your-api-key"
  ```
  **Note:** Not adding a Google API key may cause incorrect or missing zip codes in the geolocation service.
 
-6. **Start the development server:**
+6.  **Start the development server:**
  ```sh
  yarn dev
  ```
@@ -109,11 +109,11 @@ To run this project locally, follow these steps:
 
 To generate and preview the production build:
 
-1. **Generate a static build:**
+1.  **Generate a static build:**
  ```sh
  yarn build
  ```
-2. **Preview the site before deployment:**
+2.  **Preview the site before deployment:**
  ```sh
  yarn run serve
  ```
