@@ -168,13 +168,13 @@ Returns a random quote based on a specified minimum character length.
 ---
 
 ## 🎨 Color Palette
-| Color   | Hex Code |
+| Color  | Hex Code |
 |---------------|----------|
-| **Navy**  | `#0a192f` |
+| **Navy** | `#0a192f` |
 | **Light Navy** | `#112240` |
-| **Slate**  | `#8892b0` |
-| **Green**  | `#64ffda` |
-| **White**  | `#e6f1ff` |
+| **Slate** | `#8892b0` |
+| **Green** | `#64ffda` |
+| **White** | `#e6f1ff` |
 
 ---
 
