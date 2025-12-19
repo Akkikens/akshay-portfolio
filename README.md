@@ -12,7 +12,7 @@
 </p>
 <p align="center">
  <a href="https://akshaykalapgar.com" target="_blank">
-  <img src="https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png" width="100" alt="Vercel Status" />
+ <img src="https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png" width="100" alt="Vercel Status" />
  </a>
 </p>
 
@@ -73,35 +73,35 @@ If you appreciate my work, consider sponsoring me on GitHub!
 To run this project locally, follow these steps:
 
 1. **Clone the repository:**
-  ```sh
-  git clone https://github.com/Akkikens/akshay-portfolio.git
-  ```
+ ```sh
+ git clone https://github.com/Akkikens/akshay-portfolio.git
+ ```
 
 2. **Install Node.js via NVM (Recommended):**
-  ```sh
-  nvm install
-  ```
+ ```sh
+ nvm install
+ ```
 
 3. **Install dependencies:**
-  ```sh
-  yarn
-  ```
+ ```sh
+ yarn
+ ```
 
 4. *(Optional)*: Create a `.env` file for environment variables:
-  ```sh
-  touch .env
-  ```
+ ```sh
+ touch .env
+ ```
 
 5. *(Optional)*: Add your Google API key inside `.env`:
-  ```sh
-  NEXT_PUBLIC_KEY_GOOGLE_API="your-api-key"
-  ```
-  **Note:** Not adding a Google API key may cause incorrect or missing zip codes in the geolocation service.
+ ```sh
+ NEXT_PUBLIC_KEY_GOOGLE_API="your-api-key"
+ ```
+ **Note:** Not adding a Google API key may cause incorrect or missing zip codes in the geolocation service.
 
 6. **Start the development server:**
-  ```sh
-  yarn dev
-  ```
+ ```sh
+ yarn dev
+ ```
 
 ---
 
@@ -110,13 +110,13 @@ To run this project locally, follow these steps:
 To generate and preview the production build:
 
 1. **Generate a static build:**
-  ```sh
-  yarn build
-  ```
+ ```sh
+ yarn build
+ ```
 2. **Preview the site before deployment:**
-  ```sh
-  yarn run serve
-  ```
+ ```sh
+ yarn run serve
+ ```
 
 ---
 
@@ -168,13 +168,13 @@ Returns a random quote based on a specified minimum character length.
 ---
 
 ## 🎨 Color Palette
-| Color     | Hex Code |
+| Color   | Hex Code |
 |---------------|----------|
-| **Navy**    | `#0a192f` |
+| **Navy**  | `#0a192f` |
 | **Light Navy** | `#112240` |
-| **Slate**   | `#8892b0` |
-| **Green**   | `#64ffda` |
-| **White**   | `#e6f1ff` |
+| **Slate**  | `#8892b0` |
+| **Green**  | `#64ffda` |
+| **White**  | `#e6f1ff` |
 
 ---
 
