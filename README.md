@@ -168,7 +168,7 @@ Returns a random quote based on a specified minimum character length.
 ---
 
 ## 🎨 Color Palette
-| Color  | Hex Code |
+| Color | Hex Code |
 |---------------|----------|
 | **Navy** | `#0a192f` |
 | **Light Navy** | `#112240` |
