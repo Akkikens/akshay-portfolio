@@ -304,3 +304,6 @@ npx expo start --ios
 ```
 
 ### Running on Android
+```bash
+npx expo start --android
+```
