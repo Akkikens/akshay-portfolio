@@ -196,3 +196,4 @@ Permission is hereby granted, free of charge, to use, copy, modify, and distribu
 Ingrdnt is a React Native mobile application that helps users make informed decisions about food ingredients.
 
 ## Features
+- 📸 Scan ingredient labels with your camera
