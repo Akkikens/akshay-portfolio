@@ -249,3 +249,4 @@ Ingrdnt/
 │   ├── screens/      # App screens
 │   ├── navigation/   # Navigation setup
 │   ├── theme/        # Theme configuration
+│   └── utils/        # Utility functions
