@@ -264,3 +264,4 @@ First screen users see with app introduction
 Choose between sign in and sign up
 
 ### SignInScreen
+User authentication with email/password
