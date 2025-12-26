@@ -297,3 +297,5 @@ For harmful ingredients, the app suggests healthier alternatives with similar pr
 3. Add your Firebase config to the app
 
 ## Development
+
+### Running on iOS
