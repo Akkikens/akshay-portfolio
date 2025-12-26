@@ -193,3 +193,4 @@ Permission is hereby granted, free of charge, to use, copy, modify, and distribu
 [🔝 Back to Top](#)
 
 ## Overview
+Ingrdnt is a React Native mobile application that helps users make informed decisions about food ingredients.
