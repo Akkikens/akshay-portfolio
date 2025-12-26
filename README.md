@@ -204,3 +204,4 @@ Ingrdnt is a React Native mobile application that helps users make informed deci
 - 🔐 Secure user authentication
 
 ## Tech Stack
+- **React Native** - Cross-platform mobile development
