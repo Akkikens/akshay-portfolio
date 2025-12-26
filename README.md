@@ -309,3 +309,7 @@ npx expo start --android
 ```
 
 ### Building for Production
+```bash
+npx expo build:android
+npx expo build:ios
+```
