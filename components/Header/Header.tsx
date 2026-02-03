@@ -19,12 +19,19 @@ const Header = (props: { finishedLoading: boolean; sectionsRef }) => {
     }, 4000); // Shortened load delay for immediate display post-startup
   }, []);
 
-  //veify document for serverSide rendering
-  if (typeof document !== "undefined") {
-    rotate
-      ? (document.body.style.overflow = "hidden")
-      : (document.body.style.overflow = "auto");
-  }
+  // Handle body overflow for mobile menu
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = rotate ? "hidden" : "auto";
+    }
+
+    // Cleanup: ensure overflow is restored when component unmounts
+    return () => {
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "auto";
+      }
+    };
+  }, [rotate]);
 
   return (
     <>
