@@ -101,9 +101,9 @@ export default function ThreeDProjectCard({
           camera={{ position: [0, 0, 8], fov: 50 }}
           className="cursor-pointer"
         >
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+          <ambientLight args={[undefined, 0.5]} />
+          <spotLight args={[undefined, 1]} position={[10, 10, 10]} angle={0.15} penumbra={1} />
+          <pointLight args={[undefined, 0.5]} position={[-10, -10, -10]} />
           <ProjectCube isHovered={isHovered} />
           <OrbitControls
             enableZoom={false}
