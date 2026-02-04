@@ -100,52 +100,26 @@ export default function MyName({ finishedLoading = false }: Props) {
       
       <div className="relative mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-16 xl:px-20 2xl:px-24">
         <div className="min-h-[100vh] flex flex-col justify-center py-28 sm:py-36">
-          <div className="flex flex-col gap-3">
+          <motion.span
+            className="font-mono text-AAaccent text-sm sm:text-base font-medium tracking-wide inline-block"
+            initial={{ opacity: 0, x: -50, rotateX: -90 }}
+            animate={{ opacity: 1, x: 0, rotateX: 0 }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+              type: "spring",
+              stiffness: 100
+            }}
+            whileHover={{ scale: 1.05, rotate: [0, -2, 2, 0] }}
+          >
             <motion.span
-              className="font-mono text-AAaccent text-sm sm:text-base font-medium tracking-wide inline-block"
-              initial={{ opacity: 0, x: -50, rotateX: -90 }}
-              animate={{ opacity: 1, x: 0, rotateX: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-                type: "spring",
-                stiffness: 100
-              }}
-              whileHover={{ scale: 1.05, rotate: [0, -2, 2, 0] }}
+              animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+              className="inline-block"
             >
-              <motion.span
-                animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                className="inline-block"
-              >
-                👋
-              </motion.span> Hello, I am
-            </motion.span>
-            <motion.span
-              className="font-mono text-xs sm:text-sm text-AAsubtext px-3 py-1.5 rounded-full border border-AAborder/50 backdrop-blur-md bg-AAhover/40 inline-flex items-center gap-2 w-fit"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              whileHover={{
-                scale: 1.05,
-                borderColor: "#06b6d4",
-                backgroundColor: "rgba(6, 182, 212, 0.15)",
-                boxShadow: "0 0 20px rgba(6, 182, 212, 0.4)"
-              }}
-            >
-              <motion.span
-                className="text-base"
-                animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.6, 1, 0.6]
-                }}
-                transition={{ duration: 2.5, repeat: Infinity }}
-              >
-                📍
-              </motion.span>
-              <span className="font-medium">San Francisco, CA</span>
-            </motion.span>
-          </div>
+              👋
+            </motion.span> Hello, I am
+          </motion.span>
           
           {/* Epic animated name with particles */}
           <motion.h1 
