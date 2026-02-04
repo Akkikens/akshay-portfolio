@@ -358,6 +358,36 @@ export default function MyName({ finishedLoading = false }: Props) {
               Contact
             </motion.button>
           </motion.div>
+
+          {/* Location Badge */}
+          <motion.div
+            className="mt-8 flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <motion.span
+              className="font-mono text-xs sm:text-sm text-AAsubtext px-3 py-1.5 rounded-full border border-AAborder/50 backdrop-blur-md bg-AAhover/40 inline-flex items-center gap-2"
+              whileHover={{
+                scale: 1.05,
+                borderColor: "#06b6d4",
+                backgroundColor: "rgba(6, 182, 212, 0.15)",
+                boxShadow: "0 0 20px rgba(6, 182, 212, 0.4)"
+              }}
+            >
+              <motion.span
+                className="text-base"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  opacity: [0.6, 1, 0.6]
+                }}
+                transition={{ duration: 2.5, repeat: Infinity }}
+              >
+                📍
+              </motion.span>
+              <span className="font-medium">San Francisco, CA</span>
+            </motion.span>
+          </motion.div>
         </div>
       </div>
     </section>
