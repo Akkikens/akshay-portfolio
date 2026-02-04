@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link as ReactScrollLink } from "react-scroll";
+import ThemeToggle from "../../Shared/ThemeToggle/ThemeToggle";
+import { SoundToggle } from "../../Shared/SoundSystem/SoundSystem";
 
 export default function DesktopMenu(props: { finishedLoading: boolean }) {
   return (
@@ -71,6 +73,28 @@ export default function DesktopMenu(props: { finishedLoading: boolean }) {
           Resume
         </motion.button>
       </a>
+      <motion.div
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          type: "spring",
+          duration: 1.2,
+          delay: props.finishedLoading ? 0 : 0.8,
+        }}
+      >
+        <ThemeToggle />
+      </motion.div>
+      <motion.div
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{
+          type: "spring",
+          duration: 1.2,
+          delay: props.finishedLoading ? 0 : 0.9,
+        }}
+      >
+        <SoundToggle />
+      </motion.div>
     </div>
   );
 }
