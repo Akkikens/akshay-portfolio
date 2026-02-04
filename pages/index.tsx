@@ -39,6 +39,12 @@ const Footer = React.lazy(() => import("../components/Footer/Footer"));
 const ChaosOverlay = React.lazy(
   () => import("../components/Shared/ChaosOverlay/ChaosOverlay")
 );
+const ScrollProgress = React.lazy(
+  () => import("../components/Shared/ScrollProgress/ScrollProgress")
+);
+const WebVitalsMonitor = React.lazy(
+  () => import("../components/Shared/WebVitals/WebVitalsMonitor")
+);
 
 export default function Home() {
   const context = useContext(AppContext);
@@ -81,6 +87,11 @@ export default function Home() {
   useEffect(() => {
     // Set finished loading immediately - no intro animations
     context.setSharedState((prev) => ({ ...prev, finishedLoading: true }));
+
+    // Ensure body can scroll - safeguard against stuck overflow state
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "auto";
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -149,8 +160,9 @@ export default function Home() {
       </Head>
 
       {!isBlackListed ? (
-        <div className="relative min-h-screen w-full bg-AAprimary snap-mandatory">
+        <div className="relative min-h-screen w-full bg-AAprimary">
           <Suspense fallback={<div className="p-8 text-gray-400">Loading…</div>}>
+            <ScrollProgress />
             <Header finishedLoading={true} sectionsRef={null} />
             <MyName finishedLoading={true} />
             <SocialMediaArround finishedLoading={true} />
@@ -166,6 +178,7 @@ export default function Home() {
               hideSocialsInDesktop={true}
             />
             <ChaosOverlay />
+            <WebVitalsMonitor />
             {!isProd && <ScreenSizeDetector />}
           </Suspense>
         </div>
