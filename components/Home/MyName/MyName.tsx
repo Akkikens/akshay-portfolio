@@ -100,26 +100,50 @@ export default function MyName({ finishedLoading = false }: Props) {
       
       <div className="relative mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-16 xl:px-20 2xl:px-24">
         <div className="min-h-[100vh] flex flex-col justify-center py-28 sm:py-36">
-          <motion.span 
-            className="font-mono text-AAaccent text-sm sm:text-base font-medium tracking-wide inline-block"
-            initial={{ opacity: 0, x: -50, rotateX: -90 }}
-            animate={{ opacity: 1, x: 0, rotateX: 0 }}
-            transition={{ 
-              duration: 0.8, 
-              ease: [0.22, 1, 0.36, 1],
-              type: "spring",
-              stiffness: 100
-            }}
-            whileHover={{ scale: 1.05, rotate: [0, -2, 2, 0] }}
-          >
+          <div className="flex flex-wrap items-center gap-4">
             <motion.span
-              animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-              className="inline-block"
+              className="font-mono text-AAaccent text-sm sm:text-base font-medium tracking-wide inline-block"
+              initial={{ opacity: 0, x: -50, rotateX: -90 }}
+              animate={{ opacity: 1, x: 0, rotateX: 0 }}
+              transition={{
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+                type: "spring",
+                stiffness: 100
+              }}
+              whileHover={{ scale: 1.05, rotate: [0, -2, 2, 0] }}
             >
-              👋
-            </motion.span> Hello, I am
-          </motion.span>
+              <motion.span
+                animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                className="inline-block"
+              >
+                👋
+              </motion.span> Hello, I am
+            </motion.span>
+            <motion.span
+              className="font-mono text-xs sm:text-sm text-AAsubtext/80 px-3 py-1.5 rounded-full border border-AAborder/50 backdrop-blur-sm bg-AAhover/30 inline-flex items-center gap-1.5"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              whileHover={{
+                scale: 1.05,
+                borderColor: "#06b6d4",
+                boxShadow: "0 0 15px rgba(6, 182, 212, 0.3)"
+              }}
+            >
+              <motion.span
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                📍
+              </motion.span>
+              San Francisco, CA
+            </motion.span>
+          </div>
           
           {/* Epic animated name with particles */}
           <motion.h1 
