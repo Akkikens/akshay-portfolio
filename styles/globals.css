@@ -36,6 +36,32 @@
   a, button {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  /* Enhanced focus states for accessibility */
+  *:focus-visible {
+    outline: 2px solid #06b6d4;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid #22d3ee;
+    outline-offset: 4px;
+    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.2);
+  }
+
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -71,7 +97,30 @@ body {
     sans-serif;
   overflow-x: hidden;
   max-width: 100vw;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+/* Light mode styles */
+.light body {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: #0f172a;
+}
+
+.light body::-webkit-scrollbar {
+  background-color: #f8fafc;
+}
+
+.light body::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+  border-color: #f8fafc;
+}
+
+.light body::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+}
+
+/* Custom cursor styling - removed cursor: none to fix scrolling issues */
+/* The custom cursor will overlay but won't hide the default cursor */
 
 a {
   color: inherit;
