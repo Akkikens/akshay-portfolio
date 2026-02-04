@@ -102,7 +102,7 @@ export default function ThreeDProjectCard({
           className="cursor-pointer"
         >
           <ambientLight args={[undefined, 0.5]} />
-          <spotLight args={[undefined, 1]} position={[10, 10, 10]} angle={0.15} penumbra={1} />
+          <spotLight args={[undefined, 1, 0, 0.15, 1]} position={[10, 10, 10]} />
           <pointLight args={[undefined, 0.5]} position={[-10, -10, -10]} />
           <ProjectCube isHovered={isHovered} />
           <OrbitControls
