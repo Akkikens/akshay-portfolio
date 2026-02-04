@@ -44,7 +44,7 @@ export default function MyName({ finishedLoading = false }: Props) {
   const nameOpacity = mounted ? Math.max(0.3, 1 - scrollY * 0.002) : 1;
 
   return (
-    <section id="home" className="bg-gradient-to-br from-AAprimary via-AAprimary to-MobileNavBarColor text-AAtext relative overflow-hidden" aria-label="Introduction">
+    <section id="home" className="bg-gradient-to-br from-AAprimary via-AAprimary to-MobileNavBarColor text-AAtext relative overflow-x-hidden" aria-label="Introduction">
       {/* Galaxy Background */}
       <GalaxyBackground />
       
