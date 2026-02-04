@@ -76,7 +76,7 @@ function MyApp({ Component, pageProps }) {
     finishedLoading: false,
   });
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <SoundProvider>
         <AppContext.Provider value={{ sharedState, setSharedState }}>
           <Component {...pageProps} />
