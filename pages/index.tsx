@@ -8,7 +8,6 @@ import AppContext from "../components/AppContextFolder/AppContext";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
-import { useScrollFix } from "../hooks/useScrollFix";
 
 // Lazy content
 const Header = React.lazy(() => import("../components/Header/Header"));
@@ -52,9 +51,6 @@ export default function Home() {
   
   // Apple-like smooth scrolling
   useSmoothScroll();
-
-  // Fix scroll blocking issues
-  useScrollFix();
 
   // --- Blacklist logic ---
   const [userData, setUserData] = useState<any>(null);
