@@ -103,6 +103,14 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Ensure Next.js root div allows scrolling */
+#__next {
+  min-height: 100vh;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
 /* Light mode styles */
 .light,
 .light html,
@@ -156,7 +164,7 @@ a {
 @media (max-width: 768px) {
   body {
     overflow-x: hidden;
-    position: relative;
+    overflow-y: auto !important;
   }
   
   /* Hide scrollbar on mobile for cleaner look */
