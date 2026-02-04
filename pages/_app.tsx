@@ -1,6 +1,8 @@
 import React from "react";
 import "../styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { ThemeProvider } from "next-themes";
+import { SoundProvider } from "../components/Shared/SoundSystem/SoundSystem";
 import AppContext from "../components/AppContextFolder/AppContext";
 import { useRef, useState, useEffect } from "react";
 // import NEXT_PUBLIC_GA_TRACKING_ID form .env
@@ -74,10 +76,14 @@ function MyApp({ Component, pageProps }) {
     finishedLoading: false,
   });
   return (
-    <AppContext.Provider value={{ sharedState, setSharedState }}>
-      <Component {...pageProps} />
-      <Analytics />
-    </AppContext.Provider>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={true}>
+      <SoundProvider>
+        <AppContext.Provider value={{ sharedState, setSharedState }}>
+          <Component {...pageProps} />
+          <Analytics />
+        </AppContext.Provider>
+      </SoundProvider>
+    </ThemeProvider>
   );
 }
 
