@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { onCLS, onFID, onLCP, onFCP, onTTFB, Metric } from "web-vitals";
+import { onCLS, onINP, onLCP, onFCP, onTTFB, Metric } from "web-vitals";
 
 interface VitalsData {
   CLS: number | null;
-  FID: number | null;
+  INP: number | null;
   LCP: number | null;
   FCP: number | null;
   TTFB: number | null;
@@ -12,7 +12,7 @@ interface VitalsData {
 
 const thresholds = {
   CLS: { good: 0.1, needsImprovement: 0.25 },
-  FID: { good: 100, needsImprovement: 300 },
+  INP: { good: 200, needsImprovement: 500 },
   LCP: { good: 2500, needsImprovement: 4000 },
   FCP: { good: 1800, needsImprovement: 3000 },
   TTFB: { good: 800, needsImprovement: 1800 },
@@ -21,14 +21,21 @@ const thresholds = {
 export default function WebVitalsMonitor() {
   const [vitals, setVitals] = useState<VitalsData>({
     CLS: null,
-    FID: null,
+    INP: null,
     LCP: null,
     FCP: null,
     TTFB: null,
   });
   const [isVisible, setIsVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     const updateMetric = (metric: Metric) => {
       setVitals((prev) => ({
         ...prev,
@@ -37,11 +44,11 @@ export default function WebVitalsMonitor() {
     };
 
     onCLS(updateMetric);
-    onFID(updateMetric);
+    onINP(updateMetric);
     onLCP(updateMetric);
     onFCP(updateMetric);
     onTTFB(updateMetric);
-  }, []);
+  }, [mounted]);
 
   const getStatus = (name: keyof VitalsData, value: number | null) => {
     if (value === null) return "loading";
@@ -74,6 +81,8 @@ export default function WebVitalsMonitor() {
     if (name === "CLS") return "";
     return "ms";
   };
+
+  if (!mounted) return null;
 
   return (
     <>
