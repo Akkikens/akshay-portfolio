@@ -93,9 +93,20 @@ export function useSound() {
 export function SoundToggle() {
   const { enabled, toggleSound } = useSound();
   const [showTooltip, setShowTooltip] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="w-12 h-12 rounded-full bg-AAhover/50 border border-AAborder/50 backdrop-blur-sm animate-pulse" />
+    );
+  }
 
   return (
-    <div className="relative">
+    <div className="relative" suppressHydrationWarning>
       <motion.button
         onClick={toggleSound}
         onMouseEnter={() => setShowTooltip(true)}
