@@ -113,27 +113,10 @@ body {
 }
 
 /* Light mode styles */
-.light,
 .light html,
 .light body {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-  color: #0f172a !important;
-}
-
-.light * {
-  border-color: #cbd5e1;
-}
-
-.light .bg-AAprimary {
-  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%) !important;
-}
-
-.light .text-AAtext {
-  color: #0f172a !important;
-}
-
-.light .text-AAsubtext {
-  color: #475569 !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: #0f172a;
 }
 
 .light body::-webkit-scrollbar {
