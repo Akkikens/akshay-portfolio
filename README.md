@@ -8,6 +8,7 @@
   The first iteration of <a href="https://akshaykalapgar.com" target="_blank">AkshayKalapgar.com</a>, built with <a href="https://nextjs.org/" target="_blank">Next.js</a> and hosted on <a href="https://vercel.com/" target="_blank">Vercel</a>.
 </p>
 
+
 <p align="center">
   <a href="https://akshaykalapgar.com" target="_blank">
     <img src="https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png" width="100" alt="Vercel Status" />
