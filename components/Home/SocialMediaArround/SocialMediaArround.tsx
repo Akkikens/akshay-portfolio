@@ -2,8 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import GithubIcon from "../../Icons/GithubIcon";
 import LinkedinIcon from "../../Icons/LinkedinIcon";
-import InstagramIcon from "../../Icons/InstagramIcon";
-import YoutubeIcon from "../../Icons/YoutubeIcon";
 
 const IconClickableWithAnimation = (props) => {
   return (
@@ -46,16 +44,6 @@ export default function SocialMediaEmail({ finishedLoading }) {
             <IconClickableWithAnimation
               Icon={LinkedinIcon}
               href="https://www.linkedin.com/in/akshaykalapgar/"
-            />
-            {/* Instagram Icon */}
-            <IconClickableWithAnimation
-              Icon={InstagramIcon}
-              href="https://www.instagram.com/akshay_kalapgar/"
-            />
-            {/* Youtube Icon */}
-            <IconClickableWithAnimation
-              Icon={YoutubeIcon}
-              href="https://www.youtube.com/@Akkikens"
             />
           </div>
           <div className="h-28 w-0.5 bg-white"></div>

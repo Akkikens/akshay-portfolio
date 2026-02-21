@@ -1,8 +1,6 @@
 import React from "react";
 import GithubIcon from "../Icons/GithubIcon";
 import LinkedinIcon from "../Icons/LinkedinIcon";
-import InstagramIcon from "../Icons/InstagramIcon";
-import YoutubeIcon from "../Icons/YoutubeIcon";
 
 // Reusable icon component that links to social profiles
 const ClickableIcon = ({ href, Icon }) => {
@@ -17,8 +15,6 @@ const ClickableIcon = ({ href, Icon }) => {
 const IconsData = [
   { href: "https://github.com/Akkikens", Icon: GithubIcon },
   { href: "https://www.linkedin.com/in/akshaykalapgar", Icon: LinkedinIcon },
-  { href: "https://www.instagram.com/akshay_kalapgar/", Icon: InstagramIcon },
-  { href: "https://www.youtube.com/@akshaychannel", Icon: YoutubeIcon },
 ];
 
 export default function Footer({ githubUrl, hideSocialsInDesktop }) {
