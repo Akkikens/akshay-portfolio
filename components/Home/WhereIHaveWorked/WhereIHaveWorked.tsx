@@ -20,6 +20,8 @@ export default function WhereIHaveWorked() {
         return <Tag8 />;
       case "KPMG":
         return <KPMG />;
+      default:
+        return <ClimbTogether />;
     }
   };
 
@@ -58,12 +60,11 @@ export default function WhereIHaveWorked() {
           ease: "easeInOut"
         }}
       />
-      {/* Title */}
+      {/* Title - animate on mount so section is never empty if whileInView is delayed */}
       <motion.section 
         className="relative flex flex-row items-center"
         initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
       >
         <div className="flex flex-row items-center">
@@ -81,7 +82,7 @@ export default function WhereIHaveWorked() {
         <div className="w-full md:w-64 md:mr-12 flex-shrink-0">
           <CompaniesBar setDescriptionJob={setDescriptionJob} />
         </div>
-        <div className="flex-1 w-full min-w-0">
+        <div className="flex-1 w-full min-w-0 min-h-[280px]">
           {GetDescription()}
         </div>
       </section>
