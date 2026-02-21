@@ -30,7 +30,6 @@ export default function WhereIHaveWorked() {
   return (
     <div 
       id="WhereIhaveWorkedSection"
-      data-aos="fade-up" 
       className="flex flex-col items-center justify-center py-24 space-y-12 bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden"
     >
       {/* Background decoration */}

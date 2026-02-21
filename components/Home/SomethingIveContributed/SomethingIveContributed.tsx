@@ -68,7 +68,6 @@ export default function SomethingIveContributed() {
       
       {/* Section Title */}
       <motion.div 
-        data-aos="fade-up" 
         className="relative flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4"
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -106,7 +105,6 @@ export default function SomethingIveContributed() {
 
       {/* Active Contribution Content */}
       <div
-        data-aos="fade-up"
         className="relative grid md:grid-cols-12 grid-cols-1 w-full mt-8 sm:mt-12 gap-6 sm:gap-8 md:gap-12"
       >
         {/* Left Image Section */}

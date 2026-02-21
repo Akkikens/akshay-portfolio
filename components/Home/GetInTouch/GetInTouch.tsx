@@ -49,7 +49,6 @@ export default function GetInTouch() {
   return (
     <div
       id="GetInTouchSection"
-      data-aos="fade-up"
       className="flex flex-col space-y-12 w-full py-24 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72 items-center bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden"
     >
       {/* Background decoration */}

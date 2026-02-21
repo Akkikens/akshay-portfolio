@@ -1,7 +1,5 @@
 // pages/index.tsx
 import React, { useContext, useEffect, useState, Suspense } from "react";
-import Aos from "aos";
-import "aos/dist/aos.css";
 import Head from "next/head";
 
 import AppContext from "../components/AppContextFolder/AppContext";
@@ -113,10 +111,6 @@ export default function Home() {
     }
   }, [context]);
 
-  // --- AOS ---
-  useEffect(() => {
-    Aos.init({ duration: 1500, once: true });
-  }, []);
 
   // --- Meta ---
   const meta = {

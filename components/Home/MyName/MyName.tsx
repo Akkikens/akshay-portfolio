@@ -17,9 +17,6 @@ export default function MyName({ finishedLoading = false }: Props) {
       delay: number;
     }>
   >([]);
-  
-  // Don't render anything until the intros are done
-  if (!finishedLoading) return null;
 
   useEffect(() => {
     setMounted(true);
@@ -38,6 +35,9 @@ export default function MyName({ finishedLoading = false }: Props) {
 
   const scrollTo = (id: string, offset = -50) =>
     scroller.scrollTo(id, { duration: 800, smooth: "easeInOutCubic", offset });
+
+  // Don't render anything until the intros are done
+  if (!finishedLoading) return null;
 
   // Apple-like scroll transform for the name
   const nameScale = mounted ? Math.max(0.7, 1 - scrollY * 0.0008) : 1;

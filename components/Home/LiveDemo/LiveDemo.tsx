@@ -204,7 +204,7 @@ const GenomicVisualization: React.FC<{ data: GenomicData[] }> = ({ data }) => {
       className="flex flex-col bg-AAprimary w-full py-32 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72"
     >
       {/* Section Title */}
-      <div data-aos="fade-up" className="flex flex-row items-center space-x-4 mb-16">
+      <div className="flex flex-row items-center space-x-4 mb-16">
         <ArrowIcon className="h-5 md:h-6 w-5 md:w-5 text-AAsecondary" />
         <span className="text-AAsecondary font-sans text-sm sm:text-xl">
           06.

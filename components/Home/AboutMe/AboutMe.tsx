@@ -44,7 +44,7 @@ export default function AboutMe() {
   ];
 
   return (
-    <div id="aboutSection" data-aos="fade-up" className="snap-start flex flex-col items-center py-16 sm:py-20 bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden">
+    <div id="aboutSection" className="snap-start flex flex-col items-center py-16 sm:py-20 bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden">
       {/* Background decoration */}
       <motion.div 
         className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl"

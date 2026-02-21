@@ -63,7 +63,6 @@ export default function Testimonials() {
       
       {/* Section Title */}
       <motion.div 
-        data-aos="fade-up" 
         className="relative flex flex-row items-center space-x-4 mb-16"
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
