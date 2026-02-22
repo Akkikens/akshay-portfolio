@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-scroll";
 
 const MobileMenu = ({ setRotate, setShowElement, rotate, ShowElement }) => {
   const closeMenu = () => {
@@ -26,34 +25,26 @@ const MobileMenu = ({ setRotate, setShowElement, rotate, ShowElement }) => {
             to: "WhereIhaveWorkedSection",
             label: "Experience",
             number: "02.",
-            offset: -250,
           },
           {
             to: "SomethingIveBuiltSection",
             label: "Work",
             number: "03.",
-            offset: 100,
           },
           {
-            to: "certificationsSection",
+            to: "CertificationsSection",
             label: "Certifications",
             number: "04.",
-            offset: -50,
           },
           {
             to: "GetInTouchSection",
             label: "Contact",
             number: "05.",
-            offset: 100,
           },
         ].map((item, index) => (
-          <Link
+          <a
             key={index}
-            to={item.to}
-            spy={true}
-            smooth={true}
-            offset={item.offset || -50}
-            duration={200}
+            href={`#${item.to}`}
             onClick={closeMenu}
             className="flex flex-col text-center space-y-2 cursor-pointer"
           >
@@ -63,7 +54,7 @@ const MobileMenu = ({ setRotate, setShowElement, rotate, ShowElement }) => {
             <span className="text-white font-Text2 text-sm sm:text-base hover:text-AAsecondary duration-300">
               {item.label}
             </span>
-          </Link>
+          </a>
         ))}
         <a href="/resume.pdf" target="_blank" rel="noreferrer">
           <button className="rounded border font-Text2 border-AAsecondary hover:bg-ResumeButtonHover py-2 sm:py-4 px-5 sm:px-10 text-xs text-AAsecondary">

@@ -184,7 +184,6 @@ Copyright (c) 2024 Akshay Kalapgar
 Permission is hereby granted, free of charge, to use, copy, modify, and distribute this software.
 ```
 
-
 ---
 
 ## 👨‍💻 Author

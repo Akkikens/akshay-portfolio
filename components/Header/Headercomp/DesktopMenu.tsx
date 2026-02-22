@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link as ReactScrollLink } from "react-scroll";
 import ThemeToggle from "../../Shared/ThemeToggle/ThemeToggle";
 import { SoundToggle } from "../../Shared/SoundSystem/SoundSystem";
 
@@ -45,18 +44,12 @@ export default function DesktopMenu(props: { finishedLoading: boolean }) {
           }}
           className="text-AAsecondary"
         >
-          <ReactScrollLink
-            to={item.to}
-            spy={true}
-            smooth={true}
-            offset={-100}
-            duration={200}
-          >
+          <a href={`#${item.to}`}>
             &gt; {item.number}{" "}
             <span className="text-white hover:cursor-pointer hover:text-AAsecondary duration-300">
               {item.label}
             </span>
-          </ReactScrollLink>
+          </a>
         </motion.div>
       ))}
       <a href={"/resume.pdf"} target={"_blank"} rel="noreferrer">

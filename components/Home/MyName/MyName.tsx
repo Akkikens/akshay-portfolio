@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { motion } from "framer-motion";
-import { scroller } from "react-scroll";
 import GalaxyBackground from "./GalaxyBackground";
 
 type Props = { finishedLoading?: boolean };
@@ -33,8 +32,12 @@ export default function MyName({ finishedLoading = false }: Props) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollTo = (id: string, offset = -50) =>
-    scroller.scrollTo(id, { duration: 800, smooth: "easeInOutCubic", offset });
+  const scrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   // Don't render anything until the intros are done
   if (!finishedLoading) return null;
@@ -331,7 +334,7 @@ export default function MyName({ finishedLoading = false }: Props) {
             </NextLink>
 
             <motion.button
-              onClick={() => scrollTo("SomethingIveContributedSection", 100)}
+              onClick={() => scrollTo("SomethingIveContributedSection")}
               className="rounded-full px-8 py-3 font-medium border-2 border-AAborder text-AAtext backdrop-blur-sm relative overflow-hidden group"
               whileHover={{ 
                 scale: 1.05,
@@ -350,7 +353,7 @@ export default function MyName({ finishedLoading = false }: Props) {
             </motion.button>
 
             <motion.button
-              onClick={() => scrollTo("GetInTouchSection", 100)}
+              onClick={() => scrollTo("GetInTouchSection")}
               className="rounded-full px-8 py-3 font-medium text-AAsubtext hover:text-AAtext hover:bg-AAhover border-2 border-AAborder hover:border-AAaccent transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
