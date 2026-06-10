@@ -1,30 +1,48 @@
 import React from "react";
 import { useState } from "react";
-import { motion } from "framer-motion";
-import ArrowIcon from "../../Icons/ArrowIcon";
 import Img from "../../smallComp/image/Img";
 import GithubIcon from "../../Icons/GithubIconForSomethingIveBuild";
+import SectionHeader from "../../Shared/Motion/SectionHeader";
+import ParallaxBlob from "../../Shared/Motion/ParallaxBlob";
 
 export default function SomethingIveContributed() {
-  const [activeTab, setActiveTab] = useState("Goldi");
+  const [activeTab, setActiveTab] = useState("Metta");
 
-  const contributions = {
+  const contributions: Record<string, {
+    title: string;
+    company: string;
+    description: string;
+    techStack: string[];
+    image?: string | null;
+    githubLink: string;
+    liveLink: string;
+  }> = {
+    Metta: {
+      title: "Metta AI - Multi-Agent RL Platform",
+      company: "Softmax",
+      description:
+        "Shipped 1,180+ commits to Metta AI, an open-source multi-agent reinforcement learning platform. Built Claude Code plugins (86 skills across 6 plugins) and MCP tool harnesses for AI-assisted dev workflows, a Kubernetes watcher service for AI job lifecycle orchestration with automated failure classification, a Datadog + OpenTelemetry observability pipeline, and the 21-table PostgreSQL data layer with Alembic migrations and zero-downtime Helm migration jobs.",
+      techStack: ["Python", "Claude Code", "MCP", "Kubernetes", "Helm", "Terraform", "Datadog", "OpenTelemetry", "PostgreSQL", "Multi-Agent RL"],
+      image: null,
+      githubLink: "https://github.com/Metta-AI/metta",
+      liveLink: "",
+    },
     Goldi: {
       title: "Goldi - AI Career Assistant",
       company: "Climb Together",
       description:
-        "Contributed to an AI-powered career chat assistant that teaches students a better way to get interviews for internships and jobs. Helped build features for career path discovery, networking opportunities, practice conversations, and outreach messaging. Implemented AI technologies including LangChain, Hugging Face models, and OpenAI integration for intelligent conversational experiences. Supported by major organizations including Google.org, Walmart.org, and various universities.",
-      techStack: ["Next.js", "TypeScript", "React", "LangChain", "Hugging Face", "OpenAI", "AI/ML", "Career Development"],
+        "Core engineer on an AI-powered career assistant that teaches students a better way to land internships and jobs. Built the conversational AI with LangChain, OpenAI, and Anthropic Claude, added natural voice conversations via Hume AI, and drove the distributed onboarding architecture (Next.js, Clerk, Twilio) that scaled to 100K+ users. Supported by Google.org, Walmart.org, and university partners.",
+      techStack: ["Next.js", "TypeScript", "LangChain", "OpenAI", "Anthropic Claude", "Hume AI", "Clerk", "Twilio", "PostgreSQL"],
       image: "/goldi-preview.png",
       githubLink: "https://github.com/climb-together/goldi",
       liveLink: "https://goldi.climbtogether.co/",
     },
     Factorbook: {
-      title: "Factorbook 2.0 - Genomic AI Platform",
+      title: "Factorbook 2.0 - Genomic Research Platform",
       company: "UMass Chan Medical School",
       description:
-        "Contributed to an advanced genomic research platform using Next.js, TypeScript, and Material UI. Implemented GraphQL with AI-powered data processing, reducing API response times by 55%. Built interactive visualizations with VISX and integrated machine learning workflows for genomic analysis, improving researcher engagement by 60%.",
-      techStack: ["Next.js", "TypeScript", "GraphQL", "VISX", "Material UI", "Python", "TensorFlow", "PyTorch", "ML/AI"],
+        "Led implementation of Factorbook 2.0, a genomic research platform built with React, Next.js, and GraphQL — improving First Contentful Paint by 40%. Built data-heavy genomic visualizations, integrated Prometheus dashboards to monitor distributed job queues, and wrote 500+ unit and integration tests with Jest and Playwright at 98%+ coverage.",
+      techStack: ["Next.js", "React", "TypeScript", "GraphQL", "VISX", "Material UI", "Prometheus", "Jest", "Playwright"],
       image: "/Factorbook.png",
       githubLink: "https://github.com/weng-lab/Factorbook2.0",
       liveLink: "https://factorbook2-0.vercel.app/",
@@ -36,55 +54,18 @@ export default function SomethingIveContributed() {
   return (
     <div
       id="SomethingIveContributedSection"
-      className="flex flex-col bg-gradient-to-br from-AAprimary to-MobileNavBarColor w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-16 lg:px-24 2xl:px-72 border-t border-AAborder relative overflow-hidden"
+      className="flex flex-col w-full py-20 sm:py-28 px-5 sm:px-8 md:px-16 lg:px-24 2xl:px-72 border-t border-white/[0.06] relative overflow-hidden"
     >
-      {/* Background decoration */}
-      <motion.div 
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          x: [0, 40, 0],
-          y: [0, -30, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
+      {/* Ambient accents with parallax drift */}
+      <ParallaxBlob className="absolute top-1/4 right-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" range={55} />
+      <ParallaxBlob className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" range={-40} />
+
+      <SectionHeader
+        index="04"
+        eyebrow="Open Source"
+        title="Professional Contributions"
+        className="relative"
       />
-      <motion.div 
-        className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          x: [0, -40, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      {/* Section Title */}
-      <motion.div 
-        className="relative flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4"
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="flex items-center space-x-2 sm:space-x-4">
-          <ArrowIcon className="h-4 sm:h-5 md:h-6 w-4 sm:w-5 md:w-5 text-AAsecondary" />
-          <span className="text-AAsecondary font-semibold text-sm sm:text-xl">
-            04.
-          </span>
-          <h2 className="font-bold tracking-wider text-AAtext text-base sm:text-lg md:text-2xl">
-            Professional Contributions
-          </h2>
-        </div>
-        <div className="bg-AAborder h-[1px] w-full sm:w-1/3 md:w-1/2 hidden sm:block"></div>
-      </motion.div>
 
       {/* Tabs Section */}
       <div className="relative -mx-2 flex overflow-x-auto sm:flex-wrap sm:overflow-visible gap-3 mt-8 sm:mt-12 px-2 scrollbar-hide">
@@ -92,10 +73,10 @@ export default function SomethingIveContributed() {
           <button
             key={key}
             onClick={() => setActiveTab(key)}
-            className={`py-3 px-5 text-xs sm:text-sm rounded-2xl font-medium transition-all duration-300 backdrop-blur-sm min-w-[220px] sm:min-w-0 text-left whitespace-normal sm:whitespace-nowrap ${
+            className={`py-3 px-5 text-xs sm:text-sm rounded-xl font-medium transition-colors duration-200 backdrop-blur-sm min-w-[220px] sm:min-w-0 text-left whitespace-normal sm:whitespace-nowrap cursor-pointer border ${
               activeTab === key
-                ? "bg-gradient-to-r from-AAsecondary to-AAaccent text-white shadow-lg shadow-AAsecondary/30"
-                : "text-AAsubtext hover:text-AAtext bg-AAhover hover:bg-AAborder border border-AAborder hover:border-AAsecondary/50 hover:shadow-lg"
+                ? "bg-AAsecondary/[0.08] text-AAsecondary border-AAsecondary/30"
+                : "text-AAsubtext hover:text-AAtext bg-white/[0.03] border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05]"
             }`}
           >
             {contributions[key].title}
@@ -105,7 +86,9 @@ export default function SomethingIveContributed() {
 
       {/* Active Contribution Content */}
       <div
-        className="relative grid md:grid-cols-12 grid-cols-1 w-full mt-8 sm:mt-12 gap-6 sm:gap-8 md:gap-12"
+        className={`relative grid ${
+          activeContribution.image ? "md:grid-cols-12" : "md:grid-cols-6"
+        } grid-cols-1 w-full mt-8 sm:mt-12 gap-6 sm:gap-8 md:gap-12`}
       >
         {/* Left Image Section */}
         {activeContribution.image && (
@@ -122,8 +105,12 @@ export default function SomethingIveContributed() {
         )}
 
         {/* Right Content Section */}
-        <div className="md:col-span-5 flex flex-col space-y-6 order-2 md:order-2 min-w-0 w-full">
-          <div className="bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-5 sm:p-6 md:p-7 border border-AAborder backdrop-blur-sm">
+        <div
+          className={`${
+            activeContribution.image ? "md:col-span-5" : "md:col-span-6"
+          } flex flex-col space-y-6 order-2 md:order-2 min-w-0 w-full`}
+        >
+          <div className="rounded-2xl p-5 sm:p-6 md:p-7 border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
             <div className="space-y-3 sm:space-y-4">
               <div>
                 <h3 className="text-AAtext text-base sm:text-lg md:text-xl font-bold">
@@ -140,7 +127,7 @@ export default function SomethingIveContributed() {
               
               <div className="flex flex-wrap gap-2">
                 {activeContribution.techStack.map((tech, index) => (
-                  <span key={index} className="bg-AAprimary/50 text-AAtext px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm border border-AAborder hover:border-AAsecondary hover:text-AAsecondary transition-all duration-300">
+                  <span key={index} className="font-mono text-AAtext px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs border border-white/[0.08] bg-white/[0.03] hover:border-AAsecondary/40 hover:text-AAsecondary transition-colors duration-200">
                     {tech}
                   </span>
                 ))}
