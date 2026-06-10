@@ -5,10 +5,11 @@ export default function ScrollProgress() {
   const [isVisible, setIsVisible] = useState(false);
   const { scrollYProgress } = useScroll();
 
-  // Smooth spring animation
+  // Light spring only — Lenis already lerps the scroll position, so a heavy
+  // spring here would double-smooth and make the bar lag behind the page.
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 260,
+    damping: 36,
     restDelta: 0.001,
   });
 
