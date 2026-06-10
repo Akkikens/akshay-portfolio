@@ -1,7 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import ArrowIcon from "../../Icons/ArrowIcon";
+import SectionHeader from "../../Shared/Motion/SectionHeader";
+import ParallaxBlob from "../../Shared/Motion/ParallaxBlob";
+import Reveal from "../../Shared/Motion/Reveal";
 
 export default function GetInTouch() {
   const [isAndroidWebView, setIsAndroidWebView] = useState(false);
@@ -49,79 +51,31 @@ export default function GetInTouch() {
   return (
     <div
       id="GetInTouchSection"
-      className="flex flex-col space-y-12 w-full py-24 px-4 sm:px-16 md:px-16 lg:px-24 2xl:px-72 items-center bg-gradient-to-br from-AAprimary to-MobileNavBarColor border-t border-AAborder relative overflow-hidden"
+      className="flex flex-col space-y-10 w-full py-20 sm:py-28 px-5 sm:px-16 md:px-16 lg:px-24 2xl:px-72 items-center border-t border-white/[0.06] relative overflow-hidden"
     >
-      {/* Background decoration */}
-      <motion.div 
-        className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          x: [0, 30, 0],
-          y: [0, -20, 0],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div 
-        className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          x: [0, -30, 0],
-          y: [0, 20, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      
-      {/* Title: What's Next? */}
-      <motion.div 
-        className="relative flex flex-row items-center"
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <ArrowIcon className="flex-none h-5 md:h-6 w-5 md:w-5 text-AAsecondary" />
-        <div className="flex flex-row space-x-2 items-center">
-          <span className="text-AAsecondary font-semibold text-sm sm:text-base">
-            07.
-          </span>
-          <span className="font-semibold text-AAsecondary text-base">
-            What&apos;s Next?
-          </span>
-        </div>
-      </motion.div>
+      {/* Ambient accents with parallax drift */}
+      <ParallaxBlob className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" range={55} />
+      <ParallaxBlob className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" range={-40} />
 
-      {/* Get In Touch */}
-      <motion.div 
-        className="text-center space-y-4"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        <h2 className="text-AAtext text-4xl sm:text-5xl font-bold tracking-wider">
-          Get In Touch
-        </h2>
-        <p className="text-AAtext text-lg leading-relaxed text-center px-6 sm:px-16 md:px-0 md:w-[600px]">
-          I'm always open to new opportunities, collaborations, or just a friendly
-          chat! Whether you have a question or just want to say hi, I'll try my
-          best to get back to you!
+      <SectionHeader
+        index="07"
+        eyebrow="What's Next"
+        title="Get In Touch"
+        align="center"
+        className="relative"
+      />
+
+      <Reveal className="relative">
+        <p className="text-AAsubtext text-lg leading-relaxed text-center px-6 sm:px-16 md:px-0 md:w-[600px]">
+          I&apos;m open to AI platform, backend, full-stack, and forward-deployed AI
+          engineering roles — or a conversation about agent tooling, MCP servers, and
+          shipping production AI. Reach out and I&apos;ll get back to you quickly.
         </p>
-      </motion.div>
+      </Reveal>
 
       {/* Contact Form */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="relative w-full max-w-2xl bg-gradient-to-br from-AAhover to-MobileNavBarColor rounded-2xl p-8 border border-AAborder backdrop-blur-sm shadow-xl"
-      >
+      <Reveal className="relative w-full max-w-2xl">
+      <div className="rounded-2xl p-7 sm:p-8 border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -135,7 +89,7 @@ export default function GetInTouch() {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-AAprimary/50 border border-AAborder rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext transition-all duration-300"
+                className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.10] rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext/60 transition-colors duration-200"
                 placeholder="Your name"
               />
             </div>
@@ -150,7 +104,7 @@ export default function GetInTouch() {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 bg-AAprimary/50 border border-AAborder rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext transition-all duration-300"
+                className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.10] rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext/60 transition-colors duration-200"
                 placeholder="your.email@example.com"
               />
             </div>
@@ -167,7 +121,7 @@ export default function GetInTouch() {
               value={formData.subject}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-3 bg-AAprimary/50 border border-AAborder rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext transition-all duration-300"
+              className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.10] rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext/60 transition-colors duration-200"
               placeholder="What's this about?"
             />
           </div>
@@ -183,7 +137,7 @@ export default function GetInTouch() {
               onChange={handleInputChange}
               required
               rows={5}
-              className="w-full px-4 py-3 bg-AAprimary/50 border border-AAborder rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext resize-none transition-all duration-300"
+              className="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.10] rounded-xl focus:border-AAsecondary focus:outline-none text-AAtext placeholder-AAsubtext/60 resize-none transition-colors duration-200"
               placeholder="Tell me about your project or just say hello!"
             />
           </div>
@@ -218,15 +172,11 @@ export default function GetInTouch() {
             </motion.div>
           )}
         </form>
-      </motion.div>
+      </div>
+      </Reveal>
 
       {/* Alternative Contact */}
-      <motion.div 
-        className="relative pt-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-      >
+      <Reveal className="relative pt-4" delay={0.1}>
         {isAndroidWebView ? (
           <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl bg-AAsecondary/10 backdrop-blur-sm outline-none focus:outline-none focus:ring-2 focus:ring-AAsecondary/50">
             akshaykalapgar23@gmail.com
@@ -246,7 +196,7 @@ export default function GetInTouch() {
             </motion.button>
           </a>
         )}
-      </motion.div>
+      </Reveal>
     </div>
   );
 }

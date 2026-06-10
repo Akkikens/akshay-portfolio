@@ -72,7 +72,7 @@ export default function SocialMediaEmail({ finishedLoading }) {
             }}
           >
             <a
-              href="mailto:akalapgar@clarku.edu"
+              href="mailto:akshaykalapgar23@gmail.com"
               target="_blank"
               rel="noreferrer"
             >
