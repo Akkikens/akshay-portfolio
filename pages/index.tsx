@@ -1,53 +1,62 @@
 // pages/index.tsx
-import React, { useContext, useEffect, useState, Suspense } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
 import AppContext from "../components/AppContextFolder/AppContext";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
 import Maintenance from "../components/Home/Maintenance/Maintenance";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
+import { useLenis } from "../hooks/useLenis";
 
-// Lazy content
-const Header = React.lazy(() => import("../components/Header/Header"));
-const MyName = React.lazy(() => import("../components/Home/MyName/MyName"));
-const SocialMediaArround = React.lazy(
+// Code-split content. next/dynamic (not React.lazy) — in the pages router,
+// React.lazy + Suspense renders fallback/content inconsistently between server
+// and client, which throws hydration "text content does not match" errors.
+const Header = dynamic(() => import("../components/Header/Header"));
+const MyName = dynamic(() => import("../components/Home/MyName/MyName"));
+const SocialMediaArround = dynamic(
   () => import("../components/Home/SocialMediaArround/SocialMediaArround")
 );
-const AboutMe = React.lazy(() => import("../components/Home/AboutMe/AboutMe"));
-const WhereIHaveWorked = React.lazy(
+const AboutMe = dynamic(() => import("../components/Home/AboutMe/AboutMe"));
+const WhereIHaveWorked = dynamic(
   () => import("../components/Home/WhereIHaveWorked/WhereIHaveWorked")
 );
-const SomethingIveContributed = React.lazy(
+const SomethingIveContributed = dynamic(
   () => import("../components/Home/SomethingIveContributed/SomethingIveContributed")
 );
-const SomethingIveBuilt = React.lazy(
+const SomethingIveBuilt = dynamic(
   () => import("../components/Home/SomethingIveBuilt/SomethingIveBuilt")
 );
-const Certifications = React.lazy(
+const Certifications = dynamic(
   () => import("../components/Home/Certifications/Certifications")
 );
-const GetInTouch = React.lazy(
+const GetInTouch = dynamic(
   () => import("../components/Home/GetInTouch/GetInTouch")
 );
-const Testimonials = React.lazy(
+const Testimonials = dynamic(
   () => import("../components/Home/Testimonials/Testimonials")
 );
 
-const Footer = React.lazy(() => import("../components/Footer/Footer"));
-const ChaosOverlay = React.lazy(
-  () => import("../components/Shared/ChaosOverlay/ChaosOverlay")
+const Footer = dynamic(() => import("../components/Footer/Footer"));
+const ChaosOverlay = dynamic(
+  () => import("../components/Shared/ChaosOverlay/ChaosOverlay"),
+  { ssr: false }
 );
-const ScrollProgress = React.lazy(
-  () => import("../components/Shared/ScrollProgress/ScrollProgress")
+const ScrollProgress = dynamic(
+  () => import("../components/Shared/ScrollProgress/ScrollProgress"),
+  { ssr: false }
 );
-const WebVitalsMonitor = React.lazy(
-  () => import("../components/Shared/WebVitals/WebVitalsMonitor")
+const WebVitalsMonitor = dynamic(
+  () => import("../components/Shared/WebVitals/WebVitalsMonitor"),
+  { ssr: false }
 );
 
 export default function Home() {
   const context = useContext(AppContext);
   
-  // Apple-like smooth scrolling
+  // Inertia smooth scrolling (Lenis) + lenis-aware anchor clicks.
+  // useLenis no-ops entirely under prefers-reduced-motion.
+  useLenis();
   useSmoothScroll();
 
   // --- Blacklist logic ---
@@ -86,9 +95,10 @@ export default function Home() {
     // Set finished loading immediately - no intro animations
     context.setSharedState((prev) => ({ ...prev, finishedLoading: true }));
 
-    // Ensure body can scroll - safeguard against stuck overflow state
+    // Safeguard against stuck overflow state (viewport is the scroller now)
     if (typeof document !== "undefined") {
-      document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -114,9 +124,9 @@ export default function Home() {
 
   // --- Meta ---
   const meta = {
-    title: "Akshay Kalapgar - AI Full Stack Engineer",
+    title: "Akshay Kalapgar — Forward-Deployed AI & Full-Stack Platform Engineer",
     description:
-      "AI/ML Full Stack Engineer with 4+ years building scalable SaaS platforms, AI chatbots with LangChain & Hugging Face, and cloud-native applications. Specialized in Next.js, TypeScript, Python, PyTorch, TensorFlow. Available for high-impact roles.",
+      "Full-stack & platform engineer with 4+ years building scalable, real-time, production AI systems across healthcare, e-commerce, and edtech. I build AI agent harnesses, MCP servers, and the platform, observability, and infra that ships them — Next.js, TypeScript, Python, Node.js, Kubernetes, Terraform, AWS/GCP.",
     image: "/Portfolio-portrait-4.jpg",
     type: "website",
   };
@@ -128,7 +138,7 @@ export default function Home() {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
-        <meta name="keywords" content="AI Engineer, Full Stack Developer, LangChain, Hugging Face, OpenAI, PyTorch, TensorFlow, Next.js, TypeScript, Python, Machine Learning, SaaS, Cloud, AWS, Azure, React, Node.js, MLOps, Chatbot Development, Genomic Data, Healthcare AI" />
+        <meta name="keywords" content="AI Platform Engineer, Forward-Deployed Engineer, Full Stack Engineer, Backend Engineer, AI Agents, MCP Servers, Claude Code, LLM Tooling, Multi-Agent Systems, Distributed Systems, Observability, Datadog, OpenTelemetry, Kubernetes, Helm, Terraform, AWS, GCP, Next.js, TypeScript, Python, Node.js, PostgreSQL, CI/CD" />
         <meta name="author" content="Akshay Kalapgar" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta property="og:url" content="https://akshaykalapgar.com" />
@@ -146,7 +156,7 @@ export default function Home() {
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
-        <meta name="theme-color" content="#0a192f" />
+        <meta name="theme-color" content="#0a0e1a" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -155,26 +165,24 @@ export default function Home() {
 
       {!isBlackListed ? (
         <div className="relative min-h-screen w-full bg-AAprimary">
-          <Suspense fallback={<div className="p-8 text-gray-400">Loading…</div>}>
-            <ScrollProgress />
-            <Header finishedLoading={true} sectionsRef={null} />
-            <MyName finishedLoading={true} />
-            <SocialMediaArround finishedLoading={true} />
-            <AboutMe />
-            <WhereIHaveWorked />
-            <Certifications />
-            <SomethingIveContributed />
-            <SomethingIveBuilt />
-            <Testimonials />
-            <GetInTouch />
-            <Footer
-              githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
-              hideSocialsInDesktop={true}
-            />
-            <ChaosOverlay />
-            <WebVitalsMonitor />
-            {!isProd && <ScreenSizeDetector />}
-          </Suspense>
+          <ScrollProgress />
+          <Header finishedLoading={true} sectionsRef={null} />
+          <MyName finishedLoading={true} />
+          <SocialMediaArround finishedLoading={true} />
+          <AboutMe />
+          <WhereIHaveWorked />
+          <Certifications />
+          <SomethingIveContributed />
+          <SomethingIveBuilt />
+          <Testimonials />
+          <GetInTouch />
+          <Footer
+            githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
+            hideSocialsInDesktop={true}
+          />
+          <ChaosOverlay />
+          <WebVitalsMonitor />
+          {!isProd && <ScreenSizeDetector />}
         </div>
       ) : (
         <Maintenance />
