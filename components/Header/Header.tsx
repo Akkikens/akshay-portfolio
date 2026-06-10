@@ -19,17 +19,22 @@ const Header = (props: { finishedLoading: boolean; sectionsRef }) => {
     }, 4000); // Shortened load delay for immediate display post-startup
   }, []);
 
-  // Handle body overflow for mobile menu
+  // Scroll lock for mobile menu — the viewport scrolls (not body), so lock
+  // documentElement and pause Lenis so wheel momentum can't fight the lock.
   useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = rotate ? "hidden" : "auto";
+    if (typeof document === "undefined") return;
+
+    document.documentElement.style.overflow = rotate ? "hidden" : "";
+    if (rotate) {
+      window.__lenis?.stop();
+    } else {
+      window.__lenis?.start();
     }
 
-    // Cleanup: ensure overflow is restored when component unmounts
+    // Cleanup: ensure scroll is restored when component unmounts
     return () => {
-      if (typeof document !== "undefined") {
-        document.body.style.overflow = "auto";
-      }
+      document.documentElement.style.overflow = "";
+      window.__lenis?.start();
     };
   }, [rotate]);
 
