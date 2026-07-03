@@ -8,13 +8,23 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 
 export default function Certifications() {
   const [selectedCertification, setSelectedCertification] = useState<string>(
-    "AWS Certified Developer – Associate"
+    "IBM AI Developer"
   );
 
   const certificationDetails: Record<
     string,
     { pdf?: string | null; verificationLink?: string | null; description: string[] }
   > = {
+    "IBM AI Developer": {
+      pdf: "/AI.pdf",
+      verificationLink:
+        "https://coursera.org/verify/professional-cert/2UU4UYDG6R6V",
+      description: [
+        "IBM Professional Certificate (6 courses) — applied AI development from fundamentals to deployed applications.",
+        "Built and deployed an AI-powered customer support chatbot, plus smart applications on IBM Watson AI services and APIs.",
+        "Practical Python for AI, computer vision with OpenCV and Watson Visual Recognition, and multiple hands-on AI projects.",
+      ],
+    },
     "AWS Certified Developer – Associate": {
       pdf: "/CloudDev.pdf",
       verificationLink:

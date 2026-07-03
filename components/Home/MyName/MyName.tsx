@@ -91,25 +91,26 @@ export default function MyName({ finishedLoading = false }: Props) {
             className="mt-3 font-semibold tracking-tight text-AAsubtext text-[clamp(1.5rem,4vw,2.5rem)] leading-tight max-w-[24ch]"
             {...reveal(0.2)}
           >
-            Forward-Deployed AI &amp; Full-Stack Platform Engineer
+            AI Agent Engineer — I ship agents to production.
           </motion.h2>
 
           <motion.p
             className="mt-8 text-base sm:text-lg leading-relaxed text-AAsubtext max-w-[62ch]"
             {...reveal(0.3)}
           >
-            I build <span className="text-AAsecondary font-medium">AI agent harnesses</span>,{" "}
-            <span className="text-AAsecondary font-medium">MCP servers</span>, and the
-            platform, observability, and infrastructure that ships them to production.
-            4+ years delivering scalable, real-time systems across healthcare,
-            e-commerce, and edtech — embedded with customers, moving fast, owning
-            outcomes end to end.
+            I build <span className="text-AAsecondary font-medium">multi-agent systems</span>,{" "}
+            <span className="text-AAsecondary font-medium">agent harnesses</span>, and{" "}
+            <span className="text-AAsecondary font-medium">MCP servers</span> — plus the
+            evals, observability, and infrastructure that make agents reliable in
+            production. 4+ years delivering real-time systems across healthcare,
+            e-commerce, and edtech — embedded with customers, owning outcomes end to end.
           </motion.p>
 
           <motion.div className="mt-8 flex flex-wrap gap-3" {...reveal(0.4)}>
             {[
-              "AI Agents · Claude Code · MCP",
-              "Kubernetes · Helm · Terraform",
+              "Multi-Agent Orchestration · MCP",
+              "Claude Code · Evals · Tool Use",
+              "Kubernetes · Terraform · AWS/GCP",
               "Datadog · OpenTelemetry",
               "Next.js · TypeScript · Python",
             ].map((chip) => (
@@ -189,7 +190,7 @@ export default function MyName({ finishedLoading = false }: Props) {
                   d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
                 />
               </svg>
-              San Francisco, CA · Open to forward-deployed &amp; platform roles
+              San Francisco, CA · Open to AI agent &amp; forward-deployed roles
             </span>
           </motion.div>
         </motion.div>

@@ -35,12 +35,15 @@ export default function GetInTouch() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
-      // Simulate form submission (replace with actual email service)
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Static export: compose the message in the visitor's email client
+      const { name, email, subject, message } = formData;
+      const body = `${message}\n\n— ${name} (${email})`;
+      window.location.href = `mailto:akshaykalapgar23@gmail.com?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
       setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
       setSubmitStatus('error');
     } finally {
@@ -67,9 +70,9 @@ export default function GetInTouch() {
 
       <Reveal className="relative">
         <p className="text-AAsubtext text-lg leading-relaxed text-center px-6 sm:px-16 md:px-0 md:w-[600px]">
-          I&apos;m open to AI platform, backend, full-stack, and forward-deployed AI
-          engineering roles — or a conversation about agent tooling, MCP servers, and
-          shipping production AI. Reach out and I&apos;ll get back to you quickly.
+          I&apos;m open to AI agent, platform, and forward-deployed engineering roles —
+          or a conversation about multi-agent systems, MCP servers, evals, and shipping
+          production AI. Reach out and I&apos;ll get back to you quickly.
         </p>
       </Reveal>
 
@@ -158,7 +161,7 @@ export default function GetInTouch() {
               animate={{ opacity: 1, y: 0 }}
               className="text-AAsuccess text-center font-medium"
             >
-              Thanks! I'll get back to you soon.
+              Your email app should open with the message ready — hit send and I'll get back to you soon.
             </motion.div>
           )}
           

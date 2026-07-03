@@ -7,7 +7,7 @@ import SectionHeader from "../../Shared/Motion/SectionHeader";
 import ParallaxBlob from "../../Shared/Motion/ParallaxBlob";
 
 export default function SomethingIveBuilt() {
-  const [activeTab, setActiveTab] = useState("DevDiagrams");
+  const [activeTab, setActiveTab] = useState("MLPipeline");
 
   const projects: Record<string, {
     title: string;
@@ -17,14 +17,13 @@ export default function SomethingIveBuilt() {
     githubLink: string;
     liveLink: string;
   }> = {
-    DevDiagrams: {
-      title: "DevDiagrams - Interactive Learning Platform",
+    MLPipeline: {
+      title: "Advanced ML Pipeline & Agent System",
       description:
-        "Interactive learning platform built with Next.js 15 and React 18, featuring comprehensive UI components from Radix UI. Integrated Supabase for authentication and real-time data management, with Stripe and Razorpay for payment processing. Includes PDF processing with react-pdf, AI-powered features using OpenAI, and real-time notifications with react-hot-toast. Optimized with Vercel Speed Insights for performance monitoring.",
-      techStack: ["Next.js 15", "React 18", "TypeScript", "Supabase", "Radix UI", "OpenAI", "Stripe", "Razorpay", "Framer Motion", "Tailwind CSS"],
-      image: "/devdiagrams.png",
-      githubLink: "https://github.com/Akkikens/devdiagrams",
-      liveLink: "https://devdiagrams.app",
+        "Comprehensive machine learning pipeline with multi-agent orchestration using LangChain, Hugging Face Transformers, and OpenAI APIs. Built end-to-end ML workflows including data preprocessing, model training with PyTorch/TensorFlow, evaluation pipelines, and deployment automation. Implemented agent-based systems for automated data processing, model validation, and intelligent decision-making with 99.5% accuracy.",
+      techStack: ["Python", "LangChain", "Hugging Face", "OpenAI", "PyTorch", "TensorFlow", "Scikit-learn", "MLflow", "Docker", "Kubernetes"],
+      githubLink: "",
+      liveLink: "",
     },
     ChatbotUI: {
       title: "AI Chatbot Platform",
@@ -34,6 +33,15 @@ export default function SomethingIveBuilt() {
       image: "/screenshot.png",
       githubLink: "https://github.com/akkikens/ui-chatbot",
       liveLink: "https://akshaykalapgar.com/projects/ui-chatbot",
+    },
+    DevDiagrams: {
+      title: "DevDiagrams - Interactive Learning Platform",
+      description:
+        "Interactive learning platform built with Next.js 15 and React 18, featuring comprehensive UI components from Radix UI. Integrated Supabase for authentication and real-time data management, with Stripe and Razorpay for payment processing. Includes PDF processing with react-pdf, AI-powered features using OpenAI, and real-time notifications with react-hot-toast. Optimized with Vercel Speed Insights for performance monitoring.",
+      techStack: ["Next.js 15", "React 18", "TypeScript", "Supabase", "Radix UI", "OpenAI", "Stripe", "Razorpay", "Framer Motion", "Tailwind CSS"],
+      image: "/devdiagrams.png",
+      githubLink: "https://github.com/Akkikens/devdiagrams",
+      liveLink: "https://devdiagrams.app",
     },
     AWS: {
       title: "AWS Certification Project",
@@ -58,14 +66,6 @@ export default function SomethingIveBuilt() {
       description:
         "Intelligent web application connecting Clark University students with alumni for career guidance. Leveraged Python, Django, and PostgreSQL with AI integration using LangChain for intelligent matching, Hugging Face models for resume analysis, and OpenAI for personalized career recommendations. Streamlined processes, reduced manual effort by 80%, and enhanced user engagement through AI-driven insights.",
       techStack: ["Python", "Django", "PostgreSQL", "LangChain", "Hugging Face", "OpenAI", "Docker", "JIRA"],
-      githubLink: "",
-      liveLink: "",
-    },
-    MLPipeline: {
-      title: "Advanced ML Pipeline & Agent System",
-      description:
-        "Comprehensive machine learning pipeline with multi-agent orchestration using LangChain, Hugging Face Transformers, and OpenAI APIs. Built end-to-end ML workflows including data preprocessing, model training with PyTorch/TensorFlow, evaluation pipelines, and deployment automation. Implemented agent-based systems for automated data processing, model validation, and intelligent decision-making with 99.5% accuracy.",
-      techStack: ["Python", "LangChain", "Hugging Face", "OpenAI", "PyTorch", "TensorFlow", "Scikit-learn", "MLflow", "Docker", "Kubernetes"],
       githubLink: "",
       liveLink: "",
     },

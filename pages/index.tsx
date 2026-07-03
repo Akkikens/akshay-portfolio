@@ -124,10 +124,10 @@ export default function Home() {
 
   // --- Meta ---
   const meta = {
-    title: "Akshay Kalapgar — Forward-Deployed AI & Full-Stack Platform Engineer",
+    title: "Akshay Kalapgar — AI Agent Engineer · Multi-Agent Systems & MCP",
     description:
-      "Full-stack & platform engineer with 4+ years building scalable, real-time, production AI systems across healthcare, e-commerce, and edtech. I build AI agent harnesses, MCP servers, and the platform, observability, and infra that ships them — Next.js, TypeScript, Python, Node.js, Kubernetes, Terraform, AWS/GCP.",
-    image: "/Portfolio-portrait-4.jpg",
+      "AI Agent Engineer with 4+ years shipping production agentic systems — multi-agent orchestration, agent harnesses, MCP servers, evals, and tool-use pipelines — plus the platform, observability, and infra that runs them. Claude/LLM tooling, Next.js, TypeScript, Python, Kubernetes, Terraform, AWS/GCP.",
+    image: "https://akshaykalapgar.com/Portfolio-portrait-5.jpg",
     type: "website",
   };
   const isProd = process.env.NODE_ENV === "production";
@@ -138,7 +138,7 @@ export default function Home() {
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
-        <meta name="keywords" content="AI Platform Engineer, Forward-Deployed Engineer, Full Stack Engineer, Backend Engineer, AI Agents, MCP Servers, Claude Code, LLM Tooling, Multi-Agent Systems, Distributed Systems, Observability, Datadog, OpenTelemetry, Kubernetes, Helm, Terraform, AWS, GCP, Next.js, TypeScript, Python, Node.js, PostgreSQL, CI/CD" />
+        <meta name="keywords" content="AI Agent Engineer, Agentic AI Engineer, Multi-Agent Systems, AI Agents, Agent Orchestration, LLM Evals, Tool Use, Function Calling, MCP Servers, Model Context Protocol, Claude Code, Anthropic, LLM Tooling, RAG, Forward-Deployed Engineer, AI Platform Engineer, Full Stack Engineer, Observability, Datadog, OpenTelemetry, Kubernetes, Helm, Terraform, AWS, GCP, Next.js, TypeScript, Python, Node.js, PostgreSQL, CI/CD" />
         <meta name="author" content="Akshay Kalapgar" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta property="og:url" content="https://akshaykalapgar.com" />
@@ -161,6 +161,46 @@ export default function Home() {
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Akshay Kalapgar",
+              url: "https://akshaykalapgar.com",
+              image: "https://akshaykalapgar.com/Portfolio-portrait-5.jpg",
+              jobTitle: "AI Agent Engineer",
+              description: meta.description,
+              email: "mailto:akshay@climbtogether.co",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "San Francisco",
+                addressRegion: "CA",
+                addressCountry: "US",
+              },
+              sameAs: [
+                "https://github.com/Akkikens",
+                "https://www.linkedin.com/in/akshaykalapgar/",
+              ],
+              knowsAbout: [
+                "AI Agents",
+                "Multi-Agent Systems",
+                "Agent Orchestration",
+                "Model Context Protocol (MCP)",
+                "LLM Evals",
+                "Tool Use & Function Calling",
+                "Claude Code",
+                "Retrieval-Augmented Generation",
+                "Kubernetes",
+                "Terraform",
+                "Observability (Datadog, OpenTelemetry)",
+                "TypeScript",
+                "Python",
+              ],
+            }),
+          }}
+        />
       </Head>
 
       {!isBlackListed ? (

@@ -87,9 +87,10 @@ export default function AboutMe() {
           <div className="space-y-5 text-[15px] leading-[1.75] md:pr-6">
             <Reveal>
               <p className="text-AAsubtext">
-                Hello! I&apos;m Akshay, a{" "}
-                <span className="text-AAsecondary">full-stack &amp; platform engineer</span> with
-                4+ years building scalable, real-time, production AI systems. I hold an{" "}
+                Hello! I&apos;m Akshay, an{" "}
+                <span className="text-AAsecondary">AI agent engineer</span> with 4+ years of
+                full-stack &amp; platform experience building scalable, real-time, production AI
+                systems. I hold an{" "}
                 <span className="text-AAsecondary">
                   M.S. in Computer Science from Clark University
                 </span>{" "}
@@ -135,7 +136,7 @@ export default function AboutMe() {
               <div className="rounded-2xl overflow-hidden ring-1 ring-white/10 transition-all duration-300 hover:ring-AAsecondary/50 hover:shadow-2xl hover:shadow-AAsecondary/20">
                 <div className="relative w-full aspect-[4/5]">
                   <Img
-                    src={"/Portfolio-portrait-4.jpg"}
+                    src={"/Portfolio-portrait-5.jpg"}
                     className="object-cover w-full h-full rounded-2xl"
                     alt="Akshay Kalapgar portrait"
                     loading="lazy"
@@ -217,11 +218,11 @@ export default function AboutMe() {
               <p className="leading-relaxed text-AAtext">
                 Looking for{" "}
                 <span className="font-semibold text-AAaccent">
-                  AI platform, backend, full-stack, and forward-deployed AI engineering
+                  AI agent, platform, and forward-deployed engineering
                 </span>{" "}
                 roles where I can build{" "}
                 <span className="font-semibold text-AAsecondary">
-                  agent tooling, infrastructure, and observability
+                  multi-agent systems, harnesses, evals, and observability
                 </span>{" "}
                 that ship production AI — embedded with customers, with high ownership.
               </p>
