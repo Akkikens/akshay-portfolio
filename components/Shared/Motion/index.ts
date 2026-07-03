@@ -37,4 +37,7 @@ export { default as TextReveal } from "./TextReveal";
 export { default as ScrubSection } from "./ScrubSection";
 export { default as Magnetic } from "./Magnetic";
 export { default as CountUp } from "./CountUp";
+export { default as Tilt3D } from "./Tilt3D";
 export { useSectionProgress } from "./useSectionProgress";
+export { useTabList } from "./useTabList";
+export type { TabListApi } from "./useTabList";

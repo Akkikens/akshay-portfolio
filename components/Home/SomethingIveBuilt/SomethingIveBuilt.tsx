@@ -10,7 +10,13 @@ import Img from "../../smallComp/image/Img";
 import GithubIcon from "../../Icons/GithubIconForSomethingIveBuild";
 import SectionHeader from "../../Shared/Motion/SectionHeader";
 import ParallaxBlob from "../../Shared/Motion/ParallaxBlob";
-import { EASE_OUT, Reveal, ScrubSection } from "../../Shared/Motion";
+import {
+  EASE_OUT,
+  Reveal,
+  ScrubSection,
+  Tilt3D,
+  useTabList,
+} from "../../Shared/Motion";
 
 const chipContainerVariants = {
   hidden: {},
@@ -47,23 +53,25 @@ function ScreenshotFrame({
   const imgY = useTransform(scrollYProgress, [0, 1], [-16, 16]);
 
   return (
-    <div
-      ref={frameRef}
-      className="relative group overflow-hidden rounded-2xl shadow-2xl border border-AAborder hover:shadow-AAaccent/20 transition-all duration-500"
-    >
-      <motion.div
-        className="scale-[1.06]"
-        style={prefersReducedMotion ? undefined : { y: imgY }}
+    <div ref={frameRef}>
+      <Tilt3D
+        maxTilt={8}
+        className="group relative overflow-hidden rounded-2xl shadow-2xl border border-AAborder hover:shadow-AAaccent/20 transition-shadow duration-500"
       >
-        <Img
-          src={src}
-          alt={alt}
-          width={width}
-          height={height}
-          className="w-full h-auto object-contain"
-        />
-      </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-t from-AAaccent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <motion.div
+          className="scale-[1.06]"
+          style={prefersReducedMotion ? undefined : { y: imgY }}
+        >
+          <Img
+            src={src}
+            alt={alt}
+            width={width}
+            height={height}
+            className="w-full h-auto object-contain"
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-t from-AAaccent/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      </Tilt3D>
     </div>
   );
 }
@@ -142,6 +150,15 @@ export default function SomethingIveBuilt() {
 
   const activeProject = projects[activeTab];
 
+  // Full WAI-ARIA tabs behavior (roving tabindex, arrow keys, ids) — shared
+  // with the Experience and Certifications tab UIs.
+  const { tabListProps, getTabProps, panelProps } = useTabList({
+    ids: Object.keys(projects),
+    activeId: activeTab,
+    onChange: setActiveTab,
+    idPrefix: "project",
+  });
+
   const contentGrid = (
     <>
       {/* Left Image Section (Only Render If Image Exists) */}
@@ -216,9 +233,9 @@ export default function SomethingIveBuilt() {
     </>
   );
 
-  const gridClassName = `relative grid ${
+  const panelClassName = `relative grid ${
     activeProject.image ? "md:grid-cols-12" : "md:grid-cols-6"
-  } grid-cols-1 w-full mt-8 sm:mt-12 gap-6 sm:gap-8 md:gap-12`;
+  } grid-cols-1 w-full mt-8 sm:mt-12 gap-6 sm:gap-8 md:gap-12 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-AAaccent/60`;
 
   return (
     <div
@@ -238,30 +255,39 @@ export default function SomethingIveBuilt() {
         />
 
         {/* Tabs Section */}
-        <Reveal className="relative -mx-2 flex overflow-x-auto sm:flex-wrap sm:overflow-visible gap-3 mt-8 sm:mt-12 px-2 scrollbar-hide">
-          {Object.keys(projects).map((key) => (
-            <button
-              key={key}
-              onClick={() => setActiveTab(key)}
-              className={`py-3 px-5 text-xs sm:text-sm rounded-xl font-medium transition-colors duration-200 min-w-[220px] sm:min-w-0 text-left whitespace-normal sm:whitespace-nowrap cursor-pointer border ${
-                activeTab === key
-                  ? "bg-AAsecondary/[0.08] text-AAsecondary border-AAsecondary/30"
-                  : "text-AAsubtext hover:text-AAtext bg-white/[0.03] border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05]"
-              }`}
-            >
-              {projects[key].title}
-            </button>
-          ))}
+        <Reveal className="relative mt-8 sm:mt-12">
+          <div
+            aria-label="Projects"
+            {...tabListProps}
+            className="-mx-2 flex overflow-x-auto sm:flex-wrap sm:overflow-visible gap-3 px-2 scrollbar-hide"
+          >
+            {Object.keys(projects).map((key) => (
+              <button
+                key={key}
+                {...getTabProps(key)}
+                className={`py-3 px-5 text-xs sm:text-sm rounded-xl font-medium transition-colors duration-200 min-w-[220px] sm:min-w-0 text-left whitespace-normal sm:whitespace-nowrap cursor-pointer border ${
+                  activeTab === key
+                    ? "bg-AAsecondary/[0.08] text-AAsecondary border-AAsecondary/30"
+                    : "text-AAsubtext hover:text-AAtext bg-white/[0.03] border-white/[0.06] hover:border-white/[0.12] hover:bg-white/[0.05]"
+                }`}
+              >
+                {projects[key].title}
+              </button>
+            ))}
+          </div>
         </Reveal>
 
         {/* Active Project Content */}
         {prefersReducedMotion ? (
-          <div className={gridClassName}>{contentGrid}</div>
+          <div {...panelProps} className={panelClassName}>
+            {contentGrid}
+          </div>
         ) : (
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              className={gridClassName}
+              {...panelProps}
+              className={panelClassName}
               initial={{ opacity: 0, y: 20, scale: 0.99 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -12, transition: { duration: 0.18 } }}

@@ -9,6 +9,7 @@ import {
   Reveal,
   ScrubSection,
   CountUp,
+  Tilt3D,
   useSectionProgress,
 } from "../../Shared/Motion";
 
@@ -172,7 +173,10 @@ export default function AboutMe() {
           {/* Portrait — sticky on desktop, centered on mobile */}
           <Reveal className="relative mx-auto md:mx-0 md:justify-self-end md:sticky md:top-24">
             <figure className="relative w-56 sm:w-64 md:w-[300px] lg:w-[320px] xl:w-[360px]">
-              <div className="rounded-2xl overflow-hidden ring-1 ring-white/10 transition-all duration-300 hover:ring-AAsecondary/50 hover:shadow-2xl hover:shadow-AAsecondary/20">
+              <Tilt3D
+                maxTilt={7}
+                className="rounded-2xl overflow-hidden ring-1 ring-white/10 transition-shadow duration-300 hover:ring-AAsecondary/50 hover:shadow-2xl hover:shadow-AAsecondary/20"
+              >
                 <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl">
                   <motion.div
                     className="w-full h-full"
@@ -189,7 +193,7 @@ export default function AboutMe() {
                     />
                   </motion.div>
                 </div>
-              </div>
+              </Tilt3D>
               {/* Offset accent frame — scrubs around the photo as you read */}
               <motion.div
                 className="pointer-events-none absolute -inset-px -z-10 rounded-2xl border border-AAsecondary/30"

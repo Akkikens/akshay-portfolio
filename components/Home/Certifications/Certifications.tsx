@@ -8,6 +8,8 @@ import {
   ScrubSection,
   SectionHeader,
   ParallaxBlob,
+  useTabList,
+  TabListApi,
 } from "../../Shared/Motion";
 
 const descriptionListVariants = {
@@ -103,6 +105,16 @@ export default function Certifications() {
 
   const certifications = Object.keys(certificationDetails);
 
+  // Full WAI-ARIA tabs behavior (roving tabindex, arrow keys, ids) — shared
+  // with the Experience and Projects tab UIs.
+  const tabs = useTabList({
+    ids: certifications,
+    activeId: selected,
+    onChange: setSelected,
+    idPrefix: "certification",
+    verticalFromMd: true,
+  });
+
   const renderCertification = () => {
     const { pdf, verificationLink, description } = certificationDetails[selected];
 
@@ -191,10 +203,13 @@ export default function Certifications() {
             <CertificationsBar
               certifications={certifications}
               selected={selected}
-              onSelect={setSelected}
+              tabs={tabs}
             />
           </div>
-          <div className="flex-1 w-full">
+          <div
+            {...tabs.panelProps}
+            className="flex-1 w-full rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-AAaccent/60"
+          >
             {renderCertification()}
           </div>
         </section>
@@ -206,24 +221,28 @@ export default function Certifications() {
 interface CertificationsBarProps {
   certifications: string[];
   selected: string;
-  onSelect: (cert: string) => void;
+  tabs: TabListApi;
 }
 
 const CertificationsBar: React.FC<CertificationsBarProps> = ({
   certifications,
   selected,
-  onSelect,
+  tabs,
 }) => {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="flex w-full gap-2 md:gap-3 overflow-x-auto md:flex-col md:overflow-visible pb-2 md:pb-0 scrollbar-hide">
+    <div
+      aria-label="Certifications"
+      {...tabs.tabListProps}
+      className="flex w-full gap-2 md:gap-3 overflow-x-auto md:flex-col md:overflow-visible pb-2 md:pb-0 scrollbar-hide"
+    >
       {certifications.map((cert) => {
         const isActive = cert === selected;
         return (
           <button
             key={cert}
-            onClick={() => onSelect(cert)}
+            {...tabs.getTabProps(cert)}
             className={`relative flex-none md:flex-auto py-4 px-5 text-xs sm:text-sm font-medium rounded-xl transition-colors duration-200 text-left border min-w-[200px] sm:min-w-[240px] md:min-w-0 cursor-pointer ${
               isActive
                 ? "text-AAsecondary border-AAsecondary/30"

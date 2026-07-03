@@ -32,8 +32,10 @@ export default function MyName() {
   });
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
-  // Apple 'recede' exit — content shrinks subtly as the hero scrolls away
-  const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
+  // Apple 'recede into space' exit — content tilts back on its bottom edge
+  // and shrinks as the hero scrolls away, like a screen tipping into the distance.
+  const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  const contentRotateX = useTransform(scrollYProgress, [0, 1], [0, 14]);
   const blobY = useTransform(scrollYProgress, [0, 1], [0, 120]);
 
   // Magnetic pull on the primary CTA only
@@ -66,13 +68,22 @@ export default function MyName() {
         style={prefersReducedMotion ? undefined : { y: blobY }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-16 xl:px-20 2xl:px-24">
+      <div
+        className="relative mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-16 xl:px-20 2xl:px-24"
+        style={prefersReducedMotion ? undefined : { perspective: 1400 }}
+      >
         <motion.div
           className="min-h-[100vh] flex flex-col justify-center py-28 sm:py-36"
           style={
             prefersReducedMotion
               ? undefined
-              : { y: contentY, opacity: contentOpacity, scale: contentScale }
+              : {
+                  y: contentY,
+                  opacity: contentOpacity,
+                  scale: contentScale,
+                  rotateX: contentRotateX,
+                  transformOrigin: "center bottom",
+                }
           }
         >
           <motion.span

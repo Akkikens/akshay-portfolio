@@ -15,6 +15,7 @@ import {
   SectionHeader,
   ParallaxBlob,
   useSectionProgress,
+  useTabList,
 } from "../../Shared/Motion";
 
 type Bullet = { text: string; keywords?: string[] };
@@ -217,6 +218,16 @@ export default function WhereIHaveWorked() {
   const prefersReducedMotion = useReducedMotion();
   const active = EXPERIENCES.find((e) => e.id === activeId) ?? EXPERIENCES[0];
 
+  // Full WAI-ARIA tabs behavior (roving tabindex, arrow keys, ids) — shared
+  // with the Certifications and Projects tab UIs.
+  const { tabListProps, getTabProps, panelProps } = useTabList({
+    ids: EXPERIENCES.map((e) => e.id),
+    activeId,
+    onChange: setActiveId,
+    idPrefix: "experience",
+    verticalFromMd: true,
+  });
+
   // Scroll-scrubbed rail hairline (draws in as the section enters the viewport)
   const sectionRef = React.useRef<HTMLElement>(null);
   const { progress } = useSectionProgress(sectionRef, ["start 0.8", "end 0.6"]);
@@ -250,9 +261,8 @@ export default function WhereIHaveWorked() {
         {/* Company tabs */}
         <div
           className="relative w-full md:w-56 md:mr-12 flex-shrink-0 flex flex-row md:flex-col overflow-x-auto md:overflow-visible scrollbar-hide gap-1 pb-2 md:pb-0"
-          role="tablist"
           aria-label="Companies"
-          aria-orientation="vertical"
+          {...tabListProps}
         >
           {/* Rail hairline — scroll-scrubbed draw-in (static under reduced motion) */}
           {prefersReducedMotion ? (
@@ -268,10 +278,7 @@ export default function WhereIHaveWorked() {
             return (
               <button
                 key={exp.id}
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`experience-panel-${exp.id}`}
-                onClick={() => setActiveId(exp.id)}
+                {...getTabProps(exp.id)}
                 className={`relative flex-none md:w-full text-left text-xs sm:text-sm font-medium py-3 px-5 whitespace-nowrap rounded-xl md:rounded-l-none md:rounded-r-xl transition-colors duration-200 cursor-pointer min-w-[140px] sm:min-w-[160px] md:min-w-0
                   ${
                     isActive
@@ -298,9 +305,8 @@ export default function WhereIHaveWorked() {
         <AnimatePresence mode="wait">
         <motion.div
           key={active.id}
-          id={`experience-panel-${active.id}`}
-          role="tabpanel"
-          className="flex-1 w-full min-w-0 min-h-[280px]"
+          {...panelProps}
+          className="flex-1 w-full min-w-0 min-h-[280px] rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-AAaccent/60"
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={

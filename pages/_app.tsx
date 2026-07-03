@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import { Analytics } from "@vercel/analytics/react";
+import { MotionConfig } from "framer-motion";
 import { SoundProvider } from "../components/Shared/SoundSystem/SoundSystem";
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
@@ -51,7 +52,13 @@ function MyApp({ Component, pageProps }) {
             </Script>
           </>
         )}
-        <Component {...pageProps} />
+        {/* Framer-motion animations are driven by rAF/inline styles, so the
+            globals.css prefers-reduced-motion block cannot touch them — this
+            makes every motion component (Header cluster included) disable
+            transform/layout animations for reduced-motion users. */}
+        <MotionConfig reducedMotion="user">
+          <Component {...pageProps} />
+        </MotionConfig>
         <Analytics />
     </SoundProvider>
   );

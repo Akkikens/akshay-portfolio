@@ -9,8 +9,13 @@ const IconMenu = (props: {
   finishedLoading;
 }) => {
   return (
-    <div
-      className="md:hidden text-white space-y-2 left-0 hover:cursor-pointer mt-2"
+    <button
+      type="button"
+      id="mobile-menu-button"
+      aria-label={props.rotate ? "Close navigation menu" : "Open navigation menu"}
+      aria-expanded={props.rotate}
+      aria-controls="mobile-menu"
+      className="md:hidden text-white space-y-2 left-0 hover:cursor-pointer mt-2 outline-none focus-visible:ring-2 focus-visible:ring-AAaccent/60 rounded"
       onClick={() => {
         props.setRotate(!props.rotate);
         props.setShowElement(!props.ShowElement);
@@ -41,7 +46,7 @@ const IconMenu = (props: {
           className="w-4 h-0.5 rounded bg-AAsecondary"
         ></motion.div>
       </div>
-    </div>
+    </button>
   );
 };
 
