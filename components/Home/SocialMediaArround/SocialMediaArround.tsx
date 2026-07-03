@@ -2,66 +2,43 @@ import React from "react";
 import { motion } from "framer-motion";
 import GithubIcon from "../../Icons/GithubIcon";
 import LinkedinIcon from "../../Icons/LinkedinIcon";
+import { Magnetic } from "../../Shared/Motion";
 
 const IconClickableWithAnimation = (props) => {
   return (
-    <motion.div
-      whileHover={{
-        y: -3,
-        transition: { duration: 0.1 },
-      }}
-      className=""
-    >
-      <a href={props.href} target="_blank" rel="noreferrer">
+    <Magnetic strength={0.15}>
+      <a href={props.href} target="_blank" rel="noreferrer" aria-label={props.label}>
         <props.Icon className="w-6 h-6 text-white hover:text-AAsecondary fill-current hover:cursor-pointer" />
       </a>
-    </motion.div>
+    </Magnetic>
   );
 };
 
-export default function SocialMediaEmail({ finishedLoading }) {
+export default function SocialMediaEmail() {
   return (
     <>
-      <motion.div
-        initial={{ y: "100%" }}
-        animate={{ y: "0%" }}
-        transition={{
-          y: {
-            delay: finishedLoading ? 0 : 4,
-            duration: finishedLoading ? 0 : 0.5,
-          },
-        }}
-        className="z-10 fixed bottom-0 left-0 hidden lg:flex flex-row px-12 items-center justify-between"
-      >
+      <div className="z-10 fixed bottom-0 left-0 hidden lg:flex flex-row px-12 items-center justify-between">
         <div className="flex flex-col space-y-8 justify-center items-center">
           <div className="flex flex-col justify-center items-center space-y-5">
             {/* Github Icon */}
             <IconClickableWithAnimation
               Icon={GithubIcon}
               href="https://github.com/Akkikens"
+              label="GitHub profile"
             />
             {/* LinkedIn Icon */}
             <IconClickableWithAnimation
               Icon={LinkedinIcon}
               href="https://www.linkedin.com/in/akshaykalapgar/"
+              label="LinkedIn profile"
             />
           </div>
           <div className="h-28 w-0.5 bg-white"></div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Email Address Bar */}
-      <motion.div
-        initial={{ y: "170%" }}
-        animate={{ y: "0%" }}
-        transition={{
-          y: {
-            delay: finishedLoading ? 0 : 4,
-            duration: finishedLoading ? 0 : 0.5,
-          },
-        }}
-        className="z-10 fixed bottom-0 -right-10 hidden lg:flex flex-row items-center justify-between"
-      >
+      <div className="z-10 fixed bottom-0 -right-10 hidden lg:flex flex-row items-center justify-between">
         <div className="flex flex-col space-y-24 justify-center items-center">
           {/* Email Link */}
           <motion.div
@@ -85,7 +62,7 @@ export default function SocialMediaEmail({ finishedLoading }) {
 
           <div className="h-24 w-0.5 bg-white"></div>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }

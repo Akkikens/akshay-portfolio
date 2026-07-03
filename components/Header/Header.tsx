@@ -1,23 +1,22 @@
 import React from "react";
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useEffect } from "react";
 import Logo from "./Headercomp/Logo";
 import DesktopMenu from "./Headercomp/DesktopMenu";
 import IconMenu from "./Headercomp/IconMenu";
 import MobileMenu from "./Headercomp/MobileMenu";
-import { motion } from "framer-motion";
-import AppContext from "../AppContextFolder/AppContext";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 const Header = (props: { finishedLoading: boolean; sectionsRef }) => {
   const RefNavBar = useRef<HTMLDivElement>(null);
   const [ShowElement, setShowElement] = useState(false);
   const [rotate, setRotate] = useState<boolean>(false);
-  const context = useContext(AppContext);
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setShowElement(true);
-    }, 4000); // Shortened load delay for immediate display post-startup
-  }, []);
+  // Apple-nav behavior: transparent at the top, gains bg + shadow past ~40px
+  // in both scroll directions.
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setShowElement(v > 40);
+  });
 
   // Scroll lock for mobile menu — the viewport scrolls (not body), so lock
   // documentElement and pause Lenis so wheel momentum can't fight the lock.
@@ -57,7 +56,7 @@ const Header = (props: { finishedLoading: boolean; sectionsRef }) => {
         className={`w-full fixed ${
           ShowElement ? `bg-opacity-70 shadow-xl` : `bg-opacity-0 `
         } bg-AAprimary flex 
-      justify-between px-6 sm:px-12 py-2 sm:py-4 transition duration-4000 translate-y-0 z-20`}
+      justify-between px-6 sm:px-12 py-2 sm:py-4 transition-[background-color,box-shadow] duration-300 translate-y-0 z-20`}
       >
         <Logo finishedLoading={props.finishedLoading} />
         <IconMenu

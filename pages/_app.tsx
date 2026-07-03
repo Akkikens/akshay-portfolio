@@ -1,89 +1,59 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/globals.css";
+import Script from "next/script";
+import { useRouter } from "next/router";
 import { Analytics } from "@vercel/analytics/react";
-import { ThemeProvider } from "next-themes";
 import { SoundProvider } from "../components/Shared/SoundSystem/SoundSystem";
-import AppContext from "../components/AppContextFolder/AppContext";
-import { useRef, useState, useEffect } from "react";
-// import NEXT_PUBLIC_GA_TRACKING_ID form .env
+
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
-// global.d.ts
+
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
     dataLayer: any[];
   }
 }
-// import useRouter
-import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
+  // GA pageviews on client-side route changes (script itself is injected via
+  // next/script below — nothing loads when GA_TRACKING_ID is unset).
   useEffect(() => {
-    // Load Google Analytics script
-    const script = document.createElement("script");
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`;
-    script.async = true;
-    document.head.appendChild(script);
+    if (!GA_TRACKING_ID) return;
 
-    // Initialize Google Analytics
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      window.dataLayer.push(arguments);
-    };
-    window.gtag("js", new Date());
-    window.gtag("config", GA_TRACKING_ID, {
-      page_path: window.location.pathname,
-    });
-
-    // Track page views
     const handleRouteChange = (url: string) => {
-      window.gtag("config", GA_TRACKING_ID, {
-        page_path: url,
-      });
+      window.gtag?.("config", GA_TRACKING_ID, { page_path: url });
     };
 
     router.events.on("routeChangeComplete", handleRouteChange);
-
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
-  const timerCookie = useRef(null);
-  const windowSizeTrackerRef = useRef(null);
-  const mousePositionRef = useRef(null);
-  const [sharedState, setSharedState] = useState({
-    portfolio: {
-      NavBar: {
-        IntervalEvent: null,
-        scrolling: null,
-        scrollSizeY: null,
-      },
-      Scrolling: {
-        IntervalEvent: null,
-      },
-    },
-    userdata: {
-      timerCookieRef: timerCookie,
-      windowSizeTracker: windowSizeTrackerRef,
-      mousePositionTracker: mousePositionRef,
-    },
-    typing: {
-      keyboardEvent: null,
-      eventInputLostFocus: null,
-    },
-    finishedLoading: false,
-  });
+
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-      <SoundProvider>
-        <AppContext.Provider value={{ sharedState, setSharedState }}>
-          <Component {...pageProps} />
-          <Analytics />
-        </AppContext.Provider>
-      </SoundProvider>
-    </ThemeProvider>
+    <SoundProvider>
+        {GA_TRACKING_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+              strategy="lazyOnload"
+            />
+            <Script id="ga-init" strategy="lazyOnload">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', '${GA_TRACKING_ID}', { page_path: window.location.pathname });
+              `}
+            </Script>
+          </>
+        )}
+        <Component {...pageProps} />
+        <Analytics />
+    </SoundProvider>
   );
 }
 

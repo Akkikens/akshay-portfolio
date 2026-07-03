@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useTransform } from "framer-motion";
 import Img from "../../../components/smallComp/image/Img";
 import ArrowIcon from "../../../components/Icons/ArrowIcon";
-import SectionHeader from "../../Shared/Motion/SectionHeader";
-import ParallaxBlob from "../../Shared/Motion/ParallaxBlob";
-import Reveal from "../../Shared/Motion/Reveal";
+import {
+  EASE_OUT,
+  SectionHeader,
+  ParallaxBlob,
+  Reveal,
+  ScrubSection,
+  CountUp,
+  useSectionProgress,
+} from "../../Shared/Motion";
 
 // Inline SVG section icons (Heroicons outline paths) — no emoji icons
 const SectionIcon = ({ d, className }: { d: string; className?: string }) => (
@@ -30,23 +37,55 @@ const ICON_PATHS = {
 
 // Modern Dark surface language: translucent glass + hairline borders
 const glassCard =
-  "rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm transition-colors duration-200 hover:border-AAsecondary/30 hover:bg-white/[0.05]";
+  "rounded-2xl border border-white/[0.08] bg-white/[0.03] transition-colors duration-200 hover:border-AAsecondary/30 hover:bg-white/[0.05]";
+
+// Bento grid stagger choreography — the grid assembles as one unit
+const bentoParent = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+const bentoChild = {
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.55, ease: EASE_OUT },
+  },
+};
+
+// Quick Snapshot metric chips — leading numbers count up on viewport entry
+// (CountUp SSRs the final formatted string, so copy is byte-identical)
+const quickSnapshot: Array<{
+  count: React.ReactNode;
+  rest: string;
+  key: string;
+}> = [
+  { key: "users", count: <CountUp value={100} suffix="K+" />, rest: " users scaled" },
+  { key: "oss", count: <CountUp value={1180} suffix="+" />, rest: " OSS commits" },
+  { key: "skills", count: <CountUp value={86} />, rest: " Claude Code skills" },
+  { key: "tests", count: <CountUp value={500} suffix="+" />, rest: " tests written" },
+  { key: "uptime", count: <CountUp value={99.9} decimals={1} suffix="%" />, rest: " uptime" },
+  { key: "coldstart", count: <CountUp value={50} prefix="-" suffix="%" />, rest: " cold-start latency" },
+];
 
 export default function AboutMe() {
+  const textColRef = useRef<HTMLDivElement>(null);
+  const { progress, prefersReducedMotion: reduced } = useSectionProgress(
+    textColRef,
+    ["start center", "end center"]
+  );
+  // Accent frame slides around the photo as you read the text column
+  const frameX = useTransform(progress, [0, 1], [12, -4]);
+  const frameY = useTransform(progress, [0, 1], [12, -4]);
+  // Subtle portrait parallax inside its overflow-hidden mask
+  const portraitY = useTransform(progress, [0, 1], [0, -24]);
+
   const technologies: string[][] = [
     ["Claude Code & MCP", "Anthropic / OpenAI APIs", "LangChain", "Hume AI", "Multi-Agent RL", "Prompt Engineering"],
     ["TypeScript / JavaScript", "Python", "Java", "C#", "SQL", "C++"],
     ["Next.js / React", "Node.js", "Django", "Spring Boot", "GraphQL / REST", "PostgreSQL (Drizzle ORM)"],
     ["AWS (Lambda, S3, EC2)", "GCP", "Kubernetes & Helm", "Terraform", "Docker", "GitHub Actions CI/CD"],
-  ];
-
-  const quickSnapshot = [
-    "100K+ users scaled",
-    "1,180+ OSS commits",
-    "86 Claude Code skills",
-    "500+ tests written",
-    "99.9% uptime",
-    "-50% cold-start latency",
   ];
 
   const systemsPlatform = [
@@ -79,12 +118,12 @@ export default function AboutMe() {
       <ParallaxBlob className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" range={60} />
       <ParallaxBlob className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" range={-45} />
 
-      <div className="relative w-full max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-10 xl:px-12 space-y-12">
+      <ScrubSection className="relative w-full max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-10 xl:px-12 space-y-12">
         <SectionHeader index="01" eyebrow="About" title="About Me" />
 
         {/* Intro text + portrait */}
         <div className="grid grid-cols-1 md:grid-cols-[minmax(0,70ch)_340px] lg:grid-cols-[minmax(0,76ch)_360px] gap-y-10 md:gap-x-12 lg:gap-x-16 xl:gap-x-20">
-          <div className="space-y-5 text-[15px] leading-[1.75] md:pr-6">
+          <div ref={textColRef} className="space-y-5 text-[15px] leading-[1.75] md:pr-6">
             <Reveal>
               <p className="text-AAsubtext">
                 Hello! I&apos;m Akshay, an{" "}
@@ -134,23 +173,45 @@ export default function AboutMe() {
           <Reveal className="relative mx-auto md:mx-0 md:justify-self-end md:sticky md:top-24">
             <figure className="relative w-56 sm:w-64 md:w-[300px] lg:w-[320px] xl:w-[360px]">
               <div className="rounded-2xl overflow-hidden ring-1 ring-white/10 transition-all duration-300 hover:ring-AAsecondary/50 hover:shadow-2xl hover:shadow-AAsecondary/20">
-                <div className="relative w-full aspect-[4/5]">
-                  <Img
-                    src={"/Portfolio-portrait-5.jpg"}
-                    className="object-cover w-full h-full rounded-2xl"
-                    alt="Akshay Kalapgar portrait"
-                    loading="lazy"
-                  />
+                <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl">
+                  <motion.div
+                    className="w-full h-full"
+                    style={reduced ? undefined : { y: portraitY, scale: 1.08 }}
+                  >
+                    <Img
+                      src={"/Portfolio-portrait-5.jpg"}
+                      className="object-cover w-full h-full rounded-2xl"
+                      alt="Akshay Kalapgar portrait"
+                      loading="eager"
+                      fetchPriority="high"
+                      width={597}
+                      height={938}
+                    />
+                  </motion.div>
                 </div>
               </div>
-              <div className="pointer-events-none absolute -inset-px -z-10 rounded-2xl translate-x-3 translate-y-3 border border-AAsecondary/30" />
+              {/* Offset accent frame — scrubs around the photo as you read */}
+              <motion.div
+                className="pointer-events-none absolute -inset-px -z-10 rounded-2xl border border-AAsecondary/30"
+                style={
+                  reduced
+                    ? { transform: "translate(12px, 12px)" }
+                    : { x: frameX, y: frameY }
+                }
+              />
             </figure>
           </Reveal>
         </div>
 
-        {/* Signature Highlights — bento grid, no pinning, no dead scroll */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5">
-          <Reveal className="md:col-span-5" index={0}>
+        {/* Signature Highlights — bento grid assembles as one staggered unit */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-5"
+          variants={reduced ? undefined : bentoParent}
+          initial={reduced ? undefined : "hidden"}
+          whileInView={reduced ? undefined : "show"}
+          viewport={{ once: true, margin: "-10% 0px" }}
+        >
+          <motion.div className="md:col-span-5" variants={reduced ? undefined : bentoChild}>
             <div className={`${glassCard} h-full p-6 lg:p-7`}>
               <h4 className="mb-4 flex items-center gap-2.5 text-lg font-bold text-AAtext">
                 <SectionIcon d={ICON_PATHS.bolt} className="w-5 h-5 text-AAsecondary" />
@@ -159,17 +220,18 @@ export default function AboutMe() {
               <div className="flex flex-wrap gap-2">
                 {quickSnapshot.map((item) => (
                   <span
-                    key={item}
+                    key={item.key}
                     className="font-mono rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs sm:text-sm text-AAtext"
                   >
-                    {item}
+                    {item.count}
+                    {item.rest}
                   </span>
                 ))}
               </div>
             </div>
-          </Reveal>
+          </motion.div>
 
-          <Reveal className="md:col-span-7" index={1}>
+          <motion.div className="md:col-span-7" variants={reduced ? undefined : bentoChild}>
             <div className={`${glassCard} h-full p-6 lg:p-7`}>
               <h4 className="mb-4 flex items-center gap-2.5 text-lg font-bold text-AAtext">
                 <SectionIcon d={ICON_PATHS.stack} className="w-5 h-5 text-AAaccent" />
@@ -186,9 +248,9 @@ export default function AboutMe() {
                 ))}
               </div>
             </div>
-          </Reveal>
+          </motion.div>
 
-          <Reveal className="md:col-span-7" index={2}>
+          <motion.div className="md:col-span-7" variants={reduced ? undefined : bentoChild}>
             <div className={`${glassCard} h-full p-6 lg:p-7`}>
               <h4 className="mb-4 flex items-center gap-2.5 text-lg font-bold text-AAtext">
                 <SectionIcon d={ICON_PATHS.code} className="w-5 h-5 text-AAsecondary" />
@@ -207,9 +269,9 @@ export default function AboutMe() {
                 ))}
               </div>
             </div>
-          </Reveal>
+          </motion.div>
 
-          <Reveal className="md:col-span-5" index={3}>
+          <motion.div className="md:col-span-5" variants={reduced ? undefined : bentoChild}>
             <div className="h-full rounded-2xl border border-AAsecondary/30 bg-gradient-to-br from-AAsecondary/[0.08] to-AAaccent/[0.06] p-6 lg:p-7 transition-colors duration-200 hover:border-AAsecondary/50">
               <h4 className="mb-3 flex items-center gap-2.5 text-lg font-bold text-AAtext">
                 <SectionIcon d={ICON_PATHS.target} className="w-5 h-5 text-AAaccent" />
@@ -227,9 +289,9 @@ export default function AboutMe() {
                 that ship production AI — embedded with customers, with high ownership.
               </p>
             </div>
-          </Reveal>
-        </div>
-      </div>
+          </motion.div>
+        </motion.div>
+      </ScrubSection>
     </div>
   );
 }

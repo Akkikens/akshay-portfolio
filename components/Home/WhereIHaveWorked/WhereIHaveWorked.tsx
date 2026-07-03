@@ -1,8 +1,21 @@
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import ArrowIcon from "../../Icons/ArrowIcon";
-import SectionHeader from "../../Shared/Motion/SectionHeader";
-import ParallaxBlob from "../../Shared/Motion/ParallaxBlob";
+import {
+  EASE_OUT,
+  INDICATOR_TRANSITION,
+  SPRING_SCRUB,
+  ScrubSection,
+  SectionHeader,
+  ParallaxBlob,
+  useSectionProgress,
+} from "../../Shared/Motion";
 
 type Bullet = { text: string; keywords?: string[] };
 
@@ -185,10 +198,32 @@ const highlightBullet = (text: string, keywords: string[] = []) => {
   return html;
 };
 
+const bulletListVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.05 } },
+};
+
+const bulletItemVariants = {
+  hidden: { opacity: 0, x: -16 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.3, ease: EASE_OUT },
+  },
+};
+
 export default function WhereIHaveWorked() {
   const [activeId, setActiveId] = React.useState(EXPERIENCES[0].id);
   const prefersReducedMotion = useReducedMotion();
   const active = EXPERIENCES.find((e) => e.id === activeId) ?? EXPERIENCES[0];
+
+  // Scroll-scrubbed rail hairline (draws in as the section enters the viewport)
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const { progress } = useSectionProgress(sectionRef, ["start 0.8", "end 0.6"]);
+  const railScaleY = useSpring(
+    useTransform(progress, [0, 0.5], [0, 1]),
+    SPRING_SCRUB
+  );
 
   return (
     <div
@@ -199,22 +234,35 @@ export default function WhereIHaveWorked() {
       <ParallaxBlob className="absolute top-1/4 left-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" range={55} />
       <ParallaxBlob className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" range={-40} />
 
-      <SectionHeader
-        index="02"
-        eyebrow="Experience"
-        title="Where I've Worked"
-        className="relative w-full max-w-7xl mx-auto px-5 sm:px-6 md:px-8"
-      />
+      <ScrubSection className="relative flex flex-col items-center space-y-12 w-full">
+        <SectionHeader
+          index="02"
+          eyebrow="Experience"
+          title="Where I've Worked"
+          className="relative w-full max-w-7xl mx-auto px-5 sm:px-6 md:px-8"
+        />
 
-      {/* Content */}
-      <section className="relative flex flex-col md:flex-row space-y-8 md:space-y-0 items-start w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* Content */}
+        <section
+          ref={sectionRef}
+          className="relative flex flex-col md:flex-row space-y-8 md:space-y-0 items-start w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8"
+        >
         {/* Company tabs */}
         <div
-          className="w-full md:w-56 md:mr-12 flex-shrink-0 flex flex-row md:flex-col overflow-x-auto md:overflow-visible scrollbar-hide gap-1 pb-2 md:pb-0 md:border-l md:border-white/[0.08]"
+          className="relative w-full md:w-56 md:mr-12 flex-shrink-0 flex flex-row md:flex-col overflow-x-auto md:overflow-visible scrollbar-hide gap-1 pb-2 md:pb-0"
           role="tablist"
           aria-label="Companies"
           aria-orientation="vertical"
         >
+          {/* Rail hairline — scroll-scrubbed draw-in (static under reduced motion) */}
+          {prefersReducedMotion ? (
+            <span className="hidden md:block absolute left-0 top-0 h-full w-px bg-white/[0.08]" />
+          ) : (
+            <motion.span
+              className="hidden md:block absolute left-0 top-0 h-full w-px bg-white/[0.08] origin-top"
+              style={{ scaleY: railScaleY }}
+            />
+          )}
           {EXPERIENCES.map((exp) => {
             const isActive = exp.id === activeId;
             return (
@@ -236,9 +284,7 @@ export default function WhereIHaveWorked() {
                     layoutId="activeCompanyIndicator"
                     className="absolute left-0 bottom-0 md:bottom-auto md:top-0 h-0.5 w-full md:h-full md:w-0.5 bg-gradient-to-r md:bg-gradient-to-b from-AAsecondary to-AAaccent rounded-full"
                     transition={
-                      prefersReducedMotion
-                        ? { duration: 0 }
-                        : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
+                      prefersReducedMotion ? { duration: 0 } : INDICATOR_TRANSITION
                     }
                   />
                 )}
@@ -249,14 +295,20 @@ export default function WhereIHaveWorked() {
         </div>
 
         {/* Active experience panel */}
+        <AnimatePresence mode="wait">
         <motion.div
           key={active.id}
           id={`experience-panel-${active.id}`}
           role="tabpanel"
           className="flex-1 w-full min-w-0 min-h-[280px]"
-          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          exit={
+            prefersReducedMotion
+              ? { opacity: 1 }
+              : { opacity: 0, y: -10, transition: { duration: 0.18 } }
+          }
+          transition={{ duration: 0.3, ease: EASE_OUT }}
         >
           <div className="flex flex-col space-y-6">
             {/* Header */}
@@ -278,14 +330,17 @@ export default function WhereIHaveWorked() {
             </div>
 
             {/* Bullets */}
-            <ul className="space-y-2 sm:space-y-3 list-none">
+            <motion.ul
+              className="space-y-2 sm:space-y-3 list-none"
+              variants={prefersReducedMotion ? undefined : bulletListVariants}
+              initial={prefersReducedMotion ? false : "hidden"}
+              animate="show"
+            >
               {active.bullets.map((bullet, idx) => (
                 <motion.li
                   key={idx}
-                  className="flex flex-row space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm hover:border-AAsecondary/30 hover:bg-white/[0.05] transition-colors duration-200"
-                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: prefersReducedMotion ? 0 : idx * 0.04 }}
+                  className="flex flex-row space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-xl border border-white/[0.08] bg-white/[0.03] hover:border-AAsecondary/30 hover:bg-white/[0.05] transition-colors duration-200"
+                  variants={prefersReducedMotion ? undefined : bulletItemVariants}
                 >
                   <ArrowIcon className="h-3.5 w-3.5 mt-1.5 flex-none text-AAsecondary" />
                   <span
@@ -296,10 +351,12 @@ export default function WhereIHaveWorked() {
                   />
                 </motion.li>
               ))}
-            </ul>
+            </motion.ul>
           </div>
         </motion.div>
-      </section>
+        </AnimatePresence>
+        </section>
+      </ScrubSection>
     </div>
   );
 }

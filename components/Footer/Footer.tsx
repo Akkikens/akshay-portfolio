@@ -1,6 +1,7 @@
 import React from "react";
 import GithubIcon from "../Icons/GithubIcon";
 import LinkedinIcon from "../Icons/LinkedinIcon";
+import { Reveal } from "../Shared/Motion";
 
 // Reusable icon component that links to social profiles
 const ClickableIcon = ({ href, Icon }) => {
@@ -19,6 +20,7 @@ const IconsData = [
 
 export default function Footer({ githubUrl, hideSocialsInDesktop }) {
   return (
+    <Reveal y={16}>
     <div className="bg-AAprimary flex flex-col justify-center items-center py-8 space-y-4">
       {/* Social Icons */}
       <div
@@ -49,5 +51,6 @@ export default function Footer({ githubUrl, hideSocialsInDesktop }) {
         </div>
       </a>
     </div>
+    </Reveal>
   );
 }

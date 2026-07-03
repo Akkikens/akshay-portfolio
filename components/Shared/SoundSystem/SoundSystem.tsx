@@ -1,4 +1,12 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface SoundContextType {
@@ -20,7 +28,7 @@ const sounds = {
 
 export function SoundProvider({ children }: { children: React.ReactNode }) {
   const [enabled, setEnabled] = useState(false);
-  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+  const ctxRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
     // Check localStorage for saved preference
@@ -29,14 +37,10 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
       setEnabled(savedPreference === "true");
     }
 
-    // Initialize Audio Context
-    if (typeof window !== "undefined") {
-      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
-      setAudioContext(ctx);
-    }
-
     return () => {
-      audioContext?.close();
+      // Close the lazily-created context on unmount.
+      ctxRef.current?.close();
+      ctxRef.current = null;
     };
   }, []);
 
@@ -50,7 +54,16 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
 
   const playSound = useCallback(
     (soundName: keyof typeof sounds) => {
-      if (!enabled || !audioContext) return;
+      if (!enabled || typeof window === "undefined") return;
+
+      // Lazily create the AudioContext on first play — playSound is always
+      // triggered by a user gesture, so this avoids autoplay warnings.
+      ctxRef.current ??= new (window.AudioContext ||
+        (window as any).webkitAudioContext)();
+      const audioContext = ctxRef.current;
+      if (audioContext.state === "suspended") {
+        audioContext.resume();
+      }
 
       const sound = sounds[soundName];
       const oscillator = audioContext.createOscillator();
@@ -71,13 +84,16 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
       oscillator.start(audioContext.currentTime);
       oscillator.stop(audioContext.currentTime + sound.duration);
     },
-    [enabled, audioContext]
+    [enabled]
+  );
+
+  const value = useMemo(
+    () => ({ enabled, toggleSound, playSound }),
+    [enabled, toggleSound, playSound]
   );
 
   return (
-    <SoundContext.Provider value={{ enabled, toggleSound, playSound }}>
-      {children}
-    </SoundContext.Provider>
+    <SoundContext.Provider value={value}>{children}</SoundContext.Provider>
   );
 }
 

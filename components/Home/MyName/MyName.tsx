@@ -6,12 +6,21 @@ import GithubIcon from "../../Icons/GithubIcon";
 import LinkedinIcon from "../../Icons/LinkedinIcon";
 import { scrollToTarget } from "../../../hooks/useLenis";
 import { useMagneticEffect } from "../../../hooks/useMagneticEffect";
+import { TextReveal, EASE_OUT } from "../../Shared/Motion";
 
-type Props = { finishedLoading?: boolean };
+const easeOut = EASE_OUT;
 
-const easeOut = [0.22, 1, 0.36, 1] as const;
+const chipParentVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.05, delayChildren: 0.4 } },
+};
 
-export default function MyName({ finishedLoading = false }: Props) {
+const chipVariants = {
+  hidden: { opacity: 0, y: 12, scale: 0.96 },
+  show: { opacity: 1, y: 0, scale: 1 },
+};
+
+export default function MyName() {
   const prefersReducedMotion = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
 
@@ -23,14 +32,14 @@ export default function MyName({ finishedLoading = false }: Props) {
   });
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
+  // Apple 'recede' exit — content shrinks subtly as the hero scrolls away
+  const contentScale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
   const blobY = useTransform(scrollYProgress, [0, 1], [0, 120]);
 
   // Magnetic pull on the primary CTA only
   const magnetic = useMagneticEffect({ strength: 0.2, disabled: !!prefersReducedMotion });
 
   const scrollTo = (id: string) => scrollToTarget(`#${id}`);
-
-  if (!finishedLoading) return null;
 
   // Staggered, fast entrance — everything visible in ~1s
   const reveal = (delay: number) => ({
@@ -47,7 +56,7 @@ export default function MyName({ finishedLoading = false }: Props) {
       aria-label="Introduction"
     >
       {/* Galaxy Background */}
-      <GalaxyBackground />
+      <GalaxyBackground progress={scrollYProgress} />
 
       {/* Ambient layers — blobs drift slower than content for scroll depth */}
       <div className="absolute inset-0 bg-gradient-to-r from-AAsecondary/5 via-transparent to-AAaccent/5 pointer-events-none" />
@@ -60,7 +69,11 @@ export default function MyName({ finishedLoading = false }: Props) {
       <div className="relative mx-auto w-full max-w-[1200px] px-6 sm:px-10 lg:px-16 xl:px-20 2xl:px-24">
         <motion.div
           className="min-h-[100vh] flex flex-col justify-center py-28 sm:py-36"
-          style={prefersReducedMotion ? undefined : { y: contentY, opacity: contentOpacity }}
+          style={
+            prefersReducedMotion
+              ? undefined
+              : { y: contentY, opacity: contentOpacity, scale: contentScale }
+          }
         >
           <motion.span
             className="font-mono text-AAsecondary text-sm sm:text-base tracking-wide"
@@ -87,12 +100,12 @@ export default function MyName({ finishedLoading = false }: Props) {
             </span>
           </motion.h1>
 
-          <motion.h2
+          <TextReveal
+            as="h2"
+            text="AI Agent Engineer — I ship agents to production."
+            delayChildren={0.25}
             className="mt-3 font-semibold tracking-tight text-AAsubtext text-[clamp(1.5rem,4vw,2.5rem)] leading-tight max-w-[24ch]"
-            {...reveal(0.2)}
-          >
-            AI Agent Engineer — I ship agents to production.
-          </motion.h2>
+          />
 
           <motion.p
             className="mt-8 text-base sm:text-lg leading-relaxed text-AAsubtext max-w-[62ch]"
@@ -106,21 +119,37 @@ export default function MyName({ finishedLoading = false }: Props) {
             e-commerce, and edtech — embedded with customers, owning outcomes end to end.
           </motion.p>
 
-          <motion.div className="mt-8 flex flex-wrap gap-3" {...reveal(0.4)}>
+          <motion.div
+            className="mt-8 flex flex-wrap gap-3"
+            variants={prefersReducedMotion ? undefined : chipParentVariants}
+            initial={prefersReducedMotion ? undefined : "hidden"}
+            animate={prefersReducedMotion ? undefined : "show"}
+          >
             {[
               "Multi-Agent Orchestration · MCP",
               "Claude Code · Evals · Tool Use",
               "Kubernetes · Terraform · AWS/GCP",
               "Datadog · OpenTelemetry",
               "Next.js · TypeScript · Python",
-            ].map((chip) => (
-              <span
-                key={chip}
-                className="font-mono text-xs sm:text-sm text-AAsubtext bg-white/[0.03] border border-white/[0.08] rounded-lg px-3.5 py-2 transition-colors duration-200 hover:text-AAsecondary hover:border-AAsecondary/40"
-              >
-                {chip}
-              </span>
-            ))}
+            ].map((chip) =>
+              prefersReducedMotion ? (
+                <span
+                  key={chip}
+                  className="font-mono text-xs sm:text-sm text-AAsubtext bg-white/[0.03] border border-white/[0.08] rounded-lg px-3.5 py-2 transition-colors duration-200 hover:text-AAsecondary hover:border-AAsecondary/40"
+                >
+                  {chip}
+                </span>
+              ) : (
+                <motion.span
+                  key={chip}
+                  variants={chipVariants}
+                  transition={{ duration: 0.5, ease: easeOut }}
+                  className="font-mono text-xs sm:text-sm text-AAsubtext bg-white/[0.03] border border-white/[0.08] rounded-lg px-3.5 py-2 transition-colors duration-200 hover:text-AAsecondary hover:border-AAsecondary/40"
+                >
+                  {chip}
+                </motion.span>
+              )
+            )}
           </motion.div>
 
           <motion.div className="mt-12 flex flex-wrap items-center gap-4" {...reveal(0.5)}>

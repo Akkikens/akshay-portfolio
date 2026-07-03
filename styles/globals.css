@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+/* Google Fonts are loaded via <link> in pages/_document.tsx (preconnect +
+   stylesheet) — faster than CSS @import, which serializes behind CSS parse. */
 
 @tailwind base;
 @tailwind components;
@@ -38,9 +38,14 @@
     overscroll-behavior-y: none;
   }
   
-  /* Smooth transitions for all interactive elements */
+  /* Smooth transitions for interactive elements. `transform` is deliberately
+     NOT transitioned — framer-motion drives transforms inline (magnetic
+     buttons, scale hovers) and a CSS transform transition would double-ease
+     and fight it. */
   a, button {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: color, background-color, border-color, opacity, box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Enhanced focus states for accessibility */
@@ -127,25 +132,7 @@ body {
   touch-action: pan-y;
 }
 
-/* Light mode styles */
-.light html,
-.light body {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  color: #0f172a;
-}
-
-.light html::-webkit-scrollbar {
-  background-color: #f8fafc;
-}
-
-.light html::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
-  border-color: #f8fafc;
-}
-
-.light html::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
-}
+/* Site is dark-only by design (design-system/MASTER.md) — no .light theme. */
 
 /* Custom cursor styling - removed cursor: none to fix scrolling issues */
 /* The custom cursor will overlay but won't hide the default cursor */

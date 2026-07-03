@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { EASE_OUT } from "./index";
 
 type RevealProps = {
   children: React.ReactNode;
@@ -10,10 +11,12 @@ type RevealProps = {
   delay?: number;
   /** Rise distance in px (translateY only — GPU compositing) */
   y?: number;
+  /** Horizontal offset in px, combined with y (translateX only) */
+  x?: number;
+  /** Viewport margin override for whileInView triggering */
+  margin?: string;
   as?: "div" | "section" | "li" | "span";
 };
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
 
 /**
  * The one scroll-reveal used everywhere: fade + rise on viewport entry.
@@ -25,6 +28,8 @@ export default function Reveal({
   index = 0,
   delay = 0,
   y = 24,
+  x = 0,
+  margin = "-10% 0px",
   as = "div",
 }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -38,10 +43,10 @@ export default function Reveal({
   return (
     <Tag
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.5, delay: delay + index * 0.04, ease: easeOut }}
+      initial={{ opacity: 0, x, y }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: margin as any }}
+      transition={{ duration: 0.5, delay: delay + index * 0.04, ease: EASE_OUT }}
     >
       {children}
     </Tag>

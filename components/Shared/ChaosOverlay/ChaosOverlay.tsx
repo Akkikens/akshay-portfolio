@@ -1,5 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+} from "framer-motion";
 
 type StatusPhase = "offline" | "reconnecting" | "online";
 
@@ -45,9 +51,17 @@ const statusCopy: Record<
 const ChaosOverlay: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [status, setStatus] = useState<StatusPhase>("offline");
-  const [glitch, setGlitch] = useState(0);
-  const [scanlineOffset, setScanlineOffset] = useState(0);
-  const [noiseSeed, setNoiseSeed] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
+
+  // Per-frame jitter lives in MotionValues so the rAF loop never triggers a
+  // React re-render.
+  const glitchMV = useMotionValue(0);
+  const scanlineMV = useMotionValue(0);
+  const noiseMV = useMotionValue(0);
+  const glitchX = useTransform(glitchMV, (g) => (g - 0.5) * 16);
+  const glitchY = useTransform(glitchMV, (g) => (0.5 - g) * 10);
+  const scanlineY = useTransform(scanlineMV, (v) => `${v}px`);
+  const noiseOpacity = useTransform(noiseMV, (n) => 0.2 + n * 0.25);
   const rafRef = useRef<number | null>(null);
   const hideTimerRef = useRef<number | null>(null);
   const coverTimerRef = useRef<number | null>(null);
@@ -64,7 +78,7 @@ const ChaosOverlay: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!isVisible) {
+    if (!isVisible || prefersReducedMotion) {
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
@@ -73,13 +87,13 @@ const ChaosOverlay: React.FC = () => {
     }
 
     const animate = () => {
-      setGlitch(Math.random());
-      setScanlineOffset((prev) => (prev + 1.7) % 6);
-      setNoiseSeed(Math.random());
+      glitchMV.set(Math.random());
+      scanlineMV.set((scanlineMV.get() + 1.7) % 6);
+      noiseMV.set(Math.random());
       rafRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    rafRef.current = requestAnimationFrame(animate);
 
     return () => {
       if (rafRef.current) {
@@ -87,7 +101,7 @@ const ChaosOverlay: React.FC = () => {
         rafRef.current = null;
       }
     };
-  }, [isVisible]);
+  }, [isVisible, prefersReducedMotion, glitchMV, scanlineMV, noiseMV]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -175,62 +189,75 @@ const ChaosOverlay: React.FC = () => {
 
           <motion.div
             className={`absolute inset-0 bg-gradient-to-br ${statusStyles[status]} backdrop-blur-xl`}
-            animate={{
-              opacity: [0.9, 1, 0.95],
-              scale: [1.02, 1, 1.01],
-            }}
-            transition={{
-              duration: 1.8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            animate={
+              prefersReducedMotion
+                ? { opacity: 1 }
+                : { opacity: [0.9, 1, 0.95] }
+            }
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : { duration: 1.8, repeat: Infinity, ease: "easeInOut" }
+            }
           />
 
           <motion.div
-            className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(15,118,110,0.25),transparent_60%)] mix-blend-screen opacity-60"
-            animate={{
-              rotate: [0, 2, -2, 0],
-              scale: [1, 1.03, 1.01, 1],
-            }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(15,118,110,0.25),transparent_60%)] mix-blend-screen"
+            animate={
+              prefersReducedMotion
+                ? { opacity: 0.6 }
+                : { opacity: [0.5, 0.7, 0.55] }
+            }
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : { duration: 4, repeat: Infinity, ease: "easeInOut" }
+            }
           />
 
           <motion.div
-            className="absolute inset-0 opacity-60"
+            className="absolute inset-0"
             style={{
               backgroundImage:
                 "repeating-linear-gradient(0deg, rgba(148,163,184,0.05) 0px, rgba(148,163,184,0.05) 1px, transparent 1px, transparent 2px)",
-              transform: `translateY(${scanlineOffset}px)`,
+              y: prefersReducedMotion ? 0 : scanlineY,
             }}
-            animate={{
-              opacity: [0.2, 0.4, 0.25],
-            }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+            animate={
+              prefersReducedMotion
+                ? { opacity: 0.25 }
+                : { opacity: [0.2, 0.4, 0.25] }
+            }
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : { duration: 1.2, repeat: Infinity, ease: "linear" }
+            }
           />
 
           <motion.div
             className="absolute inset-0"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='rgba(15,118,110,0.08)' d='M0 32h32v32H0z'/%3E%3Cpath fill='rgba(15,118,110,0.04)' d='M32 0h32v32H32z'/%3E%3C/g%3E%3C/svg%3E")`,
-              opacity: 0.2 + noiseSeed * 0.25,
+              opacity: prefersReducedMotion ? 0.3 : noiseOpacity,
             }}
           />
 
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-10 px-6 text-center text-slate-200">
             <motion.div
               style={{
-                transform: `translate(${(glitch - 0.5) * 16}px, ${
-                  (0.5 - glitch) * 10
-                }px)`,
+                x: prefersReducedMotion ? 0 : glitchX,
+                y: prefersReducedMotion ? 0 : glitchY,
               }}
-              animate={{
-                opacity: [0.8, 1, 0.85],
-              }}
-              transition={{
-                duration: 0.3,
-                repeat: Infinity,
-                repeatType: "mirror",
-              }}
+              animate={
+                prefersReducedMotion
+                  ? { opacity: 1 }
+                  : { opacity: [0.8, 1, 0.85] }
+              }
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.3, repeat: Infinity, repeatType: "mirror" }
+              }
               className="font-mono text-xs uppercase tracking-[0.5em] text-AAaccent"
             >
               {activeCopy.headline}
@@ -276,10 +303,16 @@ const ChaosOverlay: React.FC = () => {
 
             <motion.div
               className="font-mono text-[11px] text-slate-400"
-              animate={{
-                opacity: [0.3, 0.7, 0.4],
-              }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              animate={
+                prefersReducedMotion
+                  ? { opacity: 0.5 }
+                  : { opacity: [0.3, 0.7, 0.4] }
+              }
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : { duration: 1.6, repeat: Infinity, ease: "easeInOut" }
+              }
             >
               &gt; establishing encrypted connection… {status === "online" ? "DONE" : "…"}
             </motion.div>

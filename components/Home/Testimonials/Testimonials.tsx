@@ -1,10 +1,32 @@
 import React, { useState } from "react";
-import SectionHeader from "../../Shared/Motion/SectionHeader";
-import ParallaxBlob from "../../Shared/Motion/ParallaxBlob";
-import Reveal from "../../Shared/Motion/Reveal";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  EASE_OUT,
+  SPRING_HOVER,
+  SectionHeader,
+  ParallaxBlob,
+  ScrubSection,
+  CountUp,
+} from "../../Shared/Motion";
+
+// Card grid stagger choreography — 2x2 grid cascades diagonally
+const gridParent = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09 } },
+};
+const gridChild = {
+  hidden: { opacity: 0, y: 32, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.55, ease: EASE_OUT },
+  },
+};
 
 export default function Testimonials() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const reduced = useReducedMotion();
 
   const testimonials = [
     {
@@ -29,6 +51,19 @@ export default function Testimonials() {
     }
   ];
 
+  const stats: Array<{
+    label: string;
+    value: number;
+    suffix: string;
+    decimals?: number;
+    format?: (v: number) => string;
+  }> = [
+    { value: 100, suffix: "K+", label: "Users Scaled" },
+    { value: 99.9, suffix: "%", decimals: 1, label: "Production Uptime" },
+    { value: 1180, suffix: "+", label: "Open-Source Commits" },
+    { value: 500, suffix: "+", label: "Tests Written" },
+  ];
+
   return (
     <div
       id="TestimonialsSection"
@@ -38,68 +73,81 @@ export default function Testimonials() {
       <ParallaxBlob className="absolute top-1/4 left-1/4 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" range={55} />
       <ParallaxBlob className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" range={-40} />
 
-      <SectionHeader
-        index="06"
-        eyebrow="Testimonials"
-        title="What People Say"
-        className="relative mb-14"
-      />
+      <ScrubSection className="relative">
+        <SectionHeader
+          index="06"
+          eyebrow="Testimonials"
+          title="What People Say"
+          className="relative mb-14"
+        />
 
-      {/* Testimonials Grid */}
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
-        {testimonials.map((testimonial, index) => (
-          <Reveal key={index} index={index}>
-          <div
-            className={`group h-full p-7 sm:p-8 rounded-2xl border backdrop-blur-sm transition-colors duration-200 cursor-pointer ${
-              activeTestimonial === index
-                ? "border-AAsecondary/50 bg-AAsecondary/[0.06]"
-                : "border-white/[0.08] bg-white/[0.03] hover:border-AAsecondary/30 hover:bg-white/[0.05]"
-            }`}
-            onClick={() => setActiveTestimonial(index)}
-          >
-            <div className="flex items-start space-x-4">
-              <div className="flex-shrink-0">
-                <div className="w-14 h-14 bg-gradient-to-br from-AAsecondary to-AAaccent rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">
-                    {testimonial.name.split(' ').map(n => n[0]).join('')}
-                  </span>
+        {/* Testimonials Grid — assembles as one staggered unit */}
+        <motion.div
+          className="relative grid grid-cols-1 md:grid-cols-2 gap-8"
+          variants={reduced ? undefined : gridParent}
+          initial={reduced ? undefined : "hidden"}
+          whileInView={reduced ? undefined : "show"}
+          viewport={{ once: true, margin: "-10% 0px" }}
+        >
+          {testimonials.map((testimonial, index) => (
+            <motion.div
+              key={index}
+              variants={reduced ? undefined : gridChild}
+              animate={
+                reduced
+                  ? undefined
+                  : { scale: activeTestimonial === index ? 1.01 : 1 }
+              }
+              transition={{ type: "spring", ...SPRING_HOVER, damping: 25 }}
+              className={`group h-full p-7 sm:p-8 rounded-2xl border transition-colors duration-200 cursor-pointer ${
+                activeTestimonial === index
+                  ? "border-AAsecondary/50 bg-AAsecondary/[0.06]"
+                  : "border-white/[0.08] bg-white/[0.03] hover:border-AAsecondary/30 hover:bg-white/[0.05]"
+              }`}
+              onClick={() => setActiveTestimonial(index)}
+            >
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0">
+                  <div className="w-14 h-14 bg-gradient-to-br from-AAsecondary to-AAaccent rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-lg">
+                      {testimonial.name.split(' ').map(n => n[0]).join('')}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-AAtext font-bold text-lg mb-2">
+                    {testimonial.name}
+                  </h3>
+                  <p className="text-AAsecondary text-sm mb-4 font-medium">
+                    {testimonial.role}
+                  </p>
+                  <p className="text-AAtext text-sm leading-relaxed">
+                    "{testimonial.content}"
+                  </p>
                 </div>
               </div>
-              <div className="flex-1">
-                <h3 className="text-AAtext font-bold text-lg mb-2">
-                  {testimonial.name}
-                </h3>
-                <p className="text-AAsecondary text-sm mb-4 font-medium">
-                  {testimonial.role}
-                </p>
-                <p className="text-AAtext text-sm leading-relaxed">
-                  "{testimonial.content}"
-                </p>
-              </div>
-            </div>
-          </div>
-          </Reveal>
-        ))}
-      </div>
-
-      {/* Stats Section */}
-      <div className="relative mt-16 rounded-2xl p-8 border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {[
-            { value: "100K+", label: "Users Scaled" },
-            { value: "99.9%", label: "Production Uptime" },
-            { value: "1,180+", label: "Open-Source Commits" },
-            { value: "500+", label: "Tests Written" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center group">
-              <div className="font-mono text-3xl md:text-4xl font-bold bg-gradient-to-r from-AAsecondary to-AAaccent bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
-                {stat.value}
-              </div>
-              <div className="text-AAsubtext text-sm font-medium">{stat.label}</div>
-            </div>
+            </motion.div>
           ))}
+        </motion.div>
+
+        {/* Stats Section */}
+        <div className="relative mt-16 rounded-2xl p-8 border border-white/[0.08] bg-white/[0.03]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center group">
+                <div className="font-mono text-3xl md:text-4xl font-bold bg-gradient-to-r from-AAsecondary to-AAaccent bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+                  <CountUp
+                    value={stat.value}
+                    suffix={stat.suffix}
+                    decimals={stat.decimals}
+                  />
+                </div>
+                <div className="text-AAsubtext text-sm font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </ScrubSection>
     </div>
   );
 }

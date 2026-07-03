@@ -33,7 +33,29 @@ module.exports = {
       letterSpacing: {
         hero: "-0.03em",
       },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16,1,0.3,1)",
+        "out-quart": "cubic-bezier(0.22,1,0.36,1)",
+      },
+      transitionDuration: {
+        400: "400ms",
+      },
+      /* transform/opacity only — any usage must be motion-safe: prefixed */
+      keyframes: {
+        twinkle: {
+          "0%,100%": { opacity: "0.3" },
+          "50%": { opacity: "1" },
+        },
+        drift: {
+          "0%,100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-12px)" },
+        },
+      },
+      animation: {
+        twinkle: "twinkle 3s ease-in-out infinite",
+        drift: "drift 8s ease-in-out infinite",
+      },
     },
   },
-  plugins: [require("tailwind-scrollbar")],
+  plugins: [],
 };

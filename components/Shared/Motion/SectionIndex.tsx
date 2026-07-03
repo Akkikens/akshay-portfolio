@@ -22,7 +22,7 @@ export default function SectionIndex({ children, className }: SectionIndexProps)
   const prefersReducedMotion = useReducedMotion();
   const { scrollY } = useScroll();
   const velocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(velocity, { damping: 50, stiffness: 400 });
+  const smoothVelocity = useSpring(velocity, { damping: 50, stiffness: 500 });
   const skewX = useTransform(smoothVelocity, [-2000, 0, 2000], [6, 0, -6]);
 
   if (prefersReducedMotion) {

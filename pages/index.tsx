@@ -1,22 +1,22 @@
 // pages/index.tsx
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
-import AppContext from "../components/AppContextFolder/AppContext";
 import ScreenSizeDetector from "../components/CustomComponents/ScreenSizeDetector";
-import Maintenance from "../components/Home/Maintenance/Maintenance";
 import { useSmoothScroll } from "../hooks/useSmoothScroll";
 import { useLenis } from "../hooks/useLenis";
 
-// Code-split content. next/dynamic (not React.lazy) — in the pages router,
-// React.lazy + Suspense renders fallback/content inconsistently between server
-// and client, which throws hydration "text content does not match" errors.
-const Header = dynamic(() => import("../components/Header/Header"));
-const MyName = dynamic(() => import("../components/Home/MyName/MyName"));
-const SocialMediaArround = dynamic(
-  () => import("../components/Home/SocialMediaArround/SocialMediaArround")
-);
+// Above-the-fold components are statically imported — dynamic() would add a
+// hydration chunk round-trip that delays the hero entrance.
+import Header from "../components/Header/Header";
+import MyName from "../components/Home/MyName/MyName";
+import SocialMediaArround from "../components/Home/SocialMediaArround/SocialMediaArround";
+
+// Code-split below-the-fold content. next/dynamic (not React.lazy) — in the
+// pages router, React.lazy + Suspense renders fallback/content inconsistently
+// between server and client, which throws hydration "text content does not
+// match" errors.
 const AboutMe = dynamic(() => import("../components/Home/AboutMe/AboutMe"));
 const WhereIHaveWorked = dynamic(
   () => import("../components/Home/WhereIHaveWorked/WhereIHaveWorked")
@@ -52,75 +52,16 @@ const WebVitalsMonitor = dynamic(
 );
 
 export default function Home() {
-  const context = useContext(AppContext);
-  
   // Inertia smooth scrolling (Lenis) + lenis-aware anchor clicks.
   // useLenis no-ops entirely under prefers-reduced-motion.
   useLenis();
   useSmoothScroll();
 
-  // --- Blacklist logic ---
-  const [userData, setUserData] = useState<any>(null);
-  const [isBlackListed, setIsBlackListed] = useState(false);
-
-  const IsBlackListEmpty = !process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES;
-  const blacklistedCountries = process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES
-    ? process.env.NEXT_PUBLIC_BLACKLIST_COUNTRIES.split(",")
-    : [];
-
   useEffect(() => {
-    const fetchData = async () => {
-      if (!IsBlackListEmpty) {
-        try {
-          const ipResponse = await fetch("https://api.ipify.org/?format=json");
-          const ipData = await ipResponse.json();
-          const userResponse = await fetch(`/api/userInfoByIP/${ipData.ip}`);
-          const data = await userResponse.json();
-          setUserData(data);
-        } catch (error) {
-          console.error("Error fetching location and IP data:", error);
-        }
-      }
-    };
-    fetchData();
-  }, [IsBlackListEmpty]);
-
-  useEffect(() => {
-    if (userData && blacklistedCountries.includes(userData.country)) {
-      setIsBlackListed(true);
-    }
-  }, [userData, blacklistedCountries]);
-
-  useEffect(() => {
-    // Set finished loading immediately - no intro animations
-    context.setSharedState((prev) => ({ ...prev, finishedLoading: true }));
-
     // Safeguard against stuck overflow state (viewport is the scroller now)
-    if (typeof document !== "undefined") {
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
   }, []);
-
-  // --- Clean up old listeners from your sharedState hooks ---
-  useEffect(() => {
-    const { sharedState } = context;
-    const timer = sharedState?.userdata?.timerCookieRef?.current;
-    const winTracker = sharedState?.userdata?.windowSizeTracker?.current;
-    const mouseTracker = sharedState?.userdata?.mousePositionTracker?.current;
-    const blurEvt = sharedState?.typing?.eventInputLostFocus;
-    const keyEvt = sharedState?.typing?.keyboardEvent;
-
-    if (timer) clearInterval(timer as any);
-    if (typeof window !== "undefined") {
-      if (winTracker) window.removeEventListener("resize", winTracker);
-      if (mouseTracker) window.removeEventListener("mousemove", mouseTracker, false);
-      if (blurEvt) window.removeEventListener("resize", blurEvt);
-      if (keyEvt) document.removeEventListener("keydown", keyEvt);
-    }
-  }, [context]);
-
 
   // --- Meta ---
   const meta = {
@@ -203,30 +144,26 @@ export default function Home() {
         />
       </Head>
 
-      {!isBlackListed ? (
-        <div className="relative min-h-screen w-full bg-AAprimary">
-          <ScrollProgress />
-          <Header finishedLoading={true} sectionsRef={null} />
-          <MyName finishedLoading={true} />
-          <SocialMediaArround finishedLoading={true} />
-          <AboutMe />
-          <WhereIHaveWorked />
-          <Certifications />
-          <SomethingIveContributed />
-          <SomethingIveBuilt />
-          <Testimonials />
-          <GetInTouch />
-          <Footer
-            githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
-            hideSocialsInDesktop={true}
-          />
-          <ChaosOverlay />
-          <WebVitalsMonitor />
-          {!isProd && <ScreenSizeDetector />}
-        </div>
-      ) : (
-        <Maintenance />
-      )}
+      <div className="relative min-h-screen w-full bg-AAprimary">
+        <ScrollProgress />
+        <Header finishedLoading={true} sectionsRef={null} />
+        <MyName />
+        <SocialMediaArround />
+        <AboutMe />
+        <WhereIHaveWorked />
+        <Certifications />
+        <SomethingIveContributed />
+        <SomethingIveBuilt />
+        <Testimonials />
+        <GetInTouch />
+        <Footer
+          githubUrl={"https://github.com/Akkikens/akshay-portfolio"}
+          hideSocialsInDesktop={true}
+        />
+        <ChaosOverlay />
+        {!isProd && <WebVitalsMonitor />}
+        {!isProd && <ScreenSizeDetector />}
+      </div>
     </>
   );
 }

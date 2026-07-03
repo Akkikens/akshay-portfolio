@@ -1,13 +1,19 @@
 import { useRef, useEffect } from "react";
-import { useMotionValue, useSpring, motion } from "framer-motion";
+import { useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 
 interface MagneticEffectOptions {
   strength?: number;
   disabled?: boolean;
 }
 
+/**
+ * Magnetic cursor pull: returns spring-smoothed x/y MotionValues that lean
+ * the element toward the cursor while hovered. Inert under reduced motion
+ * (or when `disabled`) — the springs stay at 0.
+ */
 export const useMagneticEffect = (options: MagneticEffectOptions = {}) => {
   const { strength = 0.15, disabled = false } = options;
+  const reduced = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -16,8 +22,10 @@ export const useMagneticEffect = (options: MagneticEffectOptions = {}) => {
   const xSpring = useSpring(x, springConfig);
   const ySpring = useSpring(y, springConfig);
 
+  const inactive = disabled || !!reduced;
+
   useEffect(() => {
-    if (disabled) return;
+    if (inactive) return;
 
     const element = ref.current;
     if (!element) return;
@@ -54,7 +62,7 @@ export const useMagneticEffect = (options: MagneticEffectOptions = {}) => {
       element.removeEventListener("mousemove", handleMouseMove);
       element.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [x, y, strength, disabled]);
+  }, [x, y, strength, inactive]);
 
   return { ref, x: xSpring, y: ySpring };
 };

@@ -1,11 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import SectionHeader from "../../Shared/Motion/SectionHeader";
-import ParallaxBlob from "../../Shared/Motion/ParallaxBlob";
-import Reveal from "../../Shared/Motion/Reveal";
+import { motion, useReducedMotion } from "framer-motion";
+import {
+  SectionHeader,
+  ParallaxBlob,
+  Reveal,
+  ScrubSection,
+  Magnetic,
+} from "../../Shared/Motion";
 
 export default function GetInTouch() {
+  const reduced = useReducedMotion();
   const [isAndroidWebView, setIsAndroidWebView] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -57,9 +62,10 @@ export default function GetInTouch() {
       className="flex flex-col space-y-10 w-full py-20 sm:py-28 px-5 sm:px-16 md:px-16 lg:px-24 2xl:px-72 items-center border-t border-white/[0.06] relative overflow-hidden"
     >
       {/* Ambient accents with parallax drift */}
-      <ParallaxBlob className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" range={55} />
-      <ParallaxBlob className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" range={-40} />
+      <ParallaxBlob className="absolute top-0 right-0 w-96 h-96 bg-AAsecondary/5 rounded-full blur-3xl" range={70} />
+      <ParallaxBlob className="absolute bottom-0 left-0 w-96 h-96 bg-AAaccent/5 rounded-full blur-3xl" range={-55} />
 
+      <ScrubSection className="flex flex-col space-y-10 w-full items-center">
       <SectionHeader
         index="07"
         eyebrow="What's Next"
@@ -78,7 +84,7 @@ export default function GetInTouch() {
 
       {/* Contact Form */}
       <Reveal className="relative w-full max-w-2xl">
-      <div className="rounded-2xl p-7 sm:p-8 border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
+      <div className="rounded-2xl p-7 sm:p-8 border border-white/[0.08] bg-white/[0.03]">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -145,15 +151,15 @@ export default function GetInTouch() {
             />
           </div>
           
-          <motion.button
-            type="submit"
-            disabled={isSubmitting}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full bg-gradient-to-r from-AAsecondary to-AAaccent text-white py-4 px-6 rounded-xl font-semibold hover:shadow-lg hover:shadow-AAsecondary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? 'Sending...' : 'Send Message'}
-          </motion.button>
+          <Magnetic strength={0.2} className="w-full">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-gradient-to-r from-AAsecondary to-AAaccent text-white py-4 px-6 rounded-xl font-semibold hover:shadow-lg hover:shadow-AAsecondary/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
+          </Magnetic>
           
           {submitStatus === 'success' && (
             <motion.div
@@ -181,7 +187,7 @@ export default function GetInTouch() {
       {/* Alternative Contact */}
       <Reveal className="relative pt-4" delay={0.1}>
         {isAndroidWebView ? (
-          <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl bg-AAsecondary/10 backdrop-blur-sm outline-none focus:outline-none focus:ring-2 focus:ring-AAsecondary/50">
+          <button className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl bg-AAsecondary/10 outline-none focus:outline-none focus:ring-2 focus:ring-AAsecondary/50">
             akshaykalapgar23@gmail.com
           </button>
         ) : (
@@ -191,15 +197,16 @@ export default function GetInTouch() {
             rel="noreferrer"
           >
             <motion.button 
-              className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl hover:bg-AAsecondary/10 transition-all duration-300 backdrop-blur-sm hover:shadow-lg hover:shadow-AAsecondary/20 outline-none focus:outline-none focus:ring-2 focus:ring-AAsecondary/50"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              className="font-mono text-sm text-AAsecondary border-AAsecondary px-8 py-4 border-2 rounded-xl hover:bg-AAsecondary/10 transition-all duration-300 hover:shadow-lg hover:shadow-AAsecondary/20 outline-none focus:outline-none focus:ring-2 focus:ring-AAsecondary/50"
+              whileHover={reduced ? undefined : { scale: 1.05, y: -2 }}
+              whileTap={reduced ? undefined : { scale: 0.95 }}
             >
               Or Email Directly
             </motion.button>
           </a>
         )}
       </Reveal>
+      </ScrubSection>
     </div>
   );
 }
