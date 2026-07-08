@@ -17,22 +17,20 @@ const VIDEO_SRC_MOBILE = "/cinematic-scrub-720.mp4";
 const POSTER_SRC = "/cinematic-poster.jpg";
 
 /**
- * Apple-keynote scroll-scrubbed film. The section is 320vh tall; a sticky
- * full-viewport stage pins while scroll position drives video.currentTime
- * frame-by-frame (the video never "plays" — the user's thumb is the
- * playhead). Three narrative phases cross-fade over the film.
+ * Apple-keynote scroll-scrubbed film ("How I work").
  *
- * This section deliberately deviates from the page-wide choreography recipe
- * (ScrubSection/SectionHeader/ParallaxBlob) — it is a full-bleed cinematic
- * interlude, not a content section; only SPRING_SCRUB is shared.
+ * Three render paths, chosen once per pageload:
+ *  - reduced motion → static stacked statements, no video (StaticFilm)
+ *  - mobile (≤768px) → compact auto-looping background, normal page flow
+ *    (MobileFilm). No pin/scrub: a 320vh sticky scroll-jack reads as a frozen
+ *    page on a phone, and a full-viewport <video> can eat the touch gesture
+ *    on iOS Safari.
+ *  - desktop → 320vh sticky stage, scroll position scrubs video.currentTime
+ *    frame-by-frame (DesktopScrub).
  *
- * Loading: preload="none" + poster; the real bytes fetch only when the
- * section approaches the viewport (IntersectionObserver), so the mp4 never
- * competes with the hero LCP. Mobile viewports get the 720p variant.
- *
- * Fallbacks, in order:
- *  - reduced motion → static stacked statements, no pin, no video
- *  - video missing/unloadable → gradient stage, phases still scrub
+ * The scroll hooks (useScroll/useSpring) live ONLY in DesktopScrub — they
+ * throw "target ref defined but not hydrated" if their target ref is never
+ * attached, so they must not run in the branches that don't render the pin.
  */
 const PHASES = [
   {
@@ -87,21 +85,82 @@ function Phase({
   );
 }
 
-export default function CinematicScrub() {
-  const prefersReducedMotion = useReducedMotion();
+/** Static, motion-free passage for prefers-reduced-motion. */
+function StaticFilm() {
+  return (
+    <section aria-label="How I work" className="relative bg-AAprimary py-24 px-6">
+      <div className="mx-auto max-w-[900px] space-y-16 text-center">
+        {PHASES.map(({ title, sub }) => (
+          <div key={title}>
+            <h2 className="font-bold tracking-tight text-AAtext text-3xl sm:text-5xl">
+              {title}
+            </h2>
+            <p className="mt-3 font-mono text-AAsecondary text-sm sm:text-base">{sub}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/**
+ * Mobile: one normal-height section, no pin, no scrub. The film auto-loops as
+ * a decorative background (pointer-events:none so touch always reaches the
+ * page scroll), statements stacked over it.
+ */
+function MobileFilm() {
+  const [videoOk, setVideoOk] = useState(true);
+  return (
+    <section
+      aria-label="How I work"
+      className="relative min-h-screen overflow-hidden bg-AAprimary flex flex-col justify-center gap-16 py-28 px-6"
+    >
+      {videoOk ? (
+        <video
+          className="absolute inset-0 h-full w-full object-cover pointer-events-none"
+          src={VIDEO_SRC_MOBILE}
+          poster={POSTER_SRC}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          onError={() => setVideoOk(false)}
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.14),transparent_60%),linear-gradient(180deg,#0a0e1a,#020617)]"
+        />
+      )}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(2,6,23,0.55),rgba(2,6,23,0.3)_50%,rgba(2,6,23,0.65))]"
+      />
+      <div className="relative mx-auto max-w-[600px] w-full space-y-14 text-center">
+        {PHASES.map(({ title, sub }) => (
+          <div key={title}>
+            <h2 className="font-bold tracking-tight text-AAtext text-3xl leading-tight [text-shadow:0_2px_24px_rgba(2,6,23,0.9)]">
+              {title}
+            </h2>
+            <p className="mt-3 font-mono text-AAsecondary text-sm [text-shadow:0_1px_12px_rgba(2,6,23,0.95)]">
+              {sub}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/** Desktop: 320vh sticky stage, scroll scrubs the film frame-by-frame. */
+function DesktopScrub() {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const loadKickedRef = useRef(false);
   const [videoOk, setVideoOk] = useState(true);
   const [inView, setInView] = useState(false);
-  // Component is ssr:false so matchMedia is safe in the initializer; the
-  // choice is per-pageload, which is fine — nobody resizes across the 768px
-  // boundary mid-scrub except devtools.
-  const [videoSrc] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches
-      ? VIDEO_SRC_MOBILE
-      : VIDEO_SRC
-  );
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -119,7 +178,7 @@ export default function CinematicScrub() {
   // same frame.
   useMotionValueEvent(progress, "change", (p) => {
     const video = videoRef.current;
-    if (!video || !inView || prefersReducedMotion) return;
+    if (!video || !inView) return;
     if (video.readyState < 1 || !video.duration) return;
     const t = Math.min(Math.max(p, 0), 1) * (video.duration - 0.05);
     if (Math.abs(video.currentTime - t) > 1 / 30) video.currentTime = t;
@@ -153,24 +212,6 @@ export default function CinematicScrub() {
     return () => io.disconnect();
   }, []);
 
-  // Reduced motion: no pin, no scrub — a calm static passage.
-  if (prefersReducedMotion) {
-    return (
-      <section aria-label="How I work" className="relative bg-AAprimary py-24 px-6">
-        <div className="mx-auto max-w-[900px] space-y-16 text-center">
-          {PHASES.map(({ title, sub }) => (
-            <div key={title}>
-              <h2 className="font-bold tracking-tight text-AAtext text-3xl sm:text-5xl">
-                {title}
-              </h2>
-              <p className="mt-3 font-mono text-AAsecondary text-sm sm:text-base">{sub}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section
       ref={sectionRef}
@@ -186,7 +227,7 @@ export default function CinematicScrub() {
           <video
             ref={videoRef}
             className="absolute inset-0 h-full w-full object-cover"
-            src={videoSrc}
+            src={VIDEO_SRC}
             poster={POSTER_SRC}
             muted
             playsInline
@@ -222,4 +263,18 @@ export default function CinematicScrub() {
       </motion.div>
     </section>
   );
+}
+
+export default function CinematicScrub() {
+  const prefersReducedMotion = useReducedMotion();
+  // Component is ssr:false so matchMedia is safe here; the choice is
+  // per-pageload, which is fine — only devtools crosses the 768px boundary
+  // mid-session.
+  const [isMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches
+  );
+
+  if (prefersReducedMotion) return <StaticFilm />;
+  if (isMobile) return <MobileFilm />;
+  return <DesktopScrub />;
 }
