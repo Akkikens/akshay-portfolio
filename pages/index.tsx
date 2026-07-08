@@ -17,6 +17,10 @@ import SocialMediaArround from "../components/Home/SocialMediaArround/SocialMedi
 // pages router, React.lazy + Suspense renders fallback/content inconsistently
 // between server and client, which throws hydration "text content does not
 // match" errors.
+const CinematicScrub = dynamic(
+  () => import("../components/Home/CinematicScrub/CinematicScrub"),
+  { ssr: false }
+);
 const AboutMe = dynamic(() => import("../components/Home/AboutMe/AboutMe"));
 const WhereIHaveWorked = dynamic(
   () => import("../components/Home/WhereIHaveWorked/WhereIHaveWorked")
@@ -149,6 +153,7 @@ export default function Home() {
         <Header finishedLoading={true} sectionsRef={null} />
         <MyName />
         <SocialMediaArround />
+        <CinematicScrub />
         <AboutMe />
         <WhereIHaveWorked />
         <Certifications />

@@ -37,7 +37,9 @@ export default function Img({
       decoding="async"
       width={width}
       height={height}
-      fetchPriority={fetchPriority}
+      // React 18 doesn't know the camelCase DOM prop — lowercase passes
+      // through as the raw HTML attribute without the console warning
+      {...(fetchPriority ? { fetchpriority: fetchPriority } : {})}
     />
   );
 }
