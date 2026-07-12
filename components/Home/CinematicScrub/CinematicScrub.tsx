@@ -301,12 +301,19 @@ function DesktopScrub() {
 
 export default function CinematicScrub() {
   const prefersReducedMotion = useReducedMotion();
-  // Component is ssr:false so matchMedia is safe here; the choice is
-  // per-pageload, which is fine — only devtools crosses the 768px boundary
-  // mid-session.
-  const [isMobile] = useState(
+  // Component is ssr:false so matchMedia is safe here. The choice is LIVE:
+  // a page loaded in a narrow window (split screen, devtools open) must swap
+  // to the desktop scrub when maximized — a one-shot check locks visitors
+  // into the stacked mobile layout for the whole session.
+  const [isMobile, setIsMobile] = useState(
     () => typeof window !== "undefined" && window.matchMedia("(max-width: 768px)").matches
   );
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const onChange = () => setIsMobile(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   if (prefersReducedMotion) return <StaticFilm />;
   if (isMobile) return <MobileFilm />;
