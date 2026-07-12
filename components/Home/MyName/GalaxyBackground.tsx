@@ -66,6 +66,10 @@ const NEBULA_COLORS: Array<[string, string]> = [
 /** Parallax shift per depth layer at progress = 1, in px */
 const DEPTH_PX = [30, 60, 100];
 
+/** Mouse-parallax shift per depth layer at full cursor deflection, in px.
+ * Near layers move more than far ones — the flat canvas reads as a 3D volume. */
+const MOUSE_PX = [6, 14, 26];
+
 /** Pre-render a soft glow-star sprite (radial gradient) once. */
 function makeGlowSprite(color: string, size = 32): HTMLCanvasElement {
   const c = document.createElement("canvas");
@@ -190,6 +194,18 @@ export default function GalaxyBackground({ progress }: GalaxyBackgroundProps) {
     };
     resize();
 
+    // ---- Mouse-depth parallax (eased; hover-capable pointers only) ----
+    // target = raw cursor deflection (-1..1 from center); cur eases toward it
+    // inside the draw loop so star layers glide instead of jittering.
+    const mouseTarget = { x: 0, y: 0 };
+    const mouseCur = { x: 0, y: 0 };
+    const canHover = window.matchMedia("(hover: hover)").matches;
+    const onPointerMove = (e: PointerEvent) => {
+      mouseTarget.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseTarget.y = (e.clientY / window.innerHeight) * 2 - 1;
+    };
+    if (canHover) window.addEventListener("pointermove", onPointerMove, { passive: true });
+
     // ---- Draw (transform/alpha-composited primitives only) ----
     let lastT = performance.now() / 1000;
     const draw = (t: number) => {
@@ -200,13 +216,18 @@ export default function GalaxyBackground({ progress }: GalaxyBackgroundProps) {
       if (w === 0 || h === 0) return;
       const parallax = progressRef.current?.get() ?? 0;
 
+      // Ease cursor deflection (~frame-rate independent low-pass)
+      const ease = Math.min(1, dt * 4);
+      mouseCur.x += (mouseTarget.x - mouseCur.x) * ease;
+      mouseCur.y += (mouseTarget.y - mouseCur.y) * ease;
+
       ctx.clearRect(0, 0, w, h);
 
       // Nebulae — slow sinusoidal drift (~0.05 Hz), fixed scale
       for (let i = 0; i < nebulae.length; i++) {
         const n = nebulae[i];
-        const ox = Math.sin(t * 0.3 + n.phase) * 40;
-        const oy = Math.cos(t * 0.25 + n.phase) * 30;
+        const ox = Math.sin(t * 0.3 + n.phase) * 40 - mouseCur.x * 10;
+        const oy = Math.cos(t * 0.25 + n.phase) * 30 - mouseCur.y * 10;
         ctx.globalAlpha = 0.9;
         ctx.drawImage(
           nebulaSprites[n.spriteIndex],
@@ -252,8 +273,8 @@ export default function GalaxyBackground({ progress }: GalaxyBackgroundProps) {
         const s = stars[i];
         const alpha = s.baseAlpha * (0.6 + 0.4 * Math.sin(t * s.freq + s.phase));
         ctx.globalAlpha = alpha;
-        const drawX = s.x * w;
-        const drawY = s.y * h + parallax * DEPTH_PX[s.depth];
+        const drawX = s.x * w - mouseCur.x * MOUSE_PX[s.depth];
+        const drawY = s.y * h + parallax * DEPTH_PX[s.depth] - mouseCur.y * MOUSE_PX[s.depth];
         if (s.size <= 1.5) {
           ctx.fillRect(drawX, drawY, s.size, s.size);
         } else {
@@ -269,8 +290,8 @@ export default function GalaxyBackground({ progress }: GalaxyBackgroundProps) {
         const tw = Math.sin(t * g.freq + g.phase);
         ctx.globalAlpha = 0.5 + 0.5 * (tw * 0.5 + 0.5);
         const size = g.size * (1 + 0.08 * tw);
-        const drawX = g.x * w - size / 2;
-        const drawY = g.y * h + parallax * DEPTH_PX[g.depth] - size / 2;
+        const drawX = g.x * w - size / 2 - mouseCur.x * MOUSE_PX[g.depth];
+        const drawY = g.y * h + parallax * DEPTH_PX[g.depth] - size / 2 - mouseCur.y * MOUSE_PX[g.depth];
         ctx.drawImage(glowSprites[g.spriteIndex], drawX, drawY, size, size);
       }
 
@@ -349,6 +370,7 @@ export default function GalaxyBackground({ progress }: GalaxyBackgroundProps) {
 
     return () => {
       stop();
+      if (canHover) window.removeEventListener("pointermove", onPointerMove);
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       document.removeEventListener("visibilitychange", onVisibilityChange);

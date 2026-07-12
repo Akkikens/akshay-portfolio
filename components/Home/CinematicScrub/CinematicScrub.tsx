@@ -172,6 +172,20 @@ function DesktopScrub() {
   // dim here reads as a dead black viewport while the stage scrolls in.)
   const stageOpacity = useTransform(scrollYProgress, [0.94, 1], [1, 0.75]);
 
+  // 3D screen entrance: the film starts as a tilted, glowing "screen" floating
+  // in perspective space, then expands + flattens to full-bleed over the first
+  // ~22% of the pin — so the section ARRIVES instead of fading in as wallpaper.
+  const frameScale = useTransform(scrollYProgress, [0, 0.22], [0.7, 1]);
+  const frameRotateX = useTransform(scrollYProgress, [0, 0.22], [13, 0]);
+  const frameY = useTransform(scrollYProgress, [0, 0.22], [56, 0]);
+  const frameRadius = useTransform(scrollYProgress, [0, 0.22], [28, 0]);
+  const glow = useTransform(scrollYProgress, [0, 0.18, 0.24], [1, 1, 0]);
+  const frameShadow = useTransform(
+    glow,
+    (g) =>
+      `0 60px 140px rgba(2,6,23,${0.75 * g}), 0 0 110px rgba(6,182,212,${0.45 * g}), 0 0 0 1px rgba(148,163,184,${0.35 * g})`
+  );
+
   // Scrub: scroll progress → video timeline. Guarded so offscreen scroll
   // (spring settling) never touches the decoder. 1/30 threshold = the video's
   // frame interval; a finer threshold would issue seeks that land on the
@@ -219,47 +233,67 @@ function DesktopScrub() {
       className="relative h-[320vh] bg-AAprimary"
     >
       <motion.div
-        className="sticky top-0 h-screen w-full overflow-hidden"
-        style={{ opacity: stageOpacity }}
+        className="sticky top-0 h-screen w-full overflow-hidden bg-AAprimary"
+        style={{ opacity: stageOpacity, perspective: 1200 }}
       >
-        {/* Film layer */}
-        {videoOk ? (
-          <video
-            ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
-            src={VIDEO_SRC}
-            poster={POSTER_SRC}
-            muted
-            playsInline
-            preload="none"
-            aria-hidden="true"
-            onError={() => setVideoOk(false)}
-          />
-        ) : (
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.14),transparent_60%),linear-gradient(180deg,#0a0e1a,#020617)]"
-          />
-        )}
-
-        {/* Legibility scrim — deep at edges, open in the middle */}
-        <div
+        {/* Ambient stage light behind the floating screen (fades as it docks) */}
+        <motion.div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.45),rgba(2,6,23,0.1)_30%,rgba(2,6,23,0.1)_70%,rgba(2,6,23,0.55))]"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_50%_45%_at_center,rgba(6,182,212,0.12),transparent_70%)]"
+          style={{ opacity: glow }}
         />
 
-        {/* Narrative phases */}
-        {PHASES.map((phase, i) => (
-          <Phase key={phase.title} progress={progress} index={i} />
-        ))}
+        {/* The screen: tilted floating card → full-bleed film */}
+        <motion.div
+          className="absolute inset-0 overflow-hidden will-change-transform"
+          style={{
+            scale: frameScale,
+            rotateX: frameRotateX,
+            y: frameY,
+            borderRadius: frameRadius,
+            boxShadow: frameShadow,
+            transformOrigin: "center 62%",
+          }}
+        >
+          {/* Film layer */}
+          {videoOk ? (
+            <video
+              ref={videoRef}
+              className="absolute inset-0 h-full w-full object-cover"
+              src={VIDEO_SRC}
+              poster={POSTER_SRC}
+              muted
+              playsInline
+              preload="none"
+              aria-hidden="true"
+              onError={() => setVideoOk(false)}
+            />
+          ) : (
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.14),transparent_60%),linear-gradient(180deg,#0a0e1a,#020617)]"
+            />
+          )}
 
-        {/* Playhead hairline — the scrub position, like a film timeline */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-40 h-px bg-white/15">
-          <motion.div
-            className="h-full bg-AAsecondary origin-left"
-            style={{ scaleX: progress }}
+          {/* Legibility scrim — deep at edges, open in the middle */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.45),rgba(2,6,23,0.1)_30%,rgba(2,6,23,0.1)_70%,rgba(2,6,23,0.55))]"
           />
-        </div>
+
+          {/* Narrative phases */}
+          {PHASES.map((phase, i) => (
+            <Phase key={phase.title} progress={progress} index={i} />
+          ))}
+
+          {/* Playhead hairline — the scrub position, like a film timeline */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-40 h-px bg-white/15">
+            <motion.div
+              className="h-full bg-AAsecondary origin-left"
+              style={{ scaleX: progress }}
+            />
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );
