@@ -34,3 +34,4 @@ yarn-error.log*
 .claude/worktrees/
 .claude/settings.local.json
 *.tsbuildinfo
+.env*
