@@ -1,0 +1,47 @@
+# Akshay Kalapgar
+
+> AI Agent Engineer with 4+ years shipping production agentic systems — multi-agent orchestration, agent harnesses, MCP servers, evals, and tool-use pipelines — plus the platform, observability, and infra that runs them. Claude/LLM tooling, Next.js, TypeScript, Python, Kubernetes, Terraform, AWS/GCP.
+
+Based in San Francisco, CA. M.S. in Computer Science, Clark University (GPA 3.8, May 2025). B.E. in Information Technology, University of Mumbai (GPA 3.6). Open to AI agent, platform, and forward-deployed engineering roles.
+
+## Experience
+
+- **Climb Together** — Full Stack Developer & AI Engineer, May 2025 — Present, San Francisco, CA. Built an AI-powered chatbot with LangChain, OpenAI, and Anthropic Claude (voice via Hume AI); drove architecture for a distributed onboarding system (Next.js, Clerk, Twilio) scaling to 100K+ users with a 35% lift in verified opt-ins; built real-time data pipelines for SMS nudges and behavior analytics; migrated to serverless AWS Lambda + PostgreSQL/Drizzle ORM, cutting cold-start latency by 50%.
+- **Softmax** — AI Platform Engineer (Contract), Nov 2025 — Apr 2026, San Francisco, CA. Built Claude Code plugins (86 skills across 6 plugins) and MCP tool harnesses powering AI-assisted dev workflows; designed a Datadog + OpenTelemetry observability pipeline for a multi-agent RL training platform; built a Kubernetes watcher service for AI job lifecycle orchestration; engineered Terraform IaC for AWS; owned a 21-table PostgreSQL data layer with zero-downtime Helm migrations; shipped 1,180+ commits to the open-source Metta AI platform.
+- **UMass Chan Medical School** — Software Engineer Intern, May 2024 — Jan 2025, Boston, MA. Led implementation of Factorbook 2.0 (React, Next.js, GraphQL), improving First Contentful Paint by 40%; integrated real-time Prometheus dashboards; wrote 500+ unit/integration tests with Jest and Playwright at 98%+ coverage.
+- **Capgemini** — Full Stack Engineer, Aug 2021 — Aug 2023, Mumbai, India. Built 10+ microservices (Java, Spring Boot) for BMW's global platform serving 200K+ users at 99.9% uptime; migrated a legacy monolith to Vue.js.
+- **tag8** — Software Engineer, Aug 2020 — Aug 2021, Mumbai, India. Integrated Redis caching and Elasticsearch with a Django backend, cutting database query latency by 60%.
+- **KPMG** — Software Engineer Intern, Jul 2020 — Dec 2020, Mumbai, India. Shipped 30+ CRM feature enhancements in Java.
+
+## Projects
+
+- [DevDiagrams — Interactive Learning Platform](https://devdiagrams.app) ([source](https://github.com/Akkikens/devdiagrams)): Next.js 15 learning platform with Supabase auth/data, Radix UI, OpenAI-powered features, Stripe/Razorpay payments, and PDF processing.
+- [AI Chatbot Platform](https://github.com/akkikens/ui-chatbot): Advanced AI chat app — Next.js, React, Supabase, LangChain, Hugging Face, and OpenAI, with real-time analytics and multi-agent orchestration.
+- Advanced ML Pipeline & Agent System: end-to-end ML pipeline with multi-agent orchestration for data preprocessing, PyTorch/TensorFlow training, evaluation, and deployment automation.
+- AI-Powered Career Platform: LangChain-matched, Hugging Face/OpenAI-personalized career guidance connecting Clark University students with alumni; reduced manual effort by 80%.
+- [Clark Marketplace](https://github.com/Akkikens/marketplace): React Native app for Clark University students to buy, sell, and trade on AWS.
+- [AWS Serverless Architecture](https://cp.certmetrics.com/amazon/en/public/verify/credential/7ed5cd682f894cbb93b854b148f4da49): Lambda, DynamoDB, and API Gateway patterns built for the AWS Developer Associate certification.
+
+## Open-source contributions
+
+- [Metta AI — Multi-Agent RL Platform](https://github.com/Metta-AI/metta) (Softmax): 1,180+ commits — Claude Code plugins, MCP tool harnesses, a Kubernetes job-lifecycle watcher, a Datadog + OpenTelemetry observability pipeline, and a 21-table PostgreSQL data layer with zero-downtime Helm migrations.
+- [Goldi — AI Career Assistant](https://goldi.climbtogether.co/) (Climb Together): conversational AI career assistant with LangChain, OpenAI, Anthropic Claude, and Hume AI voice; distributed onboarding architecture scaled to 100K+ users. Supported by Google.org and Walmart.org.
+- [Factorbook 2.0 — Genomic Research Platform](https://factorbook2-0.vercel.app/) ([source](https://github.com/weng-lab/Factorbook2.0)) (UMass Chan Medical School): React/Next.js/GraphQL genomic research platform, 40% faster First Contentful Paint, 500+ tests at 98%+ coverage.
+
+## Certifications
+
+- AWS Certified Developer — Associate, 2024 — [verify](https://cp.certmetrics.com/amazon/en/public/verify/credential/7ed5cd682f894cbb93b854b148f4da49)
+- IBM AI Developer (IBM · Coursera) — [verify](https://coursera.org/verify/professional-cert/2UU4UYDG6R6V)
+- AWS Certified Cloud Practitioner (Amazon Web Services) — [verify](https://cp.certmetrics.com/amazon/en/public/verify/credential/B2NDSG6JF114115G)
+- IBM Data Science (IBM · Coursera) — [verify](https://www.coursera.org/account/accomplishments/professional-cert/EW88XURE6LLM)
+- Open Source Software Development, Linux & Git (Coursera Specialization) — [verify](https://www.coursera.org/account/accomplishments/specialization/UZCVHP8ETK29)
+- Google Cloud Fundamentals (Google Cloud)
+- Game Development in Unity (C#) (Unity)
+
+## Contact
+
+- Email: akshaykalapgar23@gmail.com
+- LinkedIn: https://www.linkedin.com/in/akshaykalapgar/
+- GitHub: https://github.com/Akkikens
+- Resume: https://akshaykalapgar.com/resume.pdf
+- Site: https://akshaykalapgar.com

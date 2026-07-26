@@ -1,194 +1,58 @@
- <div align="center">
-  <img alt="Logo" src="https://user-images.githubusercontent.com/62770500/199333052-3cd38b31-7e77-4883-a1ff-a037afcc0492.png" width="100" />
-</div>
-
-<h1 align="center">AkshayKalapgar.com - v1</h1>
+<h1 align="center">akshaykalapgar.com — v2 "Mission Control"</h1>
 
 <p align="center">
-  The first iteration of <a href="https://akshaykalapgar.com" target="_blank">AkshayKalapgar.com</a>, built with <a href="https://nextjs.org/" target="_blank">Next.js</a> and hosted on <a href="https://vercel.com/" target="_blank">Vercel</a>.
+  <a href="https://akshaykalapgar.com" target="_blank">akshaykalapgar.com</a> — the portfolio of an AI Agent Engineer,
+  presented as a live agent-orchestration console. Built with <a href="https://nextjs.org/" target="_blank">Next.js 16</a>,
+  deployed on <a href="https://vercel.com/" target="_blank">Vercel</a> as a fully static export.
 </p>
 
+## The concept
 
-<p align="center">
-  <a href="https://akshaykalapgar.com" target="_blank">
-    <img src="https://raw.githubusercontent.com/DataDog/integrations-extras/master/vercel/images/logo-full-black.png" width="100" alt="Vercel Status" />
-  </a>
-</p>
+The site's signature is a WebGL **agent constellation** (React Three Fiber): glowing agent nodes
+around an orchestrator core, with light pulses traveling the edges like tool calls. Sections are
+structured as **trace spans** (`TRACE 003 — experience`) — a career, like an agent run, is a
+temporal sequence. Palette: amber phosphor signal on deep-space blue-black.
 
-## 🚀 About This Repository
+Full design + engineering spec: [SPEC.md](./SPEC.md) · Design tokens: [app/globals.css](./app/globals.css) ·
+Design-system intent: [design-system/akshay-kalapgar-portfolio/MASTER.md](./design-system/akshay-kalapgar-portfolio/MASTER.md)
 
-I’m excited to see my portfolio gaining traction, inspiring developers worldwide. This repository contains the full source code for my website, which you’re welcome to use for your own projects. If you do, a credit link back would be greatly appreciated! 😊
+## Stack
 
-### 🔥 Unique Features
-- **Fully responsive** design built with **Tailwind CSS**
-- **Framer Motion** animations for smooth transitions
-- **Next.js** for optimal **SEO** and **performance**
-- **Custom "This website can't be reached" trick** for a playful user experience
-- **Open-source** with a modular and scalable structure
+- **Next.js 16** (App Router, `output: "export"` — pure static files, no server)
+- **React 19** + TypeScript strict
+- **Tailwind CSS v4** (CSS-first `@theme` tokens, no config file)
+- **three / @react-three/fiber / drei** — the 3D hero, lazy-loaded off the critical path
+- **framer-motion 12** — reveals, the scroll-scrubbed film section, micro-interactions
+- **Lenis** — window-mode inertia scrolling (touch stays native)
 
-**Note:** While some design inspiration comes from Anaflous Abdellatif’s portfolio, all code has been written from scratch.
+## Highlights
 
-## 📌 Table of Contents
-- [Description](#description)
-- [Technologies & Libraries](#technologies--libraries)
-- [Installation & Setup](#installation--setup)
-- [Building for Production](#building-for-production)
-- [API Endpoints](#api-endpoints)
-- [Color Palette](#color-palette)
-- [License](#license)
-- [Author](#author)
+- **3D hero** with ignition cascade, mouse parallax, offscreen/hidden-tab pausing, an SVG
+  poster fallback for reduced-motion/no-WebGL visitors, and zero per-frame React state
+- **Scroll-scrubbed cinematic film** (`components/sections/Film.tsx`) — CSS-sticky pin,
+  spring-smoothed `currentTime` seeking against keyframe-dense video, IO-deferred loading
+- **SEO suite**: schema.org `@graph` (Person/WebSite/ProfilePage + credentials), build-time
+  OG/Twitter cards (`ImageResponse`), `sitemap.ts` / `robots.ts` / `manifest.ts`, `llms.txt`
+- **Accessibility floor**: single h1, landmarks + skip link, focus-visible everywhere,
+  44px targets, every animation has a `prefers-reduced-motion` branch
+- All copy lives in [`lib/content.ts`](./lib/content.ts) — components render, content is data
 
-## 📝 Description
-This portfolio serves as a personal space to showcase my projects, skills, and experience. I chose **Next.js** for its **server-side rendering (SSR)**, which enhances **SEO** and improves page load times. Styling is managed with **Tailwind CSS**, ensuring a visually appealing, responsive layout with minimal effort.
+## Development
 
----
-
-## 💡 Technologies & Libraries
-This project utilizes the following tools and libraries:
-
-- **Next.js** (React Framework)
-- **TypeScript** (Strongly typed JavaScript)
-- **Tailwind CSS** (Utility-first styling)
-- **Framer Motion** (Smooth animations)
-- **Google API** (Geolocation services)
-- **Node.js** (Backend functionalities)
-- **Vercel Analytics** (Performance monitoring)
-
-For additional dependencies, refer to the [`package.json`](package.json) file.
-## Sponsor Me
-If you appreciate my work, consider sponsoring me on GitHub!
-
-[[Sponsor](https://github.com/sponsors/Akkikens)]
-
----
-
-## 🛠 Installation & Setup
-
-To run this project locally, follow these steps:
-
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/Akkikens/akshay-portfolio.git
-   ```
-
-2. **Install Node.js via NVM (Recommended):**
-   ```sh
-   nvm install
-   ```
-
-3. **Install dependencies:**
-   ```sh
-   yarn
-   ```
-
-4. *(Optional)*: Create a `.env` file for environment variables:
-   ```sh
-   touch .env
-   ```
-
-5. *(Optional)*: Add your Google API key inside `.env`:
-   ```sh
-   NEXT_PUBLIC_KEY_GOOGLE_API="your-api-key"
-   ```
-   **Note:** Not adding a Google API key may cause incorrect or missing zip codes in the geolocation service.
-
-6. **Start the development server:**
-   ```sh
-   yarn dev
-   ```
-
----
-
-## 🚀 Building for Production
-
-To generate and preview the production build:
-
-1. **Generate a static build:**
-   ```sh
-   yarn build
-   ```
-2. **Preview the site before deployment:**
-   ```sh
-   yarn run serve
-   ```
-
----
-
-## 🔗 API Endpoints
-
-### 📍 Endpoint 1: Get User Info by IP
-Returns a JSON object with details about the provided IP address.
-```api
-/api/userInfoByIP/[IP-Address]
-```
-**Example:**
-```api
-/api/userInfoByIP/159.89.173.104
-```
-**Response:**
-```json
-{
-  "zip": "560002",
-  "country": "India",
-  "city": "Bengaluru",
-  "isp": "DigitalOcean, LLC",
-  "timezone": "Asia/Kolkata"
-}
+```bash
+npm install
+npm run dev      # dev server on :3000
+npm run build    # static export → out/
 ```
 
-### 📍 Endpoint 2: Get Zip Code by Latitude & Longitude
-Returns the postal code for the given coordinates.
-```api
-/api/userInfoByLatLon/[lat]/[lon]
-```
-**Example:**
-```api
-/api/userInfoByLatLon/12.9634/77.5855
-```
-**Response:**
-```json
-{"zipcode": "56998"}
-```
+The previous site (v1) is preserved under [`legacy/`](./legacy/) for reference and is excluded
+from the build.
 
-### 📍 Endpoint 3: Get a Random Quote
-Returns a random quote based on a specified minimum character length.
-```api
-/api/typing/[minLength]
-```
-**Notes:**
-- `minLength` must be between **10 and 300**.
-- This is a customized endpoint using Next.js API routes.
+## License
 
----
+Open source — you're welcome to learn from the code. If you reuse substantial parts,
+a credit link back is appreciated.
 
-## 🎨 Color Palette
-| Color          | Hex Code |
-|---------------|----------|
-| **Navy**       | `#0a192f` |
-| **Light Navy** | `#112240` |
-| **Slate**      | `#8892b0` |
-| **Green**      | `#64ffda` |
-| **White**      | `#e6f1ff` |
+## Author
 
----
-
-## 📜 License
-
-This project is licensed under the **MIT License**.
-
-```
-MIT License
-
-Copyright (c) 2024 Akshay Kalapgar
-
-Permission is hereby granted, free of charge, to use, copy, modify, and distribute this software.
-```
-
----
-
-## 👨‍💻 Author
-
-- **LinkedIn**: [@Akshay-Kalapgar](https://www.linkedin.com/in/akshaykalapgar)
-- **Website**: [AkshayKalapgar.com](https://akshaykalapgar.com)
-
-[🔝 Back to Top](#)
+**Akshay Kalapgar** — [GitHub](https://github.com/Akkikens) · [LinkedIn](https://www.linkedin.com/in/akshaykalapgar/)

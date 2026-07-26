@@ -1,208 +1,83 @@
-# Design System Master File
+# Design System Master File — "Mission Control" (v2)
 
 > **LOGIC:** When building a specific page, first check `design-system/pages/[page-name].md`.
 > If that file exists, its rules **override** this Master file.
 > If not, strictly follow the rules below.
+>
+> The authoritative, more detailed spec for the v2 rebuild lives at `/SPEC.md` (repo root).
+> Tokens are implemented in `app/globals.css` (Tailwind v4 `@theme`) — that file is the
+> source of truth for values; this file is the source of truth for intent.
 
 ---
 
 **Project:** Akshay Kalapgar Portfolio
-**Generated:** 2026-06-09 19:17:55
-**Category:** Developer Tool / IDE
+**Updated:** 2026-07-26
+**Concept:** Mission control for agents — a calm, premium operations console observing a live
+multi-agent system. Signature element: the WebGL agent-constellation hero. Structural device:
+sections labeled as trace spans (`TRACE 003 — experience`).
 
 ---
 
 ## Global Rules
 
-### Color Palette
+### Color Palette (amber phosphor on deep space)
 
-| Role | Hex | CSS Variable |
-|------|-----|--------------|
-| Primary | `#1E293B` | `--color-primary` |
-| On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#334155` | `--color-secondary` |
-| Accent/CTA | `#22C55E` | `--color-accent` |
-| Background | `#0F172A` | `--color-background` |
-| Foreground | `#F8FAFC` | `--color-foreground` |
-| Muted | `#272F42` | `--color-muted` |
-| Border | `#475569` | `--color-border` |
-| Destructive | `#EF4444` | `--color-destructive` |
-| Ring | `#1E293B` | `--color-ring` |
+| Role | Hex | Token |
+|------|-----|-------|
+| Background (deep space blue-black) | `#060810` | `--color-void` |
+| Elevated surface | `#0B101E` | `--color-raised` |
+| Glass panel fill (use w/ alpha) | `#101729` | `--color-panel` |
+| Primary text (warm paper white) | `#EDEAE2` | `--color-ink` |
+| Secondary text | `#A8ADBD` | `--color-ink-dim` |
+| Tertiary/metadata (≥16px only) | `#6B7285` | `--color-ink-faint` |
+| **Signal accent (amber phosphor)** | `#FFB224` | `--color-signal` |
+| Signal hover | `#FFC95C` | `--color-signal-bright` |
+| Signal wash | `rgba(255,178,36,0.13)` | `--color-signal-dim` |
+| Depth (indigo-violet; 3D scene/gradients only, never text) | `#6D5EF0` | `--color-depth` |
+| Hairline border | `rgba(237,234,226,0.09)` | `--color-line` |
+| Hover border | `rgba(237,234,226,0.18)` | `--color-line-bright` |
 
-**Color Notes:** Code dark + run green
+**Why amber:** pre-GUI terminals used amber phosphor for precision night work — warm, human,
+technical. Deliberately NOT slate+green dev-template, acid-green hacker, or cyan AI-gradient.
 
 ### Typography
 
-- **Heading Font:** Inter
-- **Body Font:** Inter
-- **Mood:** dark, cinematic, technical, precision, clean, premium, developer, professional, high-end utility
-- **Google Fonts:** [Inter + Inter](https://fonts.google.com/share?selection.family=Inter:wght@300;400;500;600;700)
+- **Display:** Bricolage Grotesque (700/800, tracking −0.02…−0.03em) — hero name, H2s, big numbers
+- **Body:** Instrument Sans (400/500/600) — paragraphs, UI
+- **Mono:** JetBrains Mono (400/500) — trace labels, eyebrows, metadata, chips (uppercase, +0.12em)
+- Loaded via `next/font/google` (self-hosted at build; zero external font requests)
 
-**CSS Import:**
-```css
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-```
+### Motion
 
-### Spacing Variables
+- House ease `cubic-bezier(0.22,1,0.36,1)`; micro 150–250ms; reveals 500–600ms; stagger 40–60ms
+- Springs: scrub `{120, 24}`, hover `{300, 20, 0.5}` (see `lib/motion.ts`)
+- Lenis window-mode smooth scroll (`lerp 0.09`, touch native); `overflow-x: clip` (never `hidden` — kills sticky)
+- Every effect has a `prefers-reduced-motion` branch. CSS transitions never include `transform`
+  (framer owns transforms — double-easing causes jitter)
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--space-xs` | `4px` / `0.25rem` | Tight gaps |
-| `--space-sm` | `8px` / `0.5rem` | Icon gaps, inline spacing |
-| `--space-md` | `16px` / `1rem` | Standard padding |
-| `--space-lg` | `24px` / `1.5rem` | Section padding |
-| `--space-xl` | `32px` / `2rem` | Large gaps |
-| `--space-2xl` | `48px` / `3rem` | Section margins |
-| `--space-3xl` | `64px` / `4rem` | Hero padding |
+### Structure
 
-### Shadow Depths
-
-| Level | Value | Usage |
-|-------|-------|-------|
-| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Subtle lift |
-| `--shadow-md` | `0 4px 6px rgba(0,0,0,0.1)` | Cards, buttons |
-| `--shadow-lg` | `0 10px 15px rgba(0,0,0,0.1)` | Modals, dropdowns |
-| `--shadow-xl` | `0 20px 25px rgba(0,0,0,0.15)` | Hero images, featured cards |
-
----
-
-## Component Specs
-
-### Buttons
-
-```css
-/* Primary Button */
-.btn-primary {
-  background: #22C55E;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-/* Secondary Button */
-.btn-secondary {
-  background: transparent;
-  color: #1E293B;
-  border: 2px solid #1E293B;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-```
-
-### Cards
-
-```css
-.card {
-  background: #0F172A;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
-```
-
-### Inputs
-
-```css
-.input {
-  padding: 12px 16px;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 200ms ease;
-}
-
-.input:focus {
-  border-color: #1E293B;
-  outline: none;
-  box-shadow: 0 0 0 3px #1E293B20;
-}
-```
-
-### Modals
-
-```css
-.modal-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-}
-
-.modal {
-  background: white;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--shadow-xl);
-  max-width: 500px;
-  width: 90%;
-}
-```
-
----
-
-## Style Guidelines
-
-**Style:** Dark Mode (OLED)
-
-**Keywords:** Dark theme, low light, high contrast, deep black, midnight blue, eye-friendly, OLED, night mode, power efficient
-
-**Best For:** Night-mode apps, coding platforms, entertainment, eye-strain prevention, OLED devices, low-light
-
-**Key Effects:** Minimal glow (text-shadow: 0 0 10px), dark-to-light transitions, low white emission, high readability, visible focus
-
-### Page Pattern
-
-**Pattern Name:** Portfolio Grid
-
-- **Conversion Strategy:** Visuals first. Filter by category. Fast loading essential.
-- **CTA Placement:** Project Card Hover + Footer Contact
-- **Section Order:** 1. Hero (Name/Role), 2. Project Grid (Masonry), 3. About/Philosophy, 4. Contact
+- Sections = trace spans: mono eyebrow `TRACE 00N — label` + hairline + right annotation, then display H2
+- Container `max-w-6xl px-6 md:px-10`; sections `py-28 md:py-40`
+- Radii: cards 1rem (`rounded-2xl`), chips full, buttons `rounded-lg`
 
 ---
 
 ## Anti-Patterns (Do NOT Use)
 
-- ❌ Light mode default
-- ❌ Slow performance
-
-### Additional Forbidden Patterns
-
-- ❌ **Emojis as icons** — Use SVG icons (Heroicons, Lucide, Simple Icons)
-- ❌ **Missing cursor:pointer** — All clickable elements must have cursor:pointer
-- ❌ **Layout-shifting hovers** — Avoid scale transforms that shift layout
-- ❌ **Low contrast text** — Maintain 4.5:1 minimum contrast ratio
-- ❌ **Instant state changes** — Always use transitions (150-300ms)
-- ❌ **Invisible focus states** — Focus states must be visible for a11y
-
----
+- ❌ Light mode / theme toggle
+- ❌ Emojis as icons — inline SVG only (consistent 1.75 stroke)
+- ❌ Gradient-clipped hero text, purple-cyan AI gradients
+- ❌ Scroll-jacking; layout-shifting hovers; instant state changes
+- ❌ Low contrast: `ink-faint` below 16px, `signal` as body text color
+- ❌ Numbered markers outside the trace-span system
+- ❌ New hex values in components — tokens only
 
 ## Pre-Delivery Checklist
 
-Before delivering any UI code, verify:
-
-- [ ] No emojis used as icons (use SVG instead)
-- [ ] All icons from consistent icon set (Heroicons/Lucide)
-- [ ] `cursor-pointer` on all clickable elements
-- [ ] Hover states with smooth transitions (150-300ms)
-- [ ] Light mode: text contrast 4.5:1 minimum
-- [ ] Focus states visible for keyboard navigation
-- [ ] `prefers-reduced-motion` respected
-- [ ] Responsive: 375px, 768px, 1024px, 1440px
-- [ ] No content hidden behind fixed navbars
-- [ ] No horizontal scroll on mobile
+- [ ] One `<h1>` per page; sections h2, cards h3
+- [ ] Focus visible (amber ring), 44×44 touch targets, aria-labels on icon buttons
+- [ ] `prefers-reduced-motion` respected (static variants, no canvas loop)
+- [ ] Images have width/height (no CLS); hovers use transform/opacity/color only
+- [ ] Responsive at 375 / 768 / 1024 / 1440; no horizontal scroll
+- [ ] 3D/heavy layers lazy-loaded client-side; SSR HTML carries all text content

@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+/*
+ * Mission Control token system — see SPEC.md §2.
+ * Amber phosphor signal on deep-space blue-black. Dark-only by design.
+ */
+@theme {
+  /* Reset Tailwind's default palette out of the way — the site uses semantic tokens. */
+  --color-void: #060810;
+  --color-raised: #0b101e;
+  --color-panel: #101729;
+  --color-ink: #edeae2;
+  --color-ink-dim: #a8adbd;
+  /* 5.45:1 on void — the previous #6B7285 measured 4.16:1, under AA for the
+     12–16px mono metadata this token actually decorates. */
+  --color-ink-faint: #7e859c;
+  --color-signal: #ffb224;
+  --color-signal-bright: #ffc95c;
+  --color-signal-dim: rgba(255, 178, 36, 0.13);
+  --color-depth: #6d5ef0;
+  --color-line: rgba(237, 234, 226, 0.09);
+  --color-line-bright: rgba(237, 234, 226, 0.18);
+
+  --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: var(--font-instrument), "Instrument Sans", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
+
+  --ease-house: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+  --animate-blink: blink 1.1s step-end infinite;
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll architecture (ported from v1 — hard-won, do not "simplify"): */
+/* the window is the ONLY scroll container. Lenis drives real window   */
+/* scroll. overflow-x is `clip`, NOT `hidden` — hidden silently kills  */
+/* position:sticky pins. scroll-behavior stays `auto` so CSS smooth    */
+/* scrolling never fights Lenis's rAF loop.                            */
+/* ------------------------------------------------------------------ */
+html {
+  scroll-behavior: auto;
+  background: var(--color-void);
+}
+
+body {
+  overflow-x: clip;
+  background: var(--color-void);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(255, 178, 36, 0.28);
+  color: #fff8ea;
+}
+
+/* Custom scrollbar — quiet, amber on hover */
+html::-webkit-scrollbar { width: 10px; }
+html::-webkit-scrollbar-track { background: var(--color-void); }
+html::-webkit-scrollbar-thumb {
+  background: #1d2436;
+  border-radius: 5px;
+  border: 2px solid var(--color-void);
+}
+html::-webkit-scrollbar-thumb:hover { background: #2c3550; }
+
+/* Visible keyboard focus everywhere — amber ring */
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+a, button, [role="button"] { cursor: pointer; }
+
+/* CSS transitions cover color/bg/border/opacity/shadow ONLY — transform is
+   deliberately excluded so CSS never double-eases framer-motion's inline
+   transforms (v1 lesson). */
+a, button {
+  transition-property: color, background-color, border-color, opacity, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+}
+
+/* ---------------------------- Utilities ---------------------------- */
+
+.glass-panel {
+  background: color-mix(in srgb, var(--color-panel) 72%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+}
+
+.span-label {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-signal);
+}
+
+.text-balance { text-wrap: balance; }
+
+/* Duotone portrait treatment: grayscale base + amber wash + scanlines */
+.duotone-frame img {
+  filter: grayscale(0.85) contrast(1.05) brightness(0.92);
+}
+.duotone-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(160deg, rgba(255, 178, 36, 0.18), rgba(109, 94, 240, 0.12) 70%);
+  mix-blend-mode: color;
+  pointer-events: none;
+}
+.duotone-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(6, 8, 16, 0.14) 3px,
+    rgba(6, 8, 16, 0.14) 4px
+  );
+  pointer-events: none;
+}
+
+/* Corner fiducials (mission-control brackets) — apply to a relatively
+   positioned frame; draws four 14px amber corner brackets. */
+.fiducials {
+  position: relative;
+}
+.fiducials > .fiducial-corners {
+  position: absolute;
+  inset: -1px;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--color-signal), var(--color-signal)) top left / 14px 1.5px,
+    linear-gradient(var(--color-signal), var(--color-signal)) top left / 1.5px 14px,
+    linear-gradient(var(--color-signal), var(--color-signal)) top right / 14px 1.5px,
+    linear-gradient(var(--color-signal), var(--color-signal)) top right / 1.5px 14px,
+    linear-gradient(var(--color-signal), var(--color-signal)) bottom left / 14px 1.5px,
+    linear-gradient(var(--color-signal), var(--color-signal)) bottom left / 1.5px 14px,
+    linear-gradient(var(--color-signal), var(--color-signal)) bottom right / 14px 1.5px,
+    linear-gradient(var(--color-signal), var(--color-signal)) bottom right / 1.5px 14px;
+  background-repeat: no-repeat;
+  opacity: 0.75;
+}
+
+/* Underline sweep for inline links */
+.link-sweep {
+  position: relative;
+  text-decoration: none;
+}
+.link-sweep::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1.5px;
+  width: 100%;
+  background: var(--color-signal);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 260ms var(--ease-house);
+}
+.link-sweep:hover::after,
+.link-sweep:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Reduced motion: kill decorative animation globally */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto !important; }
+}
