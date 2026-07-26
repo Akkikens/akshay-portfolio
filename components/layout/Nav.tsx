@@ -212,7 +212,7 @@ export default function Nav() {
           </a>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-            {navItems.map((item) => {
+            {navItems.map((item, i) => {
               const isActive = activeId === item.id;
               return (
                 <a
@@ -229,8 +229,13 @@ export default function Nav() {
                       isActive ? "bg-signal" : "bg-transparent"
                     }`}
                   />
+                  {/* Sequential position in THIS nav (01..04), not the section's
+                      registry index (1/3/4/8) — the raw index reads as broken
+                      numbering ("where's 2, 5, 6, 7?") since only a curated
+                      subset of the 8 trace spans appears here. The full 1-8
+                      sequence lives in TraceRail, where every span gets a mark. */}
                   <span aria-hidden className="text-ink-faint">
-                    {String(item.index).padStart(2, "0")}
+                    {String(i + 1).padStart(2, "0")}
                   </span>
                   {item.nav}
                 </a>
@@ -310,7 +315,7 @@ export default function Nav() {
                 }`}
               >
                 <span className="font-mono text-base font-medium text-ink-faint">
-                  {String(item.index).padStart(2, "0")}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
                 {item.nav}
               </motion.a>
