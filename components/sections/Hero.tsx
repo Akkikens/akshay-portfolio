@@ -1,13 +1,14 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useMotionValueEvent } from "framer-motion";
 
 import { EASE_OUT } from "@/lib/motion";
 import { hero } from "@/lib/content";
 import MagneticButton from "@/components/ui/MagneticButton";
 import ConstellationFallback, { useCanRender3D } from "@/components/three/ConstellationFallback";
+import HeroName3D from "./HeroName3D";
 
 /**
  * The signature WebGL scene is heavy (three + R3F). Load it only on the
@@ -23,11 +24,13 @@ const AgentConstellation = dynamic(() => import("@/components/three/AgentConstel
 /** Mount-triggered reveal (not scroll-triggered — this fires once on load). */
 const REVEAL_DURATION = 0.6;
 
-/** Load choreography offsets, in seconds — see SPEC.md §5.2. */
+/**
+ * Load choreography offsets, in seconds — see SPEC.md §5.2. The name itself
+ * is animated by HeroName3D (per-letter 3D entrance, starting at the same
+ * moment `status` finishes, via its own ENTRANCE_BASE_DELAY).
+ */
 const CHOREO = {
   status: 0,
-  nameLine1: 0.08,
-  nameLine2: 0.14,
   role: 0.2,
   tagline: 0.45,
   cta: 0.8,
@@ -62,34 +65,6 @@ function RiseBlock({
     >
       {children}
     </motion.div>
-  );
-}
-
-/** Same as RiseBlock but renders an inline <span> — used for the two name lines inside the single h1. */
-function RiseLine({
-  children,
-  delay,
-  className,
-}: {
-  children: React.ReactNode;
-  delay: number;
-  className?: string;
-}) {
-  const reduced = useReducedMotion();
-
-  if (reduced) {
-    return <span className={className}>{children}</span>;
-  }
-
-  return (
-    <motion.span
-      className={className}
-      initial={{ opacity: 0, y: 34 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: REVEAL_DURATION, ease: EASE_OUT, delay }}
-    >
-      {children}
-    </motion.span>
   );
 }
 
@@ -155,9 +130,11 @@ function ScrollCue() {
  */
 export default function Hero() {
   const canRender3D = useCanRender3D();
+  const sectionRef = useRef<HTMLElement>(null);
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
       aria-label="Introduction"
       className="relative min-h-[100dvh] w-full overflow-hidden bg-void"
@@ -191,15 +168,8 @@ export default function Hero() {
           </p>
         </RiseBlock>
 
-        {/* The only h1 on the page — both name lines live inside it. */}
-        <h1 className="mt-6 font-display text-[clamp(3.5rem,10vw,8.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-ink text-balance">
-          <RiseLine delay={CHOREO.nameLine1} className="block">
-            {hero.firstName}
-          </RiseLine>
-          <RiseLine delay={CHOREO.nameLine2} className="block">
-            {hero.lastName}
-          </RiseLine>
-        </h1>
+        {/* The only h1 on the page. */}
+        <HeroName3D firstName={hero.firstName} lastName={hero.lastName} scrollRef={sectionRef} />
 
         <RiseBlock delay={CHOREO.role} className="mt-6">
           <p className="font-body text-xl font-medium text-ink-dim md:text-2xl">{hero.role}</p>
