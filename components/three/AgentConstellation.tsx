@@ -117,6 +117,7 @@ function createGlowTexture(rgb: string): THREE.CanvasTexture {
 type NodeDatum = {
   base: THREE.Vector3;
   color: THREE.Color;
+  isIndigo: boolean;
   scale: number;
   phase: THREE.Vector3;
   driftSpeed: number;
@@ -148,6 +149,7 @@ function buildNodes(count: number): NodeDatum[] {
     nodes.push({
       base,
       color,
+      isIndigo,
       scale: MIN_NODE_SCALE + Math.random() * (MAX_NODE_SCALE - MIN_NODE_SCALE),
       phase: new THREE.Vector3(
         Math.random() * Math.PI * 2,
@@ -347,21 +349,56 @@ function Edges({ linePositions, reducedMotion }: { linePositions: Float32Array; 
   );
 }
 
+/**
+ * Renders the agent nodes as two solid-color InstancedMeshes (amber / indigo
+ * groups) plus one additive Points layer for a soft per-node glow halo.
+ *
+ * NOTE: an earlier version used ONE InstancedMesh with `vertexColors` +
+ * `mesh.setColorAt()` for per-instance color (amber/indigo/intensity all in
+ * one draw call). That path silently rendered every node pure black in this
+ * three@0.185 / @react-three/fiber@9.6 combination — the instanceColor
+ * buffer was verified correct (read back and decoded fine) but never reached
+ * the fragment shader. Root cause not worth chasing further: instanced
+ * per-vertex color is a comparatively rare code path, plain `color` on a
+ * material is not. Two flat-color meshes (proven reliable — this is exactly
+ * how OrchestratorCore renders) sidestep it entirely. Both meshes carry the
+ * full node count and zero-scale whichever instances don't belong to their
+ * color group — at 32-56 nodes total this is free, and it keeps one shared
+ * per-frame position/ignition loop instead of duplicating it per group.
+ */
 function Nodes({ nodes, reducedMotion }: { nodes: NodeDatum[]; reducedMotion: boolean }) {
-  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const amberRef = useRef<THREE.InstancedMesh>(null);
+  const indigoRef = useRef<THREE.InstancedMesh>(null);
+  const glowRef = useRef<THREE.Points>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
-  useEffect(() => {
-    const mesh = meshRef.current;
-    if (!mesh) return;
-    nodes.forEach((n, i) => mesh.setColorAt(i, n.color));
-    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+  const glow = useMemo(() => {
+    const positions = new Float32Array(nodes.length * 3);
+    const colors = new Float32Array(nodes.length * 3);
+    nodes.forEach((n, i) => {
+      positions[i * 3] = n.base.x;
+      positions[i * 3 + 1] = n.base.y;
+      positions[i * 3 + 2] = n.base.z;
+      colors[i * 3] = n.color.r;
+      colors[i * 3 + 1] = n.color.g;
+      colors[i * 3 + 2] = n.color.b;
+    });
+    return { positions, colors };
   }, [nodes]);
 
+  // White base tint + vertexColors multiplies in each node's amber/indigo hue —
+  // Points vertexColors is the reliable code path (proven by Starfield above).
+  const glowTexture = useMemo(() => createGlowTexture("255,255,255"), []);
+  useEffect(() => () => glowTexture.dispose(), [glowTexture]);
+
   useFrame((state) => {
-    const mesh = meshRef.current;
-    if (!mesh) return;
+    const amber = amberRef.current;
+    const indigo = indigoRef.current;
+    if (!amber || !indigo) return;
     const t = reducedMotion ? FROZEN_T : state.clock.elapsedTime;
+    const glowPositions = glowRef.current?.geometry.attributes.position as
+      | THREE.BufferAttribute
+      | undefined;
 
     for (let i = 0; i < nodes.length; i++) {
       const n = nodes[i];
@@ -371,20 +408,60 @@ function Nodes({ nodes, reducedMotion }: { nodes: NodeDatum[]; reducedMotion: bo
       const dx = Math.sin(t * n.driftSpeed + n.phase.x) * DRIFT_AMPLITUDE;
       const dy = Math.cos(t * n.driftSpeed * 0.8 + n.phase.y) * DRIFT_AMPLITUDE * 0.6;
       const dz = Math.sin(t * n.driftSpeed * 0.6 + n.phase.z) * DRIFT_AMPLITUDE;
+      const px = n.base.x + dx;
+      const py = n.base.y + dy;
+      const pz = n.base.z + dz;
 
-      dummy.position.set(n.base.x + dx, n.base.y + dy, n.base.z + dz);
-      dummy.scale.setScalar(Math.max(0.0001, scale));
+      dummy.position.set(px, py, pz);
+      dummy.scale.setScalar(n.isIndigo ? 0.0001 : Math.max(0.0001, scale));
       dummy.updateMatrix();
-      mesh.setMatrixAt(i, dummy.matrix);
+      amber.setMatrixAt(i, dummy.matrix);
+
+      dummy.scale.setScalar(n.isIndigo ? Math.max(0.0001, scale) : 0.0001);
+      dummy.updateMatrix();
+      indigo.setMatrixAt(i, dummy.matrix);
+
+      glowPositions?.setXYZ(i, px, py, pz);
     }
-    mesh.instanceMatrix.needsUpdate = true;
+    amber.instanceMatrix.needsUpdate = true;
+    indigo.instanceMatrix.needsUpdate = true;
+    if (glowPositions) glowPositions.needsUpdate = true;
+
+    const glowMaterial = glowRef.current?.material as THREE.PointsMaterial | undefined;
+    if (glowMaterial) {
+      const globalGrowth = easeOutCubic(t / (IGNITION_STAGGER + IGNITION_EASE_DURATION));
+      glowMaterial.opacity = 0.5 * globalGrowth;
+    }
   });
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined, undefined, nodes.length]} frustumCulled={false}>
-      <sphereGeometry args={[1, 8, 8]} />
-      <meshBasicMaterial vertexColors toneMapped={false} transparent opacity={0.95} />
-    </instancedMesh>
+    <>
+      <instancedMesh ref={amberRef} args={[undefined, undefined, nodes.length]} frustumCulled={false}>
+        <sphereGeometry args={[1, 8, 8]} />
+        <meshBasicMaterial color="#FFB224" toneMapped={false} transparent opacity={0.95} />
+      </instancedMesh>
+      <instancedMesh ref={indigoRef} args={[undefined, undefined, nodes.length]} frustumCulled={false}>
+        <sphereGeometry args={[1, 8, 8]} />
+        <meshBasicMaterial color="#6D5EF0" toneMapped={false} transparent opacity={0.95} />
+      </instancedMesh>
+      <points ref={glowRef} frustumCulled={false}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[glow.positions, 3]} />
+          <bufferAttribute attach="attributes-color" args={[glow.colors, 3]} />
+        </bufferGeometry>
+        <pointsMaterial
+          map={glowTexture}
+          vertexColors
+          transparent
+          opacity={0}
+          depthWrite={false}
+          sizeAttenuation
+          toneMapped={false}
+          blending={THREE.AdditiveBlending}
+          size={0.6}
+        />
+      </points>
+    </>
   );
 }
 
