@@ -102,7 +102,11 @@ export default function Nav() {
           }
         });
 
-        if (visibleTops.size === 0) return;
+        // Nothing registered in view (the hero) — no span is active.
+        if (visibleTops.size === 0) {
+          setActiveId("");
+          return;
+        }
 
         const [currentId] = [...visibleTops.entries()].sort(
           (a, b) => Math.abs(a[1]) - Math.abs(b[1])

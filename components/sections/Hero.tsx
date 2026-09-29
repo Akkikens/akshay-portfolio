@@ -1,42 +1,25 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useMotionValueEvent } from "framer-motion";
+import { useState } from "react";
+import { motion, useReducedMotion, useScroll, useMotionValueEvent, useTransform } from "framer-motion";
 
 import { EASE_OUT } from "@/lib/motion";
 import { hero } from "@/lib/content";
 import MagneticButton from "@/components/ui/MagneticButton";
-import ConstellationFallback, { useCanRender3D } from "@/components/three/ConstellationFallback";
-import HeroName3D from "./HeroName3D";
+import CrtStage from "@/components/worlds/CrtStage";
 
-/**
- * The signature WebGL scene is heavy (three + R3F). Load it only on the
- * client, and only once we know it's worth it — `useCanRender3D` gates the
- * decision to even fetch the chunk; this dynamic wrapper's `loading` state
- * covers the gap between "worth it" and "chunk has arrived".
- */
-const AgentConstellation = dynamic(() => import("@/components/three/AgentConstellation"), {
-  ssr: false,
-  loading: () => <ConstellationFallback className="absolute inset-0 z-0" />,
-});
+const REVEAL_DURATION = 0.7;
 
-/** Mount-triggered reveal (not scroll-triggered — this fires once on load). */
-const REVEAL_DURATION = 0.6;
-
-/**
- * Load choreography offsets, in seconds — see SPEC.md §5.2. The name itself
- * is animated by HeroName3D (per-letter 3D entrance, starting at the same
- * moment `status` finishes, via its own ENTRANCE_BASE_DELAY).
- */
+/** Load choreography offsets, in seconds. The tube boots first; the name follows. */
 const CHOREO = {
-  status: 0,
-  role: 0.2,
-  tagline: 0.45,
-  cta: 0.8,
+  status: 0.15,
+  name: 0.35,
+  role: 0.7,
+  tagline: 0.85,
+  cta: 1.0,
 } as const;
 
-const SCROLL_CUE_DELAY = 1.5;
+const SCROLL_CUE_DELAY = 1.8;
 const SCROLL_THRESHOLD = 24;
 
 function RiseBlock({
@@ -68,7 +51,25 @@ function RiseBlock({
   );
 }
 
-/** Bottom-edge "scroll to inspect trace" cue. Fades out permanently after the first scroll. */
+/** One line of the name: rises out of a clipped box, like a line of type being printed. */
+function NameLine({ text, delay }: { text: string; delay: number }) {
+  const reduced = useReducedMotion();
+  if (reduced) return <span className="block">{text}</span>;
+  return (
+    <span className="block overflow-hidden pb-[0.06em] -mb-[0.06em]">
+      <motion.span
+        className="block"
+        initial={{ y: "110%", rotate: 2 }}
+        animate={{ y: 0, rotate: 0 }}
+        transition={{ duration: 0.9, ease: EASE_OUT, delay }}
+      >
+        {text}
+      </motion.span>
+    </span>
+  );
+}
+
+/** Bottom-edge scroll cue. Fades out permanently after the first scroll. */
 function ScrollCue() {
   const reduced = useReducedMotion();
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -78,17 +79,21 @@ function ScrollCue() {
     if (latest > SCROLL_THRESHOLD && !hasScrolled) setHasScrolled(true);
   });
 
+  const label = (
+    <span className="font-mono text-[0.75rem] font-medium uppercase tracking-[0.14em] text-ink-dim">
+      {hero.scrollCue}
+    </span>
+  );
+
   if (reduced) {
     return (
       <div
         aria-hidden
-        className={`pointer-events-none absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-3 transition-opacity duration-500 md:bottom-10 ${
+        className={`pointer-events-none absolute inset-x-0 bottom-7 z-10 flex flex-col items-center gap-3 transition-opacity duration-500 ${
           hasScrolled ? "opacity-0" : "opacity-100"
         }`}
       >
-        <span className="font-mono text-[0.8125rem] font-medium uppercase tracking-[0.12em] text-ink-faint">
-          {hero.scrollCue}
-        </span>
+        {label}
         <span className="block h-7 w-px bg-line-bright" />
       </div>
     );
@@ -97,7 +102,7 @@ function ScrollCue() {
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-8 z-10 flex flex-col items-center gap-3 md:bottom-10"
+      className="pointer-events-none absolute inset-x-0 bottom-7 z-10 flex flex-col items-center gap-3"
       initial={{ opacity: 0 }}
       animate={{ opacity: hasScrolled ? 0 : 1 }}
       transition={
@@ -106,9 +111,7 @@ function ScrollCue() {
           : { duration: 0.6, ease: EASE_OUT, delay: SCROLL_CUE_DELAY }
       }
     >
-      <span className="font-mono text-[0.8125rem] font-medium uppercase tracking-[0.12em] text-ink-faint">
-        {hero.scrollCue}
-      </span>
+      {label}
       <motion.span
         className="block w-px bg-line-bright"
         style={{ height: 28 }}
@@ -121,46 +124,35 @@ function ScrollCue() {
 }
 
 /**
- * Full-viewport mission-control stage. AgentConstellation renders as an
- * absolute background layer; all text content is server-rendered (this is
- * the page's LCP) and sits above it, anchored to the lower half with a
- * bottom-left vignette for contrast. `useCanRender3D` decides up front
- * whether the WebGL chunk is even worth fetching — reduced-motion / no-WebGL
- * visitors get the static fallback directly, never the three.js bundle.
+ * The hero: ThreeUI's CRT terminal boots behind the name — a green-phosphor
+ * agent boot log on a curved tube. All copy is server-rendered (the LCP) and
+ * sits over a left/bottom scrim so it stays legible against the log. As the
+ * visitor scrolls, the copy drifts up and fades while the tube stays put, so
+ * the status strip slides in over the last lines of the log.
  */
 export default function Hero() {
-  const canRender3D = useCanRender3D();
-  const sectionRef = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollY } = useScroll();
+  const copyY = useTransform(scrollY, [0, 700], [0, -80]);
+  const copyOpacity = useTransform(scrollY, [0, 260, 700], [1, 0.85, 0]);
 
   return (
     <section
-      ref={sectionRef}
       id="hero"
       aria-label="Introduction"
-      className="relative min-h-[100dvh] w-full overflow-hidden bg-void"
+      className="relative min-h-[100svh] w-full overflow-hidden bg-void"
     >
-      {canRender3D ? (
-        <AgentConstellation className="absolute inset-0 z-0" />
-      ) : (
-        <ConstellationFallback className="absolute inset-0 z-0" />
-      )}
+      <CrtStage variant="terminal" poster="/posters/crt-terminal.jpg" className="z-0" />
 
-      {/* Bottom-left vignette so hero text stays legible over the constellation. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1]"
-        style={{
-          backgroundImage:
-            "radial-gradient(60% 55% at 6% 100%, color-mix(in srgb, var(--color-void) 90%, transparent) 0%, transparent 72%)",
-        }}
-      />
+      {/* Legibility scrims — phosphor stays bright top-right, copy sits in the shade. */}
+      <div aria-hidden className="hero-scrim pointer-events-none absolute inset-0 z-[1]" />
 
-      <div className="relative z-10 mx-auto flex min-h-[100dvh] w-full max-w-6xl flex-col justify-end px-6 pb-28 pt-32 md:px-10 md:pb-36">
+      <motion.div
+        style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
+        className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-end px-6 pb-28 pt-32 md:px-10 md:pb-32"
+      >
         <RiseBlock delay={CHOREO.status} className="flex items-center gap-2.5">
-          <span
-            aria-hidden
-            className="h-2 w-2 flex-none rounded-full bg-signal animate-pulse-dot"
-          />
+          <span aria-hidden className="h-2 w-2 flex-none rounded-full bg-signal animate-pulse-dot" />
           <p className="font-mono text-[0.8125rem] font-medium uppercase tracking-[0.12em]">
             <span className="text-signal">SYSTEMS NOMINAL</span>
             <span className="text-ink-faint"> — </span>
@@ -169,13 +161,19 @@ export default function Hero() {
         </RiseBlock>
 
         {/* The only h1 on the page. */}
-        <HeroName3D firstName={hero.firstName} lastName={hero.lastName} scrollRef={sectionRef} />
+        <h1
+          aria-label={`${hero.firstName} ${hero.lastName}`}
+          className="mt-6 font-display text-[clamp(3.25rem,10vw,8.25rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-ink"
+        >
+          <NameLine text={hero.firstName} delay={CHOREO.name} />
+          <NameLine text={hero.lastName} delay={CHOREO.name + 0.08} />
+        </h1>
 
         <RiseBlock delay={CHOREO.role} className="mt-6">
-          <p className="font-body text-xl font-medium text-ink-dim md:text-2xl">{hero.role}</p>
+          <p className="font-body text-xl font-medium text-ink md:text-2xl">{hero.role}</p>
         </RiseBlock>
 
-        <RiseBlock delay={CHOREO.tagline} className="mt-6 max-w-xl">
+        <RiseBlock delay={CHOREO.tagline} className="mt-5 max-w-xl">
           <p className="text-balance font-body text-base leading-relaxed text-ink-dim md:text-lg">
             {hero.tagline}
           </p>
@@ -194,7 +192,7 @@ export default function Hero() {
             {hero.ctaSecondary.label}
           </MagneticButton>
         </RiseBlock>
-      </div>
+      </motion.div>
 
       <ScrollCue />
     </section>
