@@ -22,7 +22,7 @@ export default function About() {
         {/* Bio, mission, skills */}
         <div className="order-2 md:order-1 md:col-span-7">
           <Reveal>
-            <div className="space-y-5">
+            <div className="glass-panel space-y-5 p-6 sm:p-8">
               {about.paragraphs.map((paragraph, i) => (
                 <p
                   key={`about-p-${i}`}
@@ -49,7 +49,7 @@ export default function About() {
           </Reveal>
 
           <Reveal delay={0.14}>
-            <div className="mt-10 space-y-6">
+            <div className="glass-panel mt-8 space-y-6 p-6 sm:p-8">
               {about.skillGroups.map((group) => (
                 <div key={group.label}>
                   <p className="font-mono text-base font-medium uppercase tracking-[0.12em] text-ink-faint">
@@ -90,7 +90,7 @@ export default function About() {
 
       {/* Metrics — compact mono stat row */}
       <Reveal delay={0.2}>
-        <div className="mt-16 overflow-x-auto rounded-2xl border border-line">
+        <div className="glass-panel mt-16 overflow-x-auto">
           <dl className="flex min-w-max">
             {about.metrics.map((metric, i) => (
               <div

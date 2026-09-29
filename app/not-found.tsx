@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import MagneticButton from "@/components/ui/MagneticButton";
-import ConstellationFallback from "@/components/three/ConstellationFallback";
+import CrtStage from "@/components/worlds/CrtStage";
 
 /**
  * Without this export the 404 inherits the root layout's metadata wholesale —
@@ -28,10 +28,10 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <main className="relative flex min-h-[100dvh] w-full items-center justify-center overflow-hidden bg-void px-6">
-      <ConstellationFallback className="absolute inset-0" />
+      <CrtStage variant="blue-screen" poster="/posters/crt-blue-screen.jpg" className="z-0" />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-void via-void/60 to-transparent"
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-void via-void/70 to-void/30"
       />
 
       <div className="relative z-10 flex flex-col items-center text-center">

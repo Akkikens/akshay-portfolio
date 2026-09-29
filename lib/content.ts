@@ -12,15 +12,16 @@ export type SectionDef = {
   title: string;
   annotation?: string;
   nav?: string; // present = shows in nav, value = nav display name
+  standalone?: boolean; // non-nav span that belongs to no nav item (lights nothing)
 };
 
 export const sections: SectionDef[] = [
-  { id: "about", index: 1, label: "profile", title: "Engineer, forward-deployed", annotation: "EST. 2020", nav: "About" },
-  { id: "film", index: 2, label: "showreel", title: "How I work" },
-  { id: "experience", index: 3, label: "experience", title: "Where I've worked", annotation: "2020 — PRESENT", nav: "Experience" },
-  { id: "projects", index: 4, label: "projects", title: "Things I've built", annotation: "SELECTED WORK", nav: "Projects" },
-  { id: "opensource", index: 5, label: "open-source", title: "Contributions in production", annotation: "1,180+ COMMITS" },
-  { id: "certifications", index: 6, label: "credentials", title: "Certifications", annotation: "VERIFIED" },
+  { id: "experience", index: 1, label: "experience", title: "Where I've worked", annotation: "2020 — PRESENT", nav: "Experience" },
+  { id: "projects", index: 2, label: "projects", title: "Things I've built", annotation: "SELECTED WORK", nav: "Projects" },
+  { id: "opensource", index: 3, label: "open-source", title: "Contributions in production", annotation: "1,180+ COMMITS" },
+  { id: "certifications", index: 4, label: "credentials", title: "Certifications", annotation: "VERIFIED" },
+  { id: "film", index: 5, label: "showreel", title: "How I work", standalone: true },
+  { id: "about", index: 6, label: "profile", title: "Engineer, forward-deployed", annotation: "EST. 2020", nav: "About" },
   { id: "testimonials", index: 7, label: "signals", title: "What people say", annotation: "PEER REVIEW" },
   { id: "contact", index: 8, label: "handoff", title: "Get in touch", nav: "Contact" },
 ];

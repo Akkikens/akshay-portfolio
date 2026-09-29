@@ -338,6 +338,9 @@ export default function Film() {
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
+    // Hydration gate: the render path needs matchMedia, so the first client
+    // render must match the server's before the real variant is chosen.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     // The choice is LIVE: a page loaded in a narrow window (split screen,
     // devtools open) must swap to the desktop scrub when maximized — a

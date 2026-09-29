@@ -20,7 +20,7 @@ import { sections } from "@/lib/content";
  */
 export default function TraceRail() {
   const reduced = Boolean(useReducedMotion());
-  const [activeId, setActiveId] = useState<string>(sections[0]?.id ?? "");
+  const [activeId, setActiveId] = useState<string>("");
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
@@ -41,7 +41,11 @@ export default function TraceRail() {
           }
         });
 
-        if (visibleTops.size === 0) return;
+        // Nothing registered in view (the hero) — no span is active.
+        if (visibleTops.size === 0) {
+          setActiveId("");
+          return;
+        }
 
         const [currentId] = [...visibleTops.entries()].sort(
           (a, b) => Math.abs(a[1]) - Math.abs(b[1])

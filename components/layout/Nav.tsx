@@ -64,8 +64,8 @@ function MenuGlyph({ open }: { open: boolean }) {
  * very top of the page (over the hero). Desktop shows the nav-registry links
  * with mono index prefixes, scroll-spied against every section (not just the
  * nav-eligible ones, so the closest earlier nav item stays lit while passing
- * through non-nav spans like the film reel). Mobile collapses into a
- * focus-trapped, scroll-locked full-screen overlay.
+ * through non-nav spans; `standalone` spans like the film reel light nothing).
+ * Mobile collapses into a focus-trapped, scroll-locked full-screen overlay.
  */
 export default function Nav() {
   const reduced = useReducedMotion();
@@ -102,13 +102,21 @@ export default function Nav() {
           }
         });
 
-        if (visibleTops.size === 0) return;
+        // Nothing registered in view (the hero) — no span is active.
+        if (visibleTops.size === 0) {
+          setActiveId("");
+          return;
+        }
 
         const [currentId] = [...visibleTops.entries()].sort(
           (a, b) => Math.abs(a[1]) - Math.abs(b[1])
         )[0];
         const current = sections.find((s) => s.id === currentId);
         if (!current) return;
+        if (current.standalone) {
+          setActiveId("");
+          return;
+        }
 
         const eligible = navItems.filter((n) => n.index <= current.index);
         const target = eligible[eligible.length - 1] ?? navItems[0];

@@ -8,10 +8,11 @@
 
 ## The concept
 
-The site's signature is a WebGL **agent constellation** (React Three Fiber): glowing agent nodes
-around an orchestrator core, with light pulses traveling the edges like tool calls. Sections are
-structured as **trace spans** (`TRACE 003 — experience`) — a career, like an agent run, is a
-temporal sequence. Palette: amber phosphor signal on deep-space blue-black.
+One long scroll through three licensed [ThreeUI](https://threeui.com) worlds: a green-phosphor
+**CRT boot log** behind the name, a **living forest** (Sylva) behind the work, and a scroll-driven
+**temple night** (Kage) behind the profile and contact. Sections are structured as **trace spans**
+(`TRACE 001 — experience`) — a career, like an agent run, is a temporal sequence. Palette: amber
+phosphor signal on deep-space blue-black, shifting to ember in the night world.
 
 Full design + engineering spec: [SPEC.md](./SPEC.md) · Design tokens: [app/globals.css](./app/globals.css) ·
 Design-system intent: [design-system/akshay-kalapgar-portfolio/MASTER.md](./design-system/akshay-kalapgar-portfolio/MASTER.md)
@@ -21,16 +22,22 @@ Design-system intent: [design-system/akshay-kalapgar-portfolio/MASTER.md](./desi
 - **Next.js 16** (App Router, `output: "export"` — pure static files, no server)
 - **React 19** + TypeScript strict
 - **Tailwind CSS v4** (CSS-first `@theme` tokens, no config file)
-- **three / @react-three/fiber / drei** — the 3D hero, lazy-loaded off the critical path
+- **ThreeUI** (`components/threeui/`, vendored byte-exact and hash-verified) — the CRT shader and the Sylva / Kage scenes, loaded as same-origin frames in scene-only "background" presentation
 - **framer-motion 12** — reveals, the scroll-scrubbed film section, micro-interactions
 - **Lenis** — window-mode inertia scrolling (touch stays native)
 
 ## Highlights
 
-- **3D hero** with ignition cascade, mouse parallax, offscreen/hidden-tab pausing, an SVG
-  poster fallback for reduced-motion/no-WebGL visitors, and zero per-frame React state
+- **Three WebGL worlds on one page** (`components/worlds/`) — sticky scene layers that
+  cross-dissolve through the void, lazy-mounted near the viewport, with their
+  requestAnimationFrame loops parked while offscreen and static posters for
+  reduced-motion / no-WebGL visitors
 - **Scroll-scrubbed cinematic film** (`components/sections/Film.tsx`) — CSS-sticky pin,
-  spring-smoothed `currentTime` seeking against keyframe-dense video, IO-deferred loading
+  spring-smoothed `currentTime` seeking against keyframe-dense video, IO-deferred loading;
+  it sits on the void seam between the two worlds
+- **Scroll-driven Kage** — the parent page's scroll is written into the frame's own scroll
+  position (`components/worlds/sceneBridge.ts`), so the temple's five camera chapters and
+  foreground cut-outs play as you read
 - **SEO suite**: schema.org `@graph` (Person/WebSite/ProfilePage + credentials), build-time
   OG/Twitter cards (`ImageResponse`), `sitemap.ts` / `robots.ts` / `manifest.ts`, `llms.txt`
 - **Accessibility floor**: single h1, landmarks + skip link, focus-visible everywhere,

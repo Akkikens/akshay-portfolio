@@ -1,5 +1,31 @@
 # SPEC — Akshay Kalapgar Portfolio v2 "Mission Control"
 
+> **v2.1 addendum — ThreeUI worlds (2026-09).** The page now runs as one scroll through three
+> licensed [ThreeUI](https://threeui.com) scenes, and this supersedes §5.1 (AgentConstellation)
+> and the 3D-name part of §5.2:
+>
+> - **Hero** — ThreeUI `CrtBackground` (variant `terminal`) full-bleed in a `.shader-frame`; the
+>   name, role, tagline and CTAs sit over a left/bottom scrim. `components/sections/Hero.tsx`,
+>   `components/worlds/CrtStage.tsx`. The 404 reuses the tube in its `blue-screen` variant.
+> - **Sylva world** (`components/worlds/SylvaWorld.tsx`) — `SylvaHero` living-green in
+>   background presentation behind Experience, Projects, Open Source and Certifications.
+> - **Film** (`components/sections/Film.tsx`, §5.12 unchanged) — the scroll-scrubbed "How I work"
+>   film sits on the bare void as the seam between the two worlds.
+> - **Kage world** (`components/worlds/KageWorld.tsx`) — `KageLandingPage` in background
+>   presentation behind About, Testimonials and Contact, scroll-driven from the parent page
+>   (`components/worlds/sceneBridge.ts`); signal shifts from amber to ember inside it.
+> - `components/worlds/WorldStage.tsx` owns the sticky scene layer, the cross-dissolve through
+>   the void, lazy mounting, offscreen rAF parking, and the reduced-motion / no-WebGL posters in
+>   `public/posters/`.
+> - ThreeUI source is vendored byte-exact under `components/threeui/` (hash-verified against the
+>   bundles); only `LandingPages.tsx` is a trimmed copy. Packaged pages and assets live under
+>   `public/landing-pages/` exactly as authored.
+> - Section registry order is now experience → projects → open-source → credentials → showreel →
+>   profile → signals → handoff.
+>
+> Everything below is the original v2 spec and still governs tokens, primitives and the
+> sections it does not contradict.
+
 > Authored by Fable (design lead + architect). Implementation agents (Sonnet): read this file fully,
 > then implement ONLY the files assigned to you. Content/data comes from `lib/content.ts` — never
 > hardcode content strings in components. Design tokens come from `app/globals.css` — never invent
@@ -116,7 +142,7 @@ The signature. A living multi-agent orchestration graph rendered in R3F. Require
 - Skip link: first focusable "Skip to content" targeting `#main`.
 
 ### 5.4 `components/sections/StatusStrip.tsx` + `components/sections/About.tsx`
-- StatusStrip: thin full-width strip under hero, hairline top/bottom borders, horizontally scrolling on overflow (no marquee animation — static, `overflow-x-auto`): mono key-value pairs from `content.status` (e.g. `LOCATION: SF · CA`, `FOCUS: MULTI-AGENT SYSTEMS`, `STATUS: OPEN TO STAFF/SENIOR ROLES`). Amber keys, ink values.
+- StatusStrip: thin full-width strip under hero, hairline top/bottom borders, laid out as a hairline grid (1 / 2 / 3 columns) so no readout is ever clipped (no marquee, no horizontal scroll): mono key-value pairs from `content.status` (e.g. `LOCATION: SF · CA`, `FOCUS: MULTI-AGENT SYSTEMS`, `STATUS: OPEN TO STAFF/SENIOR ROLES`). Amber keys, ink values.
 - About (`Section index/label from registry`): two-column ≥ md (7/5). Left: paragraphs from `content.about.paragraphs` (first paragraph 1.25rem lead style), then skills as a mono chip cloud grouped by `content.about.skillGroups` (group label mono-faint, chips: line border, signal border on hover). Right: portrait `content.about.image` in a glass frame — duotone treatment (CSS: grayscale + amber-tinted gradient multiply overlay + subtle scanlines via repeating-linear-gradient), corner brackets (mission-control fiducials) drawn with ::before/::after or SVG. Reveal on scroll.
 
 ### 5.5 `components/sections/Experience.tsx`

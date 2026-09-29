@@ -200,3 +200,140 @@ a, button {
   }
   html { scroll-behavior: auto !important; }
 }
+
+/* ------------------------------------------------------------------ */
+/* ThreeUI worlds                                                      */
+/* ------------------------------------------------------------------ */
+
+/* The only rules from ThreeUI's threeui.css that the CRT and landing-page
+   frames rely on, restated here. The full sheet is kept verbatim at
+   components/threeui/threeui.css (hash-verified) but is not bundled: it
+   styles dozens of unrelated catalog components and references a font file
+   (fonts/fragment-mono.woff2) that is not part of the licensed bundles. */
+.threeui-background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: #030304;
+}
+.threeui-background > canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Full-bleed host for a ThreeUI shader background (the CRT). The vendored
+   `.threeui-background` is position:relative + 100%/100%; pinning it here
+   keeps it above the poster and inside the hero. */
+.shader-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.shader-frame > .threeui-background {
+  position: absolute;
+  inset: 0;
+  animation: world-fade-in 900ms var(--ease-house) both;
+}
+@keyframes world-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Hero composition: the tube sits beside the copy. Narrow screens stack it
+   across the top 50svh and feather its bottom edge into the void; from lg up
+   it takes the right 45% of the stage, full height, feathered on the left. */
+.hero-tube {
+  position: absolute;
+  inset: 3.5rem 0 auto 0;
+  height: 50svh;
+  overflow: hidden;
+}
+.hero-tube-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, var(--color-void) 0%, rgba(6, 8, 16, 0.6) 22%, rgba(6, 8, 16, 0) 52%),
+    linear-gradient(to right, rgba(6, 8, 16, 0.35), rgba(6, 8, 16, 0) 30%, rgba(6, 8, 16, 0) 70%, rgba(6, 8, 16, 0.35));
+}
+@media (min-width: 1024px) {
+  .hero-tube {
+    inset: 0 0 0 55%;
+    height: auto;
+  }
+  .hero-tube-fade {
+    background:
+      linear-gradient(to right, var(--color-void) 0%, rgba(6, 8, 16, 0.72) 16%, rgba(6, 8, 16, 0.18) 40%, rgba(6, 8, 16, 0) 62%),
+      linear-gradient(to top, rgba(6, 8, 16, 0.55) 0%, rgba(6, 8, 16, 0) 30%),
+      linear-gradient(to bottom, rgba(6, 8, 16, 0.35) 0%, rgba(6, 8, 16, 0) 22%);
+  }
+}
+
+/* A world's pinned scene: the landing-page frame fills the sticky layer and
+   its iframe eases in once the scene-only presentation has been installed. */
+.world-frame {
+  width: 100%;
+  height: 100%;
+}
+.world-frame > iframe {
+  transition: opacity 700ms var(--ease-house);
+}
+
+/* Soft seams at the top and bottom of every pinned scene so section
+   headers never sit against a hard scene edge. */
+.world-scrim {
+  position: absolute;
+  inset-inline: 0;
+  height: 22svh;
+  pointer-events: none;
+}
+.world-scrim--top {
+  top: 0;
+  background: linear-gradient(to bottom, var(--color-void), transparent);
+}
+.world-scrim--bottom {
+  bottom: 0;
+  background: linear-gradient(to top, var(--color-void), transparent);
+}
+
+/* Headings and eyebrows set directly on a scene get a soft halo instead of a
+   box, so the scene reads through everything except the copy itself. */
+.world h2,
+.world h3,
+.world .span-label,
+.world p {
+  text-shadow: 0 1px 2px rgba(6, 8, 16, 0.6), 0 8px 32px rgba(6, 8, 16, 0.55);
+}
+.world .glass-panel {
+  background: color-mix(in srgb, var(--color-raised) 82%, transparent);
+  backdrop-filter: blur(18px) saturate(1.1);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  border-color: var(--color-line-bright);
+}
+/* The forest is quiet by nature — let it read through the work cards. */
+.world-sylva .glass-panel {
+  background: color-mix(in srgb, var(--color-raised) 66%, transparent);
+}
+.world .glass-panel p,
+.world .glass-panel h3,
+.world .glass-panel .span-label {
+  text-shadow: none;
+}
+
+/* The night world's signal runs ember rather than amber — Kage's vermilion
+   lifted to 6.4:1 on the void so mono labels stay AA. */
+.world-kage {
+  --color-signal: #ff5a3c;
+  --color-signal-bright: #ff8a6a;
+  --color-signal-dim: rgba(255, 90, 60, 0.14);
+}
+.world-kage ::selection {
+  background: rgba(255, 90, 60, 0.3);
+}

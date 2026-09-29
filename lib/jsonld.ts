@@ -83,7 +83,7 @@ export function buildJsonLd() {
         "@type": "ProfilePage",
         "@id": `${site.url}/#profilepage`,
         url: site.url,
-        name: site.title,
+        name: site.headline,
         isPartOf: { "@id": websiteId },
         about: { "@id": personId },
         mainEntity: { "@id": personId },

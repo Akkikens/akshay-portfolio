@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     type: "website",
     url: site.url,
     siteName: `${site.name} Portfolio`,
-    title: site.title,
+    title: site.headline,
     description: site.description,
     locale: "en_US",
   },
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: site.twitterHandle,
     creator: site.twitterHandle,
-    title: site.title,
+    title: site.headline,
     description: site.description,
   },
   icons: {

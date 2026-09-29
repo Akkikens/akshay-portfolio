@@ -39,7 +39,7 @@ export default function Contact() {
     <Section {...section} title={contact.headline}>
       <div className="mx-auto flex max-w-2xl flex-col items-center gap-10 text-center">
         <Reveal>
-          <p className="text-balance text-[1.0625rem] leading-[1.65] text-ink-dim">
+          <p className="glass-panel text-balance px-7 py-5 text-[1.0625rem] leading-[1.65] text-ink-dim sm:px-9 sm:py-6">
             {contact.blurb}
           </p>
         </Reveal>

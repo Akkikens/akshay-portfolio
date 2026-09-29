@@ -1,6 +1,9 @@
 export const site = {
   name: "Akshay Kalapgar",
-  title: "Akshay Kalapgar — AI Agent Engineer · Multi-Agent Systems & MCP",
+  /** Browser-tab / document title: just the name. */
+  title: "Akshay Kalapgar",
+  /** Share-card and structured-data headline: keeps the role for discoverability. */
+  headline: "Akshay Kalapgar — AI Agent Engineer · Multi-Agent Systems & MCP",
   role: "AI Agent Engineer",
   url: "https://akshaykalapgar.com",
   domain: "akshaykalapgar.com",
