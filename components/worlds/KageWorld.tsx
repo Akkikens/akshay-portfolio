@@ -1,6 +1,6 @@
 "use client";
 
-import { KageLandingPage } from "@/components/threeui/LandingPages";
+import { KAGE_BACKGROUND_CANVAS, KageLandingPage } from "@/components/threeui/LandingPages";
 import WorldStage, { type ApplyScene } from "./WorldStage";
 
 function Scene({ applyScene }: { applyScene: ApplyScene }) {
@@ -57,6 +57,7 @@ export default function KageWorld({ children }: { children: React.ReactNode }) {
       className="world-kage"
       poster="/posters/kage.jpg"
       scrollDriven
+      expect={{ canvas: KAGE_BACKGROUND_CANVAS, pathname: "/landing-pages/kage.html", titleIncludes: "Kage" }}
       onFrameReady={hideKageWordmark}
       scene={Scene}
     >

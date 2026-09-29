@@ -14,6 +14,31 @@ import {
 
 export type ApplyScene = (frame: HTMLIFrameElement) => void;
 
+/** What the loaded frame document must be before it is allowed on screen. */
+export type SceneExpectation = {
+  /** The authored WebGL canvas (the same selector the background presentation isolates). */
+  canvas: string;
+  /** The packaged document's own path; a redirect or a 404 page changes it. */
+  pathname: string;
+  /** A fragment of the authored <title>. */
+  titleIncludes: string;
+};
+
+/** "pending" = the frame has not navigated yet (LandingPageFrame also calls applyScene on mount, before load). */
+function frameMatches(frame: HTMLIFrameElement, expect: SceneExpectation): boolean | "pending" {
+  try {
+    const doc = frame.contentDocument;
+    const win = frame.contentWindow;
+    if (!doc || !win) return false;
+    if (win.location.href === "about:blank") return "pending";
+    if (win.location.pathname !== expect.pathname) return false;
+    if (!doc.title.includes(expect.titleIncludes)) return false;
+    return Boolean(doc.querySelector(expect.canvas));
+  } catch {
+    return false;
+  }
+}
+
 type WorldStageProps = {
   id: string;
   /** Extra classes on the wrapper — used to scope the world's accent tokens. */
@@ -31,6 +56,12 @@ type WorldStageProps = {
   onFrameReady?: (frameWindow: Window) => boolean;
   /** The ThreeUI frame component; it must forward `applyScene` to its LandingPageFrame. */
   scene: React.ComponentType<{ applyScene: ApplyScene }>;
+  /**
+   * Fail-safe: if the document that loads is not this scene (a host that
+   * rewrote the URL, a 404 page, a redirect), the frame is unmounted and the
+   * poster stays. Whatever page loaded is never shown.
+   */
+  expect: SceneExpectation;
   children: React.ReactNode;
 };
 
@@ -63,6 +94,7 @@ export default function WorldStage({
   frameStyles,
   onFrameReady,
   scene: Scene,
+  expect,
   children,
 }: WorldStageProps) {
   const canRender3D = useCanRender3D();
@@ -72,6 +104,7 @@ export default function WorldStage({
   const activeRef = useRef(true);
   const fadeRef = useRef({ enter: 0.12, exit: 0.88 });
   const [mounted, setMounted] = useState(false);
+  const [rejected, setRejected] = useState(false);
 
   // Sticky span: 0 when the wrapper's top pins, 1 when its bottom leaves.
   const { scrollYProgress: pinned } = useScroll({
@@ -154,6 +187,14 @@ export default function WorldStage({
   // Runs on the frame's load (and never changes identity afterwards).
   const applyScene = useCallback<ApplyScene>(
     (frame) => {
+      const match = frameMatches(frame, expect);
+      if (match === "pending") return;
+      if (!match) {
+        // Runs from LandingPageFrame's onLoad, before it flips the frame
+        // visible — unmounting here means the wrong document never paints.
+        setRejected(true);
+        return;
+      }
       frameRef.current = frame;
       // Decorative: the parent layer is aria-hidden and nothing inside the
       // scene-only frame is focusable, so keep the frame itself out of the tab order.
@@ -181,7 +222,7 @@ export default function WorldStage({
         }, 250);
       }
     },
-    [frameStyles, onFrameReady, pinned, scrollDriven],
+    [expect, frameStyles, onFrameReady, pinned, scrollDriven],
   );
 
   return (
@@ -196,7 +237,7 @@ export default function WorldStage({
             decoding="async"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          {canRender3D && mounted ? <Scene applyScene={applyScene} /> : null}
+          {canRender3D && mounted && !rejected ? <Scene applyScene={applyScene} /> : null}
         </motion.div>
         <div className="world-scrim world-scrim--top" />
         <div className="world-scrim world-scrim--bottom" />

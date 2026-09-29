@@ -9,7 +9,7 @@ const config = [
   ...nextCoreWebVitals,
   ...nextTypescript,
   {
-    ignores: [".claude/**", "legacy/**", "out/**", "public/**", ".next/**", "node_modules/**", "next-env.d.ts"],
+    ignores: [".vercel/**", ".claude/**", "legacy/**", "out/**", "public/**", ".next/**", "node_modules/**", "next-env.d.ts"],
   },
   {
     // Static export with images.unoptimized — plain <img> is the intended path.

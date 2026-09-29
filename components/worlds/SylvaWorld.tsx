@@ -1,6 +1,6 @@
 "use client";
 
-import { SylvaHero } from "@/components/threeui/LandingPages";
+import { SYLVA_BACKGROUND_CANVAS, SylvaHero } from "@/components/threeui/LandingPages";
 import WorldStage, { type ApplyScene } from "./WorldStage";
 
 function Scene({ applyScene }: { applyScene: ApplyScene }) {
@@ -52,6 +52,7 @@ export default function SylvaWorld({ children }: { children: React.ReactNode }) 
       className="world-sylva"
       poster="/posters/sylva.jpg"
       frameStyles={SYLVA_BACKDROP_CSS}
+      expect={{ canvas: SYLVA_BACKGROUND_CANVAS, pathname: "/landing-pages/inner-green-3d.html", titleIncludes: "Sylva" }}
       scene={Scene}
     >
       {children}
