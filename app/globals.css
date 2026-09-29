@@ -246,12 +246,34 @@ a, button {
   to { opacity: 1; }
 }
 
-/* Hero legibility: the log's phosphor stays bright across the upper right;
-   the name and CTAs sit in shade along the left and bottom. */
-.hero-scrim {
+/* Hero composition: the tube sits beside the copy. Narrow screens stack it
+   across the top 50svh and feather its bottom edge into the void; from lg up
+   it takes the right 45% of the stage, full height, feathered on the left. */
+.hero-tube {
+  position: absolute;
+  inset: 3.5rem 0 auto 0;
+  height: 50svh;
+  overflow: hidden;
+}
+.hero-tube-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   background:
-    linear-gradient(to top, rgba(6, 8, 16, 0.94) 0%, rgba(6, 8, 16, 0.62) 40%, rgba(6, 8, 16, 0.18) 68%, rgba(6, 8, 16, 0) 82%),
-    linear-gradient(to right, rgba(6, 8, 16, 0.86) 0%, rgba(6, 8, 16, 0.62) 40%, rgba(6, 8, 16, 0.2) 62%, rgba(6, 8, 16, 0) 82%);
+    linear-gradient(to top, var(--color-void) 0%, rgba(6, 8, 16, 0.6) 22%, rgba(6, 8, 16, 0) 52%),
+    linear-gradient(to right, rgba(6, 8, 16, 0.35), rgba(6, 8, 16, 0) 30%, rgba(6, 8, 16, 0) 70%, rgba(6, 8, 16, 0.35));
+}
+@media (min-width: 1024px) {
+  .hero-tube {
+    inset: 0 0 0 55%;
+    height: auto;
+  }
+  .hero-tube-fade {
+    background:
+      linear-gradient(to right, var(--color-void) 0%, rgba(6, 8, 16, 0.72) 16%, rgba(6, 8, 16, 0.18) 40%, rgba(6, 8, 16, 0) 62%),
+      linear-gradient(to top, rgba(6, 8, 16, 0.55) 0%, rgba(6, 8, 16, 0) 30%),
+      linear-gradient(to bottom, rgba(6, 8, 16, 0.35) 0%, rgba(6, 8, 16, 0) 22%);
+  }
 }
 
 /* A world's pinned scene: the landing-page frame fills the sticky layer and
@@ -294,6 +316,10 @@ a, button {
   backdrop-filter: blur(18px) saturate(1.1);
   -webkit-backdrop-filter: blur(18px) saturate(1.1);
   border-color: var(--color-line-bright);
+}
+/* The forest is quiet by nature — let it read through the work cards. */
+.world-sylva .glass-panel {
+  background: color-mix(in srgb, var(--color-raised) 66%, transparent);
 }
 .world .glass-panel p,
 .world .glass-panel h3,

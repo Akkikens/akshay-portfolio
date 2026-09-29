@@ -124,11 +124,12 @@ function ScrollCue() {
 }
 
 /**
- * The hero: ThreeUI's CRT terminal boots behind the name — a green-phosphor
- * agent boot log on a curved tube. All copy is server-rendered (the LCP) and
- * sits over a left/bottom scrim so it stays legible against the log. As the
- * visitor scrolls, the copy drifts up and fades while the tube stays put, so
- * the status strip slides in over the last lines of the log.
+ * The hero: ThreeUI's CRT terminal boots beside the name — a green-phosphor
+ * agent boot log on a curved tube. The copy owns a calm zone of plain void
+ * (left on desktop, bottom on narrow screens) and the tube is a secondary
+ * backdrop confined to the rest of the stage, feathered into the void where
+ * the two meet. All copy is server-rendered (the LCP). As the visitor
+ * scrolls, the copy drifts up and fades while the tube stays put.
  */
 export default function Hero() {
   const reduced = useReducedMotion();
@@ -142,14 +143,17 @@ export default function Hero() {
       aria-label="Introduction"
       className="relative min-h-[100svh] w-full overflow-hidden bg-void"
     >
-      <CrtStage variant="terminal" poster="/posters/crt-terminal.jpg" className="z-0" />
-
-      {/* Legibility scrims — phosphor stays bright top-right, copy sits in the shade. */}
-      <div aria-hidden className="hero-scrim pointer-events-none absolute inset-0 z-[1]" />
+      {/* The tube lives beside the copy, not under it: the right 45% of the
+          stage on desktop, the top of the stage on narrow screens, and it
+          feathers into the void on the side that meets the text. */}
+      <div aria-hidden className="hero-tube z-0">
+        <CrtStage variant="terminal" poster="/posters/crt-terminal.jpg" />
+        <div className="hero-tube-fade" />
+      </div>
 
       <motion.div
         style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
-        className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-end px-6 pb-28 pt-32 md:px-10 md:pb-32"
+        className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-end px-6 pb-28 pt-[46svh] md:px-10 md:pb-32 lg:max-w-6xl lg:pt-32"
       >
         <RiseBlock delay={CHOREO.status} className="flex items-center gap-2.5">
           <span aria-hidden className="h-2 w-2 flex-none rounded-full bg-signal animate-pulse-dot" />
@@ -163,7 +167,7 @@ export default function Hero() {
         {/* The only h1 on the page. */}
         <h1
           aria-label={`${hero.firstName} ${hero.lastName}`}
-          className="mt-6 font-display text-[clamp(3.25rem,10vw,8.25rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-ink"
+          className="mt-6 font-display text-[clamp(3.25rem,10vw,7.5rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-ink"
         >
           <NameLine text={hero.firstName} delay={CHOREO.name} />
           <NameLine text={hero.lastName} delay={CHOREO.name + 0.08} />
