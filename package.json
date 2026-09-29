@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "export": "next build",
     "outzip": "npm run export && cd out && zip -r ../out.zip . && cd .."
   },
