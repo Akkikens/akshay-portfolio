@@ -142,7 +142,7 @@ The signature. A living multi-agent orchestration graph rendered in R3F. Require
 - Skip link: first focusable "Skip to content" targeting `#main`.
 
 ### 5.4 `components/sections/StatusStrip.tsx` + `components/sections/About.tsx`
-- StatusStrip: thin full-width strip under hero, hairline top/bottom borders, horizontally scrolling on overflow (no marquee animation — static, `overflow-x-auto`): mono key-value pairs from `content.status` (e.g. `LOCATION: SF · CA`, `FOCUS: MULTI-AGENT SYSTEMS`, `STATUS: OPEN TO STAFF/SENIOR ROLES`). Amber keys, ink values.
+- StatusStrip: thin full-width strip under hero, hairline top/bottom borders, laid out as a hairline grid (1 / 2 / 3 columns) so no readout is ever clipped (no marquee, no horizontal scroll): mono key-value pairs from `content.status` (e.g. `LOCATION: SF · CA`, `FOCUS: MULTI-AGENT SYSTEMS`, `STATUS: OPEN TO STAFF/SENIOR ROLES`). Amber keys, ink values.
 - About (`Section index/label from registry`): two-column ≥ md (7/5). Left: paragraphs from `content.about.paragraphs` (first paragraph 1.25rem lead style), then skills as a mono chip cloud grouped by `content.about.skillGroups` (group label mono-faint, chips: line border, signal border on hover). Right: portrait `content.about.image` in a glass frame — duotone treatment (CSS: grayscale + amber-tinted gradient multiply overlay + subtle scanlines via repeating-linear-gradient), corner brackets (mission-control fiducials) drawn with ::before/::after or SVG. Reveal on scroll.
 
 ### 5.5 `components/sections/Experience.tsx`
