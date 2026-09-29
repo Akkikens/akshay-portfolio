@@ -40,6 +40,49 @@ html[data-threeui-presentation="background"] body {
 }
 `;
 
+type ThreeLike = {
+  Object3D?: { prototype: { updateMatrixWorld: (this: SceneObject, force?: boolean) => void } };
+};
+type SceneObject = {
+  isGroup?: boolean;
+  renderOrder: number;
+  visible: boolean;
+  children: Array<{ material?: { uniforms?: Record<string, unknown> } }>;
+};
+
+/**
+ * The page builds a butterfly (`buildButterfly`) inside its own closure and
+ * exposes no scene API, so it is hidden through the one seam that is
+ * reachable: `THREE` is a global from the vendored three.min.js, and every
+ * object in the scene passes through `Object3D.prototype.updateMatrixWorld`
+ * on every rendered frame. The butterfly group is the only Group at
+ * renderOrder 5 whose children carry the wing shader (`uHind` uniform); once
+ * seen it is kept invisible for the rest of the scene's life — cruise,
+ * approach and landing included — while its update loop runs untouched.
+ */
+function hideButterfly(frameWindow: Window): boolean {
+  const three = (frameWindow as Window & { THREE?: ThreeLike }).THREE;
+  const proto = three?.Object3D?.prototype;
+  if (!proto) return false;
+  const original = proto.updateMatrixWorld;
+  const hidden = new WeakSet<SceneObject>();
+  let found = false;
+  const isButterfly = (object: SceneObject) =>
+    Boolean(object.isGroup) &&
+    object.renderOrder === 5 &&
+    object.children.some((child) => Boolean(child.material?.uniforms?.uHind));
+  proto.updateMatrixWorld = function patched(this: SceneObject, force?: boolean) {
+    if (hidden.has(this) || (!found && isButterfly(this))) {
+      found = true;
+      hidden.add(this);
+      this.visible = false;
+      (frameWindow as Window & { __sylvaButterflyHidden?: boolean }).__sylvaButterflyHidden = true;
+    }
+    return original.call(this, force);
+  };
+  return true;
+}
+
 /**
  * The living-forest world behind the work sections: ThreeUI's Sylva Hero
  * (living-green) in background presentation, so only its WebGL scene
@@ -52,6 +95,7 @@ export default function SylvaWorld({ children }: { children: React.ReactNode }) 
       className="world-sylva"
       poster="/posters/sylva.jpg"
       frameStyles={SYLVA_BACKDROP_CSS}
+      onFrameReady={hideButterfly}
       expect={{ canvas: SYLVA_BACKGROUND_CANVAS, pathname: "/landing-pages/inner-green-3d.html", titleIncludes: "Sylva" }}
       scene={Scene}
     >
