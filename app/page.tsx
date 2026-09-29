@@ -8,7 +8,7 @@ import Experience from "@/components/sections/Experience";
 import Projects from "@/components/sections/Projects";
 import OpenSource from "@/components/sections/OpenSource";
 import Certifications from "@/components/sections/Certifications";
-import Manifesto from "@/components/sections/Manifesto";
+import Film from "@/components/sections/Film";
 import About from "@/components/sections/About";
 import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
@@ -21,7 +21,7 @@ import KageWorld from "@/components/worlds/KageWorld";
  *   1. the CRT boot log (hero)
  *   2. the living forest — the work (experience, projects, open source, credentials)
  *   3. the temple night — the person (profile, signals, handoff)
- * with "How I work" set on the bare void as the seam between the two scenes.
+ * with the scroll-scrubbed "How I work" film on the void as the seam between the two scenes.
  */
 export default function Home() {
   return (
@@ -37,7 +37,7 @@ export default function Home() {
           <OpenSource />
           <Certifications />
         </SylvaWorld>
-        <Manifesto />
+        <Film />
         <KageWorld>
           <About />
           <Testimonials />

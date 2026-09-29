@@ -1,16 +1,16 @@
 # SPEC — Akshay Kalapgar Portfolio v2 "Mission Control"
 
 > **v2.1 addendum — ThreeUI worlds (2026-09).** The page now runs as one scroll through three
-> licensed [ThreeUI](https://threeui.com) scenes, and this supersedes §5.1 (AgentConstellation),
-> the 3D-name part of §5.2, and §5.12 (Film):
+> licensed [ThreeUI](https://threeui.com) scenes, and this supersedes §5.1 (AgentConstellation)
+> and the 3D-name part of §5.2:
 >
 > - **Hero** — ThreeUI `CrtBackground` (variant `terminal`) full-bleed in a `.shader-frame`; the
 >   name, role, tagline and CTAs sit over a left/bottom scrim. `components/sections/Hero.tsx`,
 >   `components/worlds/CrtStage.tsx`. The 404 reuses the tube in its `blue-screen` variant.
 > - **Sylva world** (`components/worlds/SylvaWorld.tsx`) — `SylvaHero` living-green in
 >   background presentation behind Experience, Projects, Open Source and Certifications.
-> - **Method** (`components/sections/Manifesto.tsx`) — the film's three statements on the bare
->   void, as the seam between the worlds. The scroll-scrubbed video is retired.
+> - **Film** (`components/sections/Film.tsx`, §5.12 unchanged) — the scroll-scrubbed "How I work"
+>   film sits on the bare void as the seam between the two worlds.
 > - **Kage world** (`components/worlds/KageWorld.tsx`) — `KageLandingPage` in background
 >   presentation behind About, Testimonials and Contact, scroll-driven from the parent page
 >   (`components/worlds/sceneBridge.ts`); signal shifts from amber to ember inside it.
@@ -20,7 +20,7 @@
 > - ThreeUI source is vendored byte-exact under `components/threeui/` (hash-verified against the
 >   bundles); only `LandingPages.tsx` is a trimmed copy. Packaged pages and assets live under
 >   `public/landing-pages/` exactly as authored.
-> - Section registry order is now experience → projects → open-source → credentials → method →
+> - Section registry order is now experience → projects → open-source → credentials → showreel →
 >   profile → signals → handoff.
 >
 > Everything below is the original v2 spec and still governs tokens, primitives and the

@@ -19,7 +19,7 @@ export const sections: SectionDef[] = [
   { id: "projects", index: 2, label: "projects", title: "Things I've built", annotation: "SELECTED WORK", nav: "Projects" },
   { id: "opensource", index: 3, label: "open-source", title: "Contributions in production", annotation: "1,180+ COMMITS" },
   { id: "certifications", index: 4, label: "credentials", title: "Certifications", annotation: "VERIFIED" },
-  { id: "method", index: 5, label: "method", title: "How I work", annotation: "OPERATING PRINCIPLES" },
+  { id: "film", index: 5, label: "showreel", title: "How I work" },
   { id: "about", index: 6, label: "profile", title: "Engineer, forward-deployed", annotation: "EST. 2020", nav: "About" },
   { id: "testimonials", index: 7, label: "signals", title: "What people say", annotation: "PEER REVIEW" },
   { id: "contact", index: 8, label: "handoff", title: "Get in touch", nav: "Contact" },
@@ -395,8 +395,11 @@ export const footer = {
   repo: site.repo,
 };
 
-/** "How I work" — the three operating principles set as the seam between the two worlds. */
-export const method = {
+/** Cinematic film section (ported from v1 CinematicScrub — see legacy/components/Home/CinematicScrub). */
+export const film = {
+  desktopSrc: "/cinematic-scrub.mp4",
+  mobileSrc: "/cinematic-scrub-720.mp4",
+  poster: "/cinematic-poster.jpg",
   phases: [
     { title: "Agents that think.", sub: "MULTI-AGENT ORCHESTRATION · TOOL USE" },
     { title: "Shipped to production.", sub: "HARNESSES · MCP SERVERS · EVALS" },

@@ -32,6 +32,9 @@ Design-system intent: [design-system/akshay-kalapgar-portfolio/MASTER.md](./desi
   cross-dissolve through the void, lazy-mounted near the viewport, with their
   requestAnimationFrame loops parked while offscreen and static posters for
   reduced-motion / no-WebGL visitors
+- **Scroll-scrubbed cinematic film** (`components/sections/Film.tsx`) — CSS-sticky pin,
+  spring-smoothed `currentTime` seeking against keyframe-dense video, IO-deferred loading;
+  it sits on the void seam between the two worlds
 - **Scroll-driven Kage** — the parent page's scroll is written into the frame's own scroll
   position (`components/worlds/sceneBridge.ts`), so the temple's five camera chapters and
   foreground cut-outs play as you read
