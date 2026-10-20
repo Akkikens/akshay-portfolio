@@ -43,8 +43,10 @@ function RiseBlock({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
+      // Position only: the copy is visible from the first paint (it is the
+      // LCP), so the rise never delays Largest Contentful Paint.
+      initial={{ y }}
+      animate={{ y: 0 }}
       transition={{ duration: REVEAL_DURATION, ease: EASE_OUT, delay }}
     >
       {children}

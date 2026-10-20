@@ -10,17 +10,17 @@ import Backdrop from "@/components/layout/Backdrop";
  * soft-404 signature. Every key here exists to override that inheritance.
  */
 export const metadata: Metadata = {
-  title: { absolute: "404 | Akshay Kalapgar" },
+  title: { absolute: "404 · Akshay Kalapgar" },
   description: "This page does not exist.",
   robots: { index: false, follow: false },
   alternates: {},
   openGraph: {
-    title: "404 | Akshay Kalapgar",
+    title: "404 · Akshay Kalapgar",
     description: "This page does not exist.",
   },
   twitter: {
     card: "summary",
-    title: "404 | Akshay Kalapgar",
+    title: "404 · Akshay Kalapgar",
     description: "This page does not exist.",
   },
 };

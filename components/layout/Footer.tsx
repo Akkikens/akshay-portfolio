@@ -1,5 +1,6 @@
 import { footer, socials } from "@/lib/content";
 import { site } from "@/lib/site";
+import Link from "next/link";
 
 /** Inline SVG brand marks — kept local (no shared icon module owned by another agent). */
 function GithubIcon() {
@@ -67,12 +68,18 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 border-t border-line pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-ink-dim md:justify-start">
-          <a
-            href="/privacy-policy"
+          <Link
+            href="/work/"
+            className="link-sweep transition-colors duration-200 hover:text-ink"
+          >
+            Case studies
+          </Link>
+          <Link
+            href="/privacy-policy/"
             className="link-sweep transition-colors duration-200 hover:text-ink"
           >
             Privacy Policy
-          </a>
+          </Link>
           <a
             href="/llms.txt"
             className="link-sweep transition-colors duration-200 hover:text-ink"
