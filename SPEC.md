@@ -9,9 +9,10 @@ tokens in `app/globals.css` — never put raw hex in components.
 
 ## 0. Concept
 
-Akshay is an AI agent engineer who also ships his own apps. The page has one job: in five seconds a
-hiring manager should know he builds agent systems *and* products people use, then reach the proof
-(apps, work, projects) and the résumé or contact.
+Akshay is an AI agent engineer, and the page is aimed at AI agent engineering roles. In five seconds a
+hiring manager should see his face, know he builds production agent systems, and reach the proof
+(about, experience, projects, open source) and the résumé or contact. His own apps come last, as a
+bonus.
 
 The look is **Apple-style liquid glass**: calm, premium, iOS-native. A soft luminous ground with
 slowly drifting color fields, layered translucent glass panels on top, and real depth from the
@@ -68,19 +69,20 @@ transform-only animation; static under reduced motion.
 
 ## 4. Page (`app/page.tsx`)
 
-`Backdrop` → `Nav` → Hero → StatusStrip → Apps → Experience → Projects → Open source →
-Credentials → About → Testimonials → Contact → Footer. The section registry (`sections` in
+`Backdrop` → `Nav` → Hero → StatusStrip → About (01) → Experience (02) → Projects (03) →
+Open source (04) → Credentials (05) → Testimonials (06) → Apps (07) → Contact (08) → Footer. The section registry (`sections` in
 `lib/content.ts`) drives the numbering and the nav scroll-spy.
 
 ## 5. Sections
 
-- **Hero** — a `glass-strong` panel with the status line, the name (the only h1), the role
-  "AI agent engineer — I build agent systems and the apps people use.", the tagline and the CTAs:
-  *See the apps* (solid), *Résumé* (ghost, download), *Work* and *Contact* (text links). Beside it on
-  desktop, four floating glass app-icon tiles (Wingline, Liftspark, Spark Studio, Whosnear) that
-  parallax with the pointer and the scroll at different depths and link to `#apps`. Under `lg` the
-  tiles become a calm row of four under the panel. Whosnear has no icon yet, so its tile is an SVG
-  place-pin glyph.
+- **Hero** — leads with the agent-engineer pitch. A `glass-strong` card holds the status line, the
+  name (the only h1), the role "AI agent engineer. I build agent systems and the apps people use.",
+  the tagline and the CTAs: *See my agent work* (solid, to Experience), *Résumé* (ghost, download),
+  then *Contact* and *Apps* as text links. Beside it on desktop, the portrait in a glass mat
+  (`public/portrait-hero.webp`, a 4:5 crop) with three glass proof chips ("100K+ users · Goldi",
+  "MCP servers", "Claude agents in production") resting on its lower-left edge; it drifts slightly
+  with the pointer and the scroll. Under `lg` the portrait becomes a round avatar inside the card
+  (`public/portrait-avatar.webp`) and the chips sit under the CTAs.
 - **Nav** — transparent at the top, `glass-nav` once scrolled; name on the left, five links, a glass
   Résumé pill. Mobile: full-screen `glass-overlay` menu with focus trap and `inert` page.
 - **StatusStrip** — one glass readout of key/value pairs (1/2/3 columns).
@@ -91,8 +93,12 @@ Credentials → About → Testimonials → Contact → Footer. The section regis
   one quiet glass row with no screenshot, so nothing is oversold. Status copy is deliberately
   literal; nothing claims a launch that has not happened.
 - **Experience** — glass cards on a timeline rail; each node's accent ring fades in on view.
-- **Projects / Open source / Credentials / About / Testimonials / Contact / Footer** — unchanged
-  content, restyled to the tokens above. The About portrait sits in a glass mat with no filters.
+- **About** — first section: bio and mission (7/12) beside the skill cloud (5/12), metrics below.
+  The portrait lives in the hero only.
+- **Contact** — a blurb, then one glass mail card (icon, the address, a coral "Write to me" pill;
+  the whole card is the link), then glass social buttons.
+- **Projects / Open source / Credentials / Testimonials / Footer** — unchanged content, restyled to
+  the tokens above.
 - **404** — the backdrop with one `glass-strong` card and a way home.
 - **OG / Twitter images** — dark ground, coral accent.
 
@@ -105,7 +111,14 @@ Credentials → About → Testimonials → Contact → Footer. The section regis
   descriptive alt. External links: `target="_blank" rel="noopener noreferrer"`.
 - No WebGL, no video, no third-party UI libs. Target Lighthouse mobile ≥ 90.
 
-## 7. What not to do
+## 7. Copy rules
+
+- No em dashes, and no spaced en dashes or hyphens used as dashes, anywhere a visitor or crawler
+  reads (content, metadata, OG images, `public/llms.txt`). Use periods, commas or colons. Date
+  ranges read "May 2025 to present"; metadata may use an unspaced en dash for a range.
+- Goldi's scale is "100K+ users" everywhere.
+
+## 8. What not to do
 
 - No raw hex in components (exceptions: OG image generators, which can't read CSS).
 - No gradient text, no purple-to-cyan AI gradients, no emoji icons.

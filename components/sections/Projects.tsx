@@ -81,7 +81,7 @@ function ProjectLinks({ project, size = "md" }: { project: Project; size?: "sm" 
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${project.name} — view source on GitHub`}
+          aria-label={`${project.name}: view source on GitHub`}
           className={linkClass}
         >
           <GithubIcon className={icon} />
@@ -92,7 +92,7 @@ function ProjectLinks({ project, size = "md" }: { project: Project; size?: "sm" 
           href={project.live}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${project.name} — view live`}
+          aria-label={`${project.name}: view live`}
           className={linkClass}
         >
           <ExternalLinkIcon className={icon} />

@@ -19,7 +19,7 @@
   --bg-panel: #ffffff;
   --ink: #0b0d12;
   --ink-dim: #4a5060; /* 7.3:1 on the ground */
-  --ink-faint: #676d7c; /* 4.7:1 on the ground — the floor for small mono labels */
+  --ink-faint: #676d7c; /* 4.7:1 on the ground, the floor for small mono labels */
   --signal: #c3402a; /* coral, 4.8:1 as text; white on it 5.2:1 */
   --signal-bright: #a6321f;
   --signal-dim: rgba(195, 64, 42, 0.1);
@@ -344,15 +344,6 @@ a, button {
   .glass-overlay { background: var(--bg); }
 }
 
-/* Hero app tiles: a slow float, offset per tile; still under reduced motion. */
-.hero-tile {
-  border-radius: 28%;
-  animation: tile-float 7s ease-in-out infinite;
-}
-@keyframes tile-float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -8px; }
-}
 
 /* The tinted stage an app's phone stands on, at the top of each device card. */
 .device-stage {

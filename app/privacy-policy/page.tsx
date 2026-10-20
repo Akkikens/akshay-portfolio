@@ -11,7 +11,7 @@ import { site } from "@/lib/site";
  * mono eyebrow, display H1, prose sections, back link.
  */
 export const metadata: Metadata = {
-  title: { absolute: "Privacy Policy — Akshay Kalapgar" },
+  title: { absolute: "Privacy Policy | Akshay Kalapgar" },
   description:
     "How akshaykalapgar.com handles visitor data: analytics collected, what is never gathered, and how to get in touch about it.",
   alternates: {
@@ -26,14 +26,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "article",
     url: `${site.url}/privacy-policy/`,
-    title: "Privacy Policy — Akshay Kalapgar",
+    title: "Privacy Policy | Akshay Kalapgar",
     description:
       "How akshaykalapgar.com handles visitor data: analytics collected, what is never gathered, and how to get in touch about it.",
     siteName: `${site.name} Portfolio`,
   },
   twitter: {
     card: "summary",
-    title: "Privacy Policy — Akshay Kalapgar",
+    title: "Privacy Policy | Akshay Kalapgar",
     description:
       "How akshaykalapgar.com handles visitor data: analytics collected, what is never gathered, and how to get in touch about it.",
   },

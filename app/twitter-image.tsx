@@ -6,7 +6,7 @@ import { ImageResponse } from "next/og";
  * intentionally independent, simple, static-export-baked images.
  */
 export const dynamic = "force-static";
-export const alt = "Akshay Kalapgar — AI Agent Engineer";
+export const alt = "Akshay Kalapgar, AI Agent Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -164,7 +164,7 @@ export default function Image() {
               letterSpacing: "-0.01em",
             }}
           >
-            AI Agent Engineer — Multi-Agent Systems · MCP · Evals
+            AI Agent Engineer · Multi-Agent Systems · MCP · Evals
           </div>
 
           <div

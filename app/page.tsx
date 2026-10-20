@@ -14,8 +14,8 @@ import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
 
 /**
- * One long scroll of glass over a soft luminous ground: the name, the apps,
- * the work, then the person and the handoff.
+ * One long scroll of glass over a soft luminous ground: the agent-engineer
+ * pitch, the person, the work and proof, then the apps and the handoff.
  */
 export default function Home() {
   return (
@@ -25,13 +25,13 @@ export default function Home() {
       <main id="main" tabIndex={-1} className="relative z-[1] outline-none">
         <Hero />
         <StatusStrip />
-        <Apps />
+        <About />
         <Experience />
         <Projects />
         <OpenSource />
         <Certifications />
-        <About />
         <Testimonials />
+        <Apps />
         <Contact />
       </main>
       <div className="relative z-[1]">
