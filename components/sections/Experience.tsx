@@ -15,14 +15,6 @@ import { EASE_OUT, SPRING_SCRUB } from "@/lib/motion";
 
 const section = sectionById("experience");
 
-/**
- * framer-motion's whileInView color interpolation needs literal, parseable
- * color values — it cannot resolve `var(--color-*)` the way plain CSS does.
- * These mirror the exact token values in app/globals.css (not invented).
- */
-const RAIL_LINE_BRIGHT = "rgba(237, 234, 226, 0.18)"; // --color-line-bright
-const RAIL_SIGNAL = "#FFB224"; // --color-signal
-
 /** Chevron that rotates 180deg when the span's detail panel is open. */
 function ChevronIcon({ expanded, reducedMotion }: { expanded: boolean; reducedMotion: boolean }) {
   return (
@@ -45,7 +37,7 @@ function ChevronIcon({ expanded, reducedMotion }: { expanded: boolean; reducedMo
   );
 }
 
-/** Trace-rail node: hollow amber ring that fills in once its span scrolls into view. */
+/** Timeline node: a quiet ring that turns accent once its role scrolls into view. */
 function TimelineNode({ reducedMotion }: { reducedMotion: boolean }) {
   if (reducedMotion) {
     return (
@@ -55,14 +47,18 @@ function TimelineNode({ reducedMotion }: { reducedMotion: boolean }) {
     );
   }
 
+  // Opacity, not border-color: framer-motion can't interpolate the CSS
+  // variables the theme tokens resolve to, and this works in both themes.
   return (
-    <motion.span
-      className="relative z-10 flex h-[18px] w-[18px] items-center justify-center rounded-full border-2 bg-void"
-      initial={{ borderColor: RAIL_LINE_BRIGHT }}
-      whileInView={{ borderColor: RAIL_SIGNAL }}
-      viewport={{ once: true, amount: 0.7 }}
-      transition={{ duration: 0.5, ease: EASE_OUT }}
-    >
+    <span className="relative z-10 flex h-[18px] w-[18px] items-center justify-center rounded-full border-2 border-line-bright bg-void">
+      <motion.span
+        aria-hidden
+        className="absolute -inset-[2px] rounded-full border-2 border-signal"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.7 }}
+        transition={{ duration: 0.5, ease: EASE_OUT }}
+      />
       <motion.span
         className="h-1.5 w-1.5 rounded-full bg-signal"
         initial={{ scale: 0 }}
@@ -70,7 +66,7 @@ function TimelineNode({ reducedMotion }: { reducedMotion: boolean }) {
         viewport={{ once: true, amount: 0.7 }}
         transition={{ duration: 0.35, ease: EASE_OUT, delay: 0.15 }}
       />
-    </motion.span>
+    </span>
   );
 }
 
@@ -128,7 +124,7 @@ function JobRow({ job, index, expanded, onToggle, reducedMotion }: JobRowProps) 
           onClick={onToggle}
           className="flex w-full items-center justify-between gap-3 border-t border-line px-6 py-3 text-left font-mono text-[0.75rem] font-medium uppercase tracking-[0.1em] text-ink-faint transition-colors hover:text-signal md:px-8"
         >
-          <span>{expanded ? "Hide trace detail" : "Show trace detail"}</span>
+          <span>{expanded ? "Hide details" : "Show details"}</span>
           <ChevronIcon expanded={expanded} reducedMotion={reducedMotion} />
         </button>
 
@@ -159,7 +155,7 @@ function JobRow({ job, index, expanded, onToggle, reducedMotion }: JobRowProps) 
   );
 }
 
-/** §5.5 — the trace timeline: career history as a literal agent trace. */
+/** §5.5 — the timeline: career history, newest first. */
 export default function Experience() {
   const reducedMotion = Boolean(useReducedMotion());
   const timelineRef = useRef<HTMLDivElement>(null);

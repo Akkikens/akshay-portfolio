@@ -17,5 +17,6 @@ export const site = {
   repo: "https://github.com/Akkikens/akshay-portfolio",
   portrait: "/Portfolio-portrait-5.jpg",
   resume: "/resume.pdf",
-  themeColor: "#060810",
+  themeColor: "#f3f4f8",
+  themeColorDark: "#0a0d14",
 } as const;

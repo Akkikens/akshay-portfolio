@@ -83,7 +83,7 @@ export default function Nav() {
   });
 
   // Scroll-spy across every registered section; map the currently-nearest
-  // section back to the last nav item at or before it in trace order.
+  // section back to the last nav item at or before it in page order.
   useEffect(() => {
     const targets = sections
       .map((item) => document.getElementById(item.id))
@@ -144,7 +144,7 @@ export default function Nav() {
     // overlay. The header stays interactive (it holds the close toggle).
     const inertTargets = Array.from(
       document.querySelectorAll<HTMLElement>(
-        '#main, footer, nav[aria-label="Section trace"]'
+        '#main, footer'
       )
     );
     inertTargets.forEach((el) => {
@@ -180,6 +180,7 @@ export default function Nav() {
       }
     };
 
+    const toggle = toggleRef.current;
     document.addEventListener("keydown", onKeyDown);
     return () => {
       document.removeEventListener("keydown", onKeyDown);
@@ -187,7 +188,7 @@ export default function Nav() {
       inertTargets.forEach((el) => {
         el.inert = false;
       });
-      toggleRef.current?.focus();
+      toggle?.focus();
     };
   }, [open]);
 
@@ -195,7 +196,7 @@ export default function Nav() {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-signal focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:font-semibold focus:text-void"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-signal focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:font-semibold focus:text-on-signal"
       >
         Skip to content
       </a>
@@ -203,7 +204,7 @@ export default function Nav() {
       <header
         className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
           scrolled
-            ? "border-line bg-panel/75 backdrop-blur-md"
+            ? "glass-nav border-line"
             : "border-transparent bg-transparent"
         }`}
       >
@@ -214,20 +215,20 @@ export default function Nav() {
             // pull it out of the tab order and a11y tree for the duration.
             tabIndex={open ? -1 : undefined}
             aria-hidden={open || undefined}
-            className="font-mono text-sm font-semibold tracking-[0.12em] text-ink transition-colors hover:text-signal"
+            className="font-display text-[1.0625rem] font-semibold tracking-[-0.02em] text-ink transition-colors hover:text-signal"
           >
-            AK—02
+            Akshay Kalapgar
           </a>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
-            {navItems.map((item, i) => {
+            {navItems.map((item) => {
               const isActive = activeId === item.id;
               return (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
                   aria-current={isActive ? "true" : undefined}
-                  className={`link-sweep inline-flex items-center gap-2 font-mono text-[0.8125rem] font-medium uppercase tracking-[0.12em] transition-colors ${
+                  className={`link-sweep inline-flex items-center gap-2 text-[0.9375rem] font-medium transition-colors ${
                     isActive ? "text-signal" : "text-ink-dim hover:text-ink"
                   }`}
                 >
@@ -237,14 +238,6 @@ export default function Nav() {
                       isActive ? "bg-signal" : "bg-transparent"
                     }`}
                   />
-                  {/* Sequential position in THIS nav (01..04), not the section's
-                      registry index (1/3/4/8) — the raw index reads as broken
-                      numbering ("where's 2, 5, 6, 7?") since only a curated
-                      subset of the 8 trace spans appears here. The full 1-8
-                      sequence lives in TraceRail, where every span gets a mark. */}
-                  <span aria-hidden className="text-ink-faint">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
                   {item.nav}
                 </a>
               );
@@ -291,7 +284,7 @@ export default function Nav() {
         animate={{ opacity: open ? 1 : 0 }}
         transition={{ duration: reduced ? 0 : 0.25, ease: EASE_OUT }}
         style={{ pointerEvents: open ? undefined : "none" }}
-        className="fixed inset-0 z-40 flex flex-col bg-void md:hidden"
+        className="glass-overlay fixed inset-0 z-40 flex flex-col md:hidden"
         onClick={closeMenu}
       >
         <div className="h-16 shrink-0" aria-hidden />
@@ -318,7 +311,7 @@ export default function Nav() {
                   ease: EASE_OUT,
                   delay: reduced || !open ? 0 : 0.05 * i,
                 }}
-                className={`flex items-baseline gap-4 py-3 font-display text-4xl font-bold tracking-[-0.02em] ${
+                className={`flex items-baseline gap-4 py-3 font-display text-4xl font-semibold tracking-[-0.035em] ${
                   isActive ? "text-signal" : "text-ink"
                 }`}
               >

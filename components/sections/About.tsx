@@ -5,8 +5,8 @@ import { about, sectionById } from "@/lib/content";
 const aboutSection = sectionById("about");
 
 /**
- * Profile trace-span (§5.4): bio + mission callout + mono skill cloud on the
- * left (7/12), a duotone fiducial-framed portrait on the right (5/12), and a
+ * Profile section (§5.4): bio + mission callout + mono skill cloud on the
+ * left (7/12), a glass-matted portrait on the right (5/12), and a
  * compact mono metrics readout spanning the full width beneath.
  */
 export default function About() {
@@ -70,10 +70,11 @@ export default function About() {
           </Reveal>
         </div>
 
-        {/* Portrait — duotone + fiducials */}
+        {/* Portrait — a clean photo in a glass mat */}
         <div className="order-1 md:order-2 md:col-span-5">
           <Reveal delay={0.1} className="md:sticky md:top-28">
-            <div className="duotone-frame fiducials overflow-hidden rounded-2xl border border-line bg-raised">
+            <div className="glass-panel p-2">
+            <div className="overflow-hidden rounded-[0.9rem] bg-raised">
               <img
                 src={about.image.src}
                 width={about.image.width}
@@ -82,7 +83,7 @@ export default function About() {
                 loading="lazy"
                 className="block h-auto w-full object-cover"
               />
-              <span className="fiducial-corners" aria-hidden />
+            </div>
             </div>
           </Reveal>
         </div>

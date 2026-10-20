@@ -26,8 +26,8 @@ const icons: Record<string, React.ReactNode> = {
 };
 
 /**
- * §5.8 — Contact. The closer: centered, generous whitespace. Trace-span
- * header keeps the house eyebrow (`TRACE 00N — handoff`) but the display
+ * §5.8 — Contact. The closer: centered, generous whitespace. The
+ * header keeps the house eyebrow (`08 · handoff`) but the display
  * title is overridden with `content.contact.headline` per spec. Below it,
  * a blurb, a terminal-styled mailto card (whole card is the link, blinking
  * block cursor, email selectable), then ghost social buttons.

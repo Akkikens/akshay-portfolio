@@ -1,30 +1,103 @@
 @import "tailwindcss";
 
 /*
- * Mission Control token system — see SPEC.md §2.
- * Amber phosphor signal on deep-space blue-black. Dark-only by design.
+ * Liquid-glass token system — see SPEC.md §2.
+ *
+ * Light first: a soft porcelain ground with slow luminous color fields
+ * behind layered translucent glass. Dark follows the visitor's system
+ * setting: deep blue-black with luminous glass. One accent — Wingline coral,
+ * darkened in light mode so it passes AA as text and as a button fill.
+ *
+ * Component code uses the semantic utilities below (bg-void, text-ink,
+ * text-signal, border-line …); the raw values live only in :root and the
+ * dark block, so both themes stay in lockstep.
  */
+:root {
+  color-scheme: light;
+  --bg: #f3f4f8;
+  --bg-raised: #ffffff;
+  --bg-panel: #ffffff;
+  --ink: #0b0d12;
+  --ink-dim: #4a5060; /* 7.3:1 on the ground */
+  --ink-faint: #676d7c; /* 4.7:1 on the ground — the floor for small mono labels */
+  --signal: #c3402a; /* coral, 4.8:1 as text; white on it 5.2:1 */
+  --signal-bright: #a6321f;
+  --signal-dim: rgba(195, 64, 42, 0.1);
+  --on-signal: #ffffff;
+  --blue: #1f5fd6;
+  --ochre: #8a5a00;
+  --live: #248a3d;
+  --line: rgba(15, 20, 35, 0.08);
+  --line-bright: rgba(15, 20, 35, 0.14);
+
+  --glass: rgba(255, 255, 255, 0.58);
+  --glass-strong: rgba(255, 255, 255, 0.78);
+  --glass-edge: rgba(255, 255, 255, 0.75);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --glass-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 14px 36px -10px rgba(16, 24, 40, 0.14);
+
+  --field-a: rgba(255, 132, 102, 0.42);
+  --field-b: rgba(110, 160, 255, 0.4);
+  --field-c: rgba(186, 156, 255, 0.28);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0a0d14;
+    --bg-raised: #121725;
+    --bg-panel: #161c2b;
+    --ink: #eef1f7;
+    --ink-dim: #aeb4c2;
+    --ink-faint: #8b92a3;
+    --signal: #ff7a60;
+    --signal-bright: #ff9a84;
+    --signal-dim: rgba(255, 122, 96, 0.14);
+    --on-signal: #170a06; /* dark text on the light coral fill, 9:1 */
+    --blue: #7ba8ff;
+    --ochre: #f0c062;
+    --live: #30d158;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-bright: rgba(255, 255, 255, 0.14);
+
+    --glass: rgba(26, 32, 48, 0.55);
+    --glass-strong: rgba(28, 34, 52, 0.8);
+    --glass-edge: rgba(255, 255, 255, 0.09);
+    --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 18px 44px -12px rgba(0, 0, 0, 0.65);
+
+    --field-a: rgba(255, 106, 80, 0.2);
+    --field-b: rgba(70, 120, 255, 0.24);
+    --field-c: rgba(140, 100, 255, 0.18);
+  }
+}
+
+@theme inline {
+  --color-void: var(--bg);
+  --color-raised: var(--bg-raised);
+  --color-panel: var(--bg-panel);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-ink-faint: var(--ink-faint);
+  --color-signal: var(--signal);
+  --color-signal-bright: var(--signal-bright);
+  --color-signal-dim: var(--signal-dim);
+  --color-on-signal: var(--on-signal);
+  --color-blue: var(--blue);
+  --color-ochre: var(--ochre);
+  --color-live: var(--live);
+  /* Kept so older class names still resolve to a sensible accent. */
+  --color-depth: var(--blue);
+  --color-gilt: var(--blue);
+  --color-line: var(--line);
+  --color-line-bright: var(--line-bright);
+
+  --font-display: var(--font-geist), "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-geist), "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
 @theme {
-  /* Reset Tailwind's default palette out of the way — the site uses semantic tokens. */
-  --color-void: #060810;
-  --color-raised: #0b101e;
-  --color-panel: #101729;
-  --color-ink: #edeae2;
-  --color-ink-dim: #a8adbd;
-  /* 5.45:1 on void — the previous #6B7285 measured 4.16:1, under AA for the
-     12–16px mono metadata this token actually decorates. */
-  --color-ink-faint: #7e859c;
-  --color-signal: #ffb224;
-  --color-signal-bright: #ffc95c;
-  --color-signal-dim: rgba(255, 178, 36, 0.13);
-  --color-depth: #6d5ef0;
-  --color-line: rgba(237, 234, 226, 0.09);
-  --color-line-bright: rgba(237, 234, 226, 0.18);
-
-  --font-display: var(--font-bricolage), "Bricolage Grotesque", system-ui, sans-serif;
-  --font-body: var(--font-instrument), "Instrument Sans", system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, monospace;
-
   --ease-house: cubic-bezier(0.22, 1, 0.36, 1);
 
   --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
@@ -49,40 +122,35 @@
 /* ------------------------------------------------------------------ */
 html {
   scroll-behavior: auto;
-  background: var(--color-void);
+  background: var(--bg);
 }
 
 body {
   overflow-x: clip;
-  background: var(--color-void);
-  color: var(--color-ink);
+  background: var(--bg);
+  color: var(--ink);
   font-family: var(--font-body);
-  line-height: 1.65;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11";
+}
+
+h1, h2, h3 {
+  font-feature-settings: "ss01";
 }
 
 ::selection {
-  background: rgba(255, 178, 36, 0.28);
-  color: #fff8ea;
+  background: var(--signal-dim);
+  color: var(--ink);
 }
 
-/* Custom scrollbar — quiet, amber on hover */
-html::-webkit-scrollbar { width: 10px; }
-html::-webkit-scrollbar-track { background: var(--color-void); }
-html::-webkit-scrollbar-thumb {
-  background: #1d2436;
-  border-radius: 5px;
-  border: 2px solid var(--color-void);
-}
-html::-webkit-scrollbar-thumb:hover { background: #2c3550; }
-
-/* Visible keyboard focus everywhere — amber ring */
+/* Visible keyboard focus everywhere — accent ring */
 :focus-visible {
-  outline: 2px solid var(--color-signal);
+  outline: 2px solid var(--signal);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 6px;
 }
 
 a, button, [role="button"] { cursor: pointer; }
@@ -96,76 +164,133 @@ a, button {
   transition-timing-function: ease-out;
 }
 
-/* ---------------------------- Utilities ---------------------------- */
+/* ------------------------------------------------------------------ */
+/* The backdrop: slow luminous color fields behind all the glass.      */
+/* Fixed, GPU-only (transform/opacity), paused under reduced motion.   */
+/* ------------------------------------------------------------------ */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.backdrop__field {
+  position: absolute;
+  width: 62vmax;
+  height: 62vmax;
+  border-radius: 50%;
+  filter: blur(70px);
+  will-change: transform;
+}
+.backdrop__field--a {
+  top: -22vmax;
+  right: -14vmax;
+  background: radial-gradient(circle at center, var(--field-a), transparent 66%);
+  animation: field-drift-a 38s ease-in-out infinite alternate;
+}
+.backdrop__field--b {
+  bottom: -26vmax;
+  left: -18vmax;
+  background: radial-gradient(circle at center, var(--field-b), transparent 66%);
+  animation: field-drift-b 46s ease-in-out infinite alternate;
+}
+.backdrop__field--c {
+  top: 30vh;
+  left: 36vw;
+  width: 44vmax;
+  height: 44vmax;
+  background: radial-gradient(circle at center, var(--field-c), transparent 66%);
+  animation: field-drift-c 52s ease-in-out infinite alternate;
+}
+/* A whisper of grain keeps large blurred fields from banding. */
+.backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+@keyframes field-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-8vmax, 6vmax, 0) scale(1.08); }
+}
+@keyframes field-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(9vmax, -7vmax, 0) scale(1.1); }
+}
+@keyframes field-drift-c {
+  from { transform: translate3d(0, 0, 0) scale(0.95); }
+  to { transform: translate3d(-10vmax, -4vmax, 0) scale(1.06); }
+}
 
-.glass-panel {
-  background: color-mix(in srgb, var(--color-panel) 72%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--color-line);
-  border-radius: 1rem;
+/* ---------------------------- Glass ---------------------------- */
+
+/* The house surface: translucent, blurred and saturated, with a hairline
+   inner highlight and a soft lift. `.glass-panel` is the default card;
+   `.glass-strong` is for surfaces that carry dense text (hero, nav). */
+.glass-panel,
+.glass-strong {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid var(--glass-edge);
+  border-radius: 1.25rem;
+  box-shadow: var(--glass-highlight), var(--glass-shadow);
+}
+.glass-strong {
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  backdrop-filter: blur(28px) saturate(190%);
+}
+/* No backdrop-filter (older browsers, some Linux setups): go opaque so text
+   never sits on raw color fields. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel,
+  .glass-strong {
+    background: var(--bg-raised);
+  }
 }
 
 .span-label {
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-signal);
+  color: var(--signal);
 }
 
 .text-balance { text-wrap: balance; }
 
-/* Duotone portrait treatment: grayscale base + amber wash + scanlines */
-.duotone-frame img {
-  filter: grayscale(0.85) contrast(1.05) brightness(0.92);
-}
-.duotone-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(160deg, rgba(255, 178, 36, 0.18), rgba(109, 94, 240, 0.12) 70%);
-  mix-blend-mode: color;
-  pointer-events: none;
-}
-.duotone-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    transparent 3px,
-    rgba(6, 8, 16, 0.14) 3px,
-    rgba(6, 8, 16, 0.14) 4px
-  );
-  pointer-events: none;
-}
-
-/* Corner fiducials (mission-control brackets) — apply to a relatively
-   positioned frame; draws four 14px amber corner brackets. */
-.fiducials {
+/* Portrait frame: a clean photo in a glass mat — no filters. */
+.duotone-frame {
   position: relative;
 }
-.fiducials > .fiducial-corners {
-  position: absolute;
-  inset: -1px;
-  z-index: 3;
-  pointer-events: none;
-  background:
-    linear-gradient(var(--color-signal), var(--color-signal)) top left / 14px 1.5px,
-    linear-gradient(var(--color-signal), var(--color-signal)) top left / 1.5px 14px,
-    linear-gradient(var(--color-signal), var(--color-signal)) top right / 14px 1.5px,
-    linear-gradient(var(--color-signal), var(--color-signal)) top right / 1.5px 14px,
-    linear-gradient(var(--color-signal), var(--color-signal)) bottom left / 14px 1.5px,
-    linear-gradient(var(--color-signal), var(--color-signal)) bottom left / 1.5px 14px,
-    linear-gradient(var(--color-signal), var(--color-signal)) bottom right / 14px 1.5px,
-    linear-gradient(var(--color-signal), var(--color-signal)) bottom right / 1.5px 14px;
-  background-repeat: no-repeat;
-  opacity: 0.75;
+
+/* Phone frame for app screenshots: a rounded bezel with a soft lift. */
+.phone-frame {
+  position: relative;
+  border-radius: 2.1rem;
+  padding: 0.45rem;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.9), rgba(220, 224, 234, 0.7));
+  box-shadow:
+    inset 0 0 0 1px rgba(15, 20, 35, 0.08),
+    0 20px 40px -18px rgba(16, 24, 40, 0.35);
+}
+.phone-frame__screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.7rem;
+  background: var(--bg-raised);
+}
+@media (prefers-color-scheme: dark) {
+  .phone-frame {
+    background: linear-gradient(160deg, rgba(70, 78, 98, 0.9), rgba(28, 33, 46, 0.9));
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 24px 50px -20px rgba(0, 0, 0, 0.8);
+  }
 }
 
 /* Underline sweep for inline links */
@@ -180,7 +305,7 @@ a, button {
   bottom: -2px;
   height: 1.5px;
   width: 100%;
-  background: var(--color-signal);
+  background: var(--signal);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 260ms var(--ease-house);
@@ -191,7 +316,8 @@ a, button {
   transform-origin: left;
 }
 
-/* Reduced motion: kill decorative animation globally */
+/* Reduced motion: kill decorative animation globally (the color fields
+   stop drifting and stay where they are). */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -201,139 +327,38 @@ a, button {
   html { scroll-behavior: auto !important; }
 }
 
-/* ------------------------------------------------------------------ */
-/* ThreeUI worlds                                                      */
-/* ------------------------------------------------------------------ */
-
-/* The only rules from ThreeUI's threeui.css that the CRT and landing-page
-   frames rely on, restated here. The full sheet is kept verbatim at
-   components/threeui/threeui.css (hash-verified) but is not bundled: it
-   styles dozens of unrelated catalog components and references a font file
-   (fonts/fragment-mono.woff2) that is not part of the licensed bundles. */
-.threeui-background {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
-  isolation: isolate;
-  background: #030304;
+/* Nav bar once scrolled, and the full-screen mobile menu: the same glass,
+   denser, so links stay legible over anything. */
+.glass-nav {
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
 }
-.threeui-background > canvas {
-  position: absolute;
-  inset: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
+.glass-overlay {
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  backdrop-filter: blur(30px) saturate(160%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-nav { background: var(--bg-raised); }
+  .glass-overlay { background: var(--bg); }
 }
 
-/* Full-bleed host for a ThreeUI shader background (the CRT). The vendored
-   `.threeui-background` is position:relative + 100%/100%; pinning it here
-   keeps it above the poster and inside the hero. */
-.shader-frame {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
+/* Hero app tiles: a slow float, offset per tile; still under reduced motion. */
+.hero-tile {
+  border-radius: 28%;
+  animation: tile-float 7s ease-in-out infinite;
 }
-.shader-frame > .threeui-background {
-  position: absolute;
-  inset: 0;
-  animation: world-fade-in 900ms var(--ease-house) both;
-}
-@keyframes world-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes tile-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
 }
 
-/* Hero composition: the tube sits beside the copy. Narrow screens stack it
-   across the top 50svh and feather its bottom edge into the void; from lg up
-   it takes the right 45% of the stage, full height, feathered on the left. */
-.hero-tube {
-  position: absolute;
-  inset: 3.5rem 0 auto 0;
-  height: 50svh;
-  overflow: hidden;
-}
-.hero-tube-fade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+/* The tinted stage an app's phone stands on, at the top of each device card. */
+.device-stage {
   background:
-    linear-gradient(to top, var(--color-void) 0%, rgba(6, 8, 16, 0.6) 22%, rgba(6, 8, 16, 0) 52%),
-    linear-gradient(to right, rgba(6, 8, 16, 0.35), rgba(6, 8, 16, 0) 30%, rgba(6, 8, 16, 0) 70%, rgba(6, 8, 16, 0.35));
-}
-@media (min-width: 1024px) {
-  .hero-tube {
-    inset: 0 0 0 55%;
-    height: auto;
-  }
-  .hero-tube-fade {
-    background:
-      linear-gradient(to right, var(--color-void) 0%, rgba(6, 8, 16, 0.72) 16%, rgba(6, 8, 16, 0.18) 40%, rgba(6, 8, 16, 0) 62%),
-      linear-gradient(to top, rgba(6, 8, 16, 0.55) 0%, rgba(6, 8, 16, 0) 30%),
-      linear-gradient(to bottom, rgba(6, 8, 16, 0.35) 0%, rgba(6, 8, 16, 0) 22%);
-  }
-}
-
-/* A world's pinned scene: the landing-page frame fills the sticky layer and
-   its iframe eases in once the scene-only presentation has been installed. */
-.world-frame {
-  width: 100%;
-  height: 100%;
-}
-.world-frame > iframe {
-  transition: opacity 700ms var(--ease-house);
-}
-
-/* Soft seams at the top and bottom of every pinned scene so section
-   headers never sit against a hard scene edge. */
-.world-scrim {
-  position: absolute;
-  inset-inline: 0;
-  height: 22svh;
-  pointer-events: none;
-}
-.world-scrim--top {
-  top: 0;
-  background: linear-gradient(to bottom, var(--color-void), transparent);
-}
-.world-scrim--bottom {
-  bottom: 0;
-  background: linear-gradient(to top, var(--color-void), transparent);
-}
-
-/* Headings and eyebrows set directly on a scene get a soft halo instead of a
-   box, so the scene reads through everything except the copy itself. */
-.world h2,
-.world h3,
-.world .span-label,
-.world p {
-  text-shadow: 0 1px 2px rgba(6, 8, 16, 0.6), 0 8px 32px rgba(6, 8, 16, 0.55);
-}
-.world .glass-panel {
-  background: color-mix(in srgb, var(--color-raised) 82%, transparent);
-  backdrop-filter: blur(18px) saturate(1.1);
-  -webkit-backdrop-filter: blur(18px) saturate(1.1);
-  border-color: var(--color-line-bright);
-}
-/* The forest is quiet by nature — let it read through the work cards. */
-.world-sylva .glass-panel {
-  background: color-mix(in srgb, var(--color-raised) 66%, transparent);
-}
-.world .glass-panel p,
-.world .glass-panel h3,
-.world .glass-panel .span-label {
-  text-shadow: none;
-}
-
-/* The night world's signal runs ember rather than amber — Kage's vermilion
-   lifted to 6.4:1 on the void so mono labels stay AA. */
-.world-kage {
-  --color-signal: #ff5a3c;
-  --color-signal-bright: #ff8a6a;
-  --color-signal-dim: rgba(255, 90, 60, 0.14);
-}
-.world-kage ::selection {
-  background: rgba(255, 90, 60, 0.3);
+    radial-gradient(120% 90% at 50% 0%, var(--signal-dim), transparent 70%),
+    linear-gradient(180deg, color-mix(in srgb, var(--ink) 4%, transparent), transparent);
+  border-bottom: 1px solid var(--line);
+  max-height: 22rem;
 }

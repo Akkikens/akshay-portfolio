@@ -112,8 +112,7 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
         <div className={`grid items-center gap-8 md:gap-14 ${project.image ? "md:grid-cols-2" : ""}`}>
           {project.image ? (
             <div className={reversed ? "md:order-2" : ""}>
-              <div className="glass-panel fiducials relative aspect-video overflow-hidden">
-                <span aria-hidden className="fiducial-corners" />
+              <div className="relative aspect-video overflow-hidden rounded-2xl border border-line-bright bg-raised">
                 <img
                   src={project.image.src}
                   width={project.image.width}
