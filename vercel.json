@@ -3,6 +3,10 @@
     {
       "source": "/landing-pages/:scene.html",
       "destination": "/landing-pages/:scene/"
+    },
+    {
+      "source": "/google0311c683cff1f886.html",
+      "destination": "/google0311c683cff1f886/"
     }
   ],
   "headers": [
