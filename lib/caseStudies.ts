@@ -70,7 +70,6 @@ export const caseStudies: CaseStudy[] = [
           "Added a voice mode with Hume AI, with natural interruption handling and tone-adaptive pacing.",
           "Built a WhatsApp and SMS consent and onboarding flow, plus real-time data pipelines for SMS nudges and behavior analytics.",
           "Built a Chrome extension (MV3 side panel, content script and auth bridge) that brings the agent into LinkedIn.",
-          "Goldi is also available inside Claude as MCP connectors, so students can work with it from their own assistant.",
         ],
       },
       {
