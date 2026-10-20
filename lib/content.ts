@@ -54,7 +54,7 @@ export const hero = {
     src: "/portrait-hero.webp",
     width: 597,
     height: 746,
-    alt: "Akshay Kalapgar smiling in a light blue suit outside a brick university building",
+    alt: "Akshay Kalapgar",
   },
   /** Tight face crop for the small portrait inside the card on phones. */
   avatar: { src: "/portrait-avatar.webp", width: 240, height: 240 },

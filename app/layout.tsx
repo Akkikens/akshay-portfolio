@@ -4,7 +4,6 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 
 import { site } from "@/lib/site";
-import { buildJsonLd } from "@/lib/jsonld";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 
 import "./globals.css";
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: site.title,
-    template: `%s | ${site.name}`,
+    template: `%s · ${site.name}`,
   },
   description: site.description,
   authors: [{ name: site.name, url: site.url }],
@@ -47,8 +46,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: site.url,
-    siteName: `${site.name} Portfolio`,
-    title: site.headline,
+    siteName: site.name,
+    title: site.title,
     description: site.description,
     locale: "en_US",
   },
@@ -56,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: site.twitterHandle,
     creator: site.twitterHandle,
-    title: site.headline,
+    title: site.title,
     description: site.description,
   },
   icons: {
@@ -81,18 +80,12 @@ export const viewport: Viewport = {
 const GA_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const jsonLd = buildJsonLd();
-
   return (
     <html
       lang="en"
       className={`${geist.variable} ${geistMono.variable}`}
     >
       <body>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
         <SmoothScroll />
         {children}
         <Analytics />

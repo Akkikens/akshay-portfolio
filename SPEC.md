@@ -125,3 +125,17 @@ Open source (04) → Credentials (05) → Testimonials (06) → Apps (07) → Co
 - No theme toggle — the system setting decides.
 - A higher-quality film or scene can come back later, but only as an optional layer on top of
   this system, never as a replacement for the glass.
+
+## 9. SEO and case studies
+
+- Homepage title "Akshay Kalapgar · AI Agent Engineer"; every page has its own title, ~155-char
+  description and canonical. Subpages that set openGraph/twitter must pass `shareImages` from
+  `lib/site.ts` (a child block replaces the root one, file images included).
+- JSON-LD via `components/seo/JsonLd.tsx`: Person + WebSite + ProfilePage on `/`, Article +
+  BreadcrumbList on each case study.
+- Case studies (`/work/<slug>/`, data in `lib/caseStudies.ts`) are server-rendered with one H1 and
+  Problem / Approach / Architecture / Results sections. Claims come only from `lib/content.ts` and
+  the résumé; where those stop, stay high level.
+- Subpages use `SubpageHeader`, not the scroll-spy `Nav`. Internal page links use `next/link`.
+- Content that carries links or the LCP never starts at opacity 0 (no scroll reveal on the
+  case-study cards; the hero rises by position only).

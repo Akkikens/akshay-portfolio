@@ -13,6 +13,19 @@ Based in San Francisco, CA. M.S. in Computer Science, Clark University (GPA 3.8,
 - **tag8**: Software Engineer, Aug 2020–Aug 2021, Mumbai, India. Integrated Redis caching and Elasticsearch with a Django backend, cutting database query latency by 60%.
 - **KPMG**: Software Engineer Intern, Jul 2020–Dec 2020, Mumbai, India. Shipped 30+ CRM feature enhancements in Java.
 
+## Case studies
+
+- [Goldi: a production AI career coach for 100K+ users](https://akshaykalapgar.com/work/goldi/): the Claude-powered career agent at Climb Together, with tool calling, Hume AI voice, WhatsApp and SMS onboarding, and a LinkedIn Chrome extension.
+- [MCP servers, Claude Code plugins and agent tooling](https://akshaykalapgar.com/work/mcp-servers/): 86 skills across 6 Claude Code plugins and MCP tool harnesses at Softmax, plus the observability and Kubernetes platform behind them.
+- [Wingline: an AI texting assistant in the iPhone keyboard](https://akshaykalapgar.com/work/wingline/): on-device Apple Intelligence keyboard in free public beta.
+
+## Apps (built on my own)
+
+- [Wingline](https://getwingline.com): AI texting assistant in the iPhone keyboard. Free public beta on TestFlight; App Store version in review.
+- Liftspark: gym and calorie tracker with live heart rate for iPhone and Apple Watch. In development, private beta.
+- Spark Studio: creative studio for images, video and voice. Personal tool in development.
+- Whosnear: location-bound rooms for meeting people nearby. Concept, validating demand.
+
 ## Projects
 
 - [DevDiagrams: Interactive Learning Platform](https://devdiagrams.app) ([source](https://github.com/Akkikens/devdiagrams)): Next.js 15 learning platform with Supabase auth/data, Radix UI, OpenAI-powered features, Stripe/Razorpay payments, and PDF processing.
@@ -43,5 +56,6 @@ Based in San Francisco, CA. M.S. in Computer Science, Clark University (GPA 3.8,
 - Email: akshaykalapgar23@gmail.com
 - LinkedIn: https://www.linkedin.com/in/akshaykalapgar/
 - GitHub: https://github.com/Akkikens
+- X: https://x.com/akshaykalapgar
 - Resume: https://akshaykalapgar.com/resume.pdf
 - Site: https://akshaykalapgar.com
