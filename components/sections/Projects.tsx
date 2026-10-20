@@ -81,7 +81,7 @@ function ProjectLinks({ project, size = "md" }: { project: Project; size?: "sm" 
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${project.name} — view source on GitHub`}
+          aria-label={`${project.name}: view source on GitHub`}
           className={linkClass}
         >
           <GithubIcon className={icon} />
@@ -92,7 +92,7 @@ function ProjectLinks({ project, size = "md" }: { project: Project; size?: "sm" 
           href={project.live}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${project.name} — view live`}
+          aria-label={`${project.name}: view live`}
           className={linkClass}
         >
           <ExternalLinkIcon className={icon} />
@@ -112,8 +112,7 @@ function FeaturedProject({ project, index }: { project: Project; index: number }
         <div className={`grid items-center gap-8 md:gap-14 ${project.image ? "md:grid-cols-2" : ""}`}>
           {project.image ? (
             <div className={reversed ? "md:order-2" : ""}>
-              <div className="glass-panel fiducials relative aspect-video overflow-hidden">
-                <span aria-hidden className="fiducial-corners" />
+              <div className="relative aspect-video overflow-hidden rounded-2xl border border-line-bright bg-raised">
                 <img
                   src={project.image.src}
                   width={project.image.width}

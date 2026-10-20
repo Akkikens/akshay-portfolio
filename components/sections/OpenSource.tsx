@@ -28,7 +28,7 @@ function ArrowOutIcon() {
  * §5.7 — the open-source ledger. `content.contributions` rendered as
  * table-like rows: mono index, org as a mono eyebrow, name as an
  * underline-sweep link out to the project, description, tech chips at the
- * trailing edge. Each row washes signal-dim on hover/focus; hairlines divide
+ * trailing edge. Each row washes the accent tint on hover/focus; hairlines divide
  * rows. Plain divs (not ul/li) so Reveal's wrapper never violates list
  * child semantics.
  */

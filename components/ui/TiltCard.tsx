@@ -17,7 +17,7 @@ type TiltCardProps = {
 
 /**
  * Glass panel with pointer-tracked 3D perspective tilt (max 6°) and a
- * signal-tinted specular highlight following the cursor. Disabled for touch
+ * accent-tinted specular highlight following the cursor. Disabled for touch
  * and reduced motion — falls back to a plain glass panel.
  */
 export default function TiltCard({ children, className = "" }: TiltCardProps) {
@@ -34,7 +34,7 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
   // MotionTemplate keeps the gradient bound to the live motion values —
   // reading .get() in a plain style string would freeze the glow at the
   // pointer-enter position (values update without re-rendering).
-  const glowBackground = useMotionTemplate`radial-gradient(320px circle at ${glowX}% ${glowY}%, rgba(255,178,36,0.07), transparent 65%)`;
+  const glowBackground = useMotionTemplate`radial-gradient(320px circle at ${glowX}% ${glowY}%, var(--signal-dim), transparent 65%)`;
 
   const onPointerMove = (e: React.PointerEvent) => {
     if (reduced || e.pointerType !== "mouse" || !ref.current) return;
@@ -72,7 +72,7 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
         {hovering ? (
           <motion.div
             aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-2xl"
+            className="pointer-events-none absolute inset-0 rounded-[1.25rem]"
             style={{ background: glowBackground }}
           />
         ) : null}

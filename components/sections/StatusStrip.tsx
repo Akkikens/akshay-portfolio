@@ -1,29 +1,23 @@
 import { status } from "@/lib/content";
 
 /**
- * Thin instrument strip pinned under the hero: a static mono key/value
- * readout of current status. A hairline grid (1 / 2 / 3 columns) so every
- * readout is visible at every width — no clipped overflow, no marquee.
+ * A glass readout under the hero: current status as small key/value pairs.
+ * A grid (1 / 2 / 3 columns) so every readout is visible at every width —
+ * no clipped overflow, no marquee.
  */
 export default function StatusStrip() {
   return (
-    <div className="border-y border-line bg-void">
+    <div className="relative mx-auto max-w-6xl px-6 md:px-10">
       <dl
         aria-label="Current status"
-        className="mx-auto grid max-w-6xl grid-cols-1 gap-px bg-line sm:grid-cols-2 lg:grid-cols-3"
+        className="glass-panel grid grid-cols-1 gap-x-8 gap-y-4 px-6 py-5 sm:grid-cols-2 md:px-8 lg:grid-cols-3"
       >
         {status.map((item) => (
-          <div
-            key={item.key}
-            className="flex items-baseline gap-2 bg-void px-4 py-4 md:px-8"
-          >
-            <dt className="shrink-0 font-mono text-[0.8125rem] font-medium uppercase tracking-[0.12em] text-signal">
+          <div key={item.key} className="flex flex-col gap-0.5">
+            <dt className="font-mono text-[0.6875rem] font-medium uppercase tracking-[0.1em] text-ink-faint">
               {item.key}
-              <span aria-hidden>:</span>
             </dt>
-            <dd className="m-0 font-mono text-[0.8125rem] tracking-[0.02em] text-ink-dim">
-              {item.value}
-            </dd>
+            <dd className="m-0 text-[0.9375rem] font-medium text-ink">{item.value}</dd>
           </div>
         ))}
       </dl>

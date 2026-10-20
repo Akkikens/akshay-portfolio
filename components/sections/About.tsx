@@ -5,9 +5,10 @@ import { about, sectionById } from "@/lib/content";
 const aboutSection = sectionById("about");
 
 /**
- * Profile trace-span (§5.4): bio + mission callout + mono skill cloud on the
- * left (7/12), a duotone fiducial-framed portrait on the right (5/12), and a
- * compact mono metrics readout spanning the full width beneath.
+ * Profile section (§5.4), the first section after the hero: bio and mission
+ * on the left (7/12), the skill cloud on the right (5/12), and a compact
+ * metrics readout spanning the full width beneath. The portrait lives in
+ * the hero.
  */
 export default function About() {
   return (
@@ -19,8 +20,8 @@ export default function About() {
       annotation={aboutSection.annotation}
     >
       <div className="grid gap-12 md:grid-cols-12 md:gap-8 lg:gap-14">
-        {/* Bio, mission, skills */}
-        <div className="order-2 md:order-1 md:col-span-7">
+        {/* Bio and mission */}
+        <div className="md:col-span-7">
           <Reveal>
             <div className="glass-panel space-y-5 p-6 sm:p-8">
               {about.paragraphs.map((paragraph, i) => (
@@ -48,17 +49,21 @@ export default function About() {
             </div>
           </Reveal>
 
+        </div>
+
+        {/* Skills */}
+        <div className="md:col-span-5">
           <Reveal delay={0.14}>
-            <div className="glass-panel mt-8 space-y-6 p-6 sm:p-8">
+            <div className="glass-panel space-y-6 p-6 sm:p-8">
               {about.skillGroups.map((group) => (
                 <div key={group.label}>
-                  <p className="font-mono text-base font-medium uppercase tracking-[0.12em] text-ink-faint">
+                  <p className="font-mono text-[0.75rem] font-medium uppercase tracking-[0.1em] text-ink-faint">
                     {group.label}
                   </p>
                   <ul className="mt-3 flex flex-wrap gap-2">
                     {group.skills.map((skill) => (
                       <li key={skill}>
-                        <span className="inline-flex items-center rounded-full border border-line px-3 py-1.5 font-mono text-[0.8125rem] text-ink-dim transition-colors duration-200 hover:border-signal hover:text-ink">
+                        <span className="inline-flex items-center rounded-full border border-line px-3 py-1.5 text-[0.875rem] text-ink-dim transition-colors duration-200 hover:border-signal hover:text-ink">
                           {skill}
                         </span>
                       </li>
@@ -70,25 +75,9 @@ export default function About() {
           </Reveal>
         </div>
 
-        {/* Portrait — duotone + fiducials */}
-        <div className="order-1 md:order-2 md:col-span-5">
-          <Reveal delay={0.1} className="md:sticky md:top-28">
-            <div className="duotone-frame fiducials overflow-hidden rounded-2xl border border-line bg-raised">
-              <img
-                src={about.image.src}
-                width={about.image.width}
-                height={about.image.height}
-                alt={about.image.alt}
-                loading="lazy"
-                className="block h-auto w-full object-cover"
-              />
-              <span className="fiducial-corners" aria-hidden />
-            </div>
-          </Reveal>
-        </div>
       </div>
 
-      {/* Metrics — compact mono stat row */}
+      {/* Metrics: a compact stat row */}
       <Reveal delay={0.2}>
         <div className="glass-panel mt-16 overflow-x-auto">
           <dl className="flex min-w-max">

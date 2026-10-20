@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -9,32 +9,24 @@ import SmoothScroll from "@/components/providers/SmoothScroll";
 
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-bricolage",
+  variable: "--font-geist",
   display: "swap",
-  weight: ["400", "600", "700", "800"],
 });
 
-const instrument = Instrument_Sans({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-instrument",
+  variable: "--font-geist-mono",
   display: "swap",
-  weight: ["400", "500", "600"],
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
-  display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: site.title,
-    template: `%s — ${site.name}`,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
   authors: [{ name: site.name, url: site.url }],
@@ -80,7 +72,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: site.themeColor,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: site.themeColor },
+    { media: "(prefers-color-scheme: dark)", color: site.themeColorDark },
+  ],
 };
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
@@ -91,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${geist.variable} ${geistMono.variable}`}
     >
       <body>
         <script

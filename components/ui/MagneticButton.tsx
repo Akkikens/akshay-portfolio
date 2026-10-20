@@ -16,7 +16,7 @@ type MagneticButtonProps = {
 
 /**
  * CTA with magnetic cursor pull (desktop fine pointers only, ≤8px) and press
- * scale. Solid = amber signal; ghost = hairline outline. Inert under reduced
+ * scale. Solid = coral accent; ghost = a glass pill. Inert under reduced
  * motion and on touch.
  */
 export default function MagneticButton({
@@ -54,8 +54,8 @@ export default function MagneticButton({
 
   const styles =
     variant === "solid"
-      ? "bg-signal text-void hover:bg-signal-bright font-semibold"
-      : "border border-line text-ink hover:border-signal hover:text-signal-bright font-medium";
+      ? "bg-signal text-on-signal hover:bg-signal-bright font-semibold shadow-[0_8px_24px_-10px_var(--signal)]"
+      : "glass-panel !rounded-full text-ink hover:text-signal font-medium";
 
   return (
     <motion.a
@@ -69,7 +69,7 @@ export default function MagneticButton({
       onMouseLeave={onMouseLeave}
       style={reduced ? undefined : { x: sx, y: sy }}
       whileTap={reduced ? undefined : { scale: 0.98 }}
-      className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg px-6 py-3 text-[0.9375rem] ${styles} ${className}`}
+      className={`inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-6 py-3 text-[0.9375rem] ${styles} ${className}`}
     >
       {children}
     </motion.a>

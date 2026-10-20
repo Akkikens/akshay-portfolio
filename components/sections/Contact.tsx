@@ -26,11 +26,11 @@ const icons: Record<string, React.ReactNode> = {
 };
 
 /**
- * §5.8 — Contact. The closer: centered, generous whitespace. Trace-span
- * header keeps the house eyebrow (`TRACE 00N — handoff`) but the display
+ * §5.8 — Contact. The closer: centered, generous whitespace. The
+ * header keeps the house eyebrow (`08 · Contact`) but the display
  * title is overridden with `content.contact.headline` per spec. Below it,
- * a blurb, a terminal-styled mailto card (whole card is the link, blinking
- * block cursor, email selectable), then ghost social buttons.
+ * a blurb, a glass mail card (the whole card is the link), then glass
+ * social buttons.
  */
 export default function Contact() {
   const section = sectionById("contact");
@@ -47,27 +47,28 @@ export default function Contact() {
         <Reveal delay={0.08} className="w-full">
           <a
             href={`mailto:${contact.email}`}
-            className="glass-panel group relative block w-full overflow-hidden text-left transition-colors duration-200 hover:border-signal/50"
+            className="glass-strong group flex w-full flex-col items-center gap-4 px-6 py-8 text-center sm:flex-row sm:justify-between sm:px-8 sm:text-left"
           >
-            <div className="flex items-center gap-1.5 border-b border-line px-5 py-3.5">
-              <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-ink-faint/30" />
-              <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-ink-faint/30" />
-              <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-ink-faint/30" />
-              <span className="ml-3 font-mono text-[0.75rem] uppercase tracking-[0.12em] text-ink-faint">
-                handoff://shell
-              </span>
-            </div>
-            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 px-6 py-8 font-mono text-base sm:text-lg md:px-10 md:py-10">
-              <span className="text-ink-faint">$</span>
-              <span className="text-ink-dim">open mailto:</span>
-              <span className="break-all text-signal group-hover:text-signal-bright">
-                {contact.email}
-              </span>
+            <span className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
               <span
                 aria-hidden
-                className="inline-block h-[1.05em] w-[0.5ch] translate-y-[0.15em] animate-blink bg-signal align-middle"
-              />
-            </div>
+                className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-signal-dim text-signal"
+              >
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="5" width="18" height="14" rx="2.5" />
+                  <path d="m4 7 8 6 8-6" />
+                </svg>
+              </span>
+              <span className="flex min-w-0 flex-col">
+                <span className="text-[0.8125rem] font-medium text-ink-faint">Email me</span>
+                <span className="text-[1.0625rem] font-semibold [overflow-wrap:anywhere] tracking-[-0.01em] text-ink transition-colors group-hover:text-signal sm:text-[1.25rem]">
+                  {contact.email}
+                </span>
+              </span>
+            </span>
+            <span className="inline-flex min-h-[44px] items-center rounded-full bg-signal px-5 text-[0.9375rem] font-semibold text-on-signal transition-colors group-hover:bg-signal-bright">
+              Write to me
+            </span>
           </a>
         </Reveal>
 

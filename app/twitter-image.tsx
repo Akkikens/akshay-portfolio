@@ -6,14 +6,14 @@ import { ImageResponse } from "next/og";
  * intentionally independent, simple, static-export-baked images.
  */
 export const dynamic = "force-static";
-export const alt = "Akshay Kalapgar — AI Agent Engineer";
+export const alt = "Akshay Kalapgar, AI Agent Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const VOID = "#060810";
-const AMBER = "#FFB224";
-const INDIGO = "#6D5EF0";
-const INK_DIM = "#A8ADBD";
+const VOID = "#0A0D14";
+const AMBER = "#FF7A60"; // coral accent (dark-mode value)
+const INDIGO = "#7BA8FF";
+const INK_DIM = "#AEB4C2";
 
 type Dot = { x: number; y: number; r: number; color: string; o: number };
 type Edge = [number, number]; // indices into `dots`
@@ -164,7 +164,7 @@ export default function Image() {
               letterSpacing: "-0.01em",
             }}
           >
-            AI Agent Engineer — Multi-Agent Systems · MCP · Evals
+            AI Agent Engineer · Multi-Agent Systems · MCP · Evals
           </div>
 
           <div
